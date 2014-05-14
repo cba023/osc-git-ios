@@ -14,13 +14,63 @@
 		0002D2561916324B001FDED8 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0002D2551916324B001FDED8 /* main.m */; };
 		0002D25A1916324B001FDED8 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0002D2591916324B001FDED8 /* AppDelegate.m */; };
 		0002D25D1916324B001FDED8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0002D25B1916324B001FDED8 /* Main.storyboard */; };
-		0002D2601916324B001FDED8 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0002D25F1916324B001FDED8 /* ViewController.m */; };
-		0002D2621916324B001FDED8 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0002D2611916324B001FDED8 /* Images.xcassets */; };
 		0002D2691916324B001FDED8 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0002D2681916324B001FDED8 /* XCTest.framework */; };
 		0002D26A1916324B001FDED8 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0002D2491916324B001FDED8 /* Foundation.framework */; };
 		0002D26B1916324B001FDED8 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0002D24D1916324B001FDED8 /* UIKit.framework */; };
-		0002D2731916324B001FDED8 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0002D2711916324B001FDED8 /* InfoPlist.strings */; };
-		0002D2751916324B001FDED8 /* iOS_git_oscTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0002D2741916324B001FDED8 /* iOS_git_oscTests.m */; };
+		0002D2B219163DF6001FDED8 /* RECommonFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = 0002D2A719163DF6001FDED8 /* RECommonFunctions.m */; };
+		0002D2B319163DF6001FDED8 /* REFrostedContainerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0002D2A919163DF6001FDED8 /* REFrostedContainerViewController.m */; };
+		0002D2B419163DF6001FDED8 /* REFrostedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0002D2AB19163DF6001FDED8 /* REFrostedViewController.m */; };
+		0002D2B519163DF6001FDED8 /* UIImage+REFrostedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0002D2AD19163DF6001FDED8 /* UIImage+REFrostedViewController.m */; };
+		0002D2B619163DF6001FDED8 /* UIView+REFrostedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0002D2AF19163DF6001FDED8 /* UIView+REFrostedViewController.m */; };
+		0002D2B719163DF6001FDED8 /* UIViewController+REFrostedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0002D2B119163DF6001FDED8 /* UIViewController+REFrostedViewController.m */; };
+		0002D2BB191640B4001FDED8 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0002D2BA191640B4001FDED8 /* HomeViewController.m */; };
+		0002D2BE19164716001FDED8 /* MenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0002D2BD19164716001FDED8 /* MenuViewController.m */; };
+		0002D2C119164B02001FDED8 /* NavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0002D2C019164B02001FDED8 /* NavigationController.m */; };
+		0002D2D719188953001FDED8 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0002D2D619188953001FDED8 /* Images.xcassets */; };
+		0002D2E119188B4E001FDED8 /* avatar@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0002D2DE19188B4E001FDED8 /* avatar@2x.jpg */; };
+		0002D2E219188B4E001FDED8 /* three_lines.png in Resources */ = {isa = PBXBuildFile; fileRef = 0002D2DF19188B4E001FDED8 /* three_lines.png */; };
+		0002D2E319188B4E001FDED8 /* three_lines@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0002D2E019188B4E001FDED8 /* three_lines@2x.png */; };
+		0002D2E519188B8A001FDED8 /* Balloon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0002D2E419188B8A001FDED8 /* Balloon@2x.png */; };
+		0021BACC192342BD00626A2C /* GLBaseObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 0021BA82192342BD00626A2C /* GLBaseObject.m */; };
+		0021BACD192342BD00626A2C /* GLBranch.m in Sources */ = {isa = PBXBuildFile; fileRef = 0021BA84192342BD00626A2C /* GLBranch.m */; };
+		0021BACE192342BD00626A2C /* GLCommit.m in Sources */ = {isa = PBXBuildFile; fileRef = 0021BA86192342BD00626A2C /* GLCommit.m */; };
+		0021BACF192342BD00626A2C /* GLDiff.m in Sources */ = {isa = PBXBuildFile; fileRef = 0021BA88192342BD00626A2C /* GLDiff.m */; };
+		0021BAD0192342BD00626A2C /* GLEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 0021BA8A192342BD00626A2C /* GLEvent.m */; };
+		0021BAD1192342BD00626A2C /* GLFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 0021BA8C192342BD00626A2C /* GLFile.m */; };
+		0021BAD2192342BD00626A2C /* GLGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = 0021BA8E192342BD00626A2C /* GLGroup.m */; };
+		0021BAD3192342BD00626A2C /* GLIssue.m in Sources */ = {isa = PBXBuildFile; fileRef = 0021BA90192342BD00626A2C /* GLIssue.m */; };
+		0021BAD4192342BD00626A2C /* GLMergeRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 0021BA92192342BD00626A2C /* GLMergeRequest.m */; };
+		0021BAD5192342BD00626A2C /* GLMilestone.m in Sources */ = {isa = PBXBuildFile; fileRef = 0021BA94192342BD00626A2C /* GLMilestone.m */; };
+		0021BAD6192342BD00626A2C /* GLNamespace.m in Sources */ = {isa = PBXBuildFile; fileRef = 0021BA96192342BD00626A2C /* GLNamespace.m */; };
+		0021BAD7192342BD00626A2C /* GLNote.m in Sources */ = {isa = PBXBuildFile; fileRef = 0021BA98192342BD00626A2C /* GLNote.m */; };
+		0021BAD8192342BD00626A2C /* GLProject.m in Sources */ = {isa = PBXBuildFile; fileRef = 0021BA9A192342BD00626A2C /* GLProject.m */; };
+		0021BAD9192342BD00626A2C /* GLSnippet.m in Sources */ = {isa = PBXBuildFile; fileRef = 0021BA9C192342BD00626A2C /* GLSnippet.m */; };
+		0021BADA192342BD00626A2C /* GLTag.m in Sources */ = {isa = PBXBuildFile; fileRef = 0021BA9E192342BD00626A2C /* GLTag.m */; };
+		0021BADB192342BD00626A2C /* GLUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 0021BAA0192342BD00626A2C /* GLUser.m */; };
+		0021BADC192342BD00626A2C /* GLConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 0021BAA4192342BD00626A2C /* GLConstants.m */; };
+		0021BADD192342BD00626A2C /* GLGitlabApi+Commits.m in Sources */ = {isa = PBXBuildFile; fileRef = 0021BAA6192342BD00626A2C /* GLGitlabApi+Commits.m */; };
+		0021BADE192342BD00626A2C /* GLGitlabApi+Files.m in Sources */ = {isa = PBXBuildFile; fileRef = 0021BAA8192342BD00626A2C /* GLGitlabApi+Files.m */; };
+		0021BADF192342BD00626A2C /* GLGitlabApi+Groups.m in Sources */ = {isa = PBXBuildFile; fileRef = 0021BAAA192342BD00626A2C /* GLGitlabApi+Groups.m */; };
+		0021BAE0192342BD00626A2C /* GLGitlabApi+Issues.m in Sources */ = {isa = PBXBuildFile; fileRef = 0021BAAC192342BD00626A2C /* GLGitlabApi+Issues.m */; };
+		0021BAE1192342BD00626A2C /* GLGitlabApi+MergeRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 0021BAAE192342BD00626A2C /* GLGitlabApi+MergeRequest.m */; };
+		0021BAE2192342BD00626A2C /* GLGitlabApi+Milestones.m in Sources */ = {isa = PBXBuildFile; fileRef = 0021BAB0192342BD00626A2C /* GLGitlabApi+Milestones.m */; };
+		0021BAE3192342BD00626A2C /* GLGitlabApi+Notes.m in Sources */ = {isa = PBXBuildFile; fileRef = 0021BAB2192342BD00626A2C /* GLGitlabApi+Notes.m */; };
+		0021BAE4192342BD00626A2C /* GLGitlabApi+Projects.m in Sources */ = {isa = PBXBuildFile; fileRef = 0021BAB4192342BD00626A2C /* GLGitlabApi+Projects.m */; };
+		0021BAE5192342BD00626A2C /* GLGitlabApi+Repositories.m in Sources */ = {isa = PBXBuildFile; fileRef = 0021BAB6192342BD00626A2C /* GLGitlabApi+Repositories.m */; };
+		0021BAE6192342BD00626A2C /* GLGitlabApi+Session.m in Sources */ = {isa = PBXBuildFile; fileRef = 0021BAB8192342BD00626A2C /* GLGitlabApi+Session.m */; };
+		0021BAE7192342BD00626A2C /* GLGitlabApi+Snippets.m in Sources */ = {isa = PBXBuildFile; fileRef = 0021BABA192342BD00626A2C /* GLGitlabApi+Snippets.m */; };
+		0021BAE8192342BD00626A2C /* GLGitlabApi+Users.m in Sources */ = {isa = PBXBuildFile; fileRef = 0021BABC192342BD00626A2C /* GLGitlabApi+Users.m */; };
+		0021BAE9192342BD00626A2C /* GLGitlabApi.m in Sources */ = {isa = PBXBuildFile; fileRef = 0021BABE192342BD00626A2C /* GLGitlabApi.m */; };
+		0021BAEA192342BD00626A2C /* GLJsonNetworkOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 0021BAC0192342BD00626A2C /* GLJsonNetworkOperation.m */; };
+		0021BAEB192342BD00626A2C /* GLNetworkOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 0021BAC2192342BD00626A2C /* GLNetworkOperation.m */; };
+		0021BAEC192342BD00626A2C /* GLRawNetworkOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 0021BAC4192342BD00626A2C /* GLRawNetworkOperation.m */; };
+		0021BAED192342BD00626A2C /* GLVoidNetworkOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 0021BAC6192342BD00626A2C /* GLVoidNetworkOperation.m */; };
+		0021BAEE192342BD00626A2C /* NSURL+GLAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 0021BAC8192342BD00626A2C /* NSURL+GLAdditions.m */; };
+		0021BAEF192342BD00626A2C /* GLGitlabApi+Private.m in Sources */ = {isa = PBXBuildFile; fileRef = 0021BACB192342BD00626A2C /* GLGitlabApi+Private.m */; };
+		0021BAF21923477700626A2C /* KeychainItemWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 0021BAF11923477700626A2C /* KeychainItemWrapper.m */; };
+		0041FA9B191C87AF00E1F237 /* Tools.m in Sources */ = {isa = PBXBuildFile; fileRef = 0041FA9A191C87AF00E1F237 /* Tools.m */; };
+		009018C71921D1B90050197D /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 009018C61921D1B90050197D /* LoginViewController.m */; };
+		00B01FE919221EB40095D488 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 00B01FE819221EB40095D488 /* User.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -45,14 +95,113 @@
 		0002D2581916324B001FDED8 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		0002D2591916324B001FDED8 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		0002D25C1916324B001FDED8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		0002D25E1916324B001FDED8 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		0002D25F1916324B001FDED8 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
-		0002D2611916324B001FDED8 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		0002D2671916324B001FDED8 /* iOS-git-oscTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "iOS-git-oscTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0002D2681916324B001FDED8 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
-		0002D2701916324B001FDED8 /* iOS-git-oscTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "iOS-git-oscTests-Info.plist"; sourceTree = "<group>"; };
-		0002D2721916324B001FDED8 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		0002D2741916324B001FDED8 /* iOS_git_oscTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = iOS_git_oscTests.m; sourceTree = "<group>"; };
+		0002D2A619163DF6001FDED8 /* RECommonFunctions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RECommonFunctions.h; sourceTree = "<group>"; };
+		0002D2A719163DF6001FDED8 /* RECommonFunctions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RECommonFunctions.m; sourceTree = "<group>"; };
+		0002D2A819163DF6001FDED8 /* REFrostedContainerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = REFrostedContainerViewController.h; sourceTree = "<group>"; };
+		0002D2A919163DF6001FDED8 /* REFrostedContainerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = REFrostedContainerViewController.m; sourceTree = "<group>"; };
+		0002D2AA19163DF6001FDED8 /* REFrostedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = REFrostedViewController.h; sourceTree = "<group>"; };
+		0002D2AB19163DF6001FDED8 /* REFrostedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = REFrostedViewController.m; sourceTree = "<group>"; };
+		0002D2AC19163DF6001FDED8 /* UIImage+REFrostedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+REFrostedViewController.h"; sourceTree = "<group>"; };
+		0002D2AD19163DF6001FDED8 /* UIImage+REFrostedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+REFrostedViewController.m"; sourceTree = "<group>"; };
+		0002D2AE19163DF6001FDED8 /* UIView+REFrostedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+REFrostedViewController.h"; sourceTree = "<group>"; };
+		0002D2AF19163DF6001FDED8 /* UIView+REFrostedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+REFrostedViewController.m"; sourceTree = "<group>"; };
+		0002D2B019163DF6001FDED8 /* UIViewController+REFrostedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+REFrostedViewController.h"; sourceTree = "<group>"; };
+		0002D2B119163DF6001FDED8 /* UIViewController+REFrostedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+REFrostedViewController.m"; sourceTree = "<group>"; };
+		0002D2B9191640B4001FDED8 /* HomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeViewController.h; sourceTree = "<group>"; };
+		0002D2BA191640B4001FDED8 /* HomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeViewController.m; sourceTree = "<group>"; };
+		0002D2BC19164716001FDED8 /* MenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuViewController.h; sourceTree = "<group>"; };
+		0002D2BD19164716001FDED8 /* MenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuViewController.m; sourceTree = "<group>"; };
+		0002D2BF19164B02001FDED8 /* NavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavigationController.h; sourceTree = "<group>"; };
+		0002D2C019164B02001FDED8 /* NavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavigationController.m; sourceTree = "<group>"; };
+		0002D2D619188953001FDED8 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		0002D2DE19188B4E001FDED8 /* avatar@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "avatar@2x.jpg"; sourceTree = "<group>"; };
+		0002D2DF19188B4E001FDED8 /* three_lines.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = three_lines.png; sourceTree = "<group>"; };
+		0002D2E019188B4E001FDED8 /* three_lines@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "three_lines@2x.png"; sourceTree = "<group>"; };
+		0002D2E419188B8A001FDED8 /* Balloon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Balloon@2x.png"; sourceTree = "<group>"; };
+		0021BA7F192342BD00626A2C /* GLGitlab.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLGitlab.h; sourceTree = "<group>"; };
+		0021BA81192342BD00626A2C /* GLBaseObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLBaseObject.h; sourceTree = "<group>"; };
+		0021BA82192342BD00626A2C /* GLBaseObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GLBaseObject.m; sourceTree = "<group>"; };
+		0021BA83192342BD00626A2C /* GLBranch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLBranch.h; sourceTree = "<group>"; };
+		0021BA84192342BD00626A2C /* GLBranch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GLBranch.m; sourceTree = "<group>"; };
+		0021BA85192342BD00626A2C /* GLCommit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLCommit.h; sourceTree = "<group>"; };
+		0021BA86192342BD00626A2C /* GLCommit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GLCommit.m; sourceTree = "<group>"; };
+		0021BA87192342BD00626A2C /* GLDiff.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLDiff.h; sourceTree = "<group>"; };
+		0021BA88192342BD00626A2C /* GLDiff.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GLDiff.m; sourceTree = "<group>"; };
+		0021BA89192342BD00626A2C /* GLEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLEvent.h; sourceTree = "<group>"; };
+		0021BA8A192342BD00626A2C /* GLEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GLEvent.m; sourceTree = "<group>"; };
+		0021BA8B192342BD00626A2C /* GLFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLFile.h; sourceTree = "<group>"; };
+		0021BA8C192342BD00626A2C /* GLFile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GLFile.m; sourceTree = "<group>"; };
+		0021BA8D192342BD00626A2C /* GLGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLGroup.h; sourceTree = "<group>"; };
+		0021BA8E192342BD00626A2C /* GLGroup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GLGroup.m; sourceTree = "<group>"; };
+		0021BA8F192342BD00626A2C /* GLIssue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLIssue.h; sourceTree = "<group>"; };
+		0021BA90192342BD00626A2C /* GLIssue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GLIssue.m; sourceTree = "<group>"; };
+		0021BA91192342BD00626A2C /* GLMergeRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLMergeRequest.h; sourceTree = "<group>"; };
+		0021BA92192342BD00626A2C /* GLMergeRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GLMergeRequest.m; sourceTree = "<group>"; };
+		0021BA93192342BD00626A2C /* GLMilestone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLMilestone.h; sourceTree = "<group>"; };
+		0021BA94192342BD00626A2C /* GLMilestone.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GLMilestone.m; sourceTree = "<group>"; };
+		0021BA95192342BD00626A2C /* GLNamespace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLNamespace.h; sourceTree = "<group>"; };
+		0021BA96192342BD00626A2C /* GLNamespace.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GLNamespace.m; sourceTree = "<group>"; };
+		0021BA97192342BD00626A2C /* GLNote.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLNote.h; sourceTree = "<group>"; };
+		0021BA98192342BD00626A2C /* GLNote.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GLNote.m; sourceTree = "<group>"; };
+		0021BA99192342BD00626A2C /* GLProject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLProject.h; sourceTree = "<group>"; };
+		0021BA9A192342BD00626A2C /* GLProject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GLProject.m; sourceTree = "<group>"; };
+		0021BA9B192342BD00626A2C /* GLSnippet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLSnippet.h; sourceTree = "<group>"; };
+		0021BA9C192342BD00626A2C /* GLSnippet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GLSnippet.m; sourceTree = "<group>"; };
+		0021BA9D192342BD00626A2C /* GLTag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLTag.h; sourceTree = "<group>"; };
+		0021BA9E192342BD00626A2C /* GLTag.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GLTag.m; sourceTree = "<group>"; };
+		0021BA9F192342BD00626A2C /* GLUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLUser.h; sourceTree = "<group>"; };
+		0021BAA0192342BD00626A2C /* GLUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GLUser.m; sourceTree = "<group>"; };
+		0021BAA1192342BD00626A2C /* objc gitlab api-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "objc gitlab api-Prefix.pch"; sourceTree = "<group>"; };
+		0021BAA3192342BD00626A2C /* GLConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLConstants.h; sourceTree = "<group>"; };
+		0021BAA4192342BD00626A2C /* GLConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GLConstants.m; sourceTree = "<group>"; };
+		0021BAA5192342BD00626A2C /* GLGitlabApi+Commits.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GLGitlabApi+Commits.h"; sourceTree = "<group>"; };
+		0021BAA6192342BD00626A2C /* GLGitlabApi+Commits.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "GLGitlabApi+Commits.m"; sourceTree = "<group>"; };
+		0021BAA7192342BD00626A2C /* GLGitlabApi+Files.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GLGitlabApi+Files.h"; sourceTree = "<group>"; };
+		0021BAA8192342BD00626A2C /* GLGitlabApi+Files.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "GLGitlabApi+Files.m"; sourceTree = "<group>"; };
+		0021BAA9192342BD00626A2C /* GLGitlabApi+Groups.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GLGitlabApi+Groups.h"; sourceTree = "<group>"; };
+		0021BAAA192342BD00626A2C /* GLGitlabApi+Groups.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "GLGitlabApi+Groups.m"; sourceTree = "<group>"; };
+		0021BAAB192342BD00626A2C /* GLGitlabApi+Issues.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GLGitlabApi+Issues.h"; sourceTree = "<group>"; };
+		0021BAAC192342BD00626A2C /* GLGitlabApi+Issues.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "GLGitlabApi+Issues.m"; sourceTree = "<group>"; };
+		0021BAAD192342BD00626A2C /* GLGitlabApi+MergeRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GLGitlabApi+MergeRequest.h"; sourceTree = "<group>"; };
+		0021BAAE192342BD00626A2C /* GLGitlabApi+MergeRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "GLGitlabApi+MergeRequest.m"; sourceTree = "<group>"; };
+		0021BAAF192342BD00626A2C /* GLGitlabApi+Milestones.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GLGitlabApi+Milestones.h"; sourceTree = "<group>"; };
+		0021BAB0192342BD00626A2C /* GLGitlabApi+Milestones.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "GLGitlabApi+Milestones.m"; sourceTree = "<group>"; };
+		0021BAB1192342BD00626A2C /* GLGitlabApi+Notes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GLGitlabApi+Notes.h"; sourceTree = "<group>"; };
+		0021BAB2192342BD00626A2C /* GLGitlabApi+Notes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "GLGitlabApi+Notes.m"; sourceTree = "<group>"; };
+		0021BAB3192342BD00626A2C /* GLGitlabApi+Projects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GLGitlabApi+Projects.h"; sourceTree = "<group>"; };
+		0021BAB4192342BD00626A2C /* GLGitlabApi+Projects.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "GLGitlabApi+Projects.m"; sourceTree = "<group>"; };
+		0021BAB5192342BD00626A2C /* GLGitlabApi+Repositories.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GLGitlabApi+Repositories.h"; sourceTree = "<group>"; };
+		0021BAB6192342BD00626A2C /* GLGitlabApi+Repositories.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "GLGitlabApi+Repositories.m"; sourceTree = "<group>"; };
+		0021BAB7192342BD00626A2C /* GLGitlabApi+Session.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GLGitlabApi+Session.h"; sourceTree = "<group>"; };
+		0021BAB8192342BD00626A2C /* GLGitlabApi+Session.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "GLGitlabApi+Session.m"; sourceTree = "<group>"; };
+		0021BAB9192342BD00626A2C /* GLGitlabApi+Snippets.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GLGitlabApi+Snippets.h"; sourceTree = "<group>"; };
+		0021BABA192342BD00626A2C /* GLGitlabApi+Snippets.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "GLGitlabApi+Snippets.m"; sourceTree = "<group>"; };
+		0021BABB192342BD00626A2C /* GLGitlabApi+Users.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GLGitlabApi+Users.h"; sourceTree = "<group>"; };
+		0021BABC192342BD00626A2C /* GLGitlabApi+Users.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "GLGitlabApi+Users.m"; sourceTree = "<group>"; };
+		0021BABD192342BD00626A2C /* GLGitlabApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLGitlabApi.h; sourceTree = "<group>"; };
+		0021BABE192342BD00626A2C /* GLGitlabApi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GLGitlabApi.m; sourceTree = "<group>"; };
+		0021BABF192342BD00626A2C /* GLJsonNetworkOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLJsonNetworkOperation.h; sourceTree = "<group>"; };
+		0021BAC0192342BD00626A2C /* GLJsonNetworkOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GLJsonNetworkOperation.m; sourceTree = "<group>"; };
+		0021BAC1192342BD00626A2C /* GLNetworkOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLNetworkOperation.h; sourceTree = "<group>"; };
+		0021BAC2192342BD00626A2C /* GLNetworkOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GLNetworkOperation.m; sourceTree = "<group>"; };
+		0021BAC3192342BD00626A2C /* GLRawNetworkOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLRawNetworkOperation.h; sourceTree = "<group>"; };
+		0021BAC4192342BD00626A2C /* GLRawNetworkOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GLRawNetworkOperation.m; sourceTree = "<group>"; };
+		0021BAC5192342BD00626A2C /* GLVoidNetworkOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLVoidNetworkOperation.h; sourceTree = "<group>"; };
+		0021BAC6192342BD00626A2C /* GLVoidNetworkOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GLVoidNetworkOperation.m; sourceTree = "<group>"; };
+		0021BAC7192342BD00626A2C /* NSURL+GLAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURL+GLAdditions.h"; sourceTree = "<group>"; };
+		0021BAC8192342BD00626A2C /* NSURL+GLAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURL+GLAdditions.m"; sourceTree = "<group>"; };
+		0021BACA192342BD00626A2C /* GLGitlabApi+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GLGitlabApi+Private.h"; sourceTree = "<group>"; };
+		0021BACB192342BD00626A2C /* GLGitlabApi+Private.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "GLGitlabApi+Private.m"; sourceTree = "<group>"; };
+		0021BAF01923477700626A2C /* KeychainItemWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeychainItemWrapper.h; sourceTree = "<group>"; };
+		0021BAF11923477700626A2C /* KeychainItemWrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KeychainItemWrapper.m; sourceTree = "<group>"; };
+		0041FA99191C87AF00E1F237 /* Tools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tools.h; sourceTree = "<group>"; };
+		0041FA9A191C87AF00E1F237 /* Tools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Tools.m; sourceTree = "<group>"; };
+		009018C51921D1B90050197D /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
+		009018C61921D1B90050197D /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
+		00B01FE719221EB40095D488 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
+		00B01FE819221EB40095D488 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,8 +231,10 @@
 		0002D23D1916324B001FDED8 = {
 			isa = PBXGroup;
 			children = (
+				0021BA7E192342BD00626A2C /* objc gitlab api */,
+				0002D2A519163DF6001FDED8 /* REFrostedViewController */,
 				0002D24F1916324B001FDED8 /* iOS-git-osc */,
-				0002D26E1916324B001FDED8 /* iOS-git-oscTests */,
+				0002D2C519179858001FDED8 /* Resource */,
 				0002D2481916324B001FDED8 /* Frameworks */,
 				0002D2471916324B001FDED8 /* Products */,
 			);
@@ -112,13 +263,18 @@
 		0002D24F1916324B001FDED8 /* iOS-git-osc */ = {
 			isa = PBXGroup;
 			children = (
+				0021BAF01923477700626A2C /* KeychainItemWrapper.h */,
+				0021BAF11923477700626A2C /* KeychainItemWrapper.m */,
+				0041FA99191C87AF00E1F237 /* Tools.h */,
+				0041FA9A191C87AF00E1F237 /* Tools.m */,
+				0002D2B81916407B001FDED8 /* Controller */,
 				0002D2581916324B001FDED8 /* AppDelegate.h */,
 				0002D2591916324B001FDED8 /* AppDelegate.m */,
 				0002D25B1916324B001FDED8 /* Main.storyboard */,
-				0002D25E1916324B001FDED8 /* ViewController.h */,
-				0002D25F1916324B001FDED8 /* ViewController.m */,
-				0002D2611916324B001FDED8 /* Images.xcassets */,
+				0002D2D619188953001FDED8 /* Images.xcassets */,
 				0002D2501916324B001FDED8 /* Supporting Files */,
+				00B01FE719221EB40095D488 /* User.h */,
+				00B01FE819221EB40095D488 /* User.m */,
 			);
 			path = "iOS-git-osc";
 			sourceTree = "<group>";
@@ -134,22 +290,155 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		0002D26E1916324B001FDED8 /* iOS-git-oscTests */ = {
+		0002D2A519163DF6001FDED8 /* REFrostedViewController */ = {
 			isa = PBXGroup;
 			children = (
-				0002D2741916324B001FDED8 /* iOS_git_oscTests.m */,
-				0002D26F1916324B001FDED8 /* Supporting Files */,
+				0002D2A619163DF6001FDED8 /* RECommonFunctions.h */,
+				0002D2A719163DF6001FDED8 /* RECommonFunctions.m */,
+				0002D2A819163DF6001FDED8 /* REFrostedContainerViewController.h */,
+				0002D2A919163DF6001FDED8 /* REFrostedContainerViewController.m */,
+				0002D2AA19163DF6001FDED8 /* REFrostedViewController.h */,
+				0002D2AB19163DF6001FDED8 /* REFrostedViewController.m */,
+				0002D2AC19163DF6001FDED8 /* UIImage+REFrostedViewController.h */,
+				0002D2AD19163DF6001FDED8 /* UIImage+REFrostedViewController.m */,
+				0002D2AE19163DF6001FDED8 /* UIView+REFrostedViewController.h */,
+				0002D2AF19163DF6001FDED8 /* UIView+REFrostedViewController.m */,
+				0002D2B019163DF6001FDED8 /* UIViewController+REFrostedViewController.h */,
+				0002D2B119163DF6001FDED8 /* UIViewController+REFrostedViewController.m */,
 			);
-			path = "iOS-git-oscTests";
+			name = REFrostedViewController;
+			path = "iOS-git-osc/REFrostedViewController";
 			sourceTree = "<group>";
 		};
-		0002D26F1916324B001FDED8 /* Supporting Files */ = {
+		0002D2B81916407B001FDED8 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				0002D2701916324B001FDED8 /* iOS-git-oscTests-Info.plist */,
-				0002D2711916324B001FDED8 /* InfoPlist.strings */,
+				0002D2B9191640B4001FDED8 /* HomeViewController.h */,
+				0002D2BA191640B4001FDED8 /* HomeViewController.m */,
+				0002D2BC19164716001FDED8 /* MenuViewController.h */,
+				0002D2BD19164716001FDED8 /* MenuViewController.m */,
+				0002D2BF19164B02001FDED8 /* NavigationController.h */,
+				0002D2C019164B02001FDED8 /* NavigationController.m */,
+				009018C51921D1B90050197D /* LoginViewController.h */,
+				009018C61921D1B90050197D /* LoginViewController.m */,
 			);
-			name = "Supporting Files";
+			name = Controller;
+			sourceTree = "<group>";
+		};
+		0002D2C519179858001FDED8 /* Resource */ = {
+			isa = PBXGroup;
+			children = (
+				0002D2E419188B8A001FDED8 /* Balloon@2x.png */,
+				0002D2DE19188B4E001FDED8 /* avatar@2x.jpg */,
+				0002D2DF19188B4E001FDED8 /* three_lines.png */,
+				0002D2E019188B4E001FDED8 /* three_lines@2x.png */,
+			);
+			name = Resource;
+			sourceTree = "<group>";
+		};
+		0021BA7E192342BD00626A2C /* objc gitlab api */ = {
+			isa = PBXGroup;
+			children = (
+				0021BA7F192342BD00626A2C /* GLGitlab.h */,
+				0021BA80192342BD00626A2C /* models */,
+				0021BAA1192342BD00626A2C /* objc gitlab api-Prefix.pch */,
+				0021BAA2192342BD00626A2C /* utilities */,
+			);
+			path = "objc gitlab api";
+			sourceTree = "<group>";
+		};
+		0021BA80192342BD00626A2C /* models */ = {
+			isa = PBXGroup;
+			children = (
+				0021BA81192342BD00626A2C /* GLBaseObject.h */,
+				0021BA82192342BD00626A2C /* GLBaseObject.m */,
+				0021BA83192342BD00626A2C /* GLBranch.h */,
+				0021BA84192342BD00626A2C /* GLBranch.m */,
+				0021BA85192342BD00626A2C /* GLCommit.h */,
+				0021BA86192342BD00626A2C /* GLCommit.m */,
+				0021BA87192342BD00626A2C /* GLDiff.h */,
+				0021BA88192342BD00626A2C /* GLDiff.m */,
+				0021BA89192342BD00626A2C /* GLEvent.h */,
+				0021BA8A192342BD00626A2C /* GLEvent.m */,
+				0021BA8B192342BD00626A2C /* GLFile.h */,
+				0021BA8C192342BD00626A2C /* GLFile.m */,
+				0021BA8D192342BD00626A2C /* GLGroup.h */,
+				0021BA8E192342BD00626A2C /* GLGroup.m */,
+				0021BA8F192342BD00626A2C /* GLIssue.h */,
+				0021BA90192342BD00626A2C /* GLIssue.m */,
+				0021BA91192342BD00626A2C /* GLMergeRequest.h */,
+				0021BA92192342BD00626A2C /* GLMergeRequest.m */,
+				0021BA93192342BD00626A2C /* GLMilestone.h */,
+				0021BA94192342BD00626A2C /* GLMilestone.m */,
+				0021BA95192342BD00626A2C /* GLNamespace.h */,
+				0021BA96192342BD00626A2C /* GLNamespace.m */,
+				0021BA97192342BD00626A2C /* GLNote.h */,
+				0021BA98192342BD00626A2C /* GLNote.m */,
+				0021BA99192342BD00626A2C /* GLProject.h */,
+				0021BA9A192342BD00626A2C /* GLProject.m */,
+				0021BA9B192342BD00626A2C /* GLSnippet.h */,
+				0021BA9C192342BD00626A2C /* GLSnippet.m */,
+				0021BA9D192342BD00626A2C /* GLTag.h */,
+				0021BA9E192342BD00626A2C /* GLTag.m */,
+				0021BA9F192342BD00626A2C /* GLUser.h */,
+				0021BAA0192342BD00626A2C /* GLUser.m */,
+			);
+			path = models;
+			sourceTree = "<group>";
+		};
+		0021BAA2192342BD00626A2C /* utilities */ = {
+			isa = PBXGroup;
+			children = (
+				0021BAA3192342BD00626A2C /* GLConstants.h */,
+				0021BAA4192342BD00626A2C /* GLConstants.m */,
+				0021BAA5192342BD00626A2C /* GLGitlabApi+Commits.h */,
+				0021BAA6192342BD00626A2C /* GLGitlabApi+Commits.m */,
+				0021BAA7192342BD00626A2C /* GLGitlabApi+Files.h */,
+				0021BAA8192342BD00626A2C /* GLGitlabApi+Files.m */,
+				0021BAA9192342BD00626A2C /* GLGitlabApi+Groups.h */,
+				0021BAAA192342BD00626A2C /* GLGitlabApi+Groups.m */,
+				0021BAAB192342BD00626A2C /* GLGitlabApi+Issues.h */,
+				0021BAAC192342BD00626A2C /* GLGitlabApi+Issues.m */,
+				0021BAAD192342BD00626A2C /* GLGitlabApi+MergeRequest.h */,
+				0021BAAE192342BD00626A2C /* GLGitlabApi+MergeRequest.m */,
+				0021BAAF192342BD00626A2C /* GLGitlabApi+Milestones.h */,
+				0021BAB0192342BD00626A2C /* GLGitlabApi+Milestones.m */,
+				0021BAB1192342BD00626A2C /* GLGitlabApi+Notes.h */,
+				0021BAB2192342BD00626A2C /* GLGitlabApi+Notes.m */,
+				0021BAB3192342BD00626A2C /* GLGitlabApi+Projects.h */,
+				0021BAB4192342BD00626A2C /* GLGitlabApi+Projects.m */,
+				0021BAB5192342BD00626A2C /* GLGitlabApi+Repositories.h */,
+				0021BAB6192342BD00626A2C /* GLGitlabApi+Repositories.m */,
+				0021BAB7192342BD00626A2C /* GLGitlabApi+Session.h */,
+				0021BAB8192342BD00626A2C /* GLGitlabApi+Session.m */,
+				0021BAB9192342BD00626A2C /* GLGitlabApi+Snippets.h */,
+				0021BABA192342BD00626A2C /* GLGitlabApi+Snippets.m */,
+				0021BABB192342BD00626A2C /* GLGitlabApi+Users.h */,
+				0021BABC192342BD00626A2C /* GLGitlabApi+Users.m */,
+				0021BABD192342BD00626A2C /* GLGitlabApi.h */,
+				0021BABE192342BD00626A2C /* GLGitlabApi.m */,
+				0021BABF192342BD00626A2C /* GLJsonNetworkOperation.h */,
+				0021BAC0192342BD00626A2C /* GLJsonNetworkOperation.m */,
+				0021BAC1192342BD00626A2C /* GLNetworkOperation.h */,
+				0021BAC2192342BD00626A2C /* GLNetworkOperation.m */,
+				0021BAC3192342BD00626A2C /* GLRawNetworkOperation.h */,
+				0021BAC4192342BD00626A2C /* GLRawNetworkOperation.m */,
+				0021BAC5192342BD00626A2C /* GLVoidNetworkOperation.h */,
+				0021BAC6192342BD00626A2C /* GLVoidNetworkOperation.m */,
+				0021BAC7192342BD00626A2C /* NSURL+GLAdditions.h */,
+				0021BAC8192342BD00626A2C /* NSURL+GLAdditions.m */,
+				0021BAC9192342BD00626A2C /* private */,
+			);
+			path = utilities;
+			sourceTree = "<group>";
+		};
+		0021BAC9192342BD00626A2C /* private */ = {
+			isa = PBXGroup;
+			children = (
+				0021BACA192342BD00626A2C /* GLGitlabApi+Private.h */,
+				0021BACB192342BD00626A2C /* GLGitlabApi+Private.m */,
+			);
+			path = private;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -228,7 +517,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0002D2621916324B001FDED8 /* Images.xcassets in Resources */,
+				0002D2E219188B4E001FDED8 /* three_lines.png in Resources */,
+				0002D2E519188B8A001FDED8 /* Balloon@2x.png in Resources */,
+				0002D2E319188B4E001FDED8 /* three_lines@2x.png in Resources */,
+				0002D2D719188953001FDED8 /* Images.xcassets in Resources */,
+				0002D2E119188B4E001FDED8 /* avatar@2x.jpg in Resources */,
 				0002D2541916324B001FDED8 /* InfoPlist.strings in Resources */,
 				0002D25D1916324B001FDED8 /* Main.storyboard in Resources */,
 			);
@@ -238,7 +531,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0002D2731916324B001FDED8 /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -249,9 +541,57 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0002D2601916324B001FDED8 /* ViewController.m in Sources */,
+				00B01FE919221EB40095D488 /* User.m in Sources */,
+				0021BAE6192342BD00626A2C /* GLGitlabApi+Session.m in Sources */,
+				0002D2B719163DF6001FDED8 /* UIViewController+REFrostedViewController.m in Sources */,
+				0021BAEB192342BD00626A2C /* GLNetworkOperation.m in Sources */,
+				0021BADD192342BD00626A2C /* GLGitlabApi+Commits.m in Sources */,
+				0021BAEF192342BD00626A2C /* GLGitlabApi+Private.m in Sources */,
+				009018C71921D1B90050197D /* LoginViewController.m in Sources */,
+				0002D2B619163DF6001FDED8 /* UIView+REFrostedViewController.m in Sources */,
+				0021BAE7192342BD00626A2C /* GLGitlabApi+Snippets.m in Sources */,
+				0021BAE9192342BD00626A2C /* GLGitlabApi.m in Sources */,
+				0002D2B319163DF6001FDED8 /* REFrostedContainerViewController.m in Sources */,
+				0021BADA192342BD00626A2C /* GLTag.m in Sources */,
+				0002D2BB191640B4001FDED8 /* HomeViewController.m in Sources */,
+				0021BADF192342BD00626A2C /* GLGitlabApi+Groups.m in Sources */,
+				0021BAF21923477700626A2C /* KeychainItemWrapper.m in Sources */,
+				0002D2B519163DF6001FDED8 /* UIImage+REFrostedViewController.m in Sources */,
+				0021BAE2192342BD00626A2C /* GLGitlabApi+Milestones.m in Sources */,
+				0021BADE192342BD00626A2C /* GLGitlabApi+Files.m in Sources */,
 				0002D25A1916324B001FDED8 /* AppDelegate.m in Sources */,
+				0021BAEA192342BD00626A2C /* GLJsonNetworkOperation.m in Sources */,
+				0021BAE5192342BD00626A2C /* GLGitlabApi+Repositories.m in Sources */,
+				0021BAD0192342BD00626A2C /* GLEvent.m in Sources */,
+				0041FA9B191C87AF00E1F237 /* Tools.m in Sources */,
+				0021BADC192342BD00626A2C /* GLConstants.m in Sources */,
 				0002D2561916324B001FDED8 /* main.m in Sources */,
+				0021BAD2192342BD00626A2C /* GLGroup.m in Sources */,
+				0021BADB192342BD00626A2C /* GLUser.m in Sources */,
+				0021BAD5192342BD00626A2C /* GLMilestone.m in Sources */,
+				0002D2B219163DF6001FDED8 /* RECommonFunctions.m in Sources */,
+				0002D2C119164B02001FDED8 /* NavigationController.m in Sources */,
+				0021BAEE192342BD00626A2C /* NSURL+GLAdditions.m in Sources */,
+				0021BAD8192342BD00626A2C /* GLProject.m in Sources */,
+				0021BAE8192342BD00626A2C /* GLGitlabApi+Users.m in Sources */,
+				0021BAD6192342BD00626A2C /* GLNamespace.m in Sources */,
+				0021BACE192342BD00626A2C /* GLCommit.m in Sources */,
+				0021BAE4192342BD00626A2C /* GLGitlabApi+Projects.m in Sources */,
+				0021BACF192342BD00626A2C /* GLDiff.m in Sources */,
+				0021BAE0192342BD00626A2C /* GLGitlabApi+Issues.m in Sources */,
+				0002D2BE19164716001FDED8 /* MenuViewController.m in Sources */,
+				0021BAD9192342BD00626A2C /* GLSnippet.m in Sources */,
+				0021BAE3192342BD00626A2C /* GLGitlabApi+Notes.m in Sources */,
+				0021BACC192342BD00626A2C /* GLBaseObject.m in Sources */,
+				0021BAD4192342BD00626A2C /* GLMergeRequest.m in Sources */,
+				0021BAD1192342BD00626A2C /* GLFile.m in Sources */,
+				0021BAD3192342BD00626A2C /* GLIssue.m in Sources */,
+				0021BAD7192342BD00626A2C /* GLNote.m in Sources */,
+				0021BAE1192342BD00626A2C /* GLGitlabApi+MergeRequest.m in Sources */,
+				0021BAED192342BD00626A2C /* GLVoidNetworkOperation.m in Sources */,
+				0002D2B419163DF6001FDED8 /* REFrostedViewController.m in Sources */,
+				0021BAEC192342BD00626A2C /* GLRawNetworkOperation.m in Sources */,
+				0021BACD192342BD00626A2C /* GLBranch.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -259,7 +599,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0002D2751916324B001FDED8 /* iOS_git_oscTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -288,14 +627,6 @@
 				0002D25C1916324B001FDED8 /* Base */,
 			);
 			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		0002D2711916324B001FDED8 /* InfoPlist.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				0002D2721916324B001FDED8 /* en */,
-			);
-			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -379,6 +710,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "iOS-git-osc/iOS-git-osc-Prefix.pch";
 				INFOPLIST_FILE = "iOS-git-osc/iOS-git-osc-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -392,6 +724,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "iOS-git-osc/iOS-git-osc-Prefix.pch";
 				INFOPLIST_FILE = "iOS-git-osc/iOS-git-osc-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -456,6 +789,7 @@
 				0002D27A1916324B001FDED8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		0002D27B1916324B001FDED8 /* Build configuration list for PBXNativeTarget "iOS-git-oscTests" */ = {
 			isa = XCConfigurationList;
@@ -464,6 +798,7 @@
 				0002D27D1916324B001FDED8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

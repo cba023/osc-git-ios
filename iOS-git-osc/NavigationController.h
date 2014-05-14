@@ -1,5 +1,5 @@
 //
-//  ViewController.h
+//  NavigationController.h
 //  iOS-git-osc
 //
 //  Created by chenhaoxiang on 14-5-4.
@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ViewController : UIViewController
+@interface NavigationController : UINavigationController
+
+- (void)showMenu;
 
 @end

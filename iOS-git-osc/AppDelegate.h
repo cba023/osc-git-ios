@@ -7,8 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "REFrostedViewController.h"
+#import "NavigationController.h"
+#import "HomeViewController.h"
+#import "MenuViewController.h"
 
-@interface AppDelegate : UIResponder <UIApplicationDelegate>
+@interface AppDelegate : UIResponder <UIApplicationDelegate, REFrostedViewControllerDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
 
