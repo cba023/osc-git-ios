@@ -13,7 +13,6 @@
 		0002D2541916324B001FDED8 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0002D2521916324B001FDED8 /* InfoPlist.strings */; };
 		0002D2561916324B001FDED8 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0002D2551916324B001FDED8 /* main.m */; };
 		0002D25A1916324B001FDED8 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0002D2591916324B001FDED8 /* AppDelegate.m */; };
-		0002D25D1916324B001FDED8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0002D25B1916324B001FDED8 /* Main.storyboard */; };
 		0002D2691916324B001FDED8 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0002D2681916324B001FDED8 /* XCTest.framework */; };
 		0002D26A1916324B001FDED8 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0002D2491916324B001FDED8 /* Foundation.framework */; };
 		0002D26B1916324B001FDED8 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0002D24D1916324B001FDED8 /* UIKit.framework */; };
@@ -67,7 +66,9 @@
 		0021BAED192342BD00626A2C /* GLVoidNetworkOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 0021BAC6192342BD00626A2C /* GLVoidNetworkOperation.m */; };
 		0021BAEE192342BD00626A2C /* NSURL+GLAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 0021BAC8192342BD00626A2C /* NSURL+GLAdditions.m */; };
 		0021BAEF192342BD00626A2C /* GLGitlabApi+Private.m in Sources */ = {isa = PBXBuildFile; fileRef = 0021BACB192342BD00626A2C /* GLGitlabApi+Private.m */; };
-		0021BAF21923477700626A2C /* KeychainItemWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 0021BAF11923477700626A2C /* KeychainItemWrapper.m */; };
+		0021BAF41923608200626A2C /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0021BAF31923608200626A2C /* Security.framework */; };
+		0021BAF7192360A100626A2C /* SSKeychain.m in Sources */ = {isa = PBXBuildFile; fileRef = 0021BAF6192360A100626A2C /* SSKeychain.m */; };
+		0021BAFA1923639D00626A2C /* KeychainItemWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 0021BAF91923639D00626A2C /* KeychainItemWrapper.m */; };
 		0041FA9B191C87AF00E1F237 /* Tools.m in Sources */ = {isa = PBXBuildFile; fileRef = 0041FA9A191C87AF00E1F237 /* Tools.m */; };
 		009018C71921D1B90050197D /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 009018C61921D1B90050197D /* LoginViewController.m */; };
 		00B01FE919221EB40095D488 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 00B01FE819221EB40095D488 /* User.m */; };
@@ -94,7 +95,6 @@
 		0002D2571916324B001FDED8 /* iOS-git-osc-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "iOS-git-osc-Prefix.pch"; sourceTree = "<group>"; };
 		0002D2581916324B001FDED8 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		0002D2591916324B001FDED8 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		0002D25C1916324B001FDED8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		0002D2671916324B001FDED8 /* iOS-git-oscTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "iOS-git-oscTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0002D2681916324B001FDED8 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		0002D2A619163DF6001FDED8 /* RECommonFunctions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RECommonFunctions.h; sourceTree = "<group>"; };
@@ -194,8 +194,11 @@
 		0021BAC8192342BD00626A2C /* NSURL+GLAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURL+GLAdditions.m"; sourceTree = "<group>"; };
 		0021BACA192342BD00626A2C /* GLGitlabApi+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GLGitlabApi+Private.h"; sourceTree = "<group>"; };
 		0021BACB192342BD00626A2C /* GLGitlabApi+Private.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "GLGitlabApi+Private.m"; sourceTree = "<group>"; };
-		0021BAF01923477700626A2C /* KeychainItemWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeychainItemWrapper.h; sourceTree = "<group>"; };
-		0021BAF11923477700626A2C /* KeychainItemWrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KeychainItemWrapper.m; sourceTree = "<group>"; };
+		0021BAF31923608200626A2C /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		0021BAF5192360A100626A2C /* SSKeychain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SSKeychain.h; path = "../../../Objective-C/sskeychain-master/SSKeychain.h"; sourceTree = "<group>"; };
+		0021BAF6192360A100626A2C /* SSKeychain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SSKeychain.m; path = "../../../Objective-C/sskeychain-master/SSKeychain.m"; sourceTree = "<group>"; };
+		0021BAF81923639D00626A2C /* KeychainItemWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = KeychainItemWrapper.h; path = "../../../Objective-C/KeychainItemWrapper/KeychainItemWrapper.h"; sourceTree = "<group>"; };
+		0021BAF91923639D00626A2C /* KeychainItemWrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = KeychainItemWrapper.m; path = "../../../Objective-C/KeychainItemWrapper/KeychainItemWrapper.m"; sourceTree = "<group>"; };
 		0041FA99191C87AF00E1F237 /* Tools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tools.h; sourceTree = "<group>"; };
 		0041FA9A191C87AF00E1F237 /* Tools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Tools.m; sourceTree = "<group>"; };
 		009018C51921D1B90050197D /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
@@ -209,6 +212,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0021BAF41923608200626A2C /* Security.framework in Frameworks */,
 				0002D24C1916324B001FDED8 /* CoreGraphics.framework in Frameworks */,
 				0002D24E1916324B001FDED8 /* UIKit.framework in Frameworks */,
 				0002D24A1916324B001FDED8 /* Foundation.framework in Frameworks */,
@@ -252,6 +256,7 @@
 		0002D2481916324B001FDED8 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				0021BAF31923608200626A2C /* Security.framework */,
 				0002D2491916324B001FDED8 /* Foundation.framework */,
 				0002D24B1916324B001FDED8 /* CoreGraphics.framework */,
 				0002D24D1916324B001FDED8 /* UIKit.framework */,
@@ -263,18 +268,19 @@
 		0002D24F1916324B001FDED8 /* iOS-git-osc */ = {
 			isa = PBXGroup;
 			children = (
-				0021BAF01923477700626A2C /* KeychainItemWrapper.h */,
-				0021BAF11923477700626A2C /* KeychainItemWrapper.m */,
+				0021BAF81923639D00626A2C /* KeychainItemWrapper.h */,
+				0021BAF91923639D00626A2C /* KeychainItemWrapper.m */,
+				0021BAF5192360A100626A2C /* SSKeychain.h */,
+				0021BAF6192360A100626A2C /* SSKeychain.m */,
 				0041FA99191C87AF00E1F237 /* Tools.h */,
 				0041FA9A191C87AF00E1F237 /* Tools.m */,
+				00B01FE719221EB40095D488 /* User.h */,
+				00B01FE819221EB40095D488 /* User.m */,
 				0002D2B81916407B001FDED8 /* Controller */,
 				0002D2581916324B001FDED8 /* AppDelegate.h */,
 				0002D2591916324B001FDED8 /* AppDelegate.m */,
-				0002D25B1916324B001FDED8 /* Main.storyboard */,
 				0002D2D619188953001FDED8 /* Images.xcassets */,
 				0002D2501916324B001FDED8 /* Supporting Files */,
-				00B01FE719221EB40095D488 /* User.h */,
-				00B01FE819221EB40095D488 /* User.m */,
 			);
 			path = "iOS-git-osc";
 			sourceTree = "<group>";
@@ -523,7 +529,6 @@
 				0002D2D719188953001FDED8 /* Images.xcassets in Resources */,
 				0002D2E119188B4E001FDED8 /* avatar@2x.jpg in Resources */,
 				0002D2541916324B001FDED8 /* InfoPlist.strings in Resources */,
-				0002D25D1916324B001FDED8 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -555,7 +560,7 @@
 				0021BADA192342BD00626A2C /* GLTag.m in Sources */,
 				0002D2BB191640B4001FDED8 /* HomeViewController.m in Sources */,
 				0021BADF192342BD00626A2C /* GLGitlabApi+Groups.m in Sources */,
-				0021BAF21923477700626A2C /* KeychainItemWrapper.m in Sources */,
+				0021BAF7192360A100626A2C /* SSKeychain.m in Sources */,
 				0002D2B519163DF6001FDED8 /* UIImage+REFrostedViewController.m in Sources */,
 				0021BAE2192342BD00626A2C /* GLGitlabApi+Milestones.m in Sources */,
 				0021BADE192342BD00626A2C /* GLGitlabApi+Files.m in Sources */,
@@ -581,6 +586,7 @@
 				0021BAE0192342BD00626A2C /* GLGitlabApi+Issues.m in Sources */,
 				0002D2BE19164716001FDED8 /* MenuViewController.m in Sources */,
 				0021BAD9192342BD00626A2C /* GLSnippet.m in Sources */,
+				0021BAFA1923639D00626A2C /* KeychainItemWrapper.m in Sources */,
 				0021BAE3192342BD00626A2C /* GLGitlabApi+Notes.m in Sources */,
 				0021BACC192342BD00626A2C /* GLBaseObject.m in Sources */,
 				0021BAD4192342BD00626A2C /* GLMergeRequest.m in Sources */,
@@ -619,14 +625,6 @@
 				0002D2531916324B001FDED8 /* en */,
 			);
 			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-		0002D25B1916324B001FDED8 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				0002D25C1916324B001FDED8 /* Base */,
-			);
-			name = Main.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

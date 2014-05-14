@@ -11,6 +11,8 @@
 #import "GLGitlab.h"
 #import "Tools.h"
 #import "KeychainItemWrapper.h"
+#import "SSKeychain.h"
+
 static NSString * const kKeyUserId = @"id";
 static NSString * const kKeyUsername = @"username";
 static NSString * const kKeyEmail = @"email";
@@ -37,33 +39,13 @@ static NSString * const kKeyProtrait = @"protrait";
         if (responseObject == nil){
             NSLog(@"Request failed");
         } else {
-            KeychainItemWrapper *keychainItem = [[KeychainItemWrapper alloc] initWithIdentifier:@"User" accessGroup:nil];
-            NSNumber *userId, *themeId, *colorSchemeId, *isAdmin;
-            userId = [NSNumber numberWithLongLong: user.userId];
-            themeId =[NSNumber numberWithInt: user.themeId];
-            colorSchemeId = [NSNumber numberWithInt: user.colorSchemeId];
-            isAdmin = [NSNumber numberWithBool: user.isAdmin];
+            [SSKeychain setPassword:@(user.userId)
+                         forService:kKeyUserId
+                            account:user.username];
             
-            [keychainItem setObject:userId forKey:kKeyUserId];
-            [keychainItem setObject:user.username forKey:kKeyUsername];
-            [keychainItem setObject:user.email forKey:kKeyEmail];
-            [keychainItem setObject:user.name forKey:kKeyName];
-            [keychainItem setObject:user.skype forKey:kKeySkype];
-            [keychainItem setObject:user.linkedin forKey:kKeyLinkedin];
-            [keychainItem setObject:user.twitter forKey:kKeyTwitter];
-            [keychainItem setObject:user.provider forKey:kKeyProvider];
-            [keychainItem setObject:user.state forKey:kKeyState];
-            [keychainItem setObject:user.createdAt forKey:kKeyCreatedAt];
-            [keychainItem setObject:user.bio forKey:kKeyBio];
-            [keychainItem setObject:user.externUid forKey:kKeyExternUid];
-            [keychainItem setObject:themeId forKey:kKeyThemeId];
-            [keychainItem setObject:colorSchemeId forKey:kKeyColorSchemeId];
-            [keychainItem setObject:isAdmin forKey:kKeyAdmin];
-            [keychainItem setObject:user.protrait forKey:kKeyProtrait];
-            
-            
-            NSLog(@"username: %@, name = %@, email = %@", user.username, user.name, user.email);
-            NSLog(@"%@", [Tools md5: user.email]);
+            NSString *retrieveuuid = [SSKeychain passwordForService:@"com.yourapp.yourcompany"account:@"user"];
+            NSLog(@"%@", retrieveuuid);
+            NSLog(@"username: %@, name = %@", user.username, user.name);
         }
         done = YES;
     };

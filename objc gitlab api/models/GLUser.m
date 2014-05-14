@@ -11,20 +11,19 @@
 
 static NSString * const kKeyUserId = @"id";
 static NSString * const kKeyUsername = @"username";
-static NSString * const kKeyEmail = @"email";
 static NSString * const kKeyName = @"name";
-static NSString * const kKeySkype = @"skype";
-static NSString * const kKeyLinkedin = @"linkedin";
-static NSString * const kKeyTwitter = @"twitter";
-static NSString * const kKeyProvider = @"provider";
-static NSString * const kKeyState = @"state";
-static NSString * const kKeyCreatedAt = @"created_at";
 static NSString * const kKeyBio = @"bio";
-static NSString * const kKeyExternUid = @"extern_uid";
+static NSString * const kKeyWeibo = @"weibo";
+static NSString * const kKeyBlog = @"blog";
 static NSString * const kKeyThemeId = @"theme_id";
-static NSString * const kKeyColorSchemeId = @"color_scheme_id";
-static NSString * const kKeyAdmin = @"is_admin";
+static NSString * const kKeyCreatedAt = @"created_at";
+static NSString * const kKeyState = @"state";
 static NSString * const kKeyProtrait = @"protrait";
+static NSString * const kKeyPrivate_token = @"private_token";
+static NSString * const kKeyAdmin = @"is_admin";
+static NSString * const kKeyCanCreateGroup = @"can_create_group";
+static NSString * const kKeyCanCreateProject = @"can_create_project";
+static NSString * const kKeyCanCreateTeam = @"can_create_team";
 
 @implementation GLUser
 
@@ -33,20 +32,20 @@ static NSString * const kKeyProtrait = @"protrait";
     if (self = [super init]) {
         _userId = [json[kKeyUserId] longLongValue];
         _username = [self checkForNull:json[kKeyUsername]];
-        _email = [self checkForNull:json[kKeyEmail]];
         _name = [self checkForNull:json[kKeyName]];
-        _skype = [self checkForNull:json[kKeySkype]];
-        _linkedin = [self checkForNull:json[kKeyLinkedin]];
-        _twitter = [self checkForNull:json[kKeyTwitter]];
-        _provider = [self checkForNull:json[kKeyProvider]];
-        _state = [self checkForNull:json[kKeyState]];
-        _createdAt = [[[GLGitlabApi sharedInstance] gitLabDateFormatter] dateFromString:json[kKeyCreatedAt]];
         _bio = [self checkForNull:json[kKeyBio]];
-        _externUid = [self checkForNull:json[kKeyExternUid]];
+        _weibo = [self checkForNull:json[kKeyWeibo]];
+        _blog = [self checkForNull:json[kKeyBlog]];
         _themeId = [json[kKeyThemeId] intValue];
-        _colorSchemeId = [json[kKeyColorSchemeId] intValue];
-        _admin = [json[kKeyAdmin] boolValue];
+        _createdAt = [self checkForNull:json[kKeyCreatedAt]];
+        //_createdAt = [[[GLGitlabApi sharedInstance] gitLabDateFormatter] dateFromString:json[kKeyCreatedAt]];
+        _state = [self checkForNull:json[kKeyState]];
         _protrait = [self checkForNull:json[kKeyProtrait]];
+        _private_token = [self checkForNull:json[kKeyPrivate_token]];
+        _admin = [json[kKeyAdmin] boolValue];
+        _canCreateGroup = [json[kKeyCanCreateGroup] boolValue];
+        _canCreateProject = [json[kKeyCanCreateProject] boolValue];
+        _canCreateTeam = [json[kKeyCanCreateTeam] boolValue];
     }
     return self;
 }
@@ -56,7 +55,7 @@ static NSString * const kKeyProtrait = @"protrait";
         return YES;
     if (!other || ![[other class] isEqual:[self class]])
         return NO;
-
+    
     return [self isEqualToUser:other];
 }
 
@@ -69,37 +68,35 @@ static NSString * const kKeyProtrait = @"protrait";
         return NO;
     if (self.username != user.username && ![self.username isEqualToString:user.username])
         return NO;
-    if (self.email != user.email && ![self.email isEqualToString:user.email])
-        return NO;
     if (self.name != user.name && ![self.name isEqualToString:user.name])
         return NO;
-    if (self.skype != user.skype && ![self.skype isEqualToString:user.skype])
+    if (self.bio != user.bio && ![self.bio isEqualToString:user.bio])
         return NO;
-    if (self.linkedin != user.linkedin && ![self.linkedin isEqualToString:user.linkedin])
+    if (self.weibo != user.weibo && ![self.weibo isEqualToString:user.weibo])
         return NO;
-    if (self.twitter != user.twitter && ![self.twitter isEqualToString:user.twitter])
+    if (self.blog != user.blog && ![self.blog isEqualToString:user.blog])
         return NO;
-    if (self.provider != user.provider && ![self.provider isEqualToString:user.provider])
+    if (self.themeId != user.themeId)
         return NO;
     if (self.state != user.state && ![self.state isEqualToString:user.state])
         return NO;
     if (self.createdAt != user.createdAt && ![self.createdAt isEqualToDate:user.createdAt])
         return NO;
-    if (self.bio != user.bio && ![self.bio isEqualToString:user.bio])
-        return NO;
-    if (self.externUid != user.externUid && ![self.externUid isEqualToString:user.externUid])
-        return NO;
-    if (self.themeId != user.themeId)
-        return NO;
-    if (self.colorSchemeId != user.colorSchemeId)
+    if (self.protrait != user.protrait && ![self.protrait isEqualToString:user.protrait])
         return NO;
     if (self.admin != user.admin)
         return NO;
-    if (self.protrait != user.protrait && ![self.protrait isEqualToString:user.protrait])
+    if (self.canCreateGroup != user.canCreateGroup)
         return NO;
+    if (self.canCreateProject != user.canCreateProject)
+        return NO;
+    if (self.canCreateTeam != user.canCreateTeam)
+        return NO;
+    
     return YES;
 }
 
+#if 0
 - (NSUInteger)hash {
     NSUInteger hash = (NSUInteger) self.userId;
     hash = hash * 31u + [self.username hash];
@@ -118,25 +115,25 @@ static NSString * const kKeyProtrait = @"protrait";
     hash = hash * 31u + self.admin;
     return hash;
 }
+#endif
 
 - (NSString *)description {
     NSMutableString *description = [NSMutableString stringWithFormat:@"<%@: ", NSStringFromClass([self class])];
     [description appendFormat:@"self.userId=%qi", self.userId];
     [description appendFormat:@", self.username=%@", self.username];
-    [description appendFormat:@", self.email=%@", self.email];
     [description appendFormat:@", self.name=%@", self.name];
-    [description appendFormat:@", self.skype=%@", self.skype];
-    [description appendFormat:@", self.linkedin=%@", self.linkedin];
-    [description appendFormat:@", self.twitter=%@", self.twitter];
-    [description appendFormat:@", self.provider=%@", self.provider];
+    [description appendFormat:@", self.bio=%@", self.bio];
+    [description appendFormat:@", self.weibo=%@", self.weibo];
+    [description appendFormat:@", self.blog=%@", self.blog];
+    [description appendFormat:@", self.themeId=%i", self.themeId];
     [description appendFormat:@", self.state=%@", self.state];
     [description appendFormat:@", self.createdAt=%@", self.createdAt];
-    [description appendFormat:@", self.bio=%@", self.bio];
-    [description appendFormat:@", self.externUid=%@", self.externUid];
-    [description appendFormat:@", self.themeId=%i", self.themeId];
-    [description appendFormat:@", self.colorSchemeId=%i", self.colorSchemeId];
-    [description appendFormat:@", self.admin=%d", self.admin];
     [description appendFormat:@", self.protrait=%@", self.protrait];
+    [description appendFormat:@", self.private_token=%@", self.private_token];
+    [description appendFormat:@", self.admin=%d", self.admin];
+    [description appendFormat:@", self.canCreateGroup=%d", self.canCreateGroup];
+    [description appendFormat:@", self.canCreateProject=%d", self.canCreateProject];
+    [description appendFormat:@", self.canCreateTeam=%d", self.canCreateTeam];
     [description appendString:@">"];
     return description;
 }
@@ -148,38 +145,38 @@ static NSString * const kKeyProtrait = @"protrait";
     return @{
              kKeyUserId: @(_userId),
              kKeyUsername: _username,
-             kKeyEmail: _email,
              kKeyName: _name ?: null,
-             kKeySkype: _skype ?: null,
-             kKeyLinkedin: _linkedin ?: null,
-             kKeyTwitter: _twitter ?: null,
-             kKeyProvider: _provider ?: null,
+             kKeyBio: _bio ?: null,
+             kKeyWeibo: _weibo ?: null,
+             kKeyBlog: _blog ?: null,
+             kKeyThemeId: @(_themeId),
              kKeyState: _state ?: null,
              kKeyCreatedAt: [formatter stringFromDate:_createdAt] ?: null,
-             kKeyBio: _bio ?: null,
-             kKeyExternUid: _externUid ?: null,
              kKeyThemeId: @(_themeId),
-             kKeyColorSchemeId: @(_colorSchemeId),
              kKeyAdmin: @(_admin),
              kKeyProtrait: _protrait ?: null
-     };
+             };
 }
 
 - (NSDictionary *)jsonCreateRepresentation
 {
     NSNull *null = [NSNull null];
     return @{
+             kKeyUserId: @(_userId),
              kKeyUsername: _username,
-             kKeyEmail: _email,
              kKeyName: _name ?: null,
-             kKeySkype: _skype ?: null,
-             kKeyLinkedin: _linkedin ?: null,
-             kKeyTwitter: _twitter ?: null,
-             kKeyProvider: _provider ?: null,
              kKeyState: _state ?: null,
              kKeyBio: _bio ?: null,
+             kKeyWeibo: _weibo ?: null,
+             kKeyBlog: _blog ?: null,
+             kKeyThemeId: @(_themeId),
+             kKeyState: _state ?: null,
+             kKeyCreatedAt: _createdAt ?: null,
+             kKeyProtrait: _protrait ?: null,
              kKeyAdmin: @(_admin),
-             kKeyProtrait: _protrait ?: null
+             kKeyCanCreateGroup: @(_canCreateGroup),
+             kKeyCanCreateProject: @(_canCreateProject),
+             kKeyCanCreateTeam: @(_canCreateTeam)
              };
 }
 
