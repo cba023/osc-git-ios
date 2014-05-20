@@ -8,6 +8,7 @@
 
 #import "Tools.h"
 #import <CommonCrypto/CommonDigest.h>
+#import <SDWebImage/UIImageView+WebCache.h>
 
 @implementation Tools
 
@@ -24,10 +25,22 @@
     return  [NSString stringWithString: output];
 }
 
-+ (UIImage *) loadImage:(NSURL *)imageURL {
-    NSData *imageData = [[NSData alloc] initWithContentsOfURL:imageURL];
-    UIImage *image = [[UIImage alloc] initWithData:imageData];
-    return image;
++ (UIImage *) loadImage:(NSString *)urlString {
+    NSURL *imageURL = [NSURL URLWithString:urlString];
+    __block UIImage *img = [[UIImage alloc] init];
+
+    [[SDWebImageDownloader sharedDownloader] downloadImageWithURL:imageURL
+                                                          options:0
+                                                         progress:^(NSInteger receivedSize, NSInteger expectedSize) {
+                                                             NSLog(@"%ld, %ld", (long)receivedSize, (long)expectedSize);
+                                                         }
+                                                        completed:^(UIImage *image, NSData *data, NSError *error, BOOL finished) {
+                                                            if (image && finished) {
+                                                                img = image;
+                                                            }
+                                                        }];
+
+    return img;
 }
 
 @end

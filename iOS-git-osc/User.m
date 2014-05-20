@@ -10,25 +10,7 @@
 #import "User.h"
 #import "GLGitlab.h"
 #import "Tools.h"
-#import "KeychainItemWrapper.h"
 #import "SSKeychain.h"
-
-static NSString * const kKeyUserId = @"id";
-static NSString * const kKeyUsername = @"username";
-static NSString * const kKeyEmail = @"email";
-static NSString * const kKeyName = @"name";
-static NSString * const kKeySkype = @"skype";
-static NSString * const kKeyLinkedin = @"linkedin";
-static NSString * const kKeyTwitter = @"twitter";
-static NSString * const kKeyProvider = @"provider";
-static NSString * const kKeyState = @"state";
-static NSString * const kKeyCreatedAt = @"created_at";
-static NSString * const kKeyBio = @"bio";
-static NSString * const kKeyExternUid = @"extern_uid";
-static NSString * const kKeyThemeId = @"theme_id";
-static NSString * const kKeyColorSchemeId = @"color_scheme_id";
-static NSString * const kKeyAdmin = @"is_admin";
-static NSString * const kKeyProtrait = @"protrait";
 
 @implementation User
 
@@ -39,13 +21,11 @@ static NSString * const kKeyProtrait = @"protrait";
         if (responseObject == nil){
             NSLog(@"Request failed");
         } else {
-            [SSKeychain setPassword:@(user.userId)
-                         forService:kKeyUserId
-                            account:user.username];
-            
-            NSString *retrieveuuid = [SSKeychain passwordForService:@"com.yourapp.yourcompany"account:@"user"];
-            NSLog(@"%@", retrieveuuid);
+            [User saveUserInformation:user];
             NSLog(@"username: %@, name = %@", user.username, user.name);
+            NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+            NSString *portrait = [userDefaults objectForKey:kKeyPortrait];
+            NSLog(@"%@", portrait);
         }
         done = YES;
     };
@@ -67,6 +47,29 @@ static NSString * const kKeyProtrait = @"protrait";
         [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate distantFuture]];
     }
 
+}
+
++ (void)saveUserInformation:(GLUser *)user {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    [userDefaults setFloat:user.userId forKey:kKeyUserId];
+    [userDefaults setObject:user.username forKey:kKeyUsername];
+    [userDefaults setObject:user.name forKey:kKeyName];
+    [userDefaults setObject:user.bio forKey:kKeyBio];
+    [userDefaults setObject:user.weibo forKey:kKeyWeibo];
+    [userDefaults setObject:user.blog forKey:kKeyBlog];
+    [userDefaults setInteger:user.themeId forKey:kKeyThemeId];
+    [userDefaults setObject:user.state forKey:kKeyState];
+    [userDefaults setObject:user.createdAt forKey:kKeyCreatedAt];
+    [userDefaults setObject:user.portrait forKey:kKeyPortrait];
+    [userDefaults setObject:user.private_token forKey:kKeyPrivate_token];
+    [userDefaults setBool:user.admin forKey:kKeyAdmin];
+    [userDefaults setBool:user.canCreateGroup forKey:kKeyCanCreateGroup];
+    [userDefaults setBool:user.canCreateProject forKey:kKeyCanCreateProject];
+    [userDefaults setBool:user.canCreateTeam forKey:kKeyCanCreateTeam];
+}
+
++ (void)saveUserName:(NSString *)username andPassword:(NSString *)password {
+    [SSKeychain setPassword:password forService:@"password" account:username];
 }
 
 @end

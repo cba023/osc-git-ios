@@ -30,6 +30,7 @@
 		0002D2E219188B4E001FDED8 /* three_lines.png in Resources */ = {isa = PBXBuildFile; fileRef = 0002D2DF19188B4E001FDED8 /* three_lines.png */; };
 		0002D2E319188B4E001FDED8 /* three_lines@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0002D2E019188B4E001FDED8 /* three_lines@2x.png */; };
 		0002D2E519188B8A001FDED8 /* Balloon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0002D2E419188B8A001FDED8 /* Balloon@2x.png */; };
+		0019C084192AF37200B95AD6 /* ProjectTableController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0019C083192AF37200B95AD6 /* ProjectTableController.m */; };
 		0021BACC192342BD00626A2C /* GLBaseObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 0021BA82192342BD00626A2C /* GLBaseObject.m */; };
 		0021BACD192342BD00626A2C /* GLBranch.m in Sources */ = {isa = PBXBuildFile; fileRef = 0021BA84192342BD00626A2C /* GLBranch.m */; };
 		0021BACE192342BD00626A2C /* GLCommit.m in Sources */ = {isa = PBXBuildFile; fileRef = 0021BA86192342BD00626A2C /* GLCommit.m */; };
@@ -68,10 +69,11 @@
 		0021BAEF192342BD00626A2C /* GLGitlabApi+Private.m in Sources */ = {isa = PBXBuildFile; fileRef = 0021BACB192342BD00626A2C /* GLGitlabApi+Private.m */; };
 		0021BAF41923608200626A2C /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0021BAF31923608200626A2C /* Security.framework */; };
 		0021BAF7192360A100626A2C /* SSKeychain.m in Sources */ = {isa = PBXBuildFile; fileRef = 0021BAF6192360A100626A2C /* SSKeychain.m */; };
-		0021BAFA1923639D00626A2C /* KeychainItemWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 0021BAF91923639D00626A2C /* KeychainItemWrapper.m */; };
 		0041FA9B191C87AF00E1F237 /* Tools.m in Sources */ = {isa = PBXBuildFile; fileRef = 0041FA9A191C87AF00E1F237 /* Tools.m */; };
 		009018C71921D1B90050197D /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 009018C61921D1B90050197D /* LoginViewController.m */; };
 		00B01FE919221EB40095D488 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 00B01FE819221EB40095D488 /* User.m */; };
+		00CF21DF1929EF890087AF83 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00CF21DE1929EF890087AF83 /* ImageIO.framework */; };
+		00F198D11929F8CE00E56CDA /* SDWebImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00F198D01929F8CE00E56CDA /* SDWebImage.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -120,6 +122,8 @@
 		0002D2DF19188B4E001FDED8 /* three_lines.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = three_lines.png; sourceTree = "<group>"; };
 		0002D2E019188B4E001FDED8 /* three_lines@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "three_lines@2x.png"; sourceTree = "<group>"; };
 		0002D2E419188B8A001FDED8 /* Balloon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Balloon@2x.png"; sourceTree = "<group>"; };
+		0019C082192AF37200B95AD6 /* ProjectTableController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProjectTableController.h; sourceTree = "<group>"; };
+		0019C083192AF37200B95AD6 /* ProjectTableController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProjectTableController.m; sourceTree = "<group>"; };
 		0021BA7F192342BD00626A2C /* GLGitlab.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLGitlab.h; sourceTree = "<group>"; };
 		0021BA81192342BD00626A2C /* GLBaseObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLBaseObject.h; sourceTree = "<group>"; };
 		0021BA82192342BD00626A2C /* GLBaseObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GLBaseObject.m; sourceTree = "<group>"; };
@@ -197,14 +201,14 @@
 		0021BAF31923608200626A2C /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		0021BAF5192360A100626A2C /* SSKeychain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SSKeychain.h; path = "../../../Objective-C/sskeychain-master/SSKeychain.h"; sourceTree = "<group>"; };
 		0021BAF6192360A100626A2C /* SSKeychain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SSKeychain.m; path = "../../../Objective-C/sskeychain-master/SSKeychain.m"; sourceTree = "<group>"; };
-		0021BAF81923639D00626A2C /* KeychainItemWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = KeychainItemWrapper.h; path = "../../../Objective-C/KeychainItemWrapper/KeychainItemWrapper.h"; sourceTree = "<group>"; };
-		0021BAF91923639D00626A2C /* KeychainItemWrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = KeychainItemWrapper.m; path = "../../../Objective-C/KeychainItemWrapper/KeychainItemWrapper.m"; sourceTree = "<group>"; };
 		0041FA99191C87AF00E1F237 /* Tools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tools.h; sourceTree = "<group>"; };
 		0041FA9A191C87AF00E1F237 /* Tools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Tools.m; sourceTree = "<group>"; };
 		009018C51921D1B90050197D /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		009018C61921D1B90050197D /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		00B01FE719221EB40095D488 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
 		00B01FE819221EB40095D488 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
+		00CF21DE1929EF890087AF83 /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
+		00F198D01929F8CE00E56CDA /* SDWebImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDWebImage.framework; path = "../../Objective-C/SDWebImage.framework"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -212,6 +216,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				00F198D11929F8CE00E56CDA /* SDWebImage.framework in Frameworks */,
+				00CF21DF1929EF890087AF83 /* ImageIO.framework in Frameworks */,
 				0021BAF41923608200626A2C /* Security.framework in Frameworks */,
 				0002D24C1916324B001FDED8 /* CoreGraphics.framework in Frameworks */,
 				0002D24E1916324B001FDED8 /* UIKit.framework in Frameworks */,
@@ -256,6 +262,8 @@
 		0002D2481916324B001FDED8 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				00F198D01929F8CE00E56CDA /* SDWebImage.framework */,
+				00CF21DE1929EF890087AF83 /* ImageIO.framework */,
 				0021BAF31923608200626A2C /* Security.framework */,
 				0002D2491916324B001FDED8 /* Foundation.framework */,
 				0002D24B1916324B001FDED8 /* CoreGraphics.framework */,
@@ -268,8 +276,6 @@
 		0002D24F1916324B001FDED8 /* iOS-git-osc */ = {
 			isa = PBXGroup;
 			children = (
-				0021BAF81923639D00626A2C /* KeychainItemWrapper.h */,
-				0021BAF91923639D00626A2C /* KeychainItemWrapper.m */,
 				0021BAF5192360A100626A2C /* SSKeychain.h */,
 				0021BAF6192360A100626A2C /* SSKeychain.m */,
 				0041FA99191C87AF00E1F237 /* Tools.h */,
@@ -327,6 +333,8 @@
 				0002D2C019164B02001FDED8 /* NavigationController.m */,
 				009018C51921D1B90050197D /* LoginViewController.h */,
 				009018C61921D1B90050197D /* LoginViewController.m */,
+				0019C082192AF37200B95AD6 /* ProjectTableController.h */,
+				0019C083192AF37200B95AD6 /* ProjectTableController.m */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -548,6 +556,7 @@
 			files = (
 				00B01FE919221EB40095D488 /* User.m in Sources */,
 				0021BAE6192342BD00626A2C /* GLGitlabApi+Session.m in Sources */,
+				0019C084192AF37200B95AD6 /* ProjectTableController.m in Sources */,
 				0002D2B719163DF6001FDED8 /* UIViewController+REFrostedViewController.m in Sources */,
 				0021BAEB192342BD00626A2C /* GLNetworkOperation.m in Sources */,
 				0021BADD192342BD00626A2C /* GLGitlabApi+Commits.m in Sources */,
@@ -586,7 +595,6 @@
 				0021BAE0192342BD00626A2C /* GLGitlabApi+Issues.m in Sources */,
 				0002D2BE19164716001FDED8 /* MenuViewController.m in Sources */,
 				0021BAD9192342BD00626A2C /* GLSnippet.m in Sources */,
-				0021BAFA1923639D00626A2C /* KeychainItemWrapper.m in Sources */,
 				0021BAE3192342BD00626A2C /* GLGitlabApi+Notes.m in Sources */,
 				0021BACC192342BD00626A2C /* GLBaseObject.m in Sources */,
 				0021BAD4192342BD00626A2C /* GLMergeRequest.m in Sources */,
@@ -705,10 +713,20 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+					"/Users/chenhaoxiang/Desktop/Objective-C",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "iOS-git-osc/iOS-git-osc-Prefix.pch";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+				);
 				INFOPLIST_FILE = "iOS-git-osc/iOS-git-osc-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -719,10 +737,20 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+					"/Users/chenhaoxiang/Desktop/Objective-C",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "iOS-git-osc/iOS-git-osc-Prefix.pch";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+				);
 				INFOPLIST_FILE = "iOS-git-osc/iOS-git-osc-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};

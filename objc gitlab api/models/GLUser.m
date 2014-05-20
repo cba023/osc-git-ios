@@ -18,7 +18,7 @@ static NSString * const kKeyBlog = @"blog";
 static NSString * const kKeyThemeId = @"theme_id";
 static NSString * const kKeyCreatedAt = @"created_at";
 static NSString * const kKeyState = @"state";
-static NSString * const kKeyProtrait = @"protrait";
+static NSString * const kKeyPortrait = @"portrait";
 static NSString * const kKeyPrivate_token = @"private_token";
 static NSString * const kKeyAdmin = @"is_admin";
 static NSString * const kKeyCanCreateGroup = @"can_create_group";
@@ -40,7 +40,7 @@ static NSString * const kKeyCanCreateTeam = @"can_create_team";
         _createdAt = [self checkForNull:json[kKeyCreatedAt]];
         //_createdAt = [[[GLGitlabApi sharedInstance] gitLabDateFormatter] dateFromString:json[kKeyCreatedAt]];
         _state = [self checkForNull:json[kKeyState]];
-        _protrait = [self checkForNull:json[kKeyProtrait]];
+        _portrait = [self checkForNull:json[kKeyPortrait]];
         _private_token = [self checkForNull:json[kKeyPrivate_token]];
         _admin = [json[kKeyAdmin] boolValue];
         _canCreateGroup = [json[kKeyCanCreateGroup] boolValue];
@@ -82,7 +82,7 @@ static NSString * const kKeyCanCreateTeam = @"can_create_team";
         return NO;
     if (self.createdAt != user.createdAt && ![self.createdAt isEqualToDate:user.createdAt])
         return NO;
-    if (self.protrait != user.protrait && ![self.protrait isEqualToString:user.protrait])
+    if (self.portrait != user.portrait && ![self.portrait isEqualToString:user.portrait])
         return NO;
     if (self.admin != user.admin)
         return NO;
@@ -128,7 +128,7 @@ static NSString * const kKeyCanCreateTeam = @"can_create_team";
     [description appendFormat:@", self.themeId=%i", self.themeId];
     [description appendFormat:@", self.state=%@", self.state];
     [description appendFormat:@", self.createdAt=%@", self.createdAt];
-    [description appendFormat:@", self.protrait=%@", self.protrait];
+    [description appendFormat:@", self.portrait=%@", self.portrait];
     [description appendFormat:@", self.private_token=%@", self.private_token];
     [description appendFormat:@", self.admin=%d", self.admin];
     [description appendFormat:@", self.canCreateGroup=%d", self.canCreateGroup];
@@ -154,7 +154,7 @@ static NSString * const kKeyCanCreateTeam = @"can_create_team";
              kKeyCreatedAt: [formatter stringFromDate:_createdAt] ?: null,
              kKeyThemeId: @(_themeId),
              kKeyAdmin: @(_admin),
-             kKeyProtrait: _protrait ?: null
+             kKeyPortrait: _portrait ?: null
              };
 }
 
@@ -172,7 +172,7 @@ static NSString * const kKeyCanCreateTeam = @"can_create_team";
              kKeyThemeId: @(_themeId),
              kKeyState: _state ?: null,
              kKeyCreatedAt: _createdAt ?: null,
-             kKeyProtrait: _protrait ?: null,
+             kKeyPortrait: _portrait ?: null,
              kKeyAdmin: @(_admin),
              kKeyCanCreateGroup: @(_canCreateGroup),
              kKeyCanCreateProject: @(_canCreateProject),

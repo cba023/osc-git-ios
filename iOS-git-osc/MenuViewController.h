@@ -11,4 +11,8 @@
 
 @interface MenuViewController : UITableViewController
 
+@property (nonatomic, strong) UIImageView *imageView;
+@property (nonatomic, strong) UILabel *label;
+@property (nonatomic, strong) NSUserDefaults *user;
+
 @end

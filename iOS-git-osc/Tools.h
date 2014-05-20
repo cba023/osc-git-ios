@@ -11,6 +11,6 @@
 @interface Tools : NSObject
 
 + (NSString *) md5: (NSString *) input;
-+ (UIImage *) loadImage: (NSURL *) imageURL;
++ (UIImage *) loadImage: (NSString *) imageURL;
 
 @end

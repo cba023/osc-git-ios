@@ -30,7 +30,7 @@
 // created_at
 @property (nonatomic, strong) NSDate *createdAt;
 // portrait
-@property (nonatomic, copy) NSString *protrait;
+@property (nonatomic, copy) NSString *portrait;
 // private_token
 @property (nonatomic, copy) NSString *private_token;
 // is_admin

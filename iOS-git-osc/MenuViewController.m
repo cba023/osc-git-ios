@@ -11,8 +11,9 @@
 #import "NavigationController.h"
 #import "LoginViewController.h"
 #import "UIViewController+REFrostedViewController.h"
-#import "Tools.h"
 #import "GLGitlab.h"
+#import "User.h"
+#import <SDWebImage/UIImageView+WebCache.h>
 
 @interface MenuViewController ()
 
@@ -23,44 +24,91 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.user = [NSUserDefaults standardUserDefaults];
     
     self.tableView.separatorColor = [UIColor colorWithRed:150/255.0f green:161/255.0f blue:177/255.0f alpha:1.0f];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     self.tableView.opaque = NO;
     self.tableView.backgroundColor = [UIColor clearColor];
+#if 0
     self.tableView.tableHeaderView = ({
         UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, 184.0f)];
-        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 40, 100, 100)];
-        imageView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
+        self.imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 40, 100, 100)];
+        self.imageView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
         
-#if 0
-        NSString *urlString = [NSString stringWithFormat: @"%@%@%@",
-                               @"http://secure.gravatar.com/avatar/",
-                               [Tools md5: user.email],
-                                @"?s=90&d=mm"];
+        if (portrait) {
+            NSString *urlString = [git_osc_url stringByAppendingString:portrait];
+            [self.imageView setImageWithURL:[NSURL URLWithString:urlString]];
+        } else {
+            self.imageView.image = [UIImage imageNamed:@"avatar.jpg"];
+        }
         
-        imageView.image = [Tools loadImage: [NSURL URLWithString:urlString]];
+        self.imageView.layer.masksToBounds = YES;
+        self.imageView.layer.cornerRadius = 50.0;
+        self.imageView.layer.borderColor = [UIColor clearColor].CGColor;
+        self.imageView.layer.borderWidth = 0.0f;
+        self.imageView.layer.rasterizationScale = [UIScreen mainScreen].scale;
+        self.imageView.layer.shouldRasterize = YES;
+        self.imageView.clipsToBounds = YES;
+        
+        self.label = [[UILabel alloc] initWithFrame:CGRectMake(0, 150, 0, 24)];
+        if (name) {
+            self.label.text = name;
+        } else {
+            self.label.text = @"游客";
+        }
+        self.label.font = [UIFont fontWithName:@"HelveticaNeue" size:21];
+        self.label.backgroundColor = [UIColor clearColor];
+        self.label.textColor = [UIColor colorWithRed:62/255.0f green:68/255.0f blue:75/255.0f alpha:1.0f];
+        [self.label sizeToFit];
+        self.label.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
+        
+        [view addSubview:self.imageView];
+        [view addSubview:self.label];
+        view;
+    });
 #endif
-        imageView.image = [UIImage imageNamed:@"avatar.jpg"];
-        imageView.layer.masksToBounds = YES;
-        imageView.layer.cornerRadius = 50.0;
-        imageView.layer.borderColor = [UIColor clearColor].CGColor;
-        imageView.layer.borderWidth = 0.0f;
-        imageView.layer.rasterizationScale = [UIScreen mainScreen].scale;
-        imageView.layer.shouldRasterize = YES;
-        imageView.clipsToBounds = YES;
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    self.tableView.tableHeaderView = ({
+        UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, 184.0f)];
+        self.imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 40, 100, 100)];
+        self.imageView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
+        NSString *portrait = [self.user objectForKey:kKeyPortrait];
+        NSString *name = [self.user objectForKey:kKeyName];
         
-        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 150, 0, 24)];
-        label.text = @"Roman Efimov";
-        label.font = [UIFont fontWithName:@"HelveticaNeue" size:21];
-        label.backgroundColor = [UIColor clearColor];
-        label.textColor = [UIColor colorWithRed:62/255.0f green:68/255.0f blue:75/255.0f alpha:1.0f];
-        [label sizeToFit];
-        label.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
+        if (portrait) {
+            NSString *urlString = [git_osc_url stringByAppendingString:portrait];
+            [self.imageView setImageWithURL:[NSURL URLWithString:urlString]];
+        } else {
+            self.imageView.image = [UIImage imageNamed:@"avatar.jpg"];
+        }
         
-        [view addSubview:imageView];
-        [view addSubview:label];
+        self.imageView.layer.masksToBounds = YES;
+        self.imageView.layer.cornerRadius = 50.0;
+        self.imageView.layer.borderColor = [UIColor clearColor].CGColor;
+        self.imageView.layer.borderWidth = 0.0f;
+        self.imageView.layer.rasterizationScale = [UIScreen mainScreen].scale;
+        self.imageView.layer.shouldRasterize = YES;
+        self.imageView.clipsToBounds = YES;
+        
+        self.label = [[UILabel alloc] initWithFrame:CGRectMake(0, 150, 0, 24)];
+        if (name) {
+            self.label.text = name;
+        } else {
+            self.label.text = @"游客";
+        }
+        self.label.font = [UIFont fontWithName:@"HelveticaNeue" size:21];
+        self.label.backgroundColor = [UIColor clearColor];
+        self.label.textColor = [UIColor colorWithRed:62/255.0f green:68/255.0f blue:75/255.0f alpha:1.0f];
+        [self.label sizeToFit];
+        self.label.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
+        
+        [view addSubview:self.imageView];
+        [view addSubview:self.label];
         view;
     });
 }
