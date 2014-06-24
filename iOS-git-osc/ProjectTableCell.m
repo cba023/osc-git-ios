@@ -26,6 +26,36 @@
         self.projectDescriptionField.textAlignment = NSTextAlignmentLeft;
         self.projectDescriptionField.font = [UIFont boldSystemFontOfSize:12];
         [self.contentView addSubview:self.projectDescriptionField];
+        
+        UIImageView *languageImage = [[UIImageView alloc] initWithFrame:CGRectMake(13, 42, 15, 15)];
+        languageImage.contentMode = UIViewContentModeScaleAspectFit;
+        [languageImage setImage:[UIImage imageNamed:@"language"]];
+        [self.contentView addSubview:languageImage];
+        
+        UIImageView *forkImage = [[UIImageView alloc] initWithFrame:CGRectMake(129, 42, 15, 15)];
+        forkImage.contentMode = UIViewContentModeScaleAspectFit;
+        [forkImage setImage:[UIImage imageNamed:@"fork"]];
+        [self.contentView addSubview:forkImage];
+        
+        UIImageView *starImage = [[UIImageView alloc] initWithFrame:CGRectMake(219, 42, 15, 15)];
+        starImage.contentMode = UIViewContentModeScaleAspectFit;
+        [starImage setImage:[UIImage imageNamed:@"star2"]];
+        [self.contentView addSubview:starImage];
+        
+        self.languageField = [[UILabel alloc] initWithFrame:CGRectMake(34, 39, 82, 21)];
+        self.languageField.textAlignment = NSTextAlignmentLeft;
+        self.languageField.font = [UIFont boldSystemFontOfSize:12];
+        [self.contentView addSubview:self.languageField];
+        
+        self.forksCount = [[UILabel alloc] initWithFrame:CGRectMake(152, 39, 54, 21)];
+        self.forksCount.textAlignment = NSTextAlignmentLeft;
+        self.forksCount.font = [UIFont boldSystemFontOfSize:12];
+        [self.contentView addSubview:self.forksCount];
+        
+        self.starsCount = [[UILabel alloc] initWithFrame:CGRectMake(242, 39, 42, 21)];
+        self.starsCount.textAlignment = NSTextAlignmentLeft;
+        self.starsCount.font = [UIFont boldSystemFontOfSize:12];
+        [self.contentView addSubview:self.starsCount];
     }
     return self;
 }

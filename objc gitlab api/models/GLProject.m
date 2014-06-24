@@ -32,6 +32,9 @@ static NSString * const kKeySnippetsEnabled = @"snippets_enabled";
 static NSString * const kKeyCreatedAt = @"created_at";
 static NSString * const kKeyLastActivityAt = @"last_activity_at";
 static NSString * const kKeyNamespace = @"namespace";
+static NSString * const kKeyLanguage = @"language";
+static NSString * const kKeyForksCount = @"forks_count";
+static NSString * const kKeyStarsCount = @"stars_count";
 
 @implementation GLProject
 
@@ -59,6 +62,9 @@ static NSString * const kKeyNamespace = @"namespace";
         _createdAt = [[[GLGitlabApi sharedInstance] gitLabDateFormatter] dateFromString:json[kKeyCreatedAt]];
         _lastActivityAt = [[[GLGitlabApi sharedInstance] gitLabDateFormatter] dateFromString:json[kKeyLastActivityAt]];
         _glNamespace = [[GLNamespace alloc] initWithJSON:json[kKeyNamespace]];
+        _language = [self checkForNull:json[kKeyLanguage]];
+        _forksCount = [json[kKeyForksCount] intValue];
+        _starsCount = [json[kKeyStarsCount] intValue];
     }
     return self;
 }
@@ -119,6 +125,12 @@ static NSString * const kKeyNamespace = @"namespace";
         return NO;
     if (self.glNamespace != project.glNamespace && ![self.glNamespace isEqualToGlNamespace:project.glNamespace])
         return NO;
+    if (self.language != project.language && ![self.language isEqualToString:project.language])
+        return NO;
+    if (self.forksCount != project.forksCount)
+        return NO;
+    if (self.starsCount != project.starsCount)
+        return NO;
     return YES;
 }
 
@@ -170,6 +182,9 @@ static NSString * const kKeyNamespace = @"namespace";
     [description appendFormat:@", self.createdAt=%@", self.createdAt];
     [description appendFormat:@", self.lastActivityAt=%@", self.lastActivityAt];
     [description appendFormat:@", self.glNamespace=%@", self.glNamespace];
+    [description appendFormat:@", self.language=%@", self.language];
+    [description appendFormat:@", self.forks_count=%i", self.forksCount];
+    [description appendFormat:@", self.stars_count=%i", self.starsCount];
     [description appendString:@">"];
     return description;
 }

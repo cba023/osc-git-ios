@@ -55,6 +55,12 @@
 @property (nonatomic, strong) NSDate *lastActivityAt;
 // namespace
 @property (nonatomic, strong) GLNamespace *glNamespace;
+// language
+@property (nonatomic, copy) NSString *language;
+// forks_count
+@property (nonatomic, assign) int32_t forksCount;
+// stars_count
+@property (nonatomic, assign) int32_t starsCount;
 
 - (BOOL)isEqualToProject:(GLProject *)project;
 

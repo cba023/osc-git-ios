@@ -74,6 +74,9 @@
 		0087828A19583E7D003F331C /* Project.m in Sources */ = {isa = PBXBuildFile; fileRef = 0087828919583E7D003F331C /* Project.m */; };
 		009018C71921D1B90050197D /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 009018C61921D1B90050197D /* LoginViewController.m */; };
 		00B01FE919221EB40095D488 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 00B01FE819221EB40095D488 /* User.m */; };
+		00C408F11959CDFA001073BF /* fork@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 00C408EE1959CDFA001073BF /* fork@2x.png */; };
+		00C408F21959CDFA001073BF /* language@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 00C408EF1959CDFA001073BF /* language@2x.png */; };
+		00C408F31959CDFA001073BF /* star2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 00C408F01959CDFA001073BF /* star2@2x.png */; };
 		00CF21DF1929EF890087AF83 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00CF21DE1929EF890087AF83 /* ImageIO.framework */; };
 		00F198D11929F8CE00E56CDA /* SDWebImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00F198D01929F8CE00E56CDA /* SDWebImage.framework */; };
 /* End PBXBuildFile section */
@@ -213,6 +216,9 @@
 		009018C61921D1B90050197D /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		00B01FE719221EB40095D488 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
 		00B01FE819221EB40095D488 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
+		00C408EE1959CDFA001073BF /* fork@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "fork@2x.png"; sourceTree = "<group>"; };
+		00C408EF1959CDFA001073BF /* language@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "language@2x.png"; sourceTree = "<group>"; };
+		00C408F01959CDFA001073BF /* star2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "star2@2x.png"; sourceTree = "<group>"; };
 		00CF21DE1929EF890087AF83 /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
 		00F198D01929F8CE00E56CDA /* SDWebImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDWebImage.framework; path = "../../Objective-C/SDWebImage.framework"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -352,6 +358,9 @@
 		0002D2C519179858001FDED8 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				00C408EE1959CDFA001073BF /* fork@2x.png */,
+				00C408EF1959CDFA001073BF /* language@2x.png */,
+				00C408F01959CDFA001073BF /* star2@2x.png */,
 				0002D2E419188B8A001FDED8 /* Balloon@2x.png */,
 				0002D2DE19188B4E001FDED8 /* avatar@2x.jpg */,
 				0002D2DF19188B4E001FDED8 /* three_lines.png */,
@@ -541,8 +550,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				00C408F21959CDFA001073BF /* language@2x.png in Resources */,
+				00C408F31959CDFA001073BF /* star2@2x.png in Resources */,
 				0002D2E219188B4E001FDED8 /* three_lines.png in Resources */,
 				0002D2E519188B8A001FDED8 /* Balloon@2x.png in Resources */,
+				00C408F11959CDFA001073BF /* fork@2x.png in Resources */,
 				0002D2E319188B4E001FDED8 /* three_lines@2x.png in Resources */,
 				0002D2D719188953001FDED8 /* Images.xcassets in Resources */,
 				0002D2E119188B4E001FDED8 /* avatar@2x.jpg in Resources */,

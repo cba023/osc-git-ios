@@ -12,9 +12,9 @@
 
 @property UILabel *projectNameField;
 @property UILabel *projectDescriptionField;
-/*@property UILabel *languageField;
-@property UILabel *updatetimeField;
-@property UILabel *starCount;
-@property UILabel *forkCount;
-*/
+@property UILabel *languageField;
+@property UILabel *starsCount;
+@property UILabel *forksCount;
+//@property UILabel *updatetimeField;
+
 @end

@@ -76,6 +76,9 @@
     GLProject *project = [self.projectsArray objectAtIndex:rowNo];
     cell.projectNameField.text = project.name;
     cell.projectDescriptionField.text = project.projectDescription;
+    cell.languageField.text = project.language;
+    cell.forksCount.text = [NSString stringWithFormat:@"%i", project.forksCount];
+    cell.starsCount.text = [NSString stringWithFormat:@"%i", project.starsCount];
     
     return cell;
 }
