@@ -69,7 +69,9 @@
 		0021BAEF192342BD00626A2C /* GLGitlabApi+Private.m in Sources */ = {isa = PBXBuildFile; fileRef = 0021BACB192342BD00626A2C /* GLGitlabApi+Private.m */; };
 		0021BAF41923608200626A2C /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0021BAF31923608200626A2C /* Security.framework */; };
 		0021BAF7192360A100626A2C /* SSKeychain.m in Sources */ = {isa = PBXBuildFile; fileRef = 0021BAF6192360A100626A2C /* SSKeychain.m */; };
+		002F887F1942B7F5001A4826 /* ProjectTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 002F887E1942B7F5001A4826 /* ProjectTableCell.m */; };
 		0041FA9B191C87AF00E1F237 /* Tools.m in Sources */ = {isa = PBXBuildFile; fileRef = 0041FA9A191C87AF00E1F237 /* Tools.m */; };
+		0087828A19583E7D003F331C /* Project.m in Sources */ = {isa = PBXBuildFile; fileRef = 0087828919583E7D003F331C /* Project.m */; };
 		009018C71921D1B90050197D /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 009018C61921D1B90050197D /* LoginViewController.m */; };
 		00B01FE919221EB40095D488 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 00B01FE819221EB40095D488 /* User.m */; };
 		00CF21DF1929EF890087AF83 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00CF21DE1929EF890087AF83 /* ImageIO.framework */; };
@@ -201,8 +203,12 @@
 		0021BAF31923608200626A2C /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		0021BAF5192360A100626A2C /* SSKeychain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SSKeychain.h; path = "../../../Objective-C/sskeychain-master/SSKeychain.h"; sourceTree = "<group>"; };
 		0021BAF6192360A100626A2C /* SSKeychain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SSKeychain.m; path = "../../../Objective-C/sskeychain-master/SSKeychain.m"; sourceTree = "<group>"; };
+		002F887D1942B7F5001A4826 /* ProjectTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProjectTableCell.h; sourceTree = "<group>"; };
+		002F887E1942B7F5001A4826 /* ProjectTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProjectTableCell.m; sourceTree = "<group>"; };
 		0041FA99191C87AF00E1F237 /* Tools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tools.h; sourceTree = "<group>"; };
 		0041FA9A191C87AF00E1F237 /* Tools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Tools.m; sourceTree = "<group>"; };
+		0087828819583E7D003F331C /* Project.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Project.h; sourceTree = "<group>"; };
+		0087828919583E7D003F331C /* Project.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Project.m; sourceTree = "<group>"; };
 		009018C51921D1B90050197D /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		009018C61921D1B90050197D /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		00B01FE719221EB40095D488 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
@@ -282,6 +288,8 @@
 				0041FA9A191C87AF00E1F237 /* Tools.m */,
 				00B01FE719221EB40095D488 /* User.h */,
 				00B01FE819221EB40095D488 /* User.m */,
+				0087828819583E7D003F331C /* Project.h */,
+				0087828919583E7D003F331C /* Project.m */,
 				0002D2B81916407B001FDED8 /* Controller */,
 				0002D2581916324B001FDED8 /* AppDelegate.h */,
 				0002D2591916324B001FDED8 /* AppDelegate.m */,
@@ -335,6 +343,8 @@
 				009018C61921D1B90050197D /* LoginViewController.m */,
 				0019C082192AF37200B95AD6 /* ProjectTableController.h */,
 				0019C083192AF37200B95AD6 /* ProjectTableController.m */,
+				002F887D1942B7F5001A4826 /* ProjectTableCell.h */,
+				002F887E1942B7F5001A4826 /* ProjectTableCell.m */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -593,12 +603,14 @@
 				0021BAE4192342BD00626A2C /* GLGitlabApi+Projects.m in Sources */,
 				0021BACF192342BD00626A2C /* GLDiff.m in Sources */,
 				0021BAE0192342BD00626A2C /* GLGitlabApi+Issues.m in Sources */,
+				0087828A19583E7D003F331C /* Project.m in Sources */,
 				0002D2BE19164716001FDED8 /* MenuViewController.m in Sources */,
 				0021BAD9192342BD00626A2C /* GLSnippet.m in Sources */,
 				0021BAE3192342BD00626A2C /* GLGitlabApi+Notes.m in Sources */,
 				0021BACC192342BD00626A2C /* GLBaseObject.m in Sources */,
 				0021BAD4192342BD00626A2C /* GLMergeRequest.m in Sources */,
 				0021BAD1192342BD00626A2C /* GLFile.m in Sources */,
+				002F887F1942B7F5001A4826 /* ProjectTableCell.m in Sources */,
 				0021BAD3192342BD00626A2C /* GLIssue.m in Sources */,
 				0021BAD7192342BD00626A2C /* GLNote.m in Sources */,
 				0021BAE1192342BD00626A2C /* GLGitlabApi+MergeRequest.m in Sources */,

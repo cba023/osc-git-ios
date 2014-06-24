@@ -10,6 +10,6 @@
 
 @interface ProjectTableController : UITableViewController
 
-- (NSString *)getProject;
+@property __block NSMutableArray *projectsArray;
 
 @end

@@ -22,13 +22,11 @@ static NSString *const kPrivateTokenKey = @"private_token";
 @implementation GLGitlabApi (Session)
 
 
-- (GLNetworkOperation *)loginToHost:(NSString *)host
-                              email:(NSString *)email
-                           password:(NSString *)password
-                            success:(GLGitlabSuccessBlock)successBlock
-                            failure:(GLGitlabFailureBlock)failureBlock
+- (GLNetworkOperation *)loginWithEmail:(NSString *)email
+                              Password:(NSString *)password
+                               Success:(GLGitlabSuccessBlock)successBlock
+                               Failure:(GLGitlabFailureBlock)failureBlock
 {
-    self.hostName = [NSURL URLWithString:host];
     NSDictionary *params = @{ kLoginUseremailKey: email, kLoginPasswordKey: password };
     NSMutableURLRequest *request = [self requestForEndPoint:kLoginRoute
                                                      method:GLNetworkOperationPostMethod];

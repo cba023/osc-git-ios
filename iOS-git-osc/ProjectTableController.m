@@ -7,18 +7,23 @@
 //
 
 #import "ProjectTableController.h"
+#import "ProjectTableCell.h"
+#import "NavigationController.h"
+#import "GLGitlab.h"
+#import "Project.h"
 
 @interface ProjectTableController ()
 
 @end
 
 @implementation ProjectTableController
+@synthesize projectsArray;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
     self = [super initWithStyle:style];
     if (self) {
-        // Custom initialization
+        
     }
     return self;
 }
@@ -27,11 +32,16 @@
 {
     [super viewDidLoad];
     
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"three_lines"]
+                                                                             style:UIBarButtonItemStylePlain
+                                                                            target:(NavigationController *)self.navigationController
+                                                                            action:@selector(showMenu)];
+    self.title = @"热门项目";
+    self.tableView.delegate = self;
+    self.tableView.dataSource = self;
     
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    self.projectsArray = [[NSMutableArray alloc] initWithCapacity:20];
+    [self.projectsArray addObjectsFromArray:[Project getPopularProject]];
 }
 
 - (void)didReceiveMemoryWarning
@@ -44,28 +54,36 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-#warning Potentially incomplete method implementation.
-    // Return the number of sections.
-    return 0;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-#warning Incomplete method implementation.
-    // Return the number of rows in the section.
-    return 0;
+    return self.projectsArray.count;
 }
 
-/*
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];
+    static NSString *cellId = @"cellId";
+    ProjectTableCell *cell = [tableView dequeueReusableCellWithIdentifier:cellId];
     
-    // Configure the cell...
+    if (cell == nil) {
+        cell = [[ProjectTableCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
+    }
+    
+    NSUInteger rowNo = indexPath.row;
+    GLProject *project = [self.projectsArray objectAtIndex:rowNo];
+    cell.projectNameField.text = project.name;
+    cell.projectDescriptionField.text = project.projectDescription;
     
     return cell;
 }
-*/
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 60;
+}
 
 /*
 // Override to support conditional editing of the table view.

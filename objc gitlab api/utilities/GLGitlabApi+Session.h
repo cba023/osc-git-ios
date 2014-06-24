@@ -11,10 +11,9 @@
 
 @interface GLGitlabApi (Session)
 
-- (GLNetworkOperation *)loginToHost:(NSString *)host
-                              email:(NSString *)email
-                           password:(NSString *)password
-                            success:(GLGitlabSuccessBlock)successBlock
-                            failure:(GLGitlabFailureBlock)failureBlock;
+- (GLNetworkOperation *)loginWithEmail:(NSString *)email
+                              Password:(NSString *)password
+                               Success:(GLGitlabSuccessBlock)successBlock
+                               Failure:(GLGitlabFailureBlock)failureBlock;
 
 @end

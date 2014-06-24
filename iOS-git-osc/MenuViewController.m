@@ -13,6 +13,8 @@
 #import "UIViewController+REFrostedViewController.h"
 #import "GLGitlab.h"
 #import "User.h"
+#import "ProjectTableController.h"
+#import "Project.h"
 #import <SDWebImage/UIImageView+WebCache.h>
 
 @interface MenuViewController ()
@@ -81,7 +83,7 @@
         NSString *name = [self.user objectForKey:kKeyName];
         
         if (portrait) {
-            NSString *urlString = [git_osc_url stringByAppendingString:portrait];
+            NSString *urlString = [NSString stringWithFormat:@"%@%@%@", git_osc_url, @"//", portrait];//[git_osc_url stringByAppendingString:portrait];
             [self.imageView setImageWithURL:[NSURL URLWithString:urlString]];
         } else {
             self.imageView.image = [UIImage imageNamed:@"avatar.jpg"];
@@ -178,10 +180,21 @@
         HomeViewController *homeViewController = [[HomeViewController alloc] init];
         NavigationController *navigationController = [[NavigationController alloc] initWithRootViewController:homeViewController];
         self.frostedViewController.contentViewController = navigationController;
-    } else {
+    } else if (indexPath.section == 0 && indexPath > 0) {
         LoginViewController *loginViewController = [[LoginViewController alloc] init];
         NavigationController *navigationController = [[NavigationController alloc] initWithRootViewController:loginViewController];
         self.frostedViewController.contentViewController = navigationController;
+    } else {
+#if 1
+        ProjectTableController *projectTableController = [[ProjectTableController alloc] init];
+        NavigationController *navigationController = [[NavigationController alloc] initWithRootViewController:projectTableController];
+        self.frostedViewController.contentViewController = navigationController;
+#else
+        NSArray *projects = [Project getPopularProject];
+        for (GLProject *project in projects) {
+            NSLog(@"%@", project.projectDescription);
+        }
+#endif
     }
     
     [self.frostedViewController hideMenuViewController];

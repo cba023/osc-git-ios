@@ -18,7 +18,6 @@
 
 @interface GLGitlabApi ()
 
-@property (nonatomic, strong) NSURL *hostName;
 @property (nonatomic, strong) NSString *privateToken;
 @property (nonatomic, strong) NSDateFormatter *dateFormatter;
 @property (nonatomic, strong) NSDateFormatter *dueDateFormatter;

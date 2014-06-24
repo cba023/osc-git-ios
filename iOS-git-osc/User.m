@@ -23,9 +23,6 @@
         } else {
             [User saveUserInformation:user];
             NSLog(@"username: %@, name = %@", user.username, user.name);
-            NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-            NSString *portrait = [userDefaults objectForKey:kKeyPortrait];
-            NSLog(@"%@", portrait);
         }
         done = YES;
     };
@@ -36,17 +33,13 @@
         }
         done = YES;
     };
-    GLNetworkOperation *op = [[GLGitlabApi sharedInstance] loginToHost:@"http://git.oschina.net"
-                                                                 email:@"aeternchan@gmail.com"
-                                                              password:@"27inoschina"
-                                                               success:success
-                                                               failure:failure];
+    GLNetworkOperation *op = [[GLGitlabApi sharedInstance] loginWithEmail:account Password:password Success:success Failure:failure];
     //[[GLGitlabApi sharedInstance] privateToken];
-    
+#if 1
     while (!done) {
         [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate distantFuture]];
     }
-
+#endif
 }
 
 + (void)saveUserInformation:(GLUser *)user {

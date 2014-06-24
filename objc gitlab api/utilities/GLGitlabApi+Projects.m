@@ -19,6 +19,8 @@ static NSString * const kProjectSingleProjectEndPoint = @"/projects/%llu";
 static NSString * const kProjectEndpointForUser = @"/projects/user/%llu";
 static NSString * const kProjectEventsEndPoint = @"/projects/%llu/events";
 static NSString * const kProjectUsersEndPoint = @"/projects/%llu/members";
+static NSString * const kProjectPopularProjectEndPoint = @"/projects/popular";
+
 @implementation GLGitlabApi (Projects)
 #pragma mark - Project Methods
 
@@ -186,5 +188,19 @@ static NSString * const kProjectUsersEndPoint = @"/projects/%llu/members";
                                    success:localSuccessBlock
                                    failure:localFailureBlock];}
 
+- (GLNetworkOperation *)getPopularProjectsSuccess:(GLGitlabSuccessBlock)successBlock
+                                          failure:(GLGitlabFailureBlock)failureBlock
+{
+    NSMutableURLRequest *request = [self requestForEndPoint:kProjectPopularProjectEndPoint
+                                                     method:GLNetworkOperationGetMethod];
+    
+    GLNetworkOperationSuccessBlock localSuccessBlock = [self multipleObjectSuccessBlockForClass:[GLProject class] successBlock:successBlock];
+    GLNetworkOperationFailureBlock localFailureBlock = [self defaultFailureBlock:failureBlock];
+    
+    return [self queueOperationWithRequest:request
+                                      type:GLNetworkOperationTypeJson
+                                   success:localSuccessBlock
+                                   failure:localFailureBlock];
+}
 
 @end

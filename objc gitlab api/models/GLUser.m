@@ -96,27 +96,6 @@ static NSString * const kKeyCanCreateTeam = @"can_create_team";
     return YES;
 }
 
-#if 0
-- (NSUInteger)hash {
-    NSUInteger hash = (NSUInteger) self.userId;
-    hash = hash * 31u + [self.username hash];
-    hash = hash * 31u + [self.email hash];
-    hash = hash * 31u + [self.name hash];
-    hash = hash * 31u + [self.skype hash];
-    hash = hash * 31u + [self.linkedin hash];
-    hash = hash * 31u + [self.twitter hash];
-    hash = hash * 31u + [self.provider hash];
-    hash = hash * 31u + [self.state hash];
-    hash = hash * 31u + [self.createdAt hash];
-    hash = hash * 31u + [self.bio hash];
-    hash = hash * 31u + [self.externUid hash];
-    hash = hash * 31u + self.themeId;
-    hash = hash * 31u + self.colorSchemeId;
-    hash = hash * 31u + self.admin;
-    return hash;
-}
-#endif
-
 - (NSString *)description {
     NSMutableString *description = [NSMutableString stringWithFormat:@"<%@: ", NSStringFromClass([self class])];
     [description appendFormat:@"self.userId=%qi", self.userId];

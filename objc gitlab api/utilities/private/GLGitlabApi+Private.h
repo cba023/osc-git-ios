@@ -11,7 +11,6 @@
 
 @interface GLGitlabApi (Private)
 
-@property (nonatomic, strong) NSURL *hostName;
 @property (nonatomic, strong) NSString *privateToken;
 @property (nonatomic, strong) NSOperationQueue  *queue;
 
@@ -76,7 +75,7 @@
  *
  *  @return The url for the api call
  */
-- (NSURL *)requestUrlForEndPoint:(NSString *)endpoint;
++ (NSURL *)requestUrlForEndPoint:(NSString *)endpoint;
 
 /**
  *  Creates the request for the specified endpoint

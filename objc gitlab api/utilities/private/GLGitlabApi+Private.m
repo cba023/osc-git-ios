@@ -13,10 +13,11 @@
 
 static NSString * const kApiRoutePrefix = @"/api/v3";
 static NSString * const kPrivateTokenHeaderKey = @"PRIVATE-TOKEN";
+static NSString * const hostName = @"http://git.oschina.net";
 
 @implementation GLGitlabApi (Private)
 
-@dynamic privateToken, hostName, queue;
+@dynamic privateToken, queue;
 
 - (GLNetworkOperation *)queueOperationWithRequest:(NSMutableURLRequest *)request
                                              type:(GLNetworkOperationType)type
@@ -93,16 +94,17 @@ static NSString * const kPrivateTokenHeaderKey = @"PRIVATE-TOKEN";
     return [array copy];
 }
 
-- (NSURL *)requestUrlForEndPoint:(NSString *)endpoint
++ (NSURL *)requestUrlForEndPoint:(NSString *)endpoint
 {
-    NSURL *url = [self.hostName URLByAppendingPathComponent:kApiRoutePrefix];
+    NSURL *url = [NSURL URLWithString:hostName];
+    url = [url URLByAppendingPathComponent:kApiRoutePrefix];
     url = [url URLByAppendingPathComponent:endpoint];
     return url;
 }
 
 - (NSMutableURLRequest *)requestForEndPoint:(NSString *)endpoint method:(NSString *)method
 {
-    NSURL *url = [self requestUrlForEndPoint:endpoint];
+    NSURL *url = [GLGitlabApi requestUrlForEndPoint:endpoint];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
     request.HTTPMethod = method;
     
@@ -111,7 +113,7 @@ static NSString * const kPrivateTokenHeaderKey = @"PRIVATE-TOKEN";
 
 - (NSMutableURLRequest *)requestForEndPoint:(NSString *)endpoint params:(NSDictionary *)params method:(NSString *)method
 {
-    NSURL *url = [self requestUrlForEndPoint:endpoint];
+    NSURL *url = [GLGitlabApi requestUrlForEndPoint:endpoint];
 
     if (params && [method isEqualToString:GLNetworkOperationGetMethod]) {
         NSString *queryString = [self urlEncodeParamsForGet:params];
