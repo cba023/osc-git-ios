@@ -29,17 +29,15 @@
     
     GLGitlabFailureBlock failure = ^(NSError *error) {
         if (error != nil) {
-            NSLog(@"Request failed");
+            NSLog(@"%@, Request failed", error);
         }
         done = YES;
     };
     GLNetworkOperation *op = [[GLGitlabApi sharedInstance] loginWithEmail:account Password:password Success:success Failure:failure];
     //[[GLGitlabApi sharedInstance] privateToken];
-#if 1
     while (!done) {
         [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate distantFuture]];
     }
-#endif
 }
 
 + (void)saveUserInformation:(GLUser *)user {

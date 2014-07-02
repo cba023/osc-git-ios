@@ -156,15 +156,20 @@
                               success:(GLGitlabSuccessBlock)successBlock
                               failure:(GLGitlabFailureBlock)failureBlock;
 
+
 /**
- *  Returns popular projects
+ *  Returns recommended, popular or latest projects
  *
+ *  @param type                   Type of projects' arrangement
+ *  @param page                   Page of projects' list
  *  @param successBlock parameter will be an NSArray of GLProject objects
  *  @param failureBlock parameter will be an NSError
  *
  *  @return The operation to be executed
  */
-- (GLNetworkOperation *)getPopularProjectsSuccess:(GLGitlabSuccessBlock)successBlock
-                                          failure:(GLGitlabFailureBlock)failureBlock;
+- (GLNetworkOperation *)getExtraProjectsType:(int)type
+                                        Page:(int)page
+                                     Success:(GLGitlabSuccessBlock)successBlock
+                                     Failure:(GLGitlabFailureBlock)failureBlock;
 
 @end

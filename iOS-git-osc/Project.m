@@ -11,34 +11,67 @@
 
 @implementation Project
 
-+ (NSArray *)getPopularProject {
++ (NSArray *)loadExtraProjectType:(int)type OnPage:(int)page {
     __block BOOL done = NO;
     __block NSArray *array;
-    GLNetworkOperation *op = [[GLGitlabApi sharedInstance] getPopularProjectsSuccess:
-                              ^(id responseObject) {
-                                  if (responseObject == nil) {
-                                      NSLog(@"Request failed");
-                                  } else {
-                                      array = responseObject;
-                                  }
-                                  done = YES;
-                              }
-                                                                             failure:
-                              ^(NSError *error) {
-                                  if (error != nil) {
-                                      NSLog(@"Request failed");
-                                  } else {
-                                      NSLog(@"error == nil");
-                                  }
-                                  done = YES;
-                              }];
-#if 1
+    GLGitlabSuccessBlock success = ^(id responseObject) {
+        if (responseObject == nil) {
+            NSLog(@"Request failed");
+        } else {
+            array = responseObject;
+        }
+        done = YES;
+    };
+    GLGitlabFailureBlock failure = ^(NSError *error) {
+        if (error != nil) {
+            NSLog(@"Request failed");
+        } else {
+            NSLog(@"error == nil");
+        }
+        done = YES;
+    };
+    GLNetworkOperation *op = [[GLGitlabApi sharedInstance] getExtraProjectsType:type
+                                                                           Page:page
+                                                                        Success:success
+                                                                        Failure:failure];
+                              
     while (!done) {
         [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate distantFuture]];
     }
-#endif
     return array;
 }
 
+
++ (NSArray *)getProjectTreeWithID:(int64_t)projectID Branch:(NSString *)branch Path:(NSString *)path {
+    __block BOOL done = NO;
+    __block NSArray *array;
+    GLGitlabSuccessBlock success = ^(id responseObject) {
+        if (responseObject == nil){
+            NSLog(@"Request failed");
+        } else {
+            array = responseObject;
+        }
+        done = YES;
+    };
+    
+    GLGitlabFailureBlock failure = ^(NSError *error) {
+        if (error != nil) {
+            NSLog(@"Request failed");
+        }
+        done = YES;
+    };
+    
+    GLNetworkOperation *op = [[GLGitlabApi sharedInstance] getRepositoryTreeForProjectId:projectID
+                                                                                    path:path
+                                                                              branchName:branch
+                                                                        withSuccessBlock:success
+                                                                         andFailureBlock:failure];
+    
+    while (!done) {
+        [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate distantFuture]];
+    }
+    
+    return array;
+}
 
 @end

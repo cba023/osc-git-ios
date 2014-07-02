@@ -15,6 +15,7 @@
 
     #import "GLGitlabApi.h"
     #import "GLGitlabApi+Commits.h"
+    #import "GLGitlabApi+Files.h"
     #import "GLGitlabApi+Issues.h"
     #import "GLGitlabApi+MergeRequest.h"
     #import "GLGitlabApi+Milestones.h"
@@ -28,6 +29,7 @@
     #import "GLBranch.h"
     #import "GLCommit.h"
     #import "GLDiff.h"
+    #import "GLFile.h"
     #import "GLIssue.h"
     #import "GLMergeRequest.h"
     #import "GLMilestone.h"

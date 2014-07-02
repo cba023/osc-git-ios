@@ -20,6 +20,8 @@ static NSString * const kProjectEndpointForUser = @"/projects/user/%llu";
 static NSString * const kProjectEventsEndPoint = @"/projects/%llu/events";
 static NSString * const kProjectUsersEndPoint = @"/projects/%llu/members";
 static NSString * const kProjectPopularProjectEndPoint = @"/projects/popular";
+static NSString * const kProjectRecommendedProjectEndPoint = @"/projects/featured";
+static NSString * const kProjectLatestProjectEndPoint = @"/projects/latest";
 
 @implementation GLGitlabApi (Projects)
 #pragma mark - Project Methods
@@ -186,12 +188,26 @@ static NSString * const kProjectPopularProjectEndPoint = @"/projects/popular";
     return [self queueOperationWithRequest:request
                                       type:GLNetworkOperationTypeJson
                                    success:localSuccessBlock
-                                   failure:localFailureBlock];}
+                                   failure:localFailureBlock];
+}
 
-- (GLNetworkOperation *)getPopularProjectsSuccess:(GLGitlabSuccessBlock)successBlock
-                                          failure:(GLGitlabFailureBlock)failureBlock
+- (GLNetworkOperation *)getExtraProjectsType:(int)type
+                                        Page:(int)page
+                                     Success:(GLGitlabSuccessBlock)successBlock
+                                     Failure:(GLGitlabFailureBlock)failureBlock
 {
-    NSMutableURLRequest *request = [self requestForEndPoint:kProjectPopularProjectEndPoint
+    NSDictionary *parameters = @{@"page": [NSNumber numberWithInt:page]};
+    NSString *endPoint;
+    switch (type) {
+        case 0:
+            endPoint = kProjectRecommendedProjectEndPoint;break;
+        case 1:
+            endPoint = kProjectPopularProjectEndPoint;break;
+        default:
+            endPoint = kProjectLatestProjectEndPoint;break;
+    }
+    NSMutableURLRequest *request = [self requestForEndPoint:endPoint
+                                                     params:parameters
                                                      method:GLNetworkOperationGetMethod];
     
     GLNetworkOperationSuccessBlock localSuccessBlock = [self multipleObjectSuccessBlockForClass:[GLProject class] successBlock:successBlock];
@@ -202,5 +218,6 @@ static NSString * const kProjectPopularProjectEndPoint = @"/projects/popular";
                                    success:localSuccessBlock
                                    failure:localFailureBlock];
 }
+
 
 @end

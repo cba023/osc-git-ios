@@ -1,14 +1,14 @@
 //
-//  ProjectTableCell.m
+//  ProjectCell.m
 //  iOS-git-osc
 //
-//  Created by chenhaoxiang on 14-6-7.
+//  Created by chenhaoxiang on 14-7-2.
 //  Copyright (c) 2014年 chenhaoxiang. All rights reserved.
 //
 
-#import "ProjectTableCell.h"
+#import "ProjectCell.h"
 
-@implementation ProjectTableCell
+@implementation ProjectCell
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {

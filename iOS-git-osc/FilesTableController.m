@@ -1,29 +1,28 @@
 //
-//  ProjectTableController.m
+//  FilesTableController.m
 //  iOS-git-osc
 //
-//  Created by chenhaoxiang on 14-5-20.
+//  Created by chenhaoxiang on 14-7-1.
 //  Copyright (c) 2014年 chenhaoxiang. All rights reserved.
 //
 
-#import "ProjectTableController.h"
-#import "ProjectTableCell.h"
-#import "NavigationController.h"
 #import "GLGitlab.h"
+#import "FilesTableController.h"
+#import "NavigationController.h"
 #import "Project.h"
+#import "FileCell.h"
 
-@interface ProjectTableController ()
+@interface FilesTableController ()
 
 @end
 
-@implementation ProjectTableController
-@synthesize projectsArray;
+@implementation FilesTableController
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
     self = [super initWithStyle:style];
     if (self) {
-        
+        // Custom initialization
     }
     return self;
 }
@@ -32,16 +31,20 @@
 {
     [super viewDidLoad];
     
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"three_lines"]
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"back"]
                                                                              style:UIBarButtonItemStylePlain
-                                                                            target:(NavigationController *)self.navigationController
-                                                                            action:@selector(showMenu)];
-    self.title = @"热门项目";
+                                                                            target:self
+                                                                            action:@selector(popBack)];
+    self.title = @"项目文件";
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     
-    self.projectsArray = [[NSMutableArray alloc] initWithCapacity:20];
-    [self.projectsArray addObjectsFromArray:[Project getPopularProject]];
+#if 0
+    self.refreshControl = [[UIRefreshControl alloc] init];
+    [self.refreshControl setAttributedTitle:[[NSAttributedString alloc] initWithString:@"松手更新数据"]];
+    [self.refreshControl addTarget:self action:@selector(refreshView) forControlEvents:UIControlEventValueChanged];
+    //[self setRefreshControl:self.refreshControl];
+#endif
 }
 
 - (void)didReceiveMemoryWarning
@@ -50,7 +53,17 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)popBack
+{
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
 #pragma mark - Table view data source
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 30;
+}
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -59,34 +72,40 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return self.projectsArray.count;
+    return self.filesArray.count;
 }
-
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *cellId = @"cellId";
-    ProjectTableCell *cell = [tableView dequeueReusableCellWithIdentifier:cellId];
+    FileCell *cell = [tableView dequeueReusableCellWithIdentifier:cellId];
     
     if (cell == nil) {
-        cell = [[ProjectTableCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
+        cell = [[FileCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
     }
     
     NSUInteger rowNo = indexPath.row;
-    GLProject *project = [self.projectsArray objectAtIndex:rowNo];
-    cell.projectNameField.text = project.name;
-    cell.projectDescriptionField.text = project.projectDescription;
-    cell.languageField.text = project.language;
-    cell.forksCount.text = [NSString stringWithFormat:@"%i", project.forksCount];
-    cell.starsCount.text = [NSString stringWithFormat:@"%i", project.starsCount];
+    GLFile *file = [self.filesArray objectAtIndex:rowNo];
+    if (file.type == GLFileTypeTree) {
+        [cell.fileType setImage:[UIImage imageNamed:@"folder"]];
+    } else {
+        [cell.fileType setImage:[UIImage imageNamed:@"file"]];
+    }
+    cell.fileName.text = file.name;
     
     return cell;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+/*
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 60;
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];
+    
+    // Configure the cell...
+    
+    return cell;
 }
+*/
 
 /*
 // Override to support conditional editing of the table view.

@@ -13,8 +13,8 @@
 #import "UIViewController+REFrostedViewController.h"
 #import "GLGitlab.h"
 #import "User.h"
-#import "ProjectTableController.h"
 #import "Project.h"
+#import "ProjectsViewController.h"
 #import <SDWebImage/UIImageView+WebCache.h>
 
 @interface MenuViewController ()
@@ -185,16 +185,14 @@
         NavigationController *navigationController = [[NavigationController alloc] initWithRootViewController:loginViewController];
         self.frostedViewController.contentViewController = navigationController;
     } else {
-#if 1
+#if 0
         ProjectTableController *projectTableController = [[ProjectTableController alloc] init];
         NavigationController *navigationController = [[NavigationController alloc] initWithRootViewController:projectTableController];
         self.frostedViewController.contentViewController = navigationController;
-#else
-        NSArray *projects = [Project getPopularProject];
-        for (GLProject *project in projects) {
-            NSLog(@"%@", project.projectDescription);
-        }
 #endif
+        ProjectsViewController *projectViewController = [[ProjectsViewController alloc] init];
+        NavigationController *navigationController = [[NavigationController alloc] initWithRootViewController:projectViewController];
+        self.frostedViewController.contentViewController = navigationController;
     }
     
     [self.frostedViewController hideMenuViewController];

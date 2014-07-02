@@ -10,6 +10,7 @@
 
 @interface Project : NSObject
 
-+ (NSArray *)getPopularProject;
++ (NSArray *)loadExtraProjectType:(int)type OnPage:(int)page;
++ (NSArray *)getProjectTreeWithID:(int64_t)projectID Branch:(NSString *)branch Path:(NSString *)path;
 
 @end
