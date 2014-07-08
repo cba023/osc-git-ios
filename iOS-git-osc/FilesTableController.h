@@ -10,6 +10,8 @@
 
 @interface FilesTableController : UITableViewController
 
+@property int64_t projectID;
 @property NSMutableArray *filesArray;
+@property (strong, nonatomic) NSString *currentPath;
 
 @end

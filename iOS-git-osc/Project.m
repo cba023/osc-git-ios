@@ -8,6 +8,7 @@
 
 #import "Project.h"
 #import "GLGitlab.h"
+#import "Tools.h"
 
 @implementation Project
 
@@ -72,6 +73,38 @@
     }
     
     return array;
+}
+
++ (NSString *)getFileContent:(int64_t)projectID Path:(NSString *)path Branch:(NSString *)branch {
+    __block BOOL done = NO;
+    __block NSString *content;
+    GLGitlabSuccessBlock success = ^(id responseObject) {
+        if (responseObject == nil){
+            NSLog(@"Request failed");
+        } else {
+            content = [Tools decodeBase64String:[responseObject description]];
+        }
+        done = YES;
+    };
+    
+    GLGitlabFailureBlock failure = ^(NSError *error) {
+        if (error != nil) {
+            NSLog(@"%@, Request failed", error);
+        }
+        done = YES;
+    };
+    
+    GLNetworkOperation *op = [[GLGitlabApi sharedInstance] getFileContentFromProject:projectID
+                                                                                path:path
+                                                                          branchName:branch
+                                                                    withSuccessBlock:success
+                                                                     andFailureBlock:failure];
+    
+    while (!done) {
+        [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate distantFuture]];
+    }
+    
+    return content;
 }
 
 @end

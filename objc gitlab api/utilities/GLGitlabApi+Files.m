@@ -9,14 +9,17 @@
 #import "GLGitlabApi+Files.h"
 #import "GLGitlabApi+Private.h"
 #import "GLFile.h"
+#import "GLBlob.h"
 
 // Endpoint
 static NSString * const kTreeEndpoint = @"/projects/%llu/repository/tree";
-static NSString * const kBlobEndpoint = @"/projects/%llu/repository/raw_blobs/%@";
+static NSString * const kBlobEndpoint = @"/projects/%llu/repository/files";
 
 // Param keys
 static NSString * const kPath = @"path";
 static NSString * const kRefName = @"ref_name";
+static NSString * const kFilePath = @"file_path";
+static NSString * const kRef = @"ref";
 
 @implementation GLGitlabApi (Files)
 
@@ -51,23 +54,22 @@ static NSString * const kRefName = @"ref_name";
 }
 
 - (GLNetworkOperation *)getFileContentFromProject:(int64_t)projectId
-                                              sha:(NSString *)sha
+                                             path:(NSString *)path
+                                       branchName:(NSString *)branch
                                  withSuccessBlock:(GLGitlabSuccessBlock)success
                                   andFailureBlock:(GLGitlabFailureBlock)failure;
 {
-    NSMutableURLRequest *request = [self requestForEndPoint:[NSString stringWithFormat:kBlobEndpoint, projectId, sha]
+    NSDictionary *parameters = @{kRef: branch, kFilePath: path};
+    NSMutableURLRequest *request = [self requestForEndPoint:[NSString stringWithFormat:kBlobEndpoint, projectId]
+                                                     params:parameters
                                                      method:GLNetworkOperationGetMethod];
     
-    GLNetworkOperationSuccessBlock localSuccessBlock = ^(NSData *responseData) {
-        success(responseData);
-    };
-    
+    GLNetworkOperationSuccessBlock localSuccessBlock = [self singleObjectSuccessBlockForClass:[GLBlob class] successBlock:success];
     GLNetworkOperationFailureBlock localFailureBlock = [self defaultFailureBlock:failure];
     
     return [self queueOperationWithRequest:request
-                                      type:GLNetworkOperationTypeRaw
+                                      type:GLNetworkOperationTypeJson
                                    success:localSuccessBlock
                                    failure:localFailureBlock];
-    }
-
+}
 @end

@@ -99,7 +99,9 @@
         GLProject *project = [projectsArray objectAtIndex:row];
         if (project) {
             FilesTableController *filesTable = [[FilesTableController alloc] init];
+            filesTable.projectID = project.projectId;
             filesTable.filesArray = [[NSMutableArray alloc] initWithCapacity:20];
+            filesTable.currentPath = @"";
             [filesTable.filesArray addObjectsFromArray:[Project getProjectTreeWithID:project.projectId Branch:nil Path:nil]];
             [self.parentViewController.navigationController pushViewController:filesTable animated:YES];
         }

@@ -17,9 +17,10 @@
                                       andFailureBlock:(GLGitlabFailureBlock)failure;
 
 - (GLNetworkOperation *)getFileContentFromProject:(int64_t)projectId
-                                              sha:(NSString *)sha
+                                             path:(NSString *)path
+                                       branchName:(NSString *)branch
                                  withSuccessBlock:(GLGitlabSuccessBlock)success
-                                  andFailureBlock:(GLGitlabFailureBlock)failure;
+                                  andFailureBlock:(GLGitlabFailureBlock)failure;;
 
 
 @end

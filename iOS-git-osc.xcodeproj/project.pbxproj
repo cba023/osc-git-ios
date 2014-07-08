@@ -70,6 +70,7 @@
 		0021BAF7192360A100626A2C /* SSKeychain.m in Sources */ = {isa = PBXBuildFile; fileRef = 0021BAF6192360A100626A2C /* SSKeychain.m */; };
 		002F887F1942B7F5001A4826 /* ProjectTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 002F887E1942B7F5001A4826 /* ProjectTableCell.m */; };
 		0041FA9B191C87AF00E1F237 /* Tools.m in Sources */ = {isa = PBXBuildFile; fileRef = 0041FA9A191C87AF00E1F237 /* Tools.m */; };
+		00541C0A196684AB002EC356 /* GLBlob.m in Sources */ = {isa = PBXBuildFile; fileRef = 00541C09196684AB002EC356 /* GLBlob.m */; };
 		0062237D1963F30D00454CB9 /* back@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0062237C1963F30D00454CB9 /* back@2x.png */; };
 		0087828A19583E7D003F331C /* Project.m in Sources */ = {isa = PBXBuildFile; fileRef = 0087828919583E7D003F331C /* Project.m */; };
 		009018C71921D1B90050197D /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 009018C61921D1B90050197D /* LoginViewController.m */; };
@@ -84,6 +85,7 @@
 		00C408F11959CDFA001073BF /* fork@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 00C408EE1959CDFA001073BF /* fork@2x.png */; };
 		00C408F21959CDFA001073BF /* language@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 00C408EF1959CDFA001073BF /* language@2x.png */; };
 		00C408F31959CDFA001073BF /* star2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 00C408F01959CDFA001073BF /* star2@2x.png */; };
+		00C7C679196A85B70006B2E4 /* FileContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 00C7C678196A85B70006B2E4 /* FileContentView.m */; };
 		00CF21DF1929EF890087AF83 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00CF21DE1929EF890087AF83 /* ImageIO.framework */; };
 		00F198D11929F8CE00E56CDA /* SDWebImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00F198D01929F8CE00E56CDA /* SDWebImage.framework */; };
 /* End PBXBuildFile section */
@@ -215,6 +217,8 @@
 		002F887E1942B7F5001A4826 /* ProjectTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProjectTableCell.m; sourceTree = "<group>"; };
 		0041FA99191C87AF00E1F237 /* Tools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tools.h; sourceTree = "<group>"; };
 		0041FA9A191C87AF00E1F237 /* Tools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Tools.m; sourceTree = "<group>"; };
+		00541C08196684AB002EC356 /* GLBlob.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLBlob.h; sourceTree = "<group>"; };
+		00541C09196684AB002EC356 /* GLBlob.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GLBlob.m; sourceTree = "<group>"; };
 		0062237C1963F30D00454CB9 /* back@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "back@2x.png"; sourceTree = "<group>"; };
 		0087828819583E7D003F331C /* Project.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Project.h; sourceTree = "<group>"; };
 		0087828919583E7D003F331C /* Project.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Project.m; sourceTree = "<group>"; };
@@ -237,6 +241,8 @@
 		00C408EE1959CDFA001073BF /* fork@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "fork@2x.png"; sourceTree = "<group>"; };
 		00C408EF1959CDFA001073BF /* language@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "language@2x.png"; sourceTree = "<group>"; };
 		00C408F01959CDFA001073BF /* star2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "star2@2x.png"; sourceTree = "<group>"; };
+		00C7C677196A85B70006B2E4 /* FileContentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileContentView.h; sourceTree = "<group>"; };
+		00C7C678196A85B70006B2E4 /* FileContentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FileContentView.m; sourceTree = "<group>"; };
 		00CF21DE1929EF890087AF83 /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
 		00F198D01929F8CE00E56CDA /* SDWebImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDWebImage.framework; path = "../../Objective-C/SDWebImage.framework"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -377,6 +383,8 @@
 				00C3A41A1962BC5D002A34AB /* FileCell.m */,
 				00C3A42019639F8D002A34AB /* ProjectCell.h */,
 				00C3A42119639F8D002A34AB /* ProjectCell.m */,
+				00C7C677196A85B70006B2E4 /* FileContentView.h */,
+				00C7C678196A85B70006B2E4 /* FileContentView.m */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -424,6 +432,8 @@
 				0021BA8A192342BD00626A2C /* GLEvent.m */,
 				0021BA8B192342BD00626A2C /* GLFile.h */,
 				0021BA8C192342BD00626A2C /* GLFile.m */,
+				00541C08196684AB002EC356 /* GLBlob.h */,
+				00541C09196684AB002EC356 /* GLBlob.m */,
 				0021BA8D192342BD00626A2C /* GLGroup.h */,
 				0021BA8E192342BD00626A2C /* GLGroup.m */,
 				0021BA8F192342BD00626A2C /* GLIssue.h */,
@@ -630,6 +640,7 @@
 				0021BADE192342BD00626A2C /* GLGitlabApi+Files.m in Sources */,
 				0002D25A1916324B001FDED8 /* AppDelegate.m in Sources */,
 				0021BAEA192342BD00626A2C /* GLJsonNetworkOperation.m in Sources */,
+				00C7C679196A85B70006B2E4 /* FileContentView.m in Sources */,
 				0021BAE5192342BD00626A2C /* GLGitlabApi+Repositories.m in Sources */,
 				0021BAD0192342BD00626A2C /* GLEvent.m in Sources */,
 				0041FA9B191C87AF00E1F237 /* Tools.m in Sources */,
@@ -665,6 +676,7 @@
 				0021BAED192342BD00626A2C /* GLVoidNetworkOperation.m in Sources */,
 				0002D2B419163DF6001FDED8 /* REFrostedViewController.m in Sources */,
 				0021BAEC192342BD00626A2C /* GLRawNetworkOperation.m in Sources */,
+				00541C0A196684AB002EC356 /* GLBlob.m in Sources */,
 				0021BACD192342BD00626A2C /* GLBranch.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

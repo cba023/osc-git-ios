@@ -30,6 +30,7 @@
     #import "GLCommit.h"
     #import "GLDiff.h"
     #import "GLFile.h"
+    #import "GLBlob.h"
     #import "GLIssue.h"
     #import "GLMergeRequest.h"
     #import "GLMilestone.h"
