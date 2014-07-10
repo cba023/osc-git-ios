@@ -68,13 +68,16 @@
 		0021BAEF192342BD00626A2C /* GLGitlabApi+Private.m in Sources */ = {isa = PBXBuildFile; fileRef = 0021BACB192342BD00626A2C /* GLGitlabApi+Private.m */; };
 		0021BAF41923608200626A2C /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0021BAF31923608200626A2C /* Security.framework */; };
 		0021BAF7192360A100626A2C /* SSKeychain.m in Sources */ = {isa = PBXBuildFile; fileRef = 0021BAF6192360A100626A2C /* SSKeychain.m */; };
-		002F887F1942B7F5001A4826 /* ProjectTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 002F887E1942B7F5001A4826 /* ProjectTableCell.m */; };
 		0041FA9B191C87AF00E1F237 /* Tools.m in Sources */ = {isa = PBXBuildFile; fileRef = 0041FA9A191C87AF00E1F237 /* Tools.m */; };
 		00541C0A196684AB002EC356 /* GLBlob.m in Sources */ = {isa = PBXBuildFile; fileRef = 00541C09196684AB002EC356 /* GLBlob.m */; };
 		0062237D1963F30D00454CB9 /* back@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0062237C1963F30D00454CB9 /* back@2x.png */; };
 		0087828A19583E7D003F331C /* Project.m in Sources */ = {isa = PBXBuildFile; fileRef = 0087828919583E7D003F331C /* Project.m */; };
 		009018C71921D1B90050197D /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 009018C61921D1B90050197D /* LoginViewController.m */; };
 		00B01FE919221EB40095D488 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 00B01FE819221EB40095D488 /* User.m */; };
+		00B7594E196BE989009C9C58 /* GLGitLabApi+Events.m in Sources */ = {isa = PBXBuildFile; fileRef = 00B7594D196BE989009C9C58 /* GLGitLabApi+Events.m */; };
+		00B75954196BEB6F009C9C58 /* EventCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 00B75953196BEB6F009C9C58 /* EventCell.m */; };
+		00B75957196BEB90009C9C58 /* EventsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 00B75956196BEB90009C9C58 /* EventsView.m */; };
+		00B7595C196C065E009C9C58 /* Event.m in Sources */ = {isa = PBXBuildFile; fileRef = 00B7595B196C065E009C9C58 /* Event.m */; };
 		00C3A40F196113E7002A34AB /* ProjectsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 00C3A40E196113E7002A34AB /* ProjectsViewController.m */; };
 		00C3A4151961538B002A34AB /* ProjectsTableController.m in Sources */ = {isa = PBXBuildFile; fileRef = 00C3A4141961538B002A34AB /* ProjectsTableController.m */; };
 		00C3A4181962AABC002A34AB /* FilesTableController.m in Sources */ = {isa = PBXBuildFile; fileRef = 00C3A4171962AABC002A34AB /* FilesTableController.m */; };
@@ -87,6 +90,7 @@
 		00C408F31959CDFA001073BF /* star2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 00C408F01959CDFA001073BF /* star2@2x.png */; };
 		00C7C679196A85B70006B2E4 /* FileContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 00C7C678196A85B70006B2E4 /* FileContentView.m */; };
 		00CF21DF1929EF890087AF83 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00CF21DE1929EF890087AF83 /* ImageIO.framework */; };
+		00D4ED1E196E71E700F3A4A5 /* RTLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 00D4ED19196E71E700F3A4A5 /* RTLabel.m */; };
 		00F198D11929F8CE00E56CDA /* SDWebImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00F198D01929F8CE00E56CDA /* SDWebImage.framework */; };
 /* End PBXBuildFile section */
 
@@ -213,8 +217,6 @@
 		0021BAF31923608200626A2C /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		0021BAF5192360A100626A2C /* SSKeychain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SSKeychain.h; path = "../../../Objective-C/sskeychain-master/SSKeychain.h"; sourceTree = "<group>"; };
 		0021BAF6192360A100626A2C /* SSKeychain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SSKeychain.m; path = "../../../Objective-C/sskeychain-master/SSKeychain.m"; sourceTree = "<group>"; };
-		002F887D1942B7F5001A4826 /* ProjectTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProjectTableCell.h; sourceTree = "<group>"; };
-		002F887E1942B7F5001A4826 /* ProjectTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProjectTableCell.m; sourceTree = "<group>"; };
 		0041FA99191C87AF00E1F237 /* Tools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tools.h; sourceTree = "<group>"; };
 		0041FA9A191C87AF00E1F237 /* Tools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Tools.m; sourceTree = "<group>"; };
 		00541C08196684AB002EC356 /* GLBlob.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLBlob.h; sourceTree = "<group>"; };
@@ -226,6 +228,14 @@
 		009018C61921D1B90050197D /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		00B01FE719221EB40095D488 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
 		00B01FE819221EB40095D488 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
+		00B7594C196BE989009C9C58 /* GLGitLabApi+Events.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GLGitLabApi+Events.h"; sourceTree = "<group>"; };
+		00B7594D196BE989009C9C58 /* GLGitLabApi+Events.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "GLGitLabApi+Events.m"; sourceTree = "<group>"; };
+		00B75952196BEB6F009C9C58 /* EventCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventCell.h; sourceTree = "<group>"; };
+		00B75953196BEB6F009C9C58 /* EventCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventCell.m; sourceTree = "<group>"; };
+		00B75955196BEB90009C9C58 /* EventsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventsView.h; sourceTree = "<group>"; };
+		00B75956196BEB90009C9C58 /* EventsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventsView.m; sourceTree = "<group>"; };
+		00B7595A196C065E009C9C58 /* Event.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Event.h; sourceTree = "<group>"; };
+		00B7595B196C065E009C9C58 /* Event.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Event.m; sourceTree = "<group>"; };
 		00C3A40D196113E7002A34AB /* ProjectsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProjectsViewController.h; sourceTree = "<group>"; };
 		00C3A40E196113E7002A34AB /* ProjectsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProjectsViewController.m; sourceTree = "<group>"; };
 		00C3A4131961538B002A34AB /* ProjectsTableController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProjectsTableController.h; sourceTree = "<group>"; };
@@ -244,6 +254,8 @@
 		00C7C677196A85B70006B2E4 /* FileContentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileContentView.h; sourceTree = "<group>"; };
 		00C7C678196A85B70006B2E4 /* FileContentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FileContentView.m; sourceTree = "<group>"; };
 		00CF21DE1929EF890087AF83 /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
+		00D4ED18196E71E700F3A4A5 /* RTLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RTLabel.h; sourceTree = "<group>"; };
+		00D4ED19196E71E700F3A4A5 /* RTLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RTLabel.m; sourceTree = "<group>"; };
 		00F198D01929F8CE00E56CDA /* SDWebImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDWebImage.framework; path = "../../Objective-C/SDWebImage.framework"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -277,6 +289,7 @@
 		0002D23D1916324B001FDED8 = {
 			isa = PBXGroup;
 			children = (
+				00D4ED13196E71E700F3A4A5 /* RTLabel */,
 				0002D2A519163DF6001FDED8 /* REFrostedViewController */,
 				0021BA7E192342BD00626A2C /* objc gitlab api */,
 				0002D24F1916324B001FDED8 /* iOS-git-osc */,
@@ -320,6 +333,8 @@
 				00B01FE819221EB40095D488 /* User.m */,
 				0087828819583E7D003F331C /* Project.h */,
 				0087828919583E7D003F331C /* Project.m */,
+				00B7595A196C065E009C9C58 /* Event.h */,
+				00B7595B196C065E009C9C58 /* Event.m */,
 				0002D2B81916407B001FDED8 /* Controller */,
 				0002D2581916324B001FDED8 /* AppDelegate.h */,
 				0002D2591916324B001FDED8 /* AppDelegate.m */,
@@ -371,20 +386,9 @@
 				0002D2C019164B02001FDED8 /* NavigationController.m */,
 				009018C51921D1B90050197D /* LoginViewController.h */,
 				009018C61921D1B90050197D /* LoginViewController.m */,
-				002F887D1942B7F5001A4826 /* ProjectTableCell.h */,
-				002F887E1942B7F5001A4826 /* ProjectTableCell.m */,
-				00C3A40D196113E7002A34AB /* ProjectsViewController.h */,
-				00C3A40E196113E7002A34AB /* ProjectsViewController.m */,
-				00C3A4131961538B002A34AB /* ProjectsTableController.h */,
-				00C3A4141961538B002A34AB /* ProjectsTableController.m */,
-				00C3A4161962AABB002A34AB /* FilesTableController.h */,
-				00C3A4171962AABC002A34AB /* FilesTableController.m */,
-				00C3A4191962BC5C002A34AB /* FileCell.h */,
-				00C3A41A1962BC5D002A34AB /* FileCell.m */,
-				00C3A42019639F8D002A34AB /* ProjectCell.h */,
-				00C3A42119639F8D002A34AB /* ProjectCell.m */,
-				00C7C677196A85B70006B2E4 /* FileContentView.h */,
-				00C7C678196A85B70006B2E4 /* FileContentView.m */,
+				00B75960196CE5EB009C9C58 /* Projects */,
+				00B7595F196CE5DA009C9C58 /* Files */,
+				00B7595D196CE575009C9C58 /* Events */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -465,6 +469,8 @@
 				0021BAA4192342BD00626A2C /* GLConstants.m */,
 				0021BAA5192342BD00626A2C /* GLGitlabApi+Commits.h */,
 				0021BAA6192342BD00626A2C /* GLGitlabApi+Commits.m */,
+				00B7594C196BE989009C9C58 /* GLGitLabApi+Events.h */,
+				00B7594D196BE989009C9C58 /* GLGitLabApi+Events.m */,
 				0021BAA7192342BD00626A2C /* GLGitlabApi+Files.h */,
 				0021BAA8192342BD00626A2C /* GLGitlabApi+Files.m */,
 				0021BAA9192342BD00626A2C /* GLGitlabApi+Groups.h */,
@@ -511,6 +517,53 @@
 				0021BACB192342BD00626A2C /* GLGitlabApi+Private.m */,
 			);
 			path = private;
+			sourceTree = "<group>";
+		};
+		00B7595D196CE575009C9C58 /* Events */ = {
+			isa = PBXGroup;
+			children = (
+				00B75955196BEB90009C9C58 /* EventsView.h */,
+				00B75956196BEB90009C9C58 /* EventsView.m */,
+				00B75952196BEB6F009C9C58 /* EventCell.h */,
+				00B75953196BEB6F009C9C58 /* EventCell.m */,
+			);
+			name = Events;
+			sourceTree = "<group>";
+		};
+		00B7595F196CE5DA009C9C58 /* Files */ = {
+			isa = PBXGroup;
+			children = (
+				00C3A4161962AABB002A34AB /* FilesTableController.h */,
+				00C3A4171962AABC002A34AB /* FilesTableController.m */,
+				00C3A4191962BC5C002A34AB /* FileCell.h */,
+				00C3A41A1962BC5D002A34AB /* FileCell.m */,
+				00C7C677196A85B70006B2E4 /* FileContentView.h */,
+				00C7C678196A85B70006B2E4 /* FileContentView.m */,
+			);
+			name = Files;
+			sourceTree = "<group>";
+		};
+		00B75960196CE5EB009C9C58 /* Projects */ = {
+			isa = PBXGroup;
+			children = (
+				00C3A40D196113E7002A34AB /* ProjectsViewController.h */,
+				00C3A40E196113E7002A34AB /* ProjectsViewController.m */,
+				00C3A4131961538B002A34AB /* ProjectsTableController.h */,
+				00C3A4141961538B002A34AB /* ProjectsTableController.m */,
+				00C3A42019639F8D002A34AB /* ProjectCell.h */,
+				00C3A42119639F8D002A34AB /* ProjectCell.m */,
+			);
+			name = Projects;
+			sourceTree = "<group>";
+		};
+		00D4ED13196E71E700F3A4A5 /* RTLabel */ = {
+			isa = PBXGroup;
+			children = (
+				00D4ED18196E71E700F3A4A5 /* RTLabel.h */,
+				00D4ED19196E71E700F3A4A5 /* RTLabel.m */,
+			);
+			name = RTLabel;
+			path = Classes;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -620,6 +673,7 @@
 			files = (
 				00C3A41B1962BC5D002A34AB /* FileCell.m in Sources */,
 				00B01FE919221EB40095D488 /* User.m in Sources */,
+				00B7594E196BE989009C9C58 /* GLGitLabApi+Events.m in Sources */,
 				0021BAE6192342BD00626A2C /* GLGitlabApi+Session.m in Sources */,
 				0002D2B719163DF6001FDED8 /* UIViewController+REFrostedViewController.m in Sources */,
 				0021BAEB192342BD00626A2C /* GLNetworkOperation.m in Sources */,
@@ -652,6 +706,7 @@
 				0021BAD5192342BD00626A2C /* GLMilestone.m in Sources */,
 				0002D2B219163DF6001FDED8 /* RECommonFunctions.m in Sources */,
 				0002D2C119164B02001FDED8 /* NavigationController.m in Sources */,
+				00B75957196BEB90009C9C58 /* EventsView.m in Sources */,
 				0021BAEE192342BD00626A2C /* NSURL+GLAdditions.m in Sources */,
 				0021BAD8192342BD00626A2C /* GLProject.m in Sources */,
 				0021BAE8192342BD00626A2C /* GLGitlabApi+Users.m in Sources */,
@@ -664,17 +719,19 @@
 				0087828A19583E7D003F331C /* Project.m in Sources */,
 				0002D2BE19164716001FDED8 /* MenuViewController.m in Sources */,
 				0021BAD9192342BD00626A2C /* GLSnippet.m in Sources */,
+				00B7595C196C065E009C9C58 /* Event.m in Sources */,
 				0021BAE3192342BD00626A2C /* GLGitlabApi+Notes.m in Sources */,
 				0021BACC192342BD00626A2C /* GLBaseObject.m in Sources */,
 				0021BAD4192342BD00626A2C /* GLMergeRequest.m in Sources */,
 				0021BAD1192342BD00626A2C /* GLFile.m in Sources */,
-				002F887F1942B7F5001A4826 /* ProjectTableCell.m in Sources */,
 				0021BAD3192342BD00626A2C /* GLIssue.m in Sources */,
 				0021BAD7192342BD00626A2C /* GLNote.m in Sources */,
 				00C3A4151961538B002A34AB /* ProjectsTableController.m in Sources */,
+				00B75954196BEB6F009C9C58 /* EventCell.m in Sources */,
 				0021BAE1192342BD00626A2C /* GLGitlabApi+MergeRequest.m in Sources */,
 				0021BAED192342BD00626A2C /* GLVoidNetworkOperation.m in Sources */,
 				0002D2B419163DF6001FDED8 /* REFrostedViewController.m in Sources */,
+				00D4ED1E196E71E700F3A4A5 /* RTLabel.m in Sources */,
 				0021BAEC192342BD00626A2C /* GLRawNetworkOperation.m in Sources */,
 				00541C0A196684AB002EC356 /* GLBlob.m in Sources */,
 				0021BACD192342BD00626A2C /* GLBranch.m in Sources */,

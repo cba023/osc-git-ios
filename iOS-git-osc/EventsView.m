@@ -1,0 +1,98 @@
+//
+//  EventsView.m
+//  iOS-git-osc
+//
+//  Created by chenhaoxiang on 14-7-8.
+//  Copyright (c) 2014年 chenhaoxiang. All rights reserved.
+//
+
+#import "GLGitlab.h"
+#import "EventsView.h"
+#import "EventCell.h"
+#import "NavigationController.h"
+#import "Event.h"
+
+static NSString * const kKeyPrivate_token = @"private_token";
+static NSString *cellId = @"EventCell";
+
+@interface EventsView ()
+
+@end
+
+@implementation EventsView
+
+@synthesize eventsArray;
+
+- (id)initWithStyle:(UITableViewStyle)style
+{
+    self = [super initWithStyle:style];
+    if (self) {
+        // Custom initialization
+    }
+    return self;
+}
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"three_lines"]
+                                                                             style:UIBarButtonItemStylePlain
+                                                                            target:(NavigationController *)self.navigationController
+                                                                            action:@selector(showMenu)];
+    self.title = @"动态";
+    self.tableView.delegate = self;
+    self.tableView.dataSource = self;
+    [self.tableView registerClass:[EventCell class] forCellReuseIdentifier:cellId];
+    
+    self.eventsArray = [[NSMutableArray alloc] init];
+    
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    NSString *privateToken = [userDefaults objectForKey:kKeyPrivate_token];
+    if (privateToken == nil) {
+        NSLog(@"No private_token!");
+    } else {
+        [self.eventsArray addObjectsFromArray:[Event getEventsWithPrivateToekn:privateToken page:1]];
+    }
+}
+
+- (void)didReceiveMemoryWarning
+{
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+#pragma mark - Table view data source
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 30;
+}
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return self.eventsArray.count;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    EventCell *cell = [tableView dequeueReusableCellWithIdentifier:cellId forIndexPath:indexPath];
+    
+    GLEvent *event = (GLEvent *)[self.eventsArray objectAtIndex:indexPath.row];
+    [cell.eventDescription setText:[Event getEventDescriptionWithAuthor:event.author.name
+                                                                  action:event.action
+                                                            projectOwner:event.project.owner.name
+                                                             projectName:event.project.name
+                                                            otherMessage:@""]];
+    
+    return cell;
+}
+
+
+
+@end

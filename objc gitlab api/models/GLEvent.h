@@ -8,26 +8,38 @@
 
 #import <Foundation/Foundation.h>
 #import "GLBaseObject.h"
+#import "GLUser.h"
+#import "GLProject.h"
 
 @interface GLEvent : GLBaseObject
 
-// title
-@property (nonatomic, copy) NSString *title;
-// project_id
-@property (nonatomic, assign) int64_t projectId;
-// action_name
-@property (nonatomic, copy) NSString *actionName;
-// target_id
-@property (nonatomic, assign) int64_t targetId;
+// id
+@property (nonatomic, assign) int64_t id;
 // target_type
 @property (nonatomic, copy) NSString *targetType;
-// author_id
-@property (nonatomic, assign) int64_t authorId;
+// target_id
+@property (nonatomic, assign) int64_t targetId;
+// title
+@property (nonatomic, copy) NSString *title;
 // data
 @property (nonatomic, strong) NSDictionary *data;
-// target_title
-@property (nonatomic, copy) NSString *targetTitle;
-
-- (BOOL)isEqualToEvent:(GLEvent *)event;
+// project_id
+@property (nonatomic, assign) int64_t projectId;
+// created_at
+@property (nonatomic, strong) NSDate *createdAt;
+// updated_at
+@property (nonatomic, strong) NSDate *updatedAt;
+// action
+@property (nonatomic, assign) int action;
+// author_id
+@property (nonatomic, assign) int64_t authorId;
+// public
+@property (nonatomic) BOOL public;
+// project
+@property (nonatomic, strong) GLProject *project;
+// user
+@property (nonatomic, strong) GLUser *author;
+// note
+@property (nonatomic, strong) NSString *note;
 
 @end

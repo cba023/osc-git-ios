@@ -17,6 +17,8 @@
 
 @end
 
+static NSString *cellId = @"FileCell";
+
 @implementation FilesTableController
 
 - (id)initWithStyle:(UITableViewStyle)style
@@ -39,6 +41,7 @@
     self.title = @"项目文件";
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
+    [self.tableView registerClass:[FileCell class] forCellReuseIdentifier:cellId];
     
 #if 0
     self.refreshControl = [[UIRefreshControl alloc] init];
@@ -78,15 +81,9 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *cellId = @"cellId";
-    FileCell *cell = [tableView dequeueReusableCellWithIdentifier:cellId];
+    FileCell *cell = [tableView dequeueReusableCellWithIdentifier:cellId forIndexPath:indexPath];
     
-    if (cell == nil) {
-        cell = [[FileCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
-    }
-    
-    NSUInteger rowNo = indexPath.row;
-    GLFile *file = [self.filesArray objectAtIndex:rowNo];
+    GLFile *file = [self.filesArray objectAtIndex:indexPath.row];
     if (file.type == GLFileTypeTree) {
         [cell.fileType setImage:[UIImage imageNamed:@"folder"]];
     } else {

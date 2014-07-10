@@ -15,11 +15,15 @@
 #import "User.h"
 #import "Project.h"
 #import "ProjectsViewController.h"
+#import "EventsView.h"
 #import <SDWebImage/UIImageView+WebCache.h>
 
 @interface MenuViewController ()
 
 @end
+
+static NSString * const kKeyName = @"name";
+static NSString * const kKeyPortrait = @"portrait";
 
 @implementation MenuViewController
 
@@ -176,11 +180,16 @@
                 break;
         }
     }*/
-    if (indexPath.section == 0 && indexPath.row == 0) {
+    if (indexPath.section == 0 && indexPath.row == 1) {
         HomeViewController *homeViewController = [[HomeViewController alloc] init];
         NavigationController *navigationController = [[NavigationController alloc] initWithRootViewController:homeViewController];
         self.frostedViewController.contentViewController = navigationController;
-    } else if (indexPath.section == 0 && indexPath > 0) {
+    } else if (indexPath.section == 0 && indexPath.row == 0) {
+        EventsView *eventsView = [[EventsView alloc] init];
+        NavigationController *navigationController = [[NavigationController alloc] initWithRootViewController:eventsView];
+        self.frostedViewController.contentViewController = navigationController;
+    }
+    else if (indexPath.section == 0 && indexPath.row > 1) {
         LoginViewController *loginViewController = [[LoginViewController alloc] init];
         NavigationController *navigationController = [[NavigationController alloc] initWithRootViewController:loginViewController];
         self.frostedViewController.contentViewController = navigationController;

@@ -21,6 +21,8 @@
 @synthesize projectsArray;
 //@synthesize loadingMore;
 
+static NSString *cellId = @"ProjectCell";
+
 - (id)initWithStyle:(UITableViewStyle)style
 {
     self = [super initWithStyle:style];
@@ -41,6 +43,7 @@
     self.title = @"热门项目";
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
+    [self.tableView registerClass:[ProjectCell class] forCellReuseIdentifier:cellId];
     
 #if 0
     self.refreshControl = [[UIRefreshControl alloc] init];
@@ -73,15 +76,9 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *cellId = @"cellId";
-    ProjectCell *cell = [tableView dequeueReusableCellWithIdentifier:cellId];
+    ProjectCell *cell = [tableView dequeueReusableCellWithIdentifier:cellId forIndexPath:indexPath];
     
-    if (cell == nil) {
-        cell = [[ProjectCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
-    }
-    
-    NSUInteger rowNo = indexPath.row;
-    GLProject *project = [self.projectsArray objectAtIndex:rowNo];
+    GLProject *project = [self.projectsArray objectAtIndex:indexPath.row];
     cell.projectNameField.text = [NSString stringWithFormat:@"%@ / %@", project.owner.name, project.name];
     cell.projectDescriptionField.text = project.projectDescription;
     cell.languageField.text = project.language;
