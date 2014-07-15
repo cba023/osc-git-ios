@@ -13,7 +13,7 @@
 #import "Event.h"
 
 static NSString * const kKeyPrivate_token = @"private_token";
-static NSString *cellId = @"EventCell";
+static NSString * const cellId = @"EventCell";
 
 @interface EventsView ()
 
@@ -83,7 +83,7 @@ static NSString *cellId = @"EventCell";
 {
     EventCell *cell = [tableView dequeueReusableCellWithIdentifier:cellId forIndexPath:indexPath];
     
-    GLEvent *event = (GLEvent *)[self.eventsArray objectAtIndex:indexPath.row];
+    GLEvent *event = [self.eventsArray objectAtIndex:indexPath.row];
     [cell.eventDescription setText:[Event getEventDescriptionWithAuthor:event.author.name
                                                                   action:event.action
                                                             projectOwner:event.project.owner.name

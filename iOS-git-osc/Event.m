@@ -63,7 +63,7 @@ enum action {
     
     NSArray *actions = @[@"创建了", @"更新了项目", @"关闭了项目", @"重新打开了项目", @"推送到了项目",
                          @"评论了项目", @"接受了项目", @"加入了项目", @"离开了项目", @"Fork了项目"];
-    NSString *actionStr = [NSString stringWithFormat:@"<font size=14 color='#999999'>%@</font>", actions[action+1]];
+    NSString *actionStr = [NSString stringWithFormat:@"<font size=14 color='#999999'>%@</font>", actions[action-1]];
     
     
     NSString *projectStr = [NSString stringWithFormat:@"<font size=14 color='#0D6DA8'>%@ / %@</font>", projectOwner, projectName];

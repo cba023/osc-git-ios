@@ -71,6 +71,7 @@
 		0041FA9B191C87AF00E1F237 /* Tools.m in Sources */ = {isa = PBXBuildFile; fileRef = 0041FA9A191C87AF00E1F237 /* Tools.m */; };
 		00541C0A196684AB002EC356 /* GLBlob.m in Sources */ = {isa = PBXBuildFile; fileRef = 00541C09196684AB002EC356 /* GLBlob.m */; };
 		0062237D1963F30D00454CB9 /* back@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0062237C1963F30D00454CB9 /* back@2x.png */; };
+		00760B611973BF6600C88C6F /* NoteEditingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 00760B601973BF6600C88C6F /* NoteEditingView.m */; };
 		0087828A19583E7D003F331C /* Project.m in Sources */ = {isa = PBXBuildFile; fileRef = 0087828919583E7D003F331C /* Project.m */; };
 		009018C71921D1B90050197D /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 009018C61921D1B90050197D /* LoginViewController.m */; };
 		00B01FE919221EB40095D488 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 00B01FE819221EB40095D488 /* User.m */; };
@@ -91,6 +92,12 @@
 		00C7C679196A85B70006B2E4 /* FileContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 00C7C678196A85B70006B2E4 /* FileContentView.m */; };
 		00CF21DF1929EF890087AF83 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00CF21DE1929EF890087AF83 /* ImageIO.framework */; };
 		00D4ED1E196E71E700F3A4A5 /* RTLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 00D4ED19196E71E700F3A4A5 /* RTLabel.m */; };
+		00D4ED23196F97FE00F3A4A5 /* Issue.m in Sources */ = {isa = PBXBuildFile; fileRef = 00D4ED22196F97FE00F3A4A5 /* Issue.m */; };
+		00D4ED26196F9B9900F3A4A5 /* IssueCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 00D4ED25196F9B9900F3A4A5 /* IssueCell.m */; };
+		00D4ED29196F9BCA00F3A4A5 /* IssuesView.m in Sources */ = {isa = PBXBuildFile; fileRef = 00D4ED28196F9BCA00F3A4A5 /* IssuesView.m */; };
+		00D4ED2C196FF5C500F3A4A5 /* Note.m in Sources */ = {isa = PBXBuildFile; fileRef = 00D4ED2B196FF5C500F3A4A5 /* Note.m */; };
+		00D4ED30196FF85E00F3A4A5 /* NoteCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 00D4ED2F196FF85E00F3A4A5 /* NoteCell.m */; };
+		00D4ED34196FF88300F3A4A5 /* NotesView.m in Sources */ = {isa = PBXBuildFile; fileRef = 00D4ED33196FF88300F3A4A5 /* NotesView.m */; };
 		00F198D11929F8CE00E56CDA /* SDWebImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00F198D01929F8CE00E56CDA /* SDWebImage.framework */; };
 /* End PBXBuildFile section */
 
@@ -222,6 +229,8 @@
 		00541C08196684AB002EC356 /* GLBlob.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLBlob.h; sourceTree = "<group>"; };
 		00541C09196684AB002EC356 /* GLBlob.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GLBlob.m; sourceTree = "<group>"; };
 		0062237C1963F30D00454CB9 /* back@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "back@2x.png"; sourceTree = "<group>"; };
+		00760B5F1973BF6600C88C6F /* NoteEditingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NoteEditingView.h; sourceTree = "<group>"; };
+		00760B601973BF6600C88C6F /* NoteEditingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NoteEditingView.m; sourceTree = "<group>"; };
 		0087828819583E7D003F331C /* Project.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Project.h; sourceTree = "<group>"; };
 		0087828919583E7D003F331C /* Project.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Project.m; sourceTree = "<group>"; };
 		009018C51921D1B90050197D /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
@@ -256,6 +265,18 @@
 		00CF21DE1929EF890087AF83 /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
 		00D4ED18196E71E700F3A4A5 /* RTLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RTLabel.h; sourceTree = "<group>"; };
 		00D4ED19196E71E700F3A4A5 /* RTLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RTLabel.m; sourceTree = "<group>"; };
+		00D4ED21196F97FE00F3A4A5 /* Issue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Issue.h; sourceTree = "<group>"; };
+		00D4ED22196F97FE00F3A4A5 /* Issue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Issue.m; sourceTree = "<group>"; };
+		00D4ED24196F9B9900F3A4A5 /* IssueCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IssueCell.h; sourceTree = "<group>"; };
+		00D4ED25196F9B9900F3A4A5 /* IssueCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IssueCell.m; sourceTree = "<group>"; };
+		00D4ED27196F9BCA00F3A4A5 /* IssuesView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IssuesView.h; sourceTree = "<group>"; };
+		00D4ED28196F9BCA00F3A4A5 /* IssuesView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IssuesView.m; sourceTree = "<group>"; };
+		00D4ED2A196FF5C500F3A4A5 /* Note.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Note.h; sourceTree = "<group>"; };
+		00D4ED2B196FF5C500F3A4A5 /* Note.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Note.m; sourceTree = "<group>"; };
+		00D4ED2E196FF85E00F3A4A5 /* NoteCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NoteCell.h; sourceTree = "<group>"; };
+		00D4ED2F196FF85E00F3A4A5 /* NoteCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NoteCell.m; sourceTree = "<group>"; };
+		00D4ED32196FF88300F3A4A5 /* NotesView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotesView.h; sourceTree = "<group>"; };
+		00D4ED33196FF88300F3A4A5 /* NotesView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotesView.m; sourceTree = "<group>"; };
 		00F198D01929F8CE00E56CDA /* SDWebImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDWebImage.framework; path = "../../Objective-C/SDWebImage.framework"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -335,6 +356,10 @@
 				0087828919583E7D003F331C /* Project.m */,
 				00B7595A196C065E009C9C58 /* Event.h */,
 				00B7595B196C065E009C9C58 /* Event.m */,
+				00D4ED21196F97FE00F3A4A5 /* Issue.h */,
+				00D4ED22196F97FE00F3A4A5 /* Issue.m */,
+				00D4ED2A196FF5C500F3A4A5 /* Note.h */,
+				00D4ED2B196FF5C500F3A4A5 /* Note.m */,
 				0002D2B81916407B001FDED8 /* Controller */,
 				0002D2581916324B001FDED8 /* AppDelegate.h */,
 				0002D2591916324B001FDED8 /* AppDelegate.m */,
@@ -389,6 +414,8 @@
 				00B75960196CE5EB009C9C58 /* Projects */,
 				00B7595F196CE5DA009C9C58 /* Files */,
 				00B7595D196CE575009C9C58 /* Events */,
+				00D4ED20196F97CF00F3A4A5 /* Issues */,
+				00D4ED2D196FF83100F3A4A5 /* Notes */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -522,10 +549,10 @@
 		00B7595D196CE575009C9C58 /* Events */ = {
 			isa = PBXGroup;
 			children = (
-				00B75955196BEB90009C9C58 /* EventsView.h */,
-				00B75956196BEB90009C9C58 /* EventsView.m */,
 				00B75952196BEB6F009C9C58 /* EventCell.h */,
 				00B75953196BEB6F009C9C58 /* EventCell.m */,
+				00B75955196BEB90009C9C58 /* EventsView.h */,
+				00B75956196BEB90009C9C58 /* EventsView.m */,
 			);
 			name = Events;
 			sourceTree = "<group>";
@@ -564,6 +591,30 @@
 			);
 			name = RTLabel;
 			path = Classes;
+			sourceTree = "<group>";
+		};
+		00D4ED20196F97CF00F3A4A5 /* Issues */ = {
+			isa = PBXGroup;
+			children = (
+				00D4ED24196F9B9900F3A4A5 /* IssueCell.h */,
+				00D4ED25196F9B9900F3A4A5 /* IssueCell.m */,
+				00D4ED27196F9BCA00F3A4A5 /* IssuesView.h */,
+				00D4ED28196F9BCA00F3A4A5 /* IssuesView.m */,
+			);
+			name = Issues;
+			sourceTree = "<group>";
+		};
+		00D4ED2D196FF83100F3A4A5 /* Notes */ = {
+			isa = PBXGroup;
+			children = (
+				00D4ED2E196FF85E00F3A4A5 /* NoteCell.h */,
+				00D4ED2F196FF85E00F3A4A5 /* NoteCell.m */,
+				00D4ED32196FF88300F3A4A5 /* NotesView.h */,
+				00D4ED33196FF88300F3A4A5 /* NotesView.m */,
+				00760B5F1973BF6600C88C6F /* NoteEditingView.h */,
+				00760B601973BF6600C88C6F /* NoteEditingView.m */,
+			);
+			name = Notes;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -676,10 +727,14 @@
 				00B7594E196BE989009C9C58 /* GLGitLabApi+Events.m in Sources */,
 				0021BAE6192342BD00626A2C /* GLGitlabApi+Session.m in Sources */,
 				0002D2B719163DF6001FDED8 /* UIViewController+REFrostedViewController.m in Sources */,
+				00D4ED26196F9B9900F3A4A5 /* IssueCell.m in Sources */,
 				0021BAEB192342BD00626A2C /* GLNetworkOperation.m in Sources */,
 				0021BADD192342BD00626A2C /* GLGitlabApi+Commits.m in Sources */,
+				00D4ED23196F97FE00F3A4A5 /* Issue.m in Sources */,
 				0021BAEF192342BD00626A2C /* GLGitlabApi+Private.m in Sources */,
+				00D4ED30196FF85E00F3A4A5 /* NoteCell.m in Sources */,
 				009018C71921D1B90050197D /* LoginViewController.m in Sources */,
+				00760B611973BF6600C88C6F /* NoteEditingView.m in Sources */,
 				0002D2B619163DF6001FDED8 /* UIView+REFrostedViewController.m in Sources */,
 				00C3A42219639F8D002A34AB /* ProjectCell.m in Sources */,
 				0021BAE7192342BD00626A2C /* GLGitlabApi+Snippets.m in Sources */,
@@ -701,9 +756,12 @@
 				0021BADC192342BD00626A2C /* GLConstants.m in Sources */,
 				00C3A4181962AABC002A34AB /* FilesTableController.m in Sources */,
 				0002D2561916324B001FDED8 /* main.m in Sources */,
+				00D4ED29196F9BCA00F3A4A5 /* IssuesView.m in Sources */,
 				0021BAD2192342BD00626A2C /* GLGroup.m in Sources */,
 				0021BADB192342BD00626A2C /* GLUser.m in Sources */,
+				00D4ED2C196FF5C500F3A4A5 /* Note.m in Sources */,
 				0021BAD5192342BD00626A2C /* GLMilestone.m in Sources */,
+				00D4ED34196FF88300F3A4A5 /* NotesView.m in Sources */,
 				0002D2B219163DF6001FDED8 /* RECommonFunctions.m in Sources */,
 				0002D2C119164B02001FDED8 /* NavigationController.m in Sources */,
 				00B75957196BEB90009C9C58 /* EventsView.m in Sources */,

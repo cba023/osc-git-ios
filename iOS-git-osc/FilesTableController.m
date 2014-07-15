@@ -17,7 +17,7 @@
 
 @end
 
-static NSString *cellId = @"FileCell";
+static NSString * const cellId = @"FileCell";
 
 @implementation FilesTableController
 
@@ -110,11 +110,6 @@ static NSString *cellId = @"FileCell";
         
         [self.navigationController pushViewController:innerFilesTable animated:YES];
     } else {
-#if 0
-        [Project getFileContent:self.projectID
-                           Path:[NSString stringWithFormat:@"%@%@", self.currentPath, file.name]
-                         Branch:@"master"];
-#else
         FileContentView *fileContentView = [[FileContentView alloc] init];
         fileContentView.content = [Project getFileContent:self.projectID
                                                      Path:[NSString stringWithFormat:@"%@%@", self.currentPath, file.name]
@@ -122,7 +117,6 @@ static NSString *cellId = @"FileCell";
         fileContentView.fileName = file.name;
         
         [self.navigationController pushViewController:fileContentView animated:YES];
-#endif
     }
 }
 

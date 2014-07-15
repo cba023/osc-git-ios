@@ -16,6 +16,7 @@
 #import "Project.h"
 #import "ProjectsViewController.h"
 #import "EventsView.h"
+#import "IssuesView.h"
 #import <SDWebImage/UIImageView+WebCache.h>
 
 @interface MenuViewController ()
@@ -193,7 +194,7 @@ static NSString * const kKeyPortrait = @"portrait";
         LoginViewController *loginViewController = [[LoginViewController alloc] init];
         NavigationController *navigationController = [[NavigationController alloc] initWithRootViewController:loginViewController];
         self.frostedViewController.contentViewController = navigationController;
-    } else {
+    } else if (indexPath.section == 1) {
 #if 0
         ProjectTableController *projectTableController = [[ProjectTableController alloc] init];
         NavigationController *navigationController = [[NavigationController alloc] initWithRootViewController:projectTableController];
@@ -201,6 +202,11 @@ static NSString * const kKeyPortrait = @"portrait";
 #endif
         ProjectsViewController *projectViewController = [[ProjectsViewController alloc] init];
         NavigationController *navigationController = [[NavigationController alloc] initWithRootViewController:projectViewController];
+        self.frostedViewController.contentViewController = navigationController;
+    } else {
+        IssuesView *issuesView = [[IssuesView alloc] init];
+        issuesView.projectId = 82;
+        NavigationController *navigationController = [[NavigationController alloc] initWithRootViewController:issuesView];
         self.frostedViewController.contentViewController = navigationController;
     }
     

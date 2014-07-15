@@ -21,7 +21,7 @@
 @synthesize projectsArray;
 //@synthesize loadingMore;
 
-static NSString *cellId = @"ProjectCell";
+static NSString * const cellId = @"ProjectCell";
 
 - (id)initWithStyle:(UITableViewStyle)style
 {

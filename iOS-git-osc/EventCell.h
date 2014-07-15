@@ -8,7 +8,6 @@
 
 #import <UIKit/UIKit.h>
 #import "RTLabel.h"
-@class GLEvent;
 
 @interface EventCell : UITableViewCell
 

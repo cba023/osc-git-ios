@@ -1,14 +1,14 @@
 //
-//  EventCell.m
+//  IssueCell.m
 //  iOS-git-osc
 //
-//  Created by chenhaoxiang on 14-7-8.
+//  Created by chenhaoxiang on 14-7-11.
 //  Copyright (c) 2014年 chenhaoxiang. All rights reserved.
 //
 
-#import "EventCell.h"
+#import "IssueCell.h"
 
-@implementation EventCell
+@implementation IssueCell
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
@@ -21,11 +21,12 @@
         userPortrait.contentMode = UIViewContentModeScaleAspectFit;
         //[self.contentView addSubview:userPortrait];
         
-        _eventDescription = [[RTLabel alloc] initWithFrame:CGRectMake(59, 7, 262, 29)];
-        _eventDescription.textAlignment = NSTextAlignmentLeft;
-        //_eventDescription.font = [UIFont systemFontOfSize:12];
+        _title = [[RTLabel alloc] initWithFrame:CGRectMake(59, 0, 262, 21)];
+        _title.textAlignment = NSTextAlignmentLeft;
+        [self.contentView addSubview:_title];
         
-        [self.contentView addSubview:self.eventDescription];
+        _description = [[RTLabel alloc] initWithFrame:CGRectMake(59, 20, 262, 21)];
+        [self.contentView addSubview:_description];
     }
     return self;
 }

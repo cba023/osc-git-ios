@@ -24,6 +24,7 @@ static NSString * const kSingleMergeRequestNoteEndpoint = @"/projects/%llu/merge
 
 // API Params
 static NSString * const kParamBody = @"body";
+static NSString * const kKeyPrivate_token = @"private_token";
 
 @implementation GLGitlabApi (Notes)
 #pragma mark - Notes Methods
@@ -68,7 +69,9 @@ static NSString * const kParamBody = @"body";
 {
     NSMutableURLRequest *request = [self requestForEndPoint:[NSString stringWithFormat:kWallNotesEndpoint, projectId]
                                                      method:GLNetworkOperationPostMethod];
-    request.HTTPBody = [self urlEncodeParams:@{kParamBody: body}];
+    
+    request.HTTPBody = [self urlEncodeParams:@{kParamBody: body, kKeyPrivate_token: self.privateToken}];
+
     
     GLNetworkOperationSuccessBlock localSuccessBlock = [self singleObjectSuccessBlockForClass:[GLNote class] successBlock:success];
     GLNetworkOperationFailureBlock localFailureBlock = [self defaultFailureBlock:failure];
@@ -119,7 +122,9 @@ static NSString * const kParamBody = @"body";
 {
     NSMutableURLRequest *request = [self requestForEndPoint:[NSString stringWithFormat:kIssueNotesEndpoint, issue.projectId, issue.issueId]
                                                      method:GLNetworkOperationPostMethod];
-    request.HTTPBody = [self urlEncodeParams:@{kParamBody: body}];
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    NSString *privateToken = [userDefaults objectForKey:kKeyPrivate_token];
+    request.HTTPBody = [self urlEncodeParams:@{kParamBody: body, kKeyPrivate_token: privateToken}];
     
     GLNetworkOperationSuccessBlock localSuccessBlock = [self singleObjectSuccessBlockForClass:[GLNote class] successBlock:success];
     GLNetworkOperationFailureBlock localFailureBlock = [self defaultFailureBlock:failure];
