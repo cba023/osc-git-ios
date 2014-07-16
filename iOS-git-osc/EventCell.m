@@ -17,15 +17,18 @@
         UIColor *bgColor = [UIColor colorWithRed:235.0/255 green:235.0/255 blue:243.0/255 alpha:1.0];
         self.contentView.backgroundColor = bgColor;
         
-        UIImageView *userPortrait = [[UIImageView alloc] initWithFrame:CGRectMake(6, 4, 36, 36)];
-        userPortrait.contentMode = UIViewContentModeScaleAspectFit;
+        _userPortrait = [[UIImageView alloc] initWithFrame:CGRectMake(10, 12, 36, 36)];
+        _userPortrait.contentMode = UIViewContentModeScaleAspectFit;
         //[self.contentView addSubview:userPortrait];
         
-        _eventDescription = [[RTLabel alloc] initWithFrame:CGRectMake(59, 7, 262, 29)];
+        _eventDescription = [[RTLabel alloc] initWithFrame:CGRectMake(49, 0, 251, 30)];
         _eventDescription.textAlignment = NSTextAlignmentLeft;
         //_eventDescription.font = [UIFont systemFontOfSize:12];
-        
         [self.contentView addSubview:self.eventDescription];
+        
+        _time = [[UILabel alloc] initWithFrame:CGRectMake(63, 27, 158, 21)];
+        _time.textAlignment = NSTextAlignmentLeft;
+        [self.contentView addSubview:self.time];
     }
     return self;
 }

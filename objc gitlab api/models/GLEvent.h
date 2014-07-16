@@ -26,9 +26,9 @@
 // project_id
 @property (nonatomic, assign) int64_t projectId;
 // created_at
-@property (nonatomic, strong) NSDate *createdAt;
+@property (nonatomic, copy) NSString *createdAt;
 // updated_at
-@property (nonatomic, strong) NSDate *updatedAt;
+@property (nonatomic, copy) NSString *updatedAt;
 // action
 @property (nonatomic, assign) int action;
 // author_id

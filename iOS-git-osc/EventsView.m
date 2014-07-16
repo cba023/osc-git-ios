@@ -11,6 +11,8 @@
 #import "EventCell.h"
 #import "NavigationController.h"
 #import "Event.h"
+#import "Tools.h"
+#import <SDWebImage/UIImageView+WebCache.h>
 
 static NSString * const kKeyPrivate_token = @"private_token";
 static NSString * const cellId = @"EventCell";
@@ -66,7 +68,7 @@ static NSString * const cellId = @"EventCell";
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 30;
+    return 60;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -89,6 +91,9 @@ static NSString * const cellId = @"EventCell";
                                                             projectOwner:event.project.owner.name
                                                              projectName:event.project.name
                                                             otherMessage:@""]];
+    
+    NSString *interval = [Tools intervalSinceNow:event.createdAt];
+    [cell.time setText:interval];
     
     return cell;
 }

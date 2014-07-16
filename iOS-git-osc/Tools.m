@@ -130,4 +130,36 @@
     return result;
 }
 
++ (NSString *)intervalSinceNow:(NSString *)dateStr
+{
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ssZZZZZ"];
+    NSDate *date = [dateFormatter dateFromString:dateStr];
+    NSString *timeString=@"";
+    NSTimeInterval interval = [date timeIntervalSinceNow] * (-1);
+    
+    if (interval/3600<1) {
+        if (interval/60<1) {
+            timeString = @"1";
+        } else {
+            timeString = [NSString stringWithFormat:@"%f", interval/60];
+            timeString = [timeString substringToIndex:timeString.length-7];
+        }
+        
+        timeString=[NSString stringWithFormat:@"%@分钟前", timeString];
+    } else if (interval/3600>1&&interval/86400<1) {
+        timeString = [NSString stringWithFormat:@"%f", interval/3600];
+        timeString = [timeString substringToIndex:timeString.length-7];
+        timeString=[NSString stringWithFormat:@"%@小时前", timeString];
+    } else if (interval/86400>1&&interval/864000<1) {
+        timeString = [NSString stringWithFormat:@"%f", interval/86400];
+        timeString = [timeString substringToIndex:timeString.length-7];
+        timeString = [NSString stringWithFormat:@"%@天前", timeString];
+    } else {
+        NSArray *arr = [dateStr componentsSeparatedByString:@"T"];
+        timeString = [arr objectAtIndex:0];
+    }
+    return timeString;
+}
+
 @end
