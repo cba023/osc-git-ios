@@ -12,7 +12,8 @@
 #import "NavigationController.h"
 #import "Event.h"
 #import "Tools.h"
-#import <SDWebImage/UIImageView+WebCache.h>
+#import "UIImageView+WebCache.h"
+//#import <SDWebImage/UIImageView+WebCache.h>
 
 static NSString * const kKeyPrivate_token = @"private_token";
 static NSString * const cellId = @"EventCell";
@@ -92,8 +93,18 @@ static NSString * const cellId = @"EventCell";
                                                              projectName:event.project.name
                                                             otherMessage:@""]];
     
-    NSString *interval = [Tools intervalSinceNow:event.createdAt];
-    [cell.time setText:interval];
+    [cell.time setText:[Tools intervalSinceNow:event.createdAt]];
+    
+    NSString *urlString = [[NSString alloc] init];
+    if (event.author.portrait) {
+        urlString = [NSString stringWithFormat:@"%@%@%@", git_osc_url, @"//", event.author.portrait];
+    } else if (event.author.email) {
+        urlString = [NSString stringWithFormat:@"http://secure.gravatar.com/avatar/%@?s=48&d=mm", [Tools md5:event.author.email]];
+    }
+    
+    [cell.userPortrait sd_setImageWithURL:[NSURL URLWithString:urlString]
+                         placeholderImage:[UIImage imageNamed:@"avatar"]];
+    
     
     return cell;
 }

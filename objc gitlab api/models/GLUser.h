@@ -31,6 +31,8 @@
 @property (nonatomic, strong) NSDate *createdAt;
 // portrait
 @property (nonatomic, copy) NSString *portrait;
+// email
+@property (nonatomic, copy) NSString *email;
 // private_token
 @property (nonatomic, copy) NSString *private_token;
 // is_admin

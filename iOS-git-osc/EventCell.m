@@ -19,7 +19,7 @@
         
         _userPortrait = [[UIImageView alloc] initWithFrame:CGRectMake(10, 12, 36, 36)];
         _userPortrait.contentMode = UIViewContentModeScaleAspectFit;
-        //[self.contentView addSubview:userPortrait];
+        [self.contentView addSubview:_userPortrait];
         
         _eventDescription = [[RTLabel alloc] initWithFrame:CGRectMake(49, 0, 251, 30)];
         _eventDescription.textAlignment = NSTextAlignmentLeft;
