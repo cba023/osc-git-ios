@@ -7,14 +7,11 @@
 //
 
 #import <Foundation/Foundation.h>
+@class GLEvent;
 
 @interface Event : NSObject
 
 + (NSArray *)getEventsWithPrivateToekn:(NSString *)private_token page:(int)page;
-+ (NSString *)getEventDescriptionWithAuthor:(NSString *)author
-                                     action:(int)action
-                               projectOwner:(NSString *)projectOwner
-                                projectName:(NSString *)projectName
-                               otherMessage:(NSString *)otherMessage;
++ (NSAttributedString *)getEventDescriptionForEvent:(GLEvent *)event;
 
 @end

@@ -88,7 +88,7 @@ static NSString * const kKeyPortrait = @"portrait";
         NSString *name = [self.user objectForKey:kKeyName];
         
         if (portrait) {
-            NSString *urlString = [NSString stringWithFormat:@"%@%@%@", git_osc_url, @"//", portrait];//[git_osc_url stringByAppendingString:portrait];
+            NSString *urlString = [NSString pathWithComponents:@[git_osc_url, portrait]];
             [self.imageView setImageWithURL:[NSURL URLWithString:urlString]];
         } else {
             self.imageView.image = [UIImage imageNamed:@"avatar.jpg"];

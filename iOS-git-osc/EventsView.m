@@ -69,6 +69,8 @@ static NSString * const cellId = @"EventCell";
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    //CGSize size = [cell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
+    //return size.height + 1;
     return 60;
 }
 
@@ -87,17 +89,13 @@ static NSString * const cellId = @"EventCell";
     EventCell *cell = [tableView dequeueReusableCellWithIdentifier:cellId forIndexPath:indexPath];
     
     GLEvent *event = [self.eventsArray objectAtIndex:indexPath.row];
-    [cell.eventDescription setText:[Event getEventDescriptionWithAuthor:event.author.name
-                                                                  action:event.action
-                                                            projectOwner:event.project.owner.name
-                                                             projectName:event.project.name
-                                                            otherMessage:@""]];
+    [cell.eventDescription setAttributedText:[Event getEventDescriptionForEvent:event]];
     
-    [cell.time setText:[Tools intervalSinceNow:event.createdAt]];
+    [cell.time setAttributedText:[Tools getIntervalAttrStr:event.createdAt]];
     
     NSString *urlString = [[NSString alloc] init];
     if (event.author.portrait) {
-        urlString = [NSString stringWithFormat:@"%@%@%@", git_osc_url, @"//", event.author.portrait];
+        urlString = [NSString pathWithComponents:@[git_osc_url, event.author.portrait]];
     } else if (event.author.email) {
         urlString = [NSString stringWithFormat:@"http://secure.gravatar.com/avatar/%@?s=48&d=mm", [Tools md5:event.author.email]];
     }

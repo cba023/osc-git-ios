@@ -20,8 +20,10 @@
         _userPortrait = [[UIImageView alloc] initWithFrame:CGRectMake(10, 12, 36, 36)];
         _userPortrait.contentMode = UIViewContentModeScaleAspectFit;
         [self.contentView addSubview:_userPortrait];
-        
-        _eventDescription = [[RTLabel alloc] initWithFrame:CGRectMake(49, 0, 251, 30)];
+
+        CGFloat width = 251;
+        CGSize size = [_eventDescription sizeThatFits:CGSizeMake(width, FLT_MAX)];
+        _eventDescription = [[UILabel alloc] initWithFrame:CGRectMake(49, 0, width, size.height)];
         _eventDescription.textAlignment = NSTextAlignmentLeft;
         //_eventDescription.font = [UIFont systemFontOfSize:12];
         [self.contentView addSubview:self.eventDescription];

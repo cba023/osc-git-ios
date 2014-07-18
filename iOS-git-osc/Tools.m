@@ -25,7 +25,7 @@
     return  [NSString stringWithString: output];
 }
 
-+ (UIImage *) loadImage:(NSString *)urlString {
++ (UIImage *)loadImage:(NSString *)urlString {
     NSURL *imageURL = [NSURL URLWithString:urlString];
     __block UIImage *img = [[UIImage alloc] init];
 
@@ -43,7 +43,7 @@
     return img;
 }
 
-#pragma mark - decode base64 string
+#pragma mark - 解码base64字符串
 
 + (NSString *)decodeBase64String:(NSString *)string {
     NSData  *base64Data = [self base64DataFromString:string];
@@ -130,6 +130,7 @@
     return result;
 }
 
+#pragma mark - 时间间隔显示
 + (NSString *)intervalSinceNow:(NSString *)dateStr
 {
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
@@ -161,5 +162,15 @@
     }
     return timeString;
 }
+
++ (NSAttributedString *)getIntervalAttrStr:(NSString *)dateStr
+{
+    UIColor *fontColor = [UIColor colorWithRed:153/255.0 green:153/255.0 blue:153/255.0 alpha:1];
+    NSDictionary *attributes = @{NSForegroundColorAttributeName: fontColor};
+    NSAttributedString *intervalAttrStr = [[NSAttributedString alloc] initWithString:[self intervalSinceNow:dateStr]
+                                                                  attributes:attributes];
+    return intervalAttrStr;
+}
+
 
 @end
