@@ -147,15 +147,15 @@
             timeString = [timeString substringToIndex:timeString.length-7];
         }
         
-        timeString=[NSString stringWithFormat:@"%@分钟前", timeString];
+        timeString=[NSString stringWithFormat:@"%@ 分钟前", timeString];
     } else if (interval/3600>1&&interval/86400<1) {
         timeString = [NSString stringWithFormat:@"%f", interval/3600];
         timeString = [timeString substringToIndex:timeString.length-7];
-        timeString=[NSString stringWithFormat:@"%@小时前", timeString];
+        timeString=[NSString stringWithFormat:@"%@ 小时前", timeString];
     } else if (interval/86400>1&&interval/864000<1) {
         timeString = [NSString stringWithFormat:@"%f", interval/86400];
         timeString = [timeString substringToIndex:timeString.length-7];
-        timeString = [NSString stringWithFormat:@"%@天前", timeString];
+        timeString = [NSString stringWithFormat:@"%@ 天前", timeString];
     } else {
         NSArray *arr = [dateStr componentsSeparatedByString:@"T"];
         timeString = [arr objectAtIndex:0];
@@ -165,10 +165,12 @@
 
 + (NSAttributedString *)getIntervalAttrStr:(NSString *)dateStr
 {
+    UIFont *font = [UIFont fontWithName:@"STHeitiSC-Medium" size:15];
     UIColor *fontColor = [UIColor colorWithRed:153/255.0 green:153/255.0 blue:153/255.0 alpha:1];
-    NSDictionary *attributes = @{NSForegroundColorAttributeName: fontColor};
+    NSDictionary *attributes = @{NSFontAttributeName: font,
+                                 NSForegroundColorAttributeName: fontColor};
     NSAttributedString *intervalAttrStr = [[NSAttributedString alloc] initWithString:[self intervalSinceNow:dateStr]
-                                                                  attributes:attributes];
+                                                                          attributes:attributes];
     return intervalAttrStr;
 }
 

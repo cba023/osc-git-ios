@@ -119,8 +119,10 @@ enum action {
     NSMutableAttributedString *eventDescription = [[NSMutableAttributedString alloc] initWithString:event.author.name
                                                                                          attributes:authorStrAttributes];
     
+    UIFont *actionFont = [UIFont fontWithName:@"STHeitiSC-Medium" size:15];
     UIColor *actionFontColor = [UIColor colorWithRed:153/255.0 green:153/255.0 blue:153/255.0 alpha:1];
-    NSDictionary *actionAttributes = @{NSForegroundColorAttributeName: actionFontColor};
+    NSDictionary *actionAttributes = @{NSFontAttributeName: actionFont,
+                                       NSForegroundColorAttributeName: actionFontColor};
     
     UIColor *projectFontColor = [UIColor colorWithRed:13/255.0 green:109/255.0 blue:168/255.0 alpha:1];
     NSDictionary *projectAttributes = @{NSForegroundColorAttributeName: projectFontColor};

@@ -16,15 +16,27 @@
 //#import <SDWebImage/UIImageView+WebCache.h>
 
 static NSString * const kKeyPrivate_token = @"private_token";
-static NSString * const cellId = @"EventCell";
+static NSString * const EventCellIdentifier = @"EventCell";
 
 @interface EventsView ()
+
+@property (nonatomic, strong) EventCell *prototypeCell;
 
 @end
 
 @implementation EventsView
 
 @synthesize eventsArray;
+
+- (EventCell *)prototypeCell
+{
+    if (!_prototypeCell)
+    {
+        _prototypeCell = [self.tableView dequeueReusableCellWithIdentifier:EventCellIdentifier];
+    }
+    return _prototypeCell;
+}
+
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -34,6 +46,8 @@ static NSString * const cellId = @"EventCell";
     }
     return self;
 }
+
+#pragma mark - view life circle
 
 - (void)viewDidLoad
 {
@@ -46,7 +60,7 @@ static NSString * const cellId = @"EventCell";
     self.title = @"动态";
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
-    [self.tableView registerClass:[EventCell class] forCellReuseIdentifier:cellId];
+    [self.tableView registerClass:[EventCell class] forCellReuseIdentifier:EventCellIdentifier];
     
     self.eventsArray = [[NSMutableArray alloc] init];
     
@@ -57,6 +71,22 @@ static NSString * const cellId = @"EventCell";
     } else {
         [self.eventsArray addObjectsFromArray:[Event getEventsWithPrivateToekn:privateToken page:1]];
     }
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(didChangePreferredContentSize:)
+                                                 name:UIContentSizeCategoryDidChangeNotification object:nil];
+}
+
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:UIContentSizeCategoryDidChangeNotification
+                                                  object:nil];
+}
+
+- (void)didChangePreferredContentSize:(NSNotification *)notification
+{
+    [self.tableView reloadData];
 }
 
 - (void)didReceiveMemoryWarning
@@ -69,9 +99,24 @@ static NSString * const cellId = @"EventCell";
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    //CGSize size = [cell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
-    //return size.height + 1;
+#if 0
+    GLEvent *event = [self.eventsArray objectAtIndex:indexPath.row];
+    NSAttributedString *attributedStr = [Event getEventDescriptionForEvent:event];
+    CGSize size = [_eventDescription sizeThatFits:CGSizeMake(width, FLT_MAX)];
     return 60;
+#else
+    [self configureCell:self.prototypeCell forRowAtIndexPath:indexPath];
+    
+    // Need to set the width of the prototype cell to the width of the table view
+    // as this will change when the device is rotated.
+    
+    self.prototypeCell.bounds = CGRectMake(0.0f, 0.0f, CGRectGetWidth(self.tableView.bounds), CGRectGetHeight(self.prototypeCell.bounds));
+    
+    [self.prototypeCell layoutIfNeeded];
+    
+    CGSize size = [self.prototypeCell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
+    return size.height + 1;
+#endif
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -86,8 +131,15 @@ static NSString * const cellId = @"EventCell";
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    EventCell *cell = [tableView dequeueReusableCellWithIdentifier:cellId forIndexPath:indexPath];
+    EventCell *cell = [tableView dequeueReusableCellWithIdentifier:EventCellIdentifier forIndexPath:indexPath];
     
+    [self configureCell:cell forRowAtIndexPath:indexPath];
+    
+    return cell;
+}
+
+- (void)configureCell:(EventCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+{
     GLEvent *event = [self.eventsArray objectAtIndex:indexPath.row];
     [cell.eventDescription setAttributedText:[Event getEventDescriptionForEvent:event]];
     
@@ -102,9 +154,6 @@ static NSString * const cellId = @"EventCell";
     
     [cell.userPortrait sd_setImageWithURL:[NSURL URLWithString:urlString]
                          placeholderImage:[UIImage imageNamed:@"avatar"]];
-    
-    
-    return cell;
 }
 
 
