@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
+@class GLUser;
+
 @interface Tools : NSObject
 
 + (NSString *)md5:(NSString *)input;
@@ -16,5 +18,8 @@
 
 + (NSString *)intervalSinceNow:(NSString *)dateStr;
 + (NSAttributedString *)getIntervalAttrStr:(NSString *)dateStr;
+
++ (void)roundCorner:(UIView *)view;
++ (void)setPortraitForUser:(GLUser *)user view:(UIImageView *)portraitView;
 
 @end

@@ -57,7 +57,18 @@ static NSString * const EventCellIdentifier = @"EventCell";
                                                                              style:UIBarButtonItemStylePlain
                                                                             target:(NavigationController *)self.navigationController
                                                                             action:@selector(showMenu)];
+    if([[[UIDevice currentDevice]systemVersion]floatValue]>=7.0)
+    {
+        self.navigationController.navigationBar.barTintColor = UIColorFromRGB(0x145096);
+    } else {
+        [self.navigationController.navigationBar setTintColor:UIColorFromRGB(0x3A5FCD)];
+    }
+
     self.title = @"动态";
+    NSDictionary *navbarTitleTextAttributes = @{NSForegroundColorAttributeName:[UIColor whiteColor]};
+    [self.navigationController.navigationBar setTitleTextAttributes:navbarTitleTextAttributes];
+    self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
+    
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     [self.tableView registerClass:[EventCell class] forCellReuseIdentifier:EventCellIdentifier];
@@ -71,23 +82,13 @@ static NSString * const EventCellIdentifier = @"EventCell";
     } else {
         [self.eventsArray addObjectsFromArray:[Event getEventsWithPrivateToekn:privateToken page:1]];
     }
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(didChangePreferredContentSize:)
-                                                 name:UIContentSizeCategoryDidChangeNotification object:nil];
 }
 
 - (void)dealloc
 {
-    [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name:UIContentSizeCategoryDidChangeNotification
-                                                  object:nil];
+    
 }
 
-- (void)didChangePreferredContentSize:(NSNotification *)notification
-{
-    [self.tableView reloadData];
-}
 
 - (void)didReceiveMemoryWarning
 {
@@ -99,24 +100,14 @@ static NSString * const EventCellIdentifier = @"EventCell";
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-#if 0
-    GLEvent *event = [self.eventsArray objectAtIndex:indexPath.row];
-    NSAttributedString *attributedStr = [Event getEventDescriptionForEvent:event];
-    CGSize size = [_eventDescription sizeThatFits:CGSizeMake(width, FLT_MAX)];
-    return 60;
-#else
     [self configureCell:self.prototypeCell forRowAtIndexPath:indexPath];
-    
-    // Need to set the width of the prototype cell to the width of the table view
-    // as this will change when the device is rotated.
-    
-    self.prototypeCell.bounds = CGRectMake(0.0f, 0.0f, CGRectGetWidth(self.tableView.bounds), CGRectGetHeight(self.prototypeCell.bounds));
-    
-    [self.prototypeCell layoutIfNeeded];
-    
-    CGSize size = [self.prototypeCell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
-    return size.height + 1;
-#endif
+    GLfloat descriptionHeight = _prototypeCell.eventDescription.frame.size.height,
+            timeHeight = _prototypeCell.time.frame.size.height,
+            totalHeight = descriptionHeight + timeHeight + 15;
+    if ([_prototypeCell.eventAbstract isDescendantOfView:_prototypeCell.contentView]) {
+        totalHeight += _prototypeCell.eventAbstract.frame.size.height + 5;
+    }
+    return totalHeight;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -141,21 +132,65 @@ static NSString * const EventCellIdentifier = @"EventCell";
 - (void)configureCell:(EventCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     GLEvent *event = [self.eventsArray objectAtIndex:indexPath.row];
+    
+
+    cell.eventDescription.frame = CGRectMake(49, 5, 251, 30);
     [cell.eventDescription setAttributedText:[Event getEventDescriptionForEvent:event]];
     
-    [cell.time setAttributedText:[Tools getIntervalAttrStr:event.createdAt]];
+    CGFloat fixedWidth = cell.eventDescription.frame.size.width;
+    CGSize newSize = [cell.eventDescription sizeThatFits:CGSizeMake(fixedWidth, MAXFLOAT)];
+    CGRect newFrame = cell.eventDescription.frame;
+    newFrame.size = CGSizeMake(fmaxf(newSize.width, fixedWidth), newSize.height);
+    cell.eventDescription.frame = newFrame;
     
-    NSString *urlString = [[NSString alloc] init];
-    if (event.author.portrait) {
-        urlString = [NSString pathWithComponents:@[git_osc_url, event.author.portrait]];
-    } else if (event.author.email) {
-        urlString = [NSString stringWithFormat:@"http://secure.gravatar.com/avatar/%@?s=48&d=mm", [Tools md5:event.author.email]];
+    cell.eventDescription.backgroundColor = [UIColor clearColor];
+    cell.eventDescription.scrollEnabled = NO;
+    cell.eventDescription.editable = NO;
+    cell.eventDescription.selectable = NO;
+    cell.eventDescription.textAlignment = NSTextAlignmentLeft;
+    [cell.contentView addSubview:cell.eventDescription];
+
+    
+    if (event.data) {
+        cell.eventAbstract = [self createEventAbstractView:event];
+        CGFloat width = 260;
+        CGSize size = [cell.eventDescription sizeThatFits:CGSizeMake(width, MAXFLOAT)];
+        cell.eventAbstract.frame = CGRectMake(49, 10+newSize.height, fmaxf(size.width, width), size.height);
+        //[Tools roundCorner:eventAbstractView];
+        [cell.contentView addSubview:cell.eventAbstract];
+        
+        cell.time.frame = CGRectMake(63, newSize.height+size.height+15, 158, 20);
+    } else {
+        cell.time.frame = CGRectMake(63, newSize.height+10, 158, 20);
     }
     
-    [cell.userPortrait sd_setImageWithURL:[NSURL URLWithString:urlString]
-                         placeholderImage:[UIImage imageNamed:@"avatar"]];
+    cell.time.textAlignment = NSTextAlignmentLeft;
+    [cell.time setAttributedText:[Tools getIntervalAttrStr:event.createdAt]];
+    [cell.contentView addSubview:cell.time];
+    
+    [Tools setPortraitForUser:event.author view:cell.userPortrait];
 }
 
+#pragma mark - 初始化子视图
+- (UITextView *)createEventAbstractView:(GLEvent *)event
+{
+    UITextView *eventAbstractView = [UITextView new];
+    
+    NSDictionary *idStrAttributes = @{NSForegroundColorAttributeName:UIColorFromRGB(0x0d6da8)};
+    NSDictionary *digestAttributes = @{NSForegroundColorAttributeName:UIColorFromRGB(0x999999)};
+    NSString *commitId = [[[[[event data] objectForKey:@"commits"] objectAtIndex:0] objectForKey:@"id"] substringToIndex:9];
+    NSString *message = [[[[event data] objectForKey:@"commits"] objectAtIndex:0] objectForKey:@"message"];
+    
+    message = [NSString stringWithFormat:@" %@ - %@", event.author.name, message];
+    NSMutableAttributedString *digest = [[NSMutableAttributedString alloc] initWithString:commitId attributes:idStrAttributes];
+    [digest appendAttributedString:[[NSAttributedString alloc] initWithString:message attributes:digestAttributes]];
+    
+    [eventAbstractView setAttributedText:digest];
+    eventAbstractView.selectable = NO;
+    eventAbstractView.scrollEnabled = NO;
+    
+    return eventAbstractView;
+}
 
 
 @end

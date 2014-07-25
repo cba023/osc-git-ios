@@ -112,7 +112,7 @@ enum action {
 {
     //NSString *eventDescription = [NSString new];
     
-    UIFont *authorStrFont = [UIFont fontWithName:@"Arial-BoldMT" size:14];
+    UIFont *authorStrFont = [UIFont fontWithName:@"Arial-BoldMT" size:15];
     UIColor *authorStrFontColor = [UIColor colorWithRed:14/255.0 green:89/255.0 blue:134/255.0 alpha:1];
     NSDictionary *authorStrAttributes = @{NSFontAttributeName: authorStrFont,
                                           NSForegroundColorAttributeName: authorStrFontColor};
@@ -132,18 +132,18 @@ enum action {
     enum action actionType = event.action;
     NSMutableAttributedString *action = [NSMutableAttributedString alloc];
     switch (actionType) {
-        case CREATED: {
+        case CREATED: 
             action = [action initWithString:@"在项目创建了" attributes:actionAttributes];
             [action insertAttributedString:project atIndex:2];
             [action appendAttributedString:[[NSAttributedString alloc] initWithString:event.targetType
                                                                            attributes:projectAttributes]];
             break;
-        }
-        case UPDATED: {
+        
+        case UPDATED:
              action = [action initWithString:@"更新了项目" attributes:actionAttributes];
             [action appendAttributedString:project];
             break;
-        }
+        
         case CLOSED:
             action = [action initWithString:@"关闭了项目" attributes:actionAttributes];
             [action appendAttributedString:project];
@@ -160,13 +160,13 @@ enum action {
                                    atIndex:action.length-2];
             break;
         case COMMENTED:
-            action = [action initWithString:@"接受了项目的" attributes:actionAttributes];
+            action = [action initWithString:@"评论了项目的" attributes:actionAttributes];
             [action insertAttributedString:project atIndex:5];
             [action appendAttributedString:[[NSAttributedString alloc]initWithString:event.targetType
                                                                           attributes:projectAttributes]];
             break;
         case MERGED:
-            action = [action initWithString:@"评论了项目的" attributes:actionAttributes];
+            action = [action initWithString:@"接受了项目的" attributes:actionAttributes];
             [action insertAttributedString:project atIndex:5];
             [action appendAttributedString:[[NSAttributedString alloc]initWithString:event.targetType
                                                                           attributes:projectAttributes]];

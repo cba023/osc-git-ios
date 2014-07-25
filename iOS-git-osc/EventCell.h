@@ -12,8 +12,8 @@
 @interface EventCell : UITableViewCell
 
 @property UIImageView *userPortrait;
-//@property RTLabel *eventDescription;
-@property UILabel *eventDescription;
+@property UITextView *eventDescription;
+@property UITextView *eventAbstract;
 @property UILabel *time;
 
 @end

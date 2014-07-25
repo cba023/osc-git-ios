@@ -21,7 +21,7 @@ static NSString * const kKeyAuthorId = @"author_id";
 static NSString * const kKeyPublic = @"public";
 static NSString * const kKeyProject = @"project";
 static NSString * const kKeyAuthor = @"author";
-static NSString * const kKeyNote = @"note";
+static NSString * const kKeyEvents = @"events";
 
 @implementation GLEvent
 
@@ -44,7 +44,7 @@ static NSString * const kKeyNote = @"note";
         _public = [[self checkForNull:json[kKeyPublic]] boolValue];
         _project = [[GLProject alloc] initWithJSON:json[kKeyProject]];
         _author = [[GLUser alloc] initWithJSON:json[kKeyAuthor]];
-        _note = [self checkForNull:json[kKeyNote]];
+        _events = [self checkForNull:json[kKeyEvents]];
     }
     
     return self;

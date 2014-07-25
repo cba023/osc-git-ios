@@ -7,8 +7,10 @@
 //
 
 #import "Tools.h"
+#import "GLGitlab.h"
 #import <CommonCrypto/CommonDigest.h>
-#import <SDWebImage/UIImageView+WebCache.h>
+#import "UIImageView+WebCache.h"
+//#import <SDWebImage/UIImageView+WebCache.h>
 
 @implementation Tools
 
@@ -172,6 +174,28 @@
     NSAttributedString *intervalAttrStr = [[NSAttributedString alloc] initWithString:[self intervalSinceNow:dateStr]
                                                                           attributes:attributes];
     return intervalAttrStr;
+}
+
+#pragma mark - UI thing
++ (void)roundCorner:(UIView *)view
+{
+    view.layer.cornerRadius = 5.0;
+    view.layer.masksToBounds = YES;
+}
+
++ (void)setPortraitForUser:(GLUser *)user view:(UIImageView *)portraitView
+{
+    NSString *portraitURL = [[NSString alloc] init];
+    if (user.portrait) {
+        portraitURL = [NSString pathWithComponents:@[git_osc_url, user.portrait]];
+    } else if (user.email) {
+        portraitURL = [NSString stringWithFormat:@"http://secure.gravatar.com/avatar/%@?s=48&d=mm", [Tools md5:user.email]];
+    }
+    
+    [portraitView sd_setImageWithURL:[NSURL URLWithString:portraitURL]
+                    placeholderImage:[UIImage imageNamed:@"avatar"]];
+    
+    [self roundCorner:portraitView];
 }
 
 

@@ -15,7 +15,7 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         [self initSubview];
-        [self setAutoLayout];
+        //[self setAutoLayout];
     }
     return self;
 }
@@ -32,6 +32,7 @@
     // Configure the view for the selected state
 }
 
+#if 0
 - (void)layoutSubviews
 {
     [super layoutSubviews];
@@ -39,6 +40,7 @@
     [self.contentView layoutIfNeeded];
     self.eventDescription.preferredMaxLayoutWidth = CGRectGetWidth(self.eventDescription.frame);
 }
+#endif
 
 #pragma mark - init
 - (void)initSubview
@@ -50,15 +52,21 @@
     _userPortrait.contentMode = UIViewContentModeScaleAspectFit;
     [self.contentView addSubview:_userPortrait];
     
+    _eventDescription = [UITextView new];
+    _time = [UILabel new];
+    //_eventAbstract = [UITextView new];
+   
+#if 0
     _eventDescription = [[UILabel alloc] initWithFrame:CGRectMake(49, 0, 251, 30)];
     [_eventDescription setNumberOfLines:0];
     _eventDescription.textAlignment = NSTextAlignmentLeft;
     //_eventDescription.font = [UIFont systemFontOfSize:12];
     [self.contentView addSubview:self.eventDescription];
     
-    _time = [[UILabel alloc] initWithFrame:CGRectMake(63, 27, 158, 21)];
+    //_time = [[UILabel alloc] initWithFrame:CGRectMake(63, 27, 158, 21)];
     _time.textAlignment = NSTextAlignmentLeft;
     [self.contentView addSubview:self.time];
+#endif
 }
 
 - (void)setAutoLayout

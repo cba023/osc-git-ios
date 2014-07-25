@@ -39,7 +39,7 @@
 @property (nonatomic, strong) GLProject *project;
 // user
 @property (nonatomic, strong) GLUser *author;
-// note
-@property (nonatomic, strong) NSString *note;
+// events
+@property (nonatomic, strong) NSArray *events;
 
 @end
