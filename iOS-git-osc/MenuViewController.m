@@ -102,6 +102,10 @@ static NSString * const kKeyPortrait = @"portrait";
         self.imageView.layer.shouldRasterize = YES;
         self.imageView.clipsToBounds = YES;
         
+        UITapGestureRecognizer *tapPortraitRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self
+                                                                                                   action:@selector(tapPortrait:)];
+        [view addGestureRecognizer:tapPortraitRecognizer];
+        
         self.label = [[UILabel alloc] initWithFrame:CGRectMake(0, 150, 0, 24)];
         if (name) {
             self.label.text = name;
@@ -120,8 +124,7 @@ static NSString * const kKeyPortrait = @"portrait";
     });
 }
 
-#pragma mark -
-#pragma mark UITableView Delegate
+#pragma mark - UITableView Delegate
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -164,42 +167,24 @@ static NSString * const kKeyPortrait = @"portrait";
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    /*if (indexPath.section == 0) {
+    if (indexPath.section == 0) {
         switch (indexPath.row) {
             case 0: {
+                EventsView *eventsView = [[EventsView alloc] init];
+                NavigationController *navigationController = [[NavigationController alloc] initWithRootViewController:eventsView];
+                self.frostedViewController.contentViewController = navigationController;
+                break;
+            }
+            case 1: {
                 HomeViewController *homeViewController = [[HomeViewController alloc] init];
                 NavigationController *navigationController = [[NavigationController alloc] initWithRootViewController:homeViewController];
                 self.frostedViewController.contentViewController = navigationController;
                 break;
             }
-                
-            case 1: {
-                break
-            }
-                
             default:
                 break;
         }
-    }*/
-    if (indexPath.section == 0 && indexPath.row == 1) {
-        HomeViewController *homeViewController = [[HomeViewController alloc] init];
-        NavigationController *navigationController = [[NavigationController alloc] initWithRootViewController:homeViewController];
-        self.frostedViewController.contentViewController = navigationController;
-    } else if (indexPath.section == 0 && indexPath.row == 0) {
-        EventsView *eventsView = [[EventsView alloc] init];
-        NavigationController *navigationController = [[NavigationController alloc] initWithRootViewController:eventsView];
-        self.frostedViewController.contentViewController = navigationController;
-    }
-    else if (indexPath.section == 0 && indexPath.row > 1) {
-        LoginViewController *loginViewController = [[LoginViewController alloc] init];
-        NavigationController *navigationController = [[NavigationController alloc] initWithRootViewController:loginViewController];
-        self.frostedViewController.contentViewController = navigationController;
     } else if (indexPath.section == 1) {
-#if 0
-        ProjectTableController *projectTableController = [[ProjectTableController alloc] init];
-        NavigationController *navigationController = [[NavigationController alloc] initWithRootViewController:projectTableController];
-        self.frostedViewController.contentViewController = navigationController;
-#endif
         ProjectsViewController *projectViewController = [[ProjectsViewController alloc] init];
         NavigationController *navigationController = [[NavigationController alloc] initWithRootViewController:projectViewController];
         self.frostedViewController.contentViewController = navigationController;
@@ -268,6 +253,15 @@ static NSString * const kKeyPortrait = @"portrait";
     
     cell.textLabel.text = titles[indexPath.row];
     return cell;
+}
+
+#pragma mark - recognizer
+- (void)tapPortrait:(UITapGestureRecognizer *)recognizer
+{
+    LoginViewController *loginViewController = [[LoginViewController alloc] init];
+    NavigationController *navigationController = [[NavigationController alloc] initWithRootViewController:loginViewController];
+    self.frostedViewController.contentViewController = navigationController;
+    [self.frostedViewController hideMenuViewController];
 }
 
 @end
