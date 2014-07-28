@@ -153,12 +153,12 @@ static NSString * const EventCellIdentifier = @"EventCell";
         [cell generateEventAbstractView:event];
         [cell.contentView addSubview:cell.eventAbstract];
         CGFloat width = 260;
-        CGSize size = [cell.eventDescription sizeThatFits:CGSizeMake(width, MAXFLOAT)];
-        cell.eventAbstract.frame = CGRectMake(49, 10+descriptionHeight, fmaxf(size.width, width), size.height);
+        CGSize size = [cell.eventAbstract sizeThatFits:CGSizeMake(width, MAXFLOAT)];
+        cell.eventAbstract.frame = CGRectMake(49, 6+descriptionHeight, fmaxf(size.width, width), size.height);
         
-        cell.time.frame = CGRectMake(63, descriptionHeight+size.height+15, 158, 20);
+        cell.time.frame = CGRectMake(53, descriptionHeight+size.height+9, 158, 20);
     } else {
-        cell.time.frame = CGRectMake(63, descriptionHeight+10, 158, 20);
+        cell.time.frame = CGRectMake(53, descriptionHeight+6, 158, 20);
     }
     
     [cell.time setAttributedText:[Tools getIntervalAttrStr:event.createdAt]];

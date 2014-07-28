@@ -56,7 +56,6 @@
     
     _eventDescription = [UITextView new];
     _time = [UILabel new];
-    //_eventAbstract = [UITextView new];
 
 #if 0
     _eventDescription = [[UILabel alloc] initWithFrame:CGRectMake(49, 0, 251, 30)];
@@ -90,7 +89,7 @@
 #pragma mark - 初始化子视图
 - (void)generateEventDescriptionView:(GLEvent *)event
 {
-    _eventDescription.frame = CGRectMake(49, 5, 251, 30);
+    _eventDescription.frame = CGRectMake(49, 3, 251, 30);
     [_eventDescription setAttributedText:[Event getEventDescriptionForEvent:event]];
     
     CGFloat fixedWidth = _eventDescription.frame.size.width;
@@ -110,12 +109,21 @@
 {
     NSDictionary *idStrAttributes = @{NSForegroundColorAttributeName:UIColorFromRGB(0x0d6da8)};
     NSDictionary *digestAttributes = @{NSForegroundColorAttributeName:UIColorFromRGB(0x999999)};
-    NSString *commitId = [[[[[event data] objectForKey:@"commits"] objectAtIndex:0] objectForKey:@"id"] substringToIndex:9];
-    NSString *message = [[[[event data] objectForKey:@"commits"] objectAtIndex:0] objectForKey:@"message"];
+    NSMutableAttributedString *digest = [NSMutableAttributedString new];
+    int totalCommitsCount = [[event.data objectForKey:@"total_commits_count"] intValue];
     
-    message = [NSString stringWithFormat:@" %@ - %@", event.author.name, message];
-    NSMutableAttributedString *digest = [[NSMutableAttributedString alloc] initWithString:commitId attributes:idStrAttributes];
-    [digest appendAttributedString:[[NSAttributedString alloc] initWithString:message attributes:digestAttributes]];
+    int digestsCount = 0;
+    while (true) {
+        NSString *commitId = [[[[[event data] objectForKey:@"commits"] objectAtIndex:digestsCount] objectForKey:@"id"] substringToIndex:9];
+        NSString *message = [[[[event data] objectForKey:@"commits"] objectAtIndex:digestsCount] objectForKey:@"message"];
+    
+        message = [NSString stringWithFormat:@" %@ - %@", event.author.name, message];
+        [digest appendAttributedString:[[NSAttributedString alloc] initWithString:commitId attributes:idStrAttributes]];
+        [digest appendAttributedString:[[NSAttributedString alloc] initWithString:message attributes:digestAttributes]];
+        
+        if (++digestsCount == totalCommitsCount || digestsCount >= 2) {break;}
+        [digest appendAttributedString:[[NSAttributedString alloc] initWithString:@"\n"]];
+    }
     
     [_eventAbstract setAttributedText:digest];
     _eventAbstract.selectable = NO;
