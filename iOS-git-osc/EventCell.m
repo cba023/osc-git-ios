@@ -7,6 +7,8 @@
 //
 
 #import "EventCell.h"
+#import "GLEvent.h"
+#import "Event.h"
 
 @implementation EventCell
 
@@ -55,7 +57,7 @@
     _eventDescription = [UITextView new];
     _time = [UILabel new];
     //_eventAbstract = [UITextView new];
-   
+
 #if 0
     _eventDescription = [[UILabel alloc] initWithFrame:CGRectMake(49, 0, 251, 30)];
     [_eventDescription setNumberOfLines:0];
@@ -84,5 +86,41 @@
                                                                              metrics:nil
                                                                                views:NSDictionaryOfVariableBindings(_eventDescription)]];
 }
+
+#pragma mark - 初始化子视图
+- (void)generateEventDescriptionView:(GLEvent *)event
+{
+    _eventDescription.frame = CGRectMake(49, 5, 251, 30);
+    [_eventDescription setAttributedText:[Event getEventDescriptionForEvent:event]];
+    
+    CGFloat fixedWidth = _eventDescription.frame.size.width;
+    CGSize newSize = [_eventDescription sizeThatFits:CGSizeMake(fixedWidth, MAXFLOAT)];
+    CGRect newFrame = _eventDescription.frame;
+    newFrame.size = CGSizeMake(fmaxf(newSize.width, fixedWidth), newSize.height);
+    _eventDescription.frame = newFrame;
+    
+    _eventDescription.backgroundColor = [UIColor clearColor];
+    _eventDescription.scrollEnabled = NO;
+    _eventDescription.editable = NO;
+    _eventDescription.selectable = NO;
+    _eventDescription.textAlignment = NSTextAlignmentLeft;
+}
+
+- (void)generateEventAbstractView:(GLEvent *)event
+{
+    NSDictionary *idStrAttributes = @{NSForegroundColorAttributeName:UIColorFromRGB(0x0d6da8)};
+    NSDictionary *digestAttributes = @{NSForegroundColorAttributeName:UIColorFromRGB(0x999999)};
+    NSString *commitId = [[[[[event data] objectForKey:@"commits"] objectAtIndex:0] objectForKey:@"id"] substringToIndex:9];
+    NSString *message = [[[[event data] objectForKey:@"commits"] objectAtIndex:0] objectForKey:@"message"];
+    
+    message = [NSString stringWithFormat:@" %@ - %@", event.author.name, message];
+    NSMutableAttributedString *digest = [[NSMutableAttributedString alloc] initWithString:commitId attributes:idStrAttributes];
+    [digest appendAttributedString:[[NSAttributedString alloc] initWithString:message attributes:digestAttributes]];
+    
+    [_eventAbstract setAttributedText:digest];
+    _eventAbstract.selectable = NO;
+    _eventAbstract.scrollEnabled = NO;
+}
+
 
 @end
