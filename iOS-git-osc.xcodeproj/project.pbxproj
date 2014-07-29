@@ -396,16 +396,6 @@
 				0021BAF6192360A100626A2C /* SSKeychain.m */,
 				0041FA99191C87AF00E1F237 /* Tools.h */,
 				0041FA9A191C87AF00E1F237 /* Tools.m */,
-				00B01FE719221EB40095D488 /* User.h */,
-				00B01FE819221EB40095D488 /* User.m */,
-				0087828819583E7D003F331C /* Project.h */,
-				0087828919583E7D003F331C /* Project.m */,
-				00B7595A196C065E009C9C58 /* Event.h */,
-				00B7595B196C065E009C9C58 /* Event.m */,
-				00D4ED21196F97FE00F3A4A5 /* Issue.h */,
-				00D4ED22196F97FE00F3A4A5 /* Issue.m */,
-				00D4ED2A196FF5C500F3A4A5 /* Note.h */,
-				00D4ED2B196FF5C500F3A4A5 /* Note.m */,
 				0002D2B81916407B001FDED8 /* Controller */,
 				0002D2581916324B001FDED8 /* AppDelegate.h */,
 				0002D2591916324B001FDED8 /* AppDelegate.m */,
@@ -455,8 +445,7 @@
 				0002D2BD19164716001FDED8 /* MenuViewController.m */,
 				0002D2BF19164B02001FDED8 /* NavigationController.h */,
 				0002D2C019164B02001FDED8 /* NavigationController.m */,
-				009018C51921D1B90050197D /* LoginViewController.h */,
-				009018C61921D1B90050197D /* LoginViewController.m */,
+				006391C41987924100689FAD /* Login */,
 				00B75960196CE5EB009C9C58 /* Projects */,
 				00B7595F196CE5DA009C9C58 /* Files */,
 				00B7595D196CE575009C9C58 /* Events */,
@@ -592,6 +581,17 @@
 			path = private;
 			sourceTree = "<group>";
 		};
+		006391C41987924100689FAD /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				00B01FE719221EB40095D488 /* User.h */,
+				00B01FE819221EB40095D488 /* User.m */,
+				009018C51921D1B90050197D /* LoginViewController.h */,
+				009018C61921D1B90050197D /* LoginViewController.m */,
+			);
+			name = Login;
+			sourceTree = "<group>";
+		};
 		00760B6819767BDA00C88C6F /* SDWebImage */ = {
 			isa = PBXGroup;
 			children = (
@@ -667,6 +667,8 @@
 		00B7595D196CE575009C9C58 /* Events */ = {
 			isa = PBXGroup;
 			children = (
+				00B7595A196C065E009C9C58 /* Event.h */,
+				00B7595B196C065E009C9C58 /* Event.m */,
 				00B75952196BEB6F009C9C58 /* EventCell.h */,
 				00B75953196BEB6F009C9C58 /* EventCell.m */,
 				00B75955196BEB90009C9C58 /* EventsView.h */,
@@ -691,6 +693,8 @@
 		00B75960196CE5EB009C9C58 /* Projects */ = {
 			isa = PBXGroup;
 			children = (
+				0087828819583E7D003F331C /* Project.h */,
+				0087828919583E7D003F331C /* Project.m */,
 				00C3A40D196113E7002A34AB /* ProjectsViewController.h */,
 				00C3A40E196113E7002A34AB /* ProjectsViewController.m */,
 				00C3A4131961538B002A34AB /* ProjectsTableController.h */,
@@ -714,6 +718,8 @@
 		00D4ED20196F97CF00F3A4A5 /* Issues */ = {
 			isa = PBXGroup;
 			children = (
+				00D4ED21196F97FE00F3A4A5 /* Issue.h */,
+				00D4ED22196F97FE00F3A4A5 /* Issue.m */,
 				00D4ED24196F9B9900F3A4A5 /* IssueCell.h */,
 				00D4ED25196F9B9900F3A4A5 /* IssueCell.m */,
 				00D4ED27196F9BCA00F3A4A5 /* IssuesView.h */,
@@ -725,6 +731,8 @@
 		00D4ED2D196FF83100F3A4A5 /* Notes */ = {
 			isa = PBXGroup;
 			children = (
+				00D4ED2A196FF5C500F3A4A5 /* Note.h */,
+				00D4ED2B196FF5C500F3A4A5 /* Note.m */,
 				00D4ED2E196FF85E00F3A4A5 /* NoteCell.h */,
 				00D4ED2F196FF85E00F3A4A5 /* NoteCell.m */,
 				00D4ED32196FF88300F3A4A5 /* NotesView.h */,

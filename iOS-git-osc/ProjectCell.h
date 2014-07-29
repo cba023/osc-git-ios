@@ -10,6 +10,7 @@
 
 @interface ProjectCell : UITableViewCell
 
+@property UIImageView *portrait;
 @property UILabel *projectNameField;
 @property UILabel *projectDescriptionField;
 @property UILabel *languageField;

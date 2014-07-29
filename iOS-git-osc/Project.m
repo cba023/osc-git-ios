@@ -23,6 +23,7 @@
         }
         done = YES;
     };
+    
     GLGitlabFailureBlock failure = ^(NSError *error) {
         if (error != nil) {
             NSLog(@"Request failed");
@@ -31,6 +32,7 @@
         }
         done = YES;
     };
+    
     GLNetworkOperation *op = [[GLGitlabApi sharedInstance] getExtraProjectsType:type
                                                                            Page:page
                                                                         Success:success
@@ -105,6 +107,46 @@
     }
     
     return content;
+}
+
++ (NSArray *)getOwnProjects
+{
+    __block BOOL done = NO;
+    __block NSArray *array;
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    NSString *privateToken = [userDefaults stringForKey:@"private_token"];
+    if  (!privateToken) {
+        NSLog(@"private_token not exist.");
+        return nil;
+    }
+    
+    GLGitlabSuccessBlock success = ^(id responseObject) {
+        if (responseObject == nil) {
+            NSLog(@"Request failed");
+        } else {
+            array = responseObject;
+        }
+        done = YES;
+    };
+    
+    GLGitlabFailureBlock failure = ^(NSError *error) {
+        if (error != nil) {
+            NSLog(@"%@, Request failed", error);
+        } else {
+            NSLog(@"error == nil");
+        }
+        done = YES;
+    };
+    
+    GLNetworkOperation *op = [[GLGitlabApi sharedInstance] getUsersProjectsWithPrivateToken:privateToken
+                                                                                    success:success
+                                                                                    failure:failure];
+    
+    while (!done) {
+        [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate distantFuture]];
+    }
+    
+    return array;
 }
 
 @end

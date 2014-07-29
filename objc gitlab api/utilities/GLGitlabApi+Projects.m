@@ -23,13 +23,18 @@ static NSString * const kProjectPopularProjectEndPoint = @"/projects/popular";
 static NSString * const kProjectRecommendedProjectEndPoint = @"/projects/featured";
 static NSString * const kProjectLatestProjectEndPoint = @"/projects/latest";
 
+static NSString * const kKeyPrivate_token = @"private_token";
+
 @implementation GLGitlabApi (Projects)
 #pragma mark - Project Methods
 
-- (GLNetworkOperation *)getUsersProjectsSuccess:(GLGitlabSuccessBlock)successBlock
-                                        failure:(GLGitlabFailureBlock)failureBlock
+- (GLNetworkOperation *)getUsersProjectsWithPrivateToken:(NSString *)privateToken
+                                                 success:(GLGitlabSuccessBlock)successBlock
+                                                 failure:(GLGitlabFailureBlock)failureBlock
+
 {
     NSMutableURLRequest *request = [self requestForEndPoint:kProjectEndpoint
+                                                     params:@{kKeyPrivate_token: privateToken}
                                                      method:GLNetworkOperationGetMethod];
     
     GLNetworkOperationSuccessBlock localSuccessBlock = [self multipleObjectSuccessBlockForClass:[GLProject class] successBlock:successBlock];
@@ -45,21 +50,6 @@ static NSString * const kProjectLatestProjectEndPoint = @"/projects/latest";
                                              failure:(GLGitlabFailureBlock)failureBlock
 {
     NSMutableURLRequest *request = [self requestForEndPoint:kProjectOwnedProjectsEndPoint
-                                                     method:GLNetworkOperationGetMethod];
-    
-    GLNetworkOperationSuccessBlock localSuccessBlock = [self multipleObjectSuccessBlockForClass:[GLProject class] successBlock:successBlock];
-    GLNetworkOperationFailureBlock localFailureBlock = [self defaultFailureBlock:failureBlock];
-    
-    return [self queueOperationWithRequest:request
-                                      type:GLNetworkOperationTypeJson
-                                   success:localSuccessBlock
-                                   failure:localFailureBlock];
-}
-
-- (GLNetworkOperation *)getAllProjectsSuccess:(GLGitlabSuccessBlock)successBlock
-                                      failure:(GLGitlabFailureBlock)failureBlock
-{
-    NSMutableURLRequest *request = [self requestForEndPoint:kProjectAllProjectsEndPoint
                                                      method:GLNetworkOperationGetMethod];
     
     GLNetworkOperationSuccessBlock localSuccessBlock = [self multipleObjectSuccessBlockForClass:[GLProject class] successBlock:successBlock];

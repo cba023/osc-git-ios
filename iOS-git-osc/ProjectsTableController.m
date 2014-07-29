@@ -12,6 +12,7 @@
 #import "NavigationController.h"
 #import "GLGitlab.h"
 #import "Project.h"
+#import "Tools.h"
 
 @interface ProjectsTableController ()
 
@@ -40,7 +41,7 @@ static NSString * const cellId = @"ProjectCell";
                                                                              style:UIBarButtonItemStylePlain
                                                                             target:(NavigationController *)self.navigationController
                                                                             action:@selector(showMenu)];
-    self.title = @"热门项目";
+    self.title = @"个人项目";
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     [self.tableView registerClass:[ProjectCell class] forCellReuseIdentifier:cellId];
@@ -62,23 +63,16 @@ static NSString * const cellId = @"ProjectCell";
     // Dispose of any resources that can be recreated.
 }
 
-#pragma mark - Table view data source
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-    return 1;
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-    return self.projectsArray.count;
-}
+#pragma mark - 表格显示及操作
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     ProjectCell *cell = [tableView dequeueReusableCellWithIdentifier:cellId forIndexPath:indexPath];
     
     GLProject *project = [self.projectsArray objectAtIndex:indexPath.row];
+    
+    [Tools setPortraitForUser:project.owner view:cell.portrait];
     cell.projectNameField.text = [NSString stringWithFormat:@"%@ / %@", project.owner.name, project.name];
     cell.projectDescriptionField.text = project.projectDescription;
     cell.languageField.text = project.language;
@@ -105,10 +99,24 @@ static NSString * const cellId = @"ProjectCell";
     }
 }
 
+
+#pragma mark - 基本数值设置
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return self.projectsArray.count;
+}
+
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return 60;
 }
+
 
 #pragma mark - 上拉加载更多
 
@@ -122,7 +130,8 @@ static NSString * const cellId = @"ProjectCell";
 	}
 }
 
-#pragma mark - reload
+
+#pragma mark - 加载更多
 
 #if 0
 - (void)refreshView
@@ -149,7 +158,7 @@ static NSString * const cellId = @"ProjectCell";
     self.arrangeType = newArrangeType;
     [self.projectsArray removeAllObjects];
     
-    [self.projectsArray addObjectsFromArray:[Project loadExtraProjectType:self.arrangeType OnPage:self.projectsArray.count/20 + 1]];
+    [self.projectsArray addObjectsFromArray:[Project loadExtraProjectType:self.arrangeType OnPage:1]];
     [self.tableView reloadData];
 }
 

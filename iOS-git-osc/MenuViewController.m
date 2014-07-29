@@ -176,8 +176,8 @@ static NSString * const kKeyPortrait = @"portrait";
                 break;
             }
             case 1: {
-                HomeViewController *homeViewController = [[HomeViewController alloc] init];
-                NavigationController *navigationController = [[NavigationController alloc] initWithRootViewController:homeViewController];
+                ProjectsViewController *ownProjectsView = [[ProjectsViewController alloc] init];
+                NavigationController *navigationController = [[NavigationController alloc] initWithRootViewController:ownProjectsView];
                 self.frostedViewController.contentViewController = navigationController;
                 break;
             }

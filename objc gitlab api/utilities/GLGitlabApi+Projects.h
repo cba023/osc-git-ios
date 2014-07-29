@@ -11,6 +11,7 @@
 @class GLProject, GLUser;
 
 @interface GLGitlabApi (Projects)
+
 #pragma mark - Project Methods
 /**
  *  Returns all projects a user is associated with
@@ -20,8 +21,9 @@
  *
  *  @return The operation to be executed
  */
-- (GLNetworkOperation *)getUsersProjectsSuccess:(GLGitlabSuccessBlock)successBlock
-                                        failure:(GLGitlabFailureBlock)failureBlock;
+- (GLNetworkOperation *)getUsersProjectsWithPrivateToken:(NSString *)privateToken
+                                                 success:(GLGitlabSuccessBlock)successBlock
+                                                 failure:(GLGitlabFailureBlock)failureBlock;
 
 /**
  *  Returns all projects a user owns
@@ -33,17 +35,6 @@
  */
 - (GLNetworkOperation *)getUsersOwnedProjectsSuccess:(GLGitlabSuccessBlock)successBlock
                                              failure:(GLGitlabFailureBlock)failureBlock;
-
-/**
- *  Returns all projects, may only be used by an admin user
- *
- *  @param successBlock parameter will be an NSArray of GLProject objects
- *  @param failureBlock parameter will be an NSError
- *
- *  @return The operation to be executed
- */
-- (GLNetworkOperation *)getAllProjectsSuccess:(GLGitlabSuccessBlock)successBlock
-                                      failure:(GLGitlabFailureBlock)failureBlock;
 
 /**
  *  Retrieves the project with the specified id
