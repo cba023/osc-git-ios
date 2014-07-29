@@ -24,17 +24,20 @@ static NSString * const kProjectRecommendedProjectEndPoint = @"/projects/feature
 static NSString * const kProjectLatestProjectEndPoint = @"/projects/latest";
 
 static NSString * const kKeyPrivate_token = @"private_token";
+static NSString * const kKeyPage = @"page";
 
 @implementation GLGitlabApi (Projects)
 #pragma mark - Project Methods
 
 - (GLNetworkOperation *)getUsersProjectsWithPrivateToken:(NSString *)privateToken
+                                                  onPage:(int)page
                                                  success:(GLGitlabSuccessBlock)successBlock
                                                  failure:(GLGitlabFailureBlock)failureBlock
 
 {
     NSMutableURLRequest *request = [self requestForEndPoint:kProjectEndpoint
-                                                     params:@{kKeyPrivate_token: privateToken}
+                                                     params:@{kKeyPrivate_token: privateToken,
+                                                              kKeyPage: [NSNumber numberWithInt:page]}
                                                      method:GLNetworkOperationGetMethod];
     
     GLNetworkOperationSuccessBlock localSuccessBlock = [self multipleObjectSuccessBlockForClass:[GLProject class] successBlock:successBlock];
@@ -182,9 +185,9 @@ static NSString * const kKeyPrivate_token = @"private_token";
 }
 
 - (GLNetworkOperation *)getExtraProjectsType:(int)type
-                                        Page:(int)page
-                                     Success:(GLGitlabSuccessBlock)successBlock
-                                     Failure:(GLGitlabFailureBlock)failureBlock
+                                        page:(int)page
+                                     success:(GLGitlabSuccessBlock)successBlock
+                                     failure:(GLGitlabFailureBlock)failureBlock
 {
     NSString *endPoint;
     switch (type) {

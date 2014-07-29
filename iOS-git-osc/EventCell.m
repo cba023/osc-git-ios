@@ -113,7 +113,7 @@
     int totalCommitsCount = [[event.data objectForKey:@"total_commits_count"] intValue];
     
     int digestsCount = 0;
-    while (true) {
+    while (totalCommitsCount > 0) {
         NSString *commitId = [[[[[event data] objectForKey:@"commits"] objectAtIndex:digestsCount] objectForKey:@"id"] substringToIndex:9];
         NSString *message = [[[[event data] objectForKey:@"commits"] objectAtIndex:digestsCount] objectForKey:@"message"];
     

@@ -147,8 +147,9 @@ static NSString * const EventCellIdentifier = @"EventCell";
     [cell generateEventDescriptionView:event];
     [cell.contentView addSubview:cell.eventDescription];
     GLfloat descriptionHeight = cell.eventDescription.frame.size.height;
+    int totalCommitsCount = [[event.data objectForKey:@"total_commits_count"] intValue];
 
-    if (event.data) {
+    if (event.data && totalCommitsCount > 0) {
         cell.eventAbstract = [UITextView new];
         [cell generateEventAbstractView:event];
         [cell.contentView addSubview:cell.eventAbstract];

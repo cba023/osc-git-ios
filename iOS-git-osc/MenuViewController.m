@@ -104,7 +104,7 @@ static NSString * const kKeyPortrait = @"portrait";
         self.imageView.clipsToBounds = YES;
         
         UITapGestureRecognizer *tapPortraitRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self
-                                                                                                   action:@selector(tapPortrait:)];
+                                                                                                action:@selector(tapPortrait:)];
         [view addGestureRecognizer:tapPortraitRecognizer];
         
         self.label = [[UILabel alloc] initWithFrame:CGRectMake(0, 150, 0, 24)];
@@ -178,6 +178,7 @@ static NSString * const kKeyPortrait = @"portrait";
             }
             case 1: {
                 ProjectsTableController *ownProjectsView = [[ProjectsTableController alloc] init];
+                ownProjectsView.personal = YES;
                 NavigationController *navigationController = [[NavigationController alloc] initWithRootViewController:ownProjectsView];
                 self.frostedViewController.contentViewController = navigationController;
                 break;

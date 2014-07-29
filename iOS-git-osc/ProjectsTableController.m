@@ -54,7 +54,11 @@ static NSString * const cellId = @"ProjectCell";
 #endif
     
     self.projectsArray = [[NSMutableArray alloc] initWithCapacity:20];
-    [self.projectsArray addObjectsFromArray:[Project loadExtraProjectType:self.arrangeType OnPage:1]];
+    if (_personal) {
+        [self.projectsArray addObjectsFromArray:[Project getOwnProjectsOnPage:1]];
+    } else {
+        [self.projectsArray addObjectsFromArray:[Project loadExtraProjectType:self.arrangeType onPage:1]];
+    }
 }
 
 - (void)didReceiveMemoryWarning
@@ -94,7 +98,11 @@ static NSString * const cellId = @"ProjectCell";
             filesTable.filesArray = [[NSMutableArray alloc] initWithCapacity:20];
             filesTable.currentPath = @"";
             [filesTable.filesArray addObjectsFromArray:[Project getProjectTreeWithID:project.projectId Branch:nil Path:nil]];
-            [self.parentViewController.navigationController pushViewController:filesTable animated:YES];
+            if (self.personal) {
+                [self.navigationController pushViewController:filesTable animated:YES];
+            } else {
+                [self.parentViewController.navigationController pushViewController:filesTable animated:YES];
+            }
         }
     }
 }
@@ -125,8 +133,18 @@ static NSString * const cellId = @"ProjectCell";
     // 下拉到最底部时显示更多数据
 	if(scrollView.contentOffset.y > ((scrollView.contentSize.height - scrollView.frame.size.height)))
 	{
-        [self.projectsArray addObjectsFromArray:[Project loadExtraProjectType:self.arrangeType OnPage:self.projectsArray.count/20 + 1]];
-        [self.tableView reloadData];
+        BOOL reload = NO;
+        if (_personal && [projectsArray count]%20 == 0) {
+            NSArray *nextPageProjects = [Project getOwnProjectsOnPage:projectsArray.count/20+1];
+            if (nextPageProjects) {
+                [projectsArray addObjectsFromArray:nextPageProjects];
+            }
+            reload = YES;
+        } else if (!_personal){
+            [self.projectsArray addObjectsFromArray:[Project loadExtraProjectType:self.arrangeType onPage:self.projectsArray.count/20 + 1]];
+            reload = YES;
+        }
+        if (reload) {[self.tableView reloadData];}
 	}
 }
 
@@ -158,7 +176,7 @@ static NSString * const cellId = @"ProjectCell";
     self.arrangeType = newArrangeType;
     [self.projectsArray removeAllObjects];
     
-    [self.projectsArray addObjectsFromArray:[Project loadExtraProjectType:self.arrangeType OnPage:1]];
+    [self.projectsArray addObjectsFromArray:[Project loadExtraProjectType:self.arrangeType onPage:1]];
     [self.tableView reloadData];
 }
 

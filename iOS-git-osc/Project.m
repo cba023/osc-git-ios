@@ -12,7 +12,7 @@
 
 @implementation Project
 
-+ (NSArray *)loadExtraProjectType:(int)type OnPage:(int)page {
++ (NSArray *)loadExtraProjectType:(int)type onPage:(int)page {
     __block BOOL done = NO;
     __block NSArray *array;
     GLGitlabSuccessBlock success = ^(id responseObject) {
@@ -26,7 +26,7 @@
     
     GLGitlabFailureBlock failure = ^(NSError *error) {
         if (error != nil) {
-            NSLog(@"Request failed");
+            NSLog(@"%@, Request failed", error);
         } else {
             NSLog(@"error == nil");
         }
@@ -34,9 +34,9 @@
     };
     
     GLNetworkOperation *op = [[GLGitlabApi sharedInstance] getExtraProjectsType:type
-                                                                           Page:page
-                                                                        Success:success
-                                                                        Failure:failure];
+                                                                           page:page
+                                                                        success:success
+                                                                        failure:failure];
                               
     while (!done) {
         [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate distantFuture]];
@@ -59,7 +59,9 @@
     
     GLGitlabFailureBlock failure = ^(NSError *error) {
         if (error != nil) {
-            NSLog(@"Request failed");
+            NSLog(@"%@, Request failed", error);
+        } else {
+            NSLog(@"error == nil");
         }
         done = YES;
     };
@@ -92,6 +94,8 @@
     GLGitlabFailureBlock failure = ^(NSError *error) {
         if (error != nil) {
             NSLog(@"%@, Request failed", error);
+        } else {
+            NSLog(@"error == nil");
         }
         done = YES;
     };
@@ -109,7 +113,7 @@
     return content;
 }
 
-+ (NSArray *)getOwnProjects
++ (NSArray *)getOwnProjectsOnPage:(int)page
 {
     __block BOOL done = NO;
     __block NSArray *array;
@@ -139,6 +143,7 @@
     };
     
     GLNetworkOperation *op = [[GLGitlabApi sharedInstance] getUsersProjectsWithPrivateToken:privateToken
+                                                                                     onPage:page
                                                                                     success:success
                                                                                     failure:failure];
     

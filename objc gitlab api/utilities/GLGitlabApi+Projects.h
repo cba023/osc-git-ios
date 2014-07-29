@@ -22,6 +22,7 @@
  *  @return The operation to be executed
  */
 - (GLNetworkOperation *)getUsersProjectsWithPrivateToken:(NSString *)privateToken
+                                                  onPage:(int)page
                                                  success:(GLGitlabSuccessBlock)successBlock
                                                  failure:(GLGitlabFailureBlock)failureBlock;
 
@@ -159,8 +160,8 @@
  *  @return The operation to be executed
  */
 - (GLNetworkOperation *)getExtraProjectsType:(int)type
-                                        Page:(int)page
-                                     Success:(GLGitlabSuccessBlock)successBlock
-                                     Failure:(GLGitlabFailureBlock)failureBlock;
+                                        page:(int)page
+                                     success:(GLGitlabSuccessBlock)successBlock
+                                     failure:(GLGitlabFailureBlock)failureBlock;
 
 @end
