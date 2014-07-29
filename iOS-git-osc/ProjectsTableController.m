@@ -54,7 +54,7 @@ static NSString * const cellId = @"ProjectCell";
 #endif
     
     self.projectsArray = [[NSMutableArray alloc] initWithCapacity:20];
-    [self.projectsArray addObjectsFromArray:[Project loadExtraProjectType:self.arrangeType OnPage:self.projectsArray.count/20 + 1]];
+    [self.projectsArray addObjectsFromArray:[Project loadExtraProjectType:self.arrangeType OnPage:1]];
 }
 
 - (void)didReceiveMemoryWarning

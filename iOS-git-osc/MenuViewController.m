@@ -15,6 +15,7 @@
 #import "User.h"
 #import "Project.h"
 #import "ProjectsViewController.h"
+#import "ProjectsTableController.h"
 #import "EventsView.h"
 #import "IssuesView.h"
 #import <SDWebImage/UIImageView+WebCache.h>
@@ -176,7 +177,7 @@ static NSString * const kKeyPortrait = @"portrait";
                 break;
             }
             case 1: {
-                ProjectsViewController *ownProjectsView = [[ProjectsViewController alloc] init];
+                ProjectsTableController *ownProjectsView = [[ProjectsTableController alloc] init];
                 NavigationController *navigationController = [[NavigationController alloc] initWithRootViewController:ownProjectsView];
                 self.frostedViewController.contentViewController = navigationController;
                 break;
@@ -212,7 +213,7 @@ static NSString * const kKeyPortrait = @"portrait";
 {
     switch (sectionIndex) {
         case 0:
-            return 3;
+            return 5;
         case 1:
             return 2;
         case 2:
@@ -236,7 +237,7 @@ static NSString * const kKeyPortrait = @"portrait";
     
     switch (indexPath.section) {
         case 0:
-            titles = @[@"动态", @"项目", @"通知"];
+            titles = @[@"动态", @"个人项目", @"收藏", @"关注", @"通知"];
             break;
         
         case 1:

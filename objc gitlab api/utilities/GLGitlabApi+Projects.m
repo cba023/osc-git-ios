@@ -186,7 +186,6 @@ static NSString * const kKeyPrivate_token = @"private_token";
                                      Success:(GLGitlabSuccessBlock)successBlock
                                      Failure:(GLGitlabFailureBlock)failureBlock
 {
-    NSDictionary *parameters = @{@"page": [NSNumber numberWithInt:page]};
     NSString *endPoint;
     switch (type) {
         case 0:
@@ -197,7 +196,7 @@ static NSString * const kKeyPrivate_token = @"private_token";
             endPoint = kProjectLatestProjectEndPoint;break;
     }
     NSMutableURLRequest *request = [self requestForEndPoint:endPoint
-                                                     params:parameters
+                                                     params:@{@"page": [NSNumber numberWithInt:page]}
                                                      method:GLNetworkOperationGetMethod];
     
     GLNetworkOperationSuccessBlock localSuccessBlock = [self multipleObjectSuccessBlockForClass:[GLProject class] successBlock:successBlock];
