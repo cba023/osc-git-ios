@@ -15,10 +15,14 @@
 
 // id
 @property (nonatomic, assign) int64_t projectId;
+// name
+@property (nonatomic, copy) NSString *name;
 // description
 @property (nonatomic, copy) NSString *projectDescription;
 // default branch
 @property (nonatomic, copy) NSString *defaultBranch;
+// owner
+@property (nonatomic, strong) GLUser *owner;
 // public
 @property (nonatomic, assign, getter=isPublicProject) BOOL publicProject;
 // visibility_level
@@ -29,10 +33,6 @@
 @property (nonatomic, copy) NSString *httpUrl;
 // web_url
 @property (nonatomic, copy) NSString *webUrl;
-// owner
-@property (nonatomic, strong) GLUser *owner;
-// name
-@property (nonatomic, copy) NSString *name;
 // name_with_namespace
 @property (nonatomic, copy) NSString *nameWithNamespace;
 // path
@@ -42,17 +42,19 @@
 // issues_enabled
 @property (nonatomic, assign, getter=areIssuesEnabled) BOOL issuesEnabled;
 // merge_requests_enabled
-@property (nonatomic, assign, getter=areMergeRequestsEnabled) BOOL mergeRequestsEnabled;
+@property (nonatomic, assign, getter=arePullRequestsEnabled) BOOL pullRequestsEnabled;
 // wall_enabled
 @property (nonatomic, assign, getter=isWallEnabled) BOOL wallEnabled;
 // wiki_enabled
 @property (nonatomic, assign, getter=isWikiEnabled) BOOL wikiEnabled;
 // snippets_enabled
 @property (nonatomic, assign, getter=areSnippetsEnabled) BOOL snippetsEnabled;
+// parent_id
+@property (nonatomic, assign) int64_t parentId;
 // created_at
-@property (nonatomic, strong) NSDate *createdAt;
+@property (nonatomic, copy) NSString *createdAt;
 // last_activity_at
-@property (nonatomic, strong) NSDate *lastActivityAt;
+@property (nonatomic, copy) NSString *lastPushAt;
 // namespace
 @property (nonatomic, strong) GLNamespace *glNamespace;
 // language
@@ -62,6 +64,6 @@
 // stars_count
 @property (nonatomic, assign) int32_t starsCount;
 
-- (BOOL)isEqualToProject:(GLProject *)project;
+//- (BOOL)isEqualToProject:(GLProject *)project;
 
 @end

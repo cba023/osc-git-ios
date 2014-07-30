@@ -10,6 +10,7 @@
 #import "ProjectCell.h"
 #import "FilesTableController.h"
 #import "NavigationController.h"
+#import "ProjectDetailsView.h"
 #import "GLGitlab.h"
 #import "Project.h"
 #import "Tools.h"
@@ -93,6 +94,7 @@ static NSString * const cellId = @"ProjectCell";
     if (row < self.projectsArray.count) {
         GLProject *project = [projectsArray objectAtIndex:row];
         if (project) {
+#if 0
             FilesTableController *filesTable = [[FilesTableController alloc] init];
             filesTable.projectID = project.projectId;
             filesTable.filesArray = [[NSMutableArray alloc] initWithCapacity:20];
@@ -103,6 +105,15 @@ static NSString * const cellId = @"ProjectCell";
             } else {
                 [self.parentViewController.navigationController pushViewController:filesTable animated:YES];
             }
+#else
+            ProjectDetailsView *projectDetails = [[ProjectDetailsView alloc] init];
+            projectDetails.project = project;
+            if (self.personal) {
+                [self.navigationController pushViewController:projectDetails animated:YES];
+            } else {
+                [self.parentViewController.navigationController pushViewController:projectDetails animated:YES];
+            }
+#endif
         }
     }
 }

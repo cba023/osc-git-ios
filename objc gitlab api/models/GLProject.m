@@ -12,29 +12,30 @@
 #import "GLGitlabApi.h"
 
 static NSString * const kKeyProjectId = @"id";
+static NSString * const kKeyName = @"name";
 static NSString * const kKeyDescription = @"description";
 static NSString * const kKeyDefaultBranch = @"default_branch";
+static NSString * const kKeyOwner = @"owner";
 static NSString * const kKeyPublicProject = @"public";
+static NSString * const kKeyPath = @"path";
 static NSString * const kKeyVisibilityLevel = @"visibility_level";
 static NSString * const kKeySshUrl = @"ssh_url_to_repo";
 static NSString * const kKeyHttpUrl = @"http_url_to_repo";
 static NSString * const kKeyWebUrl = @"web_url";
-static NSString * const kKeyOwner = @"owner";
-static NSString * const kKeyName = @"name";
 static NSString * const kKeyNameWithNamespace = @"name_with_namespace";
-static NSString * const kKeyPath = @"path";
 static NSString * const kKeyPathWithNamespace = @"path_with_namespace";
 static NSString * const kKeyIssuesEnabled = @"issues_enabled";
-static NSString * const kKeyMergeRequestsEnabled = @"merge_requests_enabled";
+static NSString * const kKeyPullRequestsEnabled = @"pull_requests_enabled";
 static NSString * const kKeyWallEnabled = @"wall_enabled";
 static NSString * const kKeyWikiEnabled = @"wiki_enabled";
 static NSString * const kKeySnippetsEnabled = @"snippets_enabled";
+static NSString * const kKeyParentId = @"parent_id";
 static NSString * const kKeyCreatedAt = @"created_at";
-static NSString * const kKeyLastActivityAt = @"last_activity_at";
+static NSString * const kKeyLastPushAt = @"last_push_at";
 static NSString * const kKeyNamespace = @"namespace";
-static NSString * const kKeyLanguage = @"language";
 static NSString * const kKeyForksCount = @"forks_count";
 static NSString * const kKeyStarsCount = @"stars_count";
+static NSString * const kKeyLanguage = @"language";
 
 @implementation GLProject
 
@@ -55,12 +56,15 @@ static NSString * const kKeyStarsCount = @"stars_count";
         _path = [self checkForNull:json[kKeyPath]];
         _pathWithNamespace = [self checkForNull:json[kKeyPathWithNamespace]];
         _issuesEnabled = [json[kKeyIssuesEnabled] boolValue];
-        _mergeRequestsEnabled = [json[kKeyMergeRequestsEnabled] boolValue];
+        _pullRequestsEnabled = [json[kKeyPullRequestsEnabled] boolValue];
         _wallEnabled = [json[kKeyWallEnabled] boolValue];
         _wikiEnabled = [json[kKeyWikiEnabled] boolValue];
         _snippetsEnabled = [json[kKeySnippetsEnabled] boolValue];
-        _createdAt = [[[GLGitlabApi sharedInstance] gitLabDateFormatter] dateFromString:json[kKeyCreatedAt]];
-        _lastActivityAt = [[[GLGitlabApi sharedInstance] gitLabDateFormatter] dateFromString:json[kKeyLastActivityAt]];
+        _parentId = [[self checkForNull:json[kKeyParentId]] longLongValue];
+        _createdAt = [self checkForNull:json[kKeyCreatedAt]];
+        _lastPushAt = [self checkForNull:json[kKeyLastPushAt]];
+        //_createdAt = [[[GLGitlabApi sharedInstance] gitLabDateFormatter] dateFromString:json[kKeyCreatedAt]];
+        //_lastPushAt = [[[GLGitlabApi sharedInstance] gitLabDateFormatter] dateFromString:json[kKeyLastPushAt]];
         _glNamespace = [[GLNamespace alloc] initWithJSON:json[kKeyNamespace]];
         _language = [self checkForNull:json[kKeyLanguage]];
         _forksCount = [json[kKeyForksCount] intValue];
@@ -69,6 +73,7 @@ static NSString * const kKeyStarsCount = @"stars_count";
     return self;
 }
 
+#if 0
 - (BOOL)isEqual:(id)other {
     if (other == self)
         return YES;
@@ -77,7 +82,9 @@ static NSString * const kKeyStarsCount = @"stars_count";
 
     return [self isEqualToProject:other];
 }
+#endif
 
+#if 0
 - (BOOL)isEqualToProject:(GLProject *)project {
     if (self == project)
         return YES;
@@ -111,7 +118,7 @@ static NSString * const kKeyStarsCount = @"stars_count";
         return NO;
     if (self.issuesEnabled != project.issuesEnabled)
         return NO;
-    if (self.mergeRequestsEnabled != project.mergeRequestsEnabled)
+    if (self.pullRequestsEnabled != project.pullRequestsEnabled)
         return NO;
     if (self.wallEnabled != project.wallEnabled)
         return NO;
@@ -121,7 +128,7 @@ static NSString * const kKeyStarsCount = @"stars_count";
         return NO;
     if (self.createdAt != project.createdAt && ![self.createdAt isEqualToDate:project.createdAt])
         return NO;
-    if (self.lastActivityAt != project.lastActivityAt && ![self.lastActivityAt isEqualToDate:project.lastActivityAt])
+    if (self.lastPushAt != project.lastPushAt && ![self.lastPushAt isEqualToDate:project.lastPushAt])
         return NO;
     if (self.glNamespace != project.glNamespace && ![self.glNamespace isEqualToGlNamespace:project.glNamespace])
         return NO;
@@ -133,6 +140,7 @@ static NSString * const kKeyStarsCount = @"stars_count";
         return NO;
     return YES;
 }
+#endif
 
 - (NSUInteger)hash {
     NSUInteger hash = (NSUInteger) self.projectId;
@@ -149,12 +157,12 @@ static NSString * const kKeyStarsCount = @"stars_count";
     hash = hash * 31u + [self.path hash];
     hash = hash * 31u + [self.pathWithNamespace hash];
     hash = hash * 31u + self.issuesEnabled;
-    hash = hash * 31u + self.mergeRequestsEnabled;
+    hash = hash * 31u + self.pullRequestsEnabled;
     hash = hash * 31u + self.wallEnabled;
     hash = hash * 31u + self.wikiEnabled;
     hash = hash * 31u + self.snippetsEnabled;
     hash = hash * 31u + [self.createdAt hash];
-    hash = hash * 31u + [self.lastActivityAt hash];
+    hash = hash * 31u + [self.lastPushAt hash];
     hash = hash * 31u + [self.glNamespace hash];
     return hash;
 }
@@ -175,12 +183,12 @@ static NSString * const kKeyStarsCount = @"stars_count";
     [description appendFormat:@", self.path=%@", self.path];
     [description appendFormat:@", self.pathWithNamespace=%@", self.pathWithNamespace];
     [description appendFormat:@", self.issuesEnabled=%d", self.issuesEnabled];
-    [description appendFormat:@", self.mergeRequestsEnabled=%d", self.mergeRequestsEnabled];
+    [description appendFormat:@", self.pullRequestsEnabled=%d", self.pullRequestsEnabled];
     [description appendFormat:@", self.wallEnabled=%d", self.wallEnabled];
     [description appendFormat:@", self.wikiEnabled=%d", self.wikiEnabled];
     [description appendFormat:@", self.snippetsEnabled=%d", self.snippetsEnabled];
     [description appendFormat:@", self.createdAt=%@", self.createdAt];
-    [description appendFormat:@", self.lastActivityAt=%@", self.lastActivityAt];
+    [description appendFormat:@", self.lastPushAt=%@", self.lastPushAt];
     [description appendFormat:@", self.glNamespace=%@", self.glNamespace];
     [description appendFormat:@", self.language=%@", self.language];
     [description appendFormat:@", self.forks_count=%i", self.forksCount];
@@ -189,6 +197,7 @@ static NSString * const kKeyStarsCount = @"stars_count";
     return description;
 }
 
+#if 0
 - (NSDictionary *)jsonRepresentation
 {
     NSDateFormatter *formatter = [[GLGitlabApi sharedInstance] gitLabDateFormatter];
@@ -209,15 +218,16 @@ static NSString * const kKeyStarsCount = @"stars_count";
              kKeyPath: _path ?: null,
              kKeyPathWithNamespace: _pathWithNamespace ?: null,
              kKeyIssuesEnabled: @(_issuesEnabled),
-             kKeyMergeRequestsEnabled: @(_mergeRequestsEnabled),
+             kKeyPullRequestsEnabled: @(_pullRequestsEnabled),
              kKeyWallEnabled: @(_wallEnabled),
              kKeyWikiEnabled: @(_wikiEnabled),
              kKeySnippetsEnabled: @(_snippetsEnabled),
              kKeyCreatedAt: [formatter stringFromDate:_createdAt],
-             kKeyLastActivityAt: [formatter stringFromDate:_lastActivityAt],
+             kKeyLastPushAt: [formatter stringFromDate:_lastPushAt],
              kKeyNamespace: [_glNamespace jsonRepresentation]
              };
 }
+#endif
 
 - (NSDictionary *)jsonCreateRepresentation
 {
@@ -228,7 +238,7 @@ static NSString * const kKeyStarsCount = @"stars_count";
              kKeyDescription: _projectDescription ?: null,
              kKeyIssuesEnabled: @(_issuesEnabled),
              kKeyWallEnabled: @(_wallEnabled),
-             kKeyMergeRequestsEnabled: @(_mergeRequestsEnabled),
+             kKeyPullRequestsEnabled: @(_pullRequestsEnabled),
              kKeyWikiEnabled: @(_wikiEnabled),
              kKeySnippetsEnabled: @(_snippetsEnabled),
              kKeyPublicProject: @(_publicProject)

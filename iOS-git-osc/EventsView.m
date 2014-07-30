@@ -109,7 +109,9 @@ static NSString * const EventCellIdentifier = @"EventCell";
     GLfloat descriptionHeight = _prototypeCell.eventDescription.frame.size.height,
             timeHeight = _prototypeCell.time.frame.size.height,
             totalHeight = descriptionHeight + timeHeight + 15;
-    if (event.data) {
+    
+    int totalCommitsCount = [[event.data objectForKey:@"total_commits_count"] intValue];
+    if (event.data && totalCommitsCount > 0) {
         totalHeight += _prototypeCell.eventAbstract.frame.size.height + 5;
     }
 
