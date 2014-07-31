@@ -35,7 +35,7 @@ static NSString * const ProjectDetailsCellId = @"ProjectDetailsCell";
     self.navigationController.navigationBar.translucent = NO;
     
     if (_project.parentId) {
-        _parentProject = [Project getASingleProject:_parentProject.parentId];
+        _parentProject = [Project getASingleProject:_project.parentId];
     }
     
     UIImageView *portrait = [[UIImageView alloc] initWithFrame:CGRectMake(8, 10, 33, 33)];
@@ -68,6 +68,9 @@ static NSString * const ProjectDetailsCellId = @"ProjectDetailsCell";
     
     UITableView *projectTable = [[UITableView alloc] initWithFrame:CGRectMake(0, 119, self.view.frame.size.width, 459)];
     [projectTable registerClass:[UITableViewCell class] forCellReuseIdentifier:ProjectDetailsCellId];
+    projectTable.delegate = self;
+    projectTable.dataSource = self;
+    projectTable.autoresizingMask = UIViewAutoresizingFlexibleHeight;
     [self.view addSubview:projectTable];
 }
 
@@ -119,10 +122,32 @@ static NSString * const ProjectDetailsCellId = @"ProjectDetailsCell";
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ProjectDetailsCellId forIndexPath:indexPath];
-
-    if (indexPath.section == 0) {
-    } else
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    
+    if (indexPath.section == 0) {
+        [self generateTabelCell:cell inRow:indexPath.row];
+    } else if (indexPath.section == 1){
+        switch (indexPath.row) {
+            case 0: {
+                UILabel *members = [[UILabel alloc] initWithFrame:CGRectMake(20, 9, 254, 21)];
+                [members setText:@"成员"];
+                [cell.contentView addSubview:members];
+                break;
+            }
+            case 1: {
+                UILabel *issues = [[UILabel alloc] initWithFrame:CGRectMake(20, 9, 254, 21)];
+                [issues setText:@"问题"];
+                [cell.contentView addSubview:issues];
+                break;
+            }
+            default:
+                break;
+        }
+    } else {
+        UILabel *code = [[UILabel alloc] initWithFrame:CGRectMake(20, 9, 254, 21)];
+        [code setText:_project.defaultBranch];
+        [cell.contentView addSubview:code];
+    }
     
     return cell;
 }
@@ -136,6 +161,11 @@ static NSString * const ProjectDetailsCellId = @"ProjectDetailsCell";
 
 - (GLfloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+#if 0
+    if (indexPath.section == 0 && (indexPath.row == 2 || (indexPath.row == 1 && !_parentProject))) {
+        
+    }
+#endif
     return 40;
 }
 
@@ -151,46 +181,62 @@ static NSString * const ProjectDetailsCellId = @"ProjectDetailsCell";
     
 }
 
-- (UITableViewCell *)generateTabelCell:(UITableViewCell *)cell inRow:(NSInteger)row
+- (void)generateTabelCell:(UITableViewCell *)cell inRow:(NSInteger)row
 {
-    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-    
     NSDictionary *nameAttributes = @{NSForegroundColorAttributeName: [UIColor grayColor]};
     
     switch (row) {
         case 0: {
             UILabel *owner = [[UILabel alloc] initWithFrame:CGRectMake(20, 9, 254, 21)];
-            NSMutableAttributedString *ownerAttrTxt = [[NSMutableAttributedString alloc] initWithString:@"拥有者" attributes:nameAttributes];
+            NSMutableAttributedString *ownerAttrTxt = [[NSMutableAttributedString alloc] initWithString:@"拥有者 " attributes:nameAttributes];
             [ownerAttrTxt appendAttributedString:[[NSAttributedString alloc] initWithString:_project.owner.name]];
             [owner setAttributedText:ownerAttrTxt];
-            [cell addSubview:owner];
+            [cell.contentView addSubview:owner];
+            break;
+        }
+        case 1: {
+            if (_parentProject) {
+                UILabel *forkFrom = [[UILabel alloc] initWithFrame:CGRectMake(20, 9, 254, 21)];
+                NSMutableAttributedString *forkFromAttrTxt = [[NSMutableAttributedString alloc] initWithString:@"fork from "
+                                                                                                    attributes:nameAttributes];
+                [forkFromAttrTxt appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@ / %@", _parentProject.owner.name, _parentProject.name]]];
+                [forkFrom setAttributedText:forkFromAttrTxt];
+                [cell.contentView addSubview:forkFrom];
+            } else if (_project.projectDescription) {
+                UILabel *description = [[UILabel alloc] initWithFrame:CGRectMake(20, 9, 254, 21)];
+                [description setText:_project.projectDescription];
+                cell.accessoryType = UITableViewCellAccessoryNone;
+                [cell.contentView addSubview:description];
+            } else {
+                UILabel *readme = [[UILabel alloc] initWithFrame:CGRectMake(20, 9, 254, 21)];
+                [readme setText:@"README"];
+                [cell.contentView addSubview:readme];
+            }
+            break;
+        }
+        case 2: {
+            if (_project.projectDescription && _parentProject) {
+                UILabel *description = [[UILabel alloc] initWithFrame:CGRectMake(20, 9, 254, 21)];
+                [description setText:_project.projectDescription];
+                cell.accessoryType = UITableViewCellAccessoryNone;
+                [cell.contentView addSubview:description];
+            } else {
+                UILabel *readme = [[UILabel alloc] initWithFrame:CGRectMake(20, 9, 254, 21)];
+                [readme setText:@"README"];
+                [cell.contentView addSubview:readme];
+            }
             break;
         }
         case 3: {
             UILabel *readme = [[UILabel alloc] initWithFrame:CGRectMake(20, 9, 254, 21)];
             [readme setText:@"README"];
-            [cell addSubview:readme];
-            break;
-        }
-        case 2: {
-            UILabel *description = [[UILabel alloc] initWithFrame:CGRectMake(20, 9, 254, 21)];
-            [description setText:_project.projectDescription];
-            cell.accessoryType = UITableViewCellAccessoryNone;
-            [cell addSubview:description];
-            break;
-        }
-        case 1: {
-            UILabel *forkFrom = [[UILabel alloc] initWithFrame:CGRectMake(20, 9, 254, 21)];
-            NSMutableAttributedString *forkFromAttrTxt = [[NSMutableAttributedString alloc] initWithString:@"forkFrom" attributes:nameAttributes];
-            [forkFromAttrTxt appendAttributedString:[[NSAttributedString alloc] initWithString:_parentProject.name]];
-            [forkFrom setAttributedText:forkFromAttrTxt];
-            [cell addSubview:forkFrom];
+            [cell.contentView addSubview:readme];
             break;
         }
         default:
             break;
     }
-    return cell;
+    //return cell;
 }
 
 
