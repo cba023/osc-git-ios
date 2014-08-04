@@ -96,6 +96,7 @@
 		00B75954196BEB6F009C9C58 /* EventCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 00B75953196BEB6F009C9C58 /* EventCell.m */; };
 		00B75957196BEB90009C9C58 /* EventsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 00B75956196BEB90009C9C58 /* EventsView.m */; };
 		00B7595C196C065E009C9C58 /* Event.m in Sources */ = {isa = PBXBuildFile; fileRef = 00B7595B196C065E009C9C58 /* Event.m */; };
+		00B7AF11198BAE0D0025C868 /* UserDetailsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 00B7AF10198BAE0D0025C868 /* UserDetailsView.m */; };
 		00C3A40F196113E7002A34AB /* ProjectsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 00C3A40E196113E7002A34AB /* ProjectsViewController.m */; };
 		00C3A4151961538B002A34AB /* ProjectsTableController.m in Sources */ = {isa = PBXBuildFile; fileRef = 00C3A4141961538B002A34AB /* ProjectsTableController.m */; };
 		00C3A4181962AABC002A34AB /* FilesTableController.m in Sources */ = {isa = PBXBuildFile; fileRef = 00C3A4171962AABC002A34AB /* FilesTableController.m */; };
@@ -296,6 +297,8 @@
 		00B75956196BEB90009C9C58 /* EventsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventsView.m; sourceTree = "<group>"; };
 		00B7595A196C065E009C9C58 /* Event.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Event.h; sourceTree = "<group>"; };
 		00B7595B196C065E009C9C58 /* Event.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Event.m; sourceTree = "<group>"; };
+		00B7AF0F198BAE0D0025C868 /* UserDetailsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserDetailsView.h; sourceTree = "<group>"; };
+		00B7AF10198BAE0D0025C868 /* UserDetailsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserDetailsView.m; sourceTree = "<group>"; };
 		00C3A40D196113E7002A34AB /* ProjectsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProjectsViewController.h; sourceTree = "<group>"; };
 		00C3A40E196113E7002A34AB /* ProjectsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProjectsViewController.m; sourceTree = "<group>"; };
 		00C3A4131961538B002A34AB /* ProjectsTableController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProjectsTableController.h; sourceTree = "<group>"; };
@@ -449,6 +452,7 @@
 				0002D2BF19164B02001FDED8 /* NavigationController.h */,
 				0002D2C019164B02001FDED8 /* NavigationController.m */,
 				006391C41987924100689FAD /* Login */,
+				00B7AF0E198BADCC0025C868 /* User */,
 				00B75960196CE5EB009C9C58 /* Projects */,
 				00B7595F196CE5DA009C9C58 /* Files */,
 				00B7595D196CE575009C9C58 /* Events */,
@@ -710,6 +714,15 @@
 			name = Projects;
 			sourceTree = "<group>";
 		};
+		00B7AF0E198BADCC0025C868 /* User */ = {
+			isa = PBXGroup;
+			children = (
+				00B7AF0F198BAE0D0025C868 /* UserDetailsView.h */,
+				00B7AF10198BAE0D0025C868 /* UserDetailsView.m */,
+			);
+			name = User;
+			sourceTree = "<group>";
+		};
 		00D4ED13196E71E700F3A4A5 /* RTLabel */ = {
 			isa = PBXGroup;
 			children = (
@@ -897,6 +910,7 @@
 				00C3A4181962AABC002A34AB /* FilesTableController.m in Sources */,
 				0002D2561916324B001FDED8 /* main.m in Sources */,
 				00D4ED29196F9BCA00F3A4A5 /* IssuesView.m in Sources */,
+				00B7AF11198BAE0D0025C868 /* UserDetailsView.m in Sources */,
 				0021BAD2192342BD00626A2C /* GLGroup.m in Sources */,
 				0021BADB192342BD00626A2C /* GLUser.m in Sources */,
 				00D4ED2C196FF5C500F3A4A5 /* Note.m in Sources */,

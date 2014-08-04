@@ -46,6 +46,39 @@ enum action {
     return events;
 }
 
++ (NSArray *)getUserEvent:(int64_t)userId page:(int)page
+{
+    __block BOOL done = NO;
+    __block NSMutableArray *events;
+    
+    GLGitlabSuccessBlock success = ^(id responseObject) {
+        if (responseObject == nil) {
+            NSLog(@"Request failed");
+        } else {
+            events = responseObject;
+        }
+        done = YES;
+    };
+    
+    GLGitlabFailureBlock failure = ^(NSError *error) {
+        if (error != nil) {
+            NSLog(@"%@, Request failed", error);
+        }
+        done = YES;
+    };
+    
+    GLNetworkOperation *op = [[GLGitlabApi sharedInstance] getUserEvents:userId
+                                                                    page:page
+                                                                 success:success
+                                                                 failure:failure];
+    
+    while (!done) {
+        [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate distantFuture]];
+    }
+    
+    return events;
+}
+
 
 #pragma mark - 返回event描述
 #if 0

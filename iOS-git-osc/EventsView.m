@@ -144,7 +144,7 @@ static NSString * const EventCellIdentifier = @"EventCell";
     [cell.eventAbstract removeFromSuperview];
     
     
-    [Tools setPortraitForUser:event.author view:cell.userPortrait];
+    [Tools setPortraitForUser:event.author view:cell.userPortrait cornerRadius:5.0];
     
     [cell generateEventDescriptionView:event];
     [cell.contentView addSubview:cell.eventDescription];

@@ -177,25 +177,20 @@
 }
 
 #pragma mark - UI thing
-+ (void)roundCorner:(UIView *)view
++ (void)roundCorner:(UIView *)view cornerRadius:(CGFloat)cornerRadius
 {
-    view.layer.cornerRadius = 5.0;
+    view.layer.cornerRadius = cornerRadius;
     view.layer.masksToBounds = YES;
 }
 
-+ (void)setPortraitForUser:(GLUser *)user view:(UIImageView *)portraitView
++ (void)setPortraitForUser:(GLUser *)user view:(UIImageView *)portraitView cornerRadius:(CGFloat)cornerRadius
 {
-    NSString *portraitURL = [[NSString alloc] init];
-    if (user.portrait) {
-        portraitURL = [NSString pathWithComponents:@[git_osc_url, user.portrait]];
-    } else if (user.email) {
-        portraitURL = [NSString stringWithFormat:@"http://secure.gravatar.com/avatar/%@?s=48&d=mm", [Tools md5:user.email]];
-    }
+    NSString *portraitURL = [NSString stringWithString:user.newPortrait];
     
     [portraitView sd_setImageWithURL:[NSURL URLWithString:portraitURL]
                     placeholderImage:[UIImage imageNamed:@"avatar"]];
     
-    [self roundCorner:portraitView];
+    [self roundCorner:portraitView cornerRadius:cornerRadius];
 }
 
 

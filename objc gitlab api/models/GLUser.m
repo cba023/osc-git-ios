@@ -19,12 +19,14 @@ static NSString * const kKeyThemeId = @"theme_id";
 static NSString * const kKeyCreatedAt = @"created_at";
 static NSString * const kKeyState = @"state";
 static NSString * const kKeyPortrait = @"portrait";
+static NSString * const kKeyNewPortrait = @"new_portrait";
 static NSString * const kKeyEmail = @"email";
 static NSString * const kKeyPrivate_token = @"private_token";
 static NSString * const kKeyAdmin = @"is_admin";
 static NSString * const kKeyCanCreateGroup = @"can_create_group";
 static NSString * const kKeyCanCreateProject = @"can_create_project";
 static NSString * const kKeyCanCreateTeam = @"can_create_team";
+static NSString * const kKeyFollow = @"follow";
 
 @implementation GLUser
 
@@ -42,12 +44,14 @@ static NSString * const kKeyCanCreateTeam = @"can_create_team";
         //_createdAt = [[[GLGitlabApi sharedInstance] gitLabDateFormatter] dateFromString:json[kKeyCreatedAt]];
         _state = [self checkForNull:json[kKeyState]];
         _portrait = [self checkForNull:json[kKeyPortrait]];
+        _newPortrait = [self checkForNull:json[kKeyNewPortrait]];
         _email = [self checkForNull:json[kKeyEmail]];
         _private_token = [self checkForNull:json[kKeyPrivate_token]];
         _admin = [json[kKeyAdmin] boolValue];
         _canCreateGroup = [json[kKeyCanCreateGroup] boolValue];
         _canCreateProject = [json[kKeyCanCreateProject] boolValue];
         _canCreateTeam = [json[kKeyCanCreateTeam] boolValue];
+        _follow = json[kKeyFollow];
     }
     return self;
 }

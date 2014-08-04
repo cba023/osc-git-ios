@@ -19,7 +19,7 @@
 + (NSString *)intervalSinceNow:(NSString *)dateStr;
 + (NSAttributedString *)getIntervalAttrStr:(NSString *)dateStr;
 
-+ (void)roundCorner:(UIView *)view;
-+ (void)setPortraitForUser:(GLUser *)user view:(UIImageView *)portraitView;
++ (void)roundCorner:(UIView *)view cornerRadius:(CGFloat)cornerRadius;
++ (void)setPortraitForUser:(GLUser *)user view:(UIImageView *)portraitView cornerRadius:(CGFloat)cornerRadius;
 
 @end

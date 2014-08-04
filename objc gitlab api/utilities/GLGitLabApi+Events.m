@@ -21,8 +21,8 @@ static NSString * const kKeyPage = @"page";
                                           success:(GLGitlabSuccessBlock)successBlock
                                           failure:(GLGitlabFailureBlock)failureBlock
 {
-    NSDictionary *parameters = @{kKeyPrivateToken: private_token, kKeyPage: [NSNumber numberWithInt:page]};
-    NSMutableURLRequest *request = [self requestForEndPoint:[NSString stringWithFormat:kEventsEndPoint]
+    NSDictionary *parameters = @{kKeyPrivateToken: private_token, kKeyPage: @(page)};
+    NSMutableURLRequest *request = [self requestForEndPoint:kEventsEndPoint
                                                      params:parameters
                                                      method:GLNetworkOperationGetMethod];
     
@@ -34,5 +34,24 @@ static NSString * const kKeyPage = @"page";
                                    success:localSuccessBlock
                                    failure:localFailureBlock];
 }
+
+- (GLNetworkOperation *)getUserEvents:(int64_t)userId
+                                 page:(int)page
+                              success:(GLGitlabSuccessBlock)successBlock
+                              failure:(GLGitlabFailureBlock)failureBlock
+{
+    NSMutableURLRequest *request = [self requestForEndPoint:[NSString stringWithFormat:@"%@/user/%lld", kEventsEndPoint, userId]
+                                                     params:@{kKeyPage: @(page)}
+                                                     method:GLNetworkOperationGetMethod];
+    
+    GLNetworkOperationSuccessBlock localSuccessBlock = [self multipleObjectSuccessBlockForClass:[GLEvent class] successBlock:successBlock];
+    GLNetworkOperationFailureBlock localFailureBlock = [self defaultFailureBlock:failureBlock];
+    
+    return [self queueOperationWithRequest:request
+                                      type:GLNetworkOperationTypeJson
+                                   success:localSuccessBlock
+                                   failure:localFailureBlock];
+}
+
 
 @end

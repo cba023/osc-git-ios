@@ -52,7 +52,7 @@
     UILabel* passwordLabel = [[UILabel alloc] initWithFrame:CGRectMake(28, 155, 42, 21)];
     passwordLabel.text = @"密码";
     
-    UIButton* summit = [UIButton buttonWithType: UIButtonTypeCustom];
+    UIButton* summit = [UIButton buttonWithType:UIButtonTypeCustom];
     summit.frame = CGRectMake(137, 200, 46, 30);
     summit.backgroundColor = [UIColor redColor];
     [summit setTitle:@"登录" forState:UIControlStateNormal];

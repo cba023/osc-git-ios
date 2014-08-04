@@ -13,5 +13,6 @@
 
 + (NSArray *)getEventsWithPrivateToekn:(NSString *)private_token page:(int)page;
 + (NSAttributedString *)getEventDescriptionForEvent:(GLEvent *)event;
++ (NSArray *)getUserEvent:(int64_t)userId page:(int)page;
 
 @end

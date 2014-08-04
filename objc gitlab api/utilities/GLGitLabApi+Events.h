@@ -15,4 +15,9 @@
                                           success:(GLGitlabSuccessBlock)successBlock
                                           failure:(GLGitlabFailureBlock)failureBlock;
 
+- (GLNetworkOperation *)getUserEvents:(int64_t)userId
+                                 page:(int)page
+                              success:(GLGitlabSuccessBlock)successBlock
+                              failure:(GLGitlabFailureBlock)failureBlock;
+
 @end

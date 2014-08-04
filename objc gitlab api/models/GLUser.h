@@ -31,6 +31,8 @@
 @property (nonatomic, strong) NSDate *createdAt;
 // portrait
 @property (nonatomic, copy) NSString *portrait;
+// new_portrait
+@property (nonatomic, copy) NSString *newPortrait;
 // email
 @property (nonatomic, copy) NSString *email;
 // private_token
@@ -43,7 +45,8 @@
 @property (nonatomic) BOOL canCreateProject;
 // can_create_team
 @property (nonatomic) BOOL canCreateTeam;
-
+// follow
+@property (nonatomic, strong) NSDictionary *follow;
 
 - (BOOL)isEqualToUser:(GLUser *)user;
 
