@@ -11,16 +11,17 @@
 @interface GLGitlabApi (Files)
 
 - (GLNetworkOperation *)getRepositoryTreeForProjectId:(int64_t)projectId
+                                         privateToken:(NSString *)privateToken
                                                  path:(NSString *)path
                                            branchName:(NSString *)branch
-                                     withSuccessBlock:(GLGitlabSuccessBlock)success
-                                      andFailureBlock:(GLGitlabFailureBlock)failure;
+                                         successBlock:(GLGitlabSuccessBlock)success
+                                         failureBlock:(GLGitlabFailureBlock)failure;
 
 - (GLNetworkOperation *)getFileContentFromProject:(int64_t)projectId
                                              path:(NSString *)path
                                        branchName:(NSString *)branch
-                                 withSuccessBlock:(GLGitlabSuccessBlock)success
-                                  andFailureBlock:(GLGitlabFailureBlock)failure;;
+                                     successBlock:(GLGitlabSuccessBlock)success
+                                     failureBlock:(GLGitlabFailureBlock)failure;;
 
 
 @end

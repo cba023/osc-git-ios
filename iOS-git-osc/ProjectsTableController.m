@@ -77,7 +77,7 @@ static NSString * const cellId = @"ProjectCell";
     
     GLProject *project = [self.projectsArray objectAtIndex:indexPath.row];
     
-    [Tools setPortraitForUser:project.owner view:cell.portrait];
+    [Tools setPortraitForUser:project.owner view:cell.portrait cornerRadius:5.0];
     cell.projectNameField.text = [NSString stringWithFormat:@"%@ / %@", project.owner.name, project.name];
     cell.projectDescriptionField.text = project.projectDescription;
     cell.languageField.text = project.language;
@@ -90,7 +90,7 @@ static NSString * const cellId = @"ProjectCell";
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    int row = [indexPath row];
+    NSInteger row = indexPath.row;
     if (row < self.projectsArray.count) {
         GLProject *project = [projectsArray objectAtIndex:row];
         if (project) {

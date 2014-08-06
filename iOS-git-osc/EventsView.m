@@ -13,6 +13,7 @@
 #import "Event.h"
 #import "Tools.h"
 #import "UIImageView+WebCache.h"
+#import "UserDetailsView.h"
 //#import <SDWebImage/UIImageView+WebCache.h>
 
 static NSString * const kKeyPrivate_token = @"private_token";
@@ -26,7 +27,7 @@ static NSString * const EventCellIdentifier = @"EventCell";
 
 @implementation EventsView
 
-@synthesize eventsArray;
+@synthesize events;
 
 - (EventCell *)prototypeCell
 {
@@ -75,16 +76,6 @@ static NSString * const EventCellIdentifier = @"EventCell";
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     [self.tableView registerClass:[EventCell class] forCellReuseIdentifier:EventCellIdentifier];
-    
-    self.eventsArray = [[NSMutableArray alloc] init];
-    
-    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    NSString *privateToken = [userDefaults objectForKey:kKeyPrivate_token];
-    if (privateToken == nil) {
-        NSLog(@"No private_token!");
-    } else {
-        [self.eventsArray addObjectsFromArray:[Event getEventsWithPrivateToekn:privateToken page:1]];
-    }
 }
 
 - (void)dealloc
@@ -103,8 +94,8 @@ static NSString * const EventCellIdentifier = @"EventCell";
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    GLEvent *event = [self.eventsArray objectAtIndex:indexPath.row];
-    [self configureCell:self.prototypeCell withEvent:event];
+    GLEvent *event = [self.events objectAtIndex:indexPath.row];
+    [self configureCell:self.prototypeCell atIndexPath:indexPath];
     
     GLfloat descriptionHeight = _prototypeCell.eventDescription.frame.size.height,
             timeHeight = _prototypeCell.time.frame.size.height,
@@ -125,26 +116,31 @@ static NSString * const EventCellIdentifier = @"EventCell";
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return self.eventsArray.count;
+    return self.events.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     EventCell *cell = [tableView dequeueReusableCellWithIdentifier:EventCellIdentifier forIndexPath:indexPath];
     
-    GLEvent *event = [self.eventsArray objectAtIndex:indexPath.row];
-    [self configureCell:cell withEvent:event];
+    [self configureCell:cell atIndexPath:indexPath];
     
     return cell;
 }
 
-- (void)configureCell:(EventCell *)cell withEvent:(GLEvent *)event
+- (void)configureCell:(EventCell *)cell atIndexPath:(NSIndexPath *)indexPath
 {
+    GLEvent *event = [self.events objectAtIndex:indexPath.row];
+
     // 删除动态添加的子视图，避免重用出错
     [cell.eventAbstract removeFromSuperview];
     
     
     [Tools setPortraitForUser:event.author view:cell.userPortrait cornerRadius:5.0];
+    UITapGestureRecognizer *tapPortraitRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self
+                                                                                            action:@selector(tapPortrait:)];
+    cell.userPortrait.tag = indexPath.row;
+    [cell.userPortrait addGestureRecognizer:tapPortraitRecognizer];
     
     [cell generateEventDescriptionView:event];
     [cell.contentView addSubview:cell.eventDescription];
@@ -168,6 +164,13 @@ static NSString * const EventCellIdentifier = @"EventCell";
     [cell.contentView addSubview:cell.time];
 }
 
+#pragma mark - recognizer
+- (void)tapPortrait:(UITapGestureRecognizer *)sender
+{
+    UserDetailsView *userDetails = [UserDetailsView new];
+    userDetails.user = [events objectAtIndex:((UIImageView *)sender.view).tag];
+    [self.navigationController pushViewController:userDetails animated:YES];
+}
 
 
 @end

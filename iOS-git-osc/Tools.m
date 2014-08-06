@@ -14,6 +14,16 @@
 
 @implementation Tools
 
++ (NSString *)getPrivateToken
+{
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    NSString *privateToken = [userDefaults stringForKey:@"private_token"];
+    if  (!privateToken) {
+        NSLog(@"private_token not exist.");
+    }
+    return privateToken;
+}
+
 + (NSString *) md5: (NSString *) input {
     const char *cStr = [input UTF8String];
     unsigned char digest[CC_MD5_DIGEST_LENGTH];
@@ -185,7 +195,7 @@
 
 + (void)setPortraitForUser:(GLUser *)user view:(UIImageView *)portraitView cornerRadius:(CGFloat)cornerRadius
 {
-    NSString *portraitURL = [NSString stringWithString:user.newPortrait];
+    NSString *portraitURL = [NSString stringWithString:user.portrait];
     
     [portraitView sd_setImageWithURL:[NSURL URLWithString:portraitURL]
                     placeholderImage:[UIImage imageNamed:@"avatar"]];

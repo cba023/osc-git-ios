@@ -8,9 +8,11 @@
 
 #import "ProjectDetailsView.h"
 #import "ProjectsTableController.h"
+#import "FilesTableController.h"
 #import "Tools.h"
 #import "Project.h"
 #import "GLGitlab.h"
+#import "UserDetailsView.h"
 
 static NSString * const ProjectDetailsCellId = @"ProjectDetailsCell";
 
@@ -127,12 +129,12 @@ static NSString * const ProjectDetailsCellId = @"ProjectDetailsCell";
 
 #pragma mark - UITableViewDelegate
 
-- (GLfloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
     return 45;
 }
 
-- (GLfloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return 40;
 }
@@ -150,14 +152,25 @@ static NSString * const ProjectDetailsCellId = @"ProjectDetailsCell";
 
     if (indexPath.section == 0) {
         switch (indexPath.row) {
-            case 0:
-                
-
+            case 0: {
+                UserDetailsView *userDetails = [[UserDetailsView alloc] initWithUser:_project.owner];
+                [self.navigationController pushViewController:userDetails animated:YES];
                 break;
+            }
                 
             default:
                 break;
         }
+    } else if (indexPath.section == 1) {
+        
+    } else if (indexPath.section == 2) {
+        FilesTableController *filesTable = [FilesTableController new];
+        filesTable.projectID = _project.projectId;
+        filesTable.currentPath = @"";
+        filesTable.filesArray = [[NSMutableArray alloc] initWithArray:[Project getProjectTreeWithID:_project.projectId
+                                                                                             Branch:nil
+                                                                                               Path:nil]];
+        [self.navigationController pushViewController:filesTable animated:YES];
     }
 }
 
@@ -226,6 +239,10 @@ static NSString * const ProjectDetailsCellId = @"ProjectDetailsCell";
     _portrait = [UIImageView new];
     _portrait.contentMode = UIViewContentModeScaleAspectFit;
     [Tools setPortraitForUser:_project.owner view:_portrait cornerRadius:5.0];
+    UITapGestureRecognizer *tapPortraitRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self
+                                                                                            action:@selector(tapPortrait:)];
+    _portrait.userInteractionEnabled = YES;
+    [_portrait addGestureRecognizer:tapPortraitRecognizer];
     [self.view addSubview:_portrait];
     
     _projectName = [UILabel new];
@@ -300,6 +317,14 @@ static NSString * const ProjectDetailsCellId = @"ProjectDetailsCell";
                                                                       options:NSLayoutFormatAlignAllLeft
                                                                       metrics:nil
                                                                         views:NSDictionaryOfVariableBindings(_portrait, _timeInterval, _language)]];
+}
+
+#pragma mark - recognizer
+- (void)tapPortrait:(UITapGestureRecognizer *)sender
+{
+    UserDetailsView *userDetails = [UserDetailsView new];
+    userDetails.user = _project.owner;
+    [self.navigationController pushViewController:userDetails animated:YES];
 }
 
 

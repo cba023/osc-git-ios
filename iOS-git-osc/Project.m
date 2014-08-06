@@ -48,6 +48,9 @@
 + (NSArray *)getProjectTreeWithID:(int64_t)projectID Branch:(NSString *)branch Path:(NSString *)path {
     __block BOOL done = NO;
     __block NSArray *array;
+    NSString *privateToken = [Tools getPrivateToken];
+    if (!privateToken) {return nil;}
+    
     GLGitlabSuccessBlock success = ^(id responseObject) {
         if (responseObject == nil){
             NSLog(@"Request failed");
@@ -67,10 +70,11 @@
     };
     
     GLNetworkOperation *op = [[GLGitlabApi sharedInstance] getRepositoryTreeForProjectId:projectID
+                                                                            privateToken:privateToken
                                                                                     path:path
                                                                               branchName:branch
-                                                                        withSuccessBlock:success
-                                                                         andFailureBlock:failure];
+                                                                            successBlock:success
+                                                                            failureBlock:failure];
     
     while (!done) {
         [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate distantFuture]];
@@ -103,8 +107,8 @@
     GLNetworkOperation *op = [[GLGitlabApi sharedInstance] getFileContentFromProject:projectID
                                                                                 path:path
                                                                           branchName:branch
-                                                                    withSuccessBlock:success
-                                                                     andFailureBlock:failure];
+                                                                        successBlock:success
+                                                                        failureBlock:failure];
     
     while (!done) {
         [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate distantFuture]];

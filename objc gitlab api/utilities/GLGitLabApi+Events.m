@@ -11,19 +11,19 @@
 #import "GLGitlabApi+Private.h"
 
 static NSString * const kEventsEndPoint = @"/events";
+static NSString * const kUserEventsEndPoint = @"events/user/%lld";
 static NSString * const kKeyPrivateToken = @"private_token";
 static NSString * const kKeyPage = @"page";
 
 @implementation GLGitlabApi (Events)
 
-- (GLNetworkOperation *)getEventsWithPrivateToken:(NSString *)private_token
+- (GLNetworkOperation *)getEventsWithPrivateToken:(NSString *)privateToken
                                              page:(int)page
                                           success:(GLGitlabSuccessBlock)successBlock
                                           failure:(GLGitlabFailureBlock)failureBlock
 {
-    NSDictionary *parameters = @{kKeyPrivateToken: private_token, kKeyPage: @(page)};
     NSMutableURLRequest *request = [self requestForEndPoint:kEventsEndPoint
-                                                     params:parameters
+                                                     params:@{kKeyPrivateToken:privateToken, kKeyPage:@(page)}
                                                      method:GLNetworkOperationGetMethod];
     
     GLNetworkOperationSuccessBlock localSuccessBlock = [self multipleObjectSuccessBlockForClass:[GLEvent class] successBlock:successBlock];
@@ -40,7 +40,7 @@ static NSString * const kKeyPage = @"page";
                               success:(GLGitlabSuccessBlock)successBlock
                               failure:(GLGitlabFailureBlock)failureBlock
 {
-    NSMutableURLRequest *request = [self requestForEndPoint:[NSString stringWithFormat:@"%@/user/%lld", kEventsEndPoint, userId]
+    NSMutableURLRequest *request = [self requestForEndPoint:[NSString stringWithFormat:kUserEventsEndPoint, userId]
                                                      params:@{kKeyPage: @(page)}
                                                      method:GLNetworkOperationGetMethod];
     

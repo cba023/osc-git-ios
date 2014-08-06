@@ -20,18 +20,19 @@ static NSString * const kPath = @"path";
 static NSString * const kRefName = @"ref_name";
 static NSString * const kFilePath = @"file_path";
 static NSString * const kRef = @"ref";
+static NSString * const kPrivateToken = @"private_token";
 
 @implementation GLGitlabApi (Files)
 
 - (GLNetworkOperation *)getRepositoryTreeForProjectId:(int64_t)projectId
+                                         privateToken:(NSString *)privateToken
                                                  path:(NSString *)path
                                            branchName:(NSString *)branch
-                                     withSuccessBlock:(GLGitlabSuccessBlock)success
-                                      andFailureBlock:(GLGitlabFailureBlock)failure
+                                         successBlock:(GLGitlabSuccessBlock)success
+                                         failureBlock:(GLGitlabFailureBlock)failure
 {
-    NSMutableDictionary *params;
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];;
     if (path || branch) {
-        params = [NSMutableDictionary dictionary];
         if (path) {
             params[kPath] = path;
         }
@@ -40,6 +41,7 @@ static NSString * const kRef = @"ref";
             params[kRefName] = branch;
         }
     }
+    params[kPrivateToken] = privateToken;
     
     NSString *endpoint =  [NSString stringWithFormat:kTreeEndpoint, projectId];
     NSMutableURLRequest *request = [self requestForEndPoint:endpoint params:params method:GLNetworkOperationGetMethod];
@@ -56,8 +58,8 @@ static NSString * const kRef = @"ref";
 - (GLNetworkOperation *)getFileContentFromProject:(int64_t)projectId
                                              path:(NSString *)path
                                        branchName:(NSString *)branch
-                                 withSuccessBlock:(GLGitlabSuccessBlock)success
-                                  andFailureBlock:(GLGitlabFailureBlock)failure;
+                                     successBlock:(GLGitlabSuccessBlock)success
+                                     failureBlock:(GLGitlabFailureBlock)failure;
 {
     NSDictionary *parameters = @{kRef: branch, kFilePath: path};
     NSMutableURLRequest *request = [self requestForEndPoint:[NSString stringWithFormat:kBlobEndpoint, projectId]

@@ -9,8 +9,11 @@
 #import <UIKit/UIKit.h>
 
 @class GLUser;
+@class EventsView;
 
 @interface UserDetailsView : UIViewController
+
+@property EventsView *eventsView;
 
 @property GLUser *user;
 @property NSArray *events;
@@ -25,5 +28,7 @@
 @property UILabel *watchedCount;
 
 @property UITableView *eventsTable;
+
+- (id)initWithUser:(GLUser *)user;
 
 @end

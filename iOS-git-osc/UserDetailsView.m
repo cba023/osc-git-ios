@@ -47,11 +47,20 @@ static NSString * const EventCellId = @"EventCellId";
     // Dispose of any resources that can be recreated.
 }
 
+- (id)initWithUser:(GLUser *)user
+{
+    self = [super init];
+    if (self) {
+        _user = user;
+    }
+    return self;
+}
+
 - (void)initSubviews
 {
     _portrait = [UIImageView new];
     _portrait.contentMode = UIViewContentModeScaleAspectFit;
-    [Tools setPortraitForUser:_user view:_portrait cornerRadius:50.0];
+    [Tools setPortraitForUser:_user view:_portrait cornerRadius:25.0];
     [self.view addSubview:_portrait];
     
     _name = [UILabel new];
@@ -68,6 +77,7 @@ static NSString * const EventCellId = @"EventCellId";
     
     _projects = [UILabel new];
     [_projects setText:@"Projects"];
+    [self.view addSubview:_projects];
     
     _starredCount = [UILabel new];
     [_starredCount setText:[NSString stringWithFormat:@"Starred: %@", [_user.follow objectForKey:@"starred"]]];
@@ -75,9 +85,11 @@ static NSString * const EventCellId = @"EventCellId";
     
     _watchedCount = [UILabel new];
     [_watchedCount setText:[NSString stringWithFormat:@"Watches: %@", [_user.follow objectForKey:@"watched"]]];
+    [self.view addSubview:_watchedCount];
     
-    EventsView *eventViewController = [EventsView new];
-    _eventsTable = eventViewController.tableView;
+    _eventsView = [EventsView new];
+    _eventsTable = _eventsView.tableView;
+    _eventsView.events = [[NSMutableArray alloc] initWithArray:[Event getUserEvent:_user.userId page:1]];
     [self.view addSubview:_eventsTable];
 }
 
@@ -87,12 +99,12 @@ static NSString * const EventCellId = @"EventCellId";
         [view setTranslatesAutoresizingMaskIntoConstraints:NO];
     }
     
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(8)-[_portrait(90)]-[_name]-(8)-[_followingsCount]-(8)-[_eventsTable]-(8)-|"
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(8)-[_portrait(50)]-[_name]-(8)-[_followingsCount]-(8)-[_eventsTable]-(8)-|"
                                                                       options:0
                                                                       metrics:nil
                                                                         views:NSDictionaryOfVariableBindings(_portrait, _name, _followingsCount, _eventsTable)]];
     
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|-(8)-[_portrait(90)]-[_starredCount]-(>=8)-|"
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|-(8)-[_portrait(50)]-[_starredCount]-(>=8)-|"
                                                                       options:NSLayoutFormatAlignAllCenterY
                                                                       metrics:nil
                                                                         views:NSDictionaryOfVariableBindings(_portrait, _starredCount)]];
@@ -102,7 +114,7 @@ static NSString * const EventCellId = @"EventCellId";
                                                                       metrics:nil
                                                                         views:NSDictionaryOfVariableBindings(_followingsCount, _followersCount, _projects)]];
     
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(15)-[_starredCount]-(8)-[_watchedCount]"
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[_starredCount]-(8)-[_watchedCount]"
                                                                       options:NSLayoutFormatAlignAllLeft
                                                                       metrics:nil
                                                                         views:NSDictionaryOfVariableBindings(_starredCount, _watchedCount)]];
@@ -116,7 +128,7 @@ static NSString * const EventCellId = @"EventCellId";
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[_portrait]-[_name]-[_followingsCount]"
                                                                       options:NSLayoutFormatAlignAllLeft
                                                                       metrics:nil
-                                                                        views:NSDictionaryOfVariableBindings(_portrait, _name, _followersCount)]];
+                                                                        views:NSDictionaryOfVariableBindings(_portrait, _name, _followingsCount)]];
 }
 
 

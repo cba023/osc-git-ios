@@ -32,7 +32,7 @@
 // portrait
 @property (nonatomic, copy) NSString *portrait;
 // new_portrait
-@property (nonatomic, copy) NSString *newPortrait;
+//@property (nonatomic, copy) NSString *newPortrait;
 // email
 @property (nonatomic, copy) NSString *email;
 // private_token

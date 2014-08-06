@@ -8,6 +8,7 @@
 
 #import "Event.h"
 #import "GLGitLab.h"
+#import "Tools.h"
 
 enum action {
     CREATED = 1, UPDATED, CLOSED, REOPENED, PUSHED, COMMENTED, MERGED, JOINED, LEFT, FORKED
@@ -49,7 +50,7 @@ enum action {
 + (NSArray *)getUserEvent:(int64_t)userId page:(int)page
 {
     __block BOOL done = NO;
-    __block NSMutableArray *events;
+    __block NSArray *events;
     
     GLGitlabSuccessBlock success = ^(id responseObject) {
         if (responseObject == nil) {

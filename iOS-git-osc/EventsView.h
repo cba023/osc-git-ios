@@ -10,6 +10,6 @@
 
 @interface EventsView : UITableViewController
 
-@property NSMutableArray *eventsArray;
+@property NSMutableArray *events;
 
 @end

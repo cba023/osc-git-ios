@@ -13,6 +13,7 @@
 #import "UIViewController+REFrostedViewController.h"
 #import "GLGitlab.h"
 #import "User.h"
+#import "Event.h"
 #import "Project.h"
 #import "ProjectsViewController.h"
 #import "ProjectsTableController.h"
@@ -25,7 +26,7 @@
 @end
 
 static NSString * const kKeyName = @"name";
-static NSString * const kKeyPortrait = @"portrait";
+static NSString * const kKeyPortrait = @"new_portrait";
 
 @implementation MenuViewController
 
@@ -89,8 +90,7 @@ static NSString * const kKeyPortrait = @"portrait";
         NSString *name = [self.user objectForKey:kKeyName];
         
         if (portrait) {
-            NSString *urlString = [NSString pathWithComponents:@[git_osc_url, portrait]];
-            [self.imageView setImageWithURL:[NSURL URLWithString:urlString]];
+            [self.imageView setImageWithURL:[NSURL URLWithString:portrait]];
         } else {
             self.imageView.image = [UIImage imageNamed:@"avatar.jpg"];
         }
@@ -172,6 +172,15 @@ static NSString * const kKeyPortrait = @"portrait";
         switch (indexPath.row) {
             case 0: {
                 EventsView *eventsView = [[EventsView alloc] init];
+                NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+                NSString *privateToken = [userDefaults objectForKey:@"private_token"];
+                if (privateToken == nil) {
+                    NSLog(@"No private_token!");
+                    break;
+                } else {
+                    eventsView.events = [[NSMutableArray alloc] initWithArray:[Event getEventsWithPrivateToekn:privateToken page:1]];
+                }
+
                 NavigationController *navigationController = [[NavigationController alloc] initWithRootViewController:eventsView];
                 self.frostedViewController.contentViewController = navigationController;
                 break;

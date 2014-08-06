@@ -10,7 +10,7 @@
 
 @interface GLGitlabApi (Events)
 
-- (GLNetworkOperation *)getEventsWithPrivateToken:(NSString *)private_token
+- (GLNetworkOperation *)getEventsWithPrivateToken:(NSString *)privateToken
                                              page:(int)page
                                           success:(GLGitlabSuccessBlock)successBlock
                                           failure:(GLGitlabFailureBlock)failureBlock;

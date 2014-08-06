@@ -97,8 +97,7 @@ static NSString * const cellId = @"FileCell";
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    int row = [indexPath row];
-    GLFile *file = [self.filesArray objectAtIndex:row];
+    GLFile *file = [self.filesArray objectAtIndex:indexPath.row];
     if (file.type == GLFileTypeTree) {
         FilesTableController *innerFilesTable = [[FilesTableController alloc] init];
         innerFilesTable.projectID = self.projectID;
