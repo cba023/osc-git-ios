@@ -8,12 +8,17 @@
 
 #import "Note.h"
 #import "GLGitlab.h"
+#import "Tools.h"
 
 @implementation Note
 
-+ (NSMutableArray *)getNotesForIssue:(GLIssue *)issue {
++ (NSMutableArray *)getNotesForIssue:(GLIssue *)issue page:(int)page
+{
     __block BOOL done = NO;
     __block NSMutableArray *notes;
+    NSString *privateToken = [Tools getPrivateToken];
+    if (!privateToken) {return nil;}
+    
     GLGitlabSuccessBlock success = ^(id responseObject) {
         if (responseObject == nil) {
             NSLog(@"Request failed");
@@ -31,6 +36,8 @@
     };
     
     GLNetworkOperation *op = [[GLGitlabApi sharedInstance] getAllNotesForIssue:issue
+                                                                  privateToken:privateToken
+                                                                          page:page
                                                               withSuccessBlock:success
                                                                andFailureBlock:failure];
     

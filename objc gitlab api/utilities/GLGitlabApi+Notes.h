@@ -27,8 +27,10 @@
                                    andFailureBlock:(GLGitlabFailureBlock)failure;
 // Issue notes
 - (GLNetworkOperation *)getAllNotesForIssue:(GLIssue *)issue
-                             withSuccessBlock:(GLGitlabSuccessBlock)success
-                              andFailureBlock:(GLGitlabFailureBlock)failure;
+                               privateToken:(NSString *)privateToken
+                                       page:(int)page
+                           withSuccessBlock:(GLGitlabSuccessBlock)success
+                            andFailureBlock:(GLGitlabFailureBlock)failure;
 
 - (GLNetworkOperation *)getIssueNoteWithId:(int64_t)noteId
                                   forIssue:(GLIssue *)issue

@@ -11,7 +11,7 @@
 
 @interface Note : NSObject
 
-+ (NSMutableArray *)getNotesForIssue:(GLIssue *)issue;
++ (NSMutableArray *)getNotesForIssue:(GLIssue *)issue page:(int)page;
 + (BOOL)createNoteForIssue:(GLIssue *)issue body:(NSString *)body;
 
 @end

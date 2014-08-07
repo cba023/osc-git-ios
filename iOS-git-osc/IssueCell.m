@@ -7,6 +7,7 @@
 //
 
 #import "IssueCell.h"
+#import "Tools.h"
 
 @implementation IssueCell
 
@@ -14,19 +15,11 @@
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
-        UIColor *bgColor = [UIColor colorWithRed:235.0/255 green:235.0/255 blue:243.0/255 alpha:1.0];
-        self.contentView.backgroundColor = bgColor;
+        //UIColor *bgColor = [UIColor colorWithRed:235.0/255 green:235.0/255 blue:243.0/255 alpha:1.0];
+        //self.contentView.backgroundColor = bgColor;
         
-        UIImageView *userPortrait = [[UIImageView alloc] initWithFrame:CGRectMake(6, 4, 36, 36)];
-        userPortrait.contentMode = UIViewContentModeScaleAspectFit;
-        //[self.contentView addSubview:userPortrait];
-        
-        _title = [[RTLabel alloc] initWithFrame:CGRectMake(59, 0, 262, 21)];
-        _title.textAlignment = NSTextAlignmentLeft;
-        [self.contentView addSubview:_title];
-        
-        _description = [[RTLabel alloc] initWithFrame:CGRectMake(59, 20, 262, 21)];
-        [self.contentView addSubview:_description];
+        [self initSubviews];
+        [self setAutoLayout];
     }
     return self;
 }
@@ -41,6 +34,45 @@
     [super setSelected:selected animated:animated];
 
     // Configure the view for the selected state
+}
+
+#pragma mark - Subviews and Layout
+
+- (void)initSubviews
+{
+    _portrait = [UIImageView new];
+    _portrait.contentMode = UIViewContentModeScaleAspectFit;
+    [self.contentView addSubview:_portrait];
+
+    _title  = [UILabel new];
+    [_title setFont:[UIFont systemFontOfSize:14]];
+    [self.contentView addSubview:_title];
+    
+    _issueInfo = [UILabel new];
+    [_issueInfo setFont:[UIFont systemFontOfSize:10]];
+    [self.contentView addSubview:_issueInfo];
+}
+
+- (void)setAutoLayout
+{
+    for (UIView *view in [self.contentView subviews]) {
+        [view setTranslatesAutoresizingMaskIntoConstraints:NO];
+    }
+    
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|-(8)-[_portrait(36)]-(8)-[_title]-(>=10)-|"
+                                                                             options:NSLayoutFormatAlignAllTop
+                                                                             metrics:nil
+                                                                               views:NSDictionaryOfVariableBindings(_portrait, _title)]];
+     
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(5)-[_portrait(36)]"
+                                                                             options:0
+                                                                             metrics:nil
+                                                                               views:NSDictionaryOfVariableBindings(_portrait)]];
+    
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[_title]-(1)-[_issueInfo]-(5)-|"
+                                                                             options:NSLayoutFormatAlignAllLeft
+                                                                             metrics:nil
+                                                                               views:NSDictionaryOfVariableBindings(_title, _issueInfo)]];
 }
 
 @end

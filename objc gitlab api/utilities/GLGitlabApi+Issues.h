@@ -16,6 +16,8 @@
                                      andFailureBlock:(GLGitlabFailureBlock)failure;
 
 - (GLNetworkOperation *)getAllIssuesForProjectId:(int64_t)projectId
+                                    privateToken:(NSString *)privateToken
+                                            page:(int)page
                                 withSuccessBlock:(GLGitlabSuccessBlock)success
                                  andFailureBlock:(GLGitlabFailureBlock)failure;
 

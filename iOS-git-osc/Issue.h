@@ -8,8 +8,11 @@
 
 #import <Foundation/Foundation.h>
 
+@class GLIssue;
+
 @interface Issue : NSObject
 
-+ (NSMutableArray *)getIssuesWithProjectId:(int64_t)projectId;
++ (NSMutableArray *)getIssuesWithProjectId:(int64_t)projectId page:(int)page;
++ (NSAttributedString *)generateIssueInfo:(GLIssue *)issue;
 
 @end

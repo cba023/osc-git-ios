@@ -40,8 +40,10 @@ static NSString * const kKeyCreatedAt = @"created_at";
         _assignee = [self checkForNull:json[kKeyAssignee]] ? [[GLUser alloc] initWithJSON:json[kKeyAssignee]] : nil;
         _author = [self checkForNull:json[kKeyAuthor]] ? [[GLUser alloc] initWithJSON:json[kKeyAuthor]] : nil;
         _state = [self checkForNull:json[kKeyState]];
-        _updatedAt = [[[GLGitlabApi sharedInstance] gitLabDateFormatter] dateFromString:json[kKeyUpdatedAt]];
-        _createdAt = [[[GLGitlabApi sharedInstance] gitLabDateFormatter] dateFromString:json[kKeyCreatedAt]];
+        //_updatedAt = [[[GLGitlabApi sharedInstance] gitLabDateFormatter] dateFromString:json[kKeyUpdatedAt]];
+        //_createdAt = [[[GLGitlabApi sharedInstance] gitLabDateFormatter] dateFromString:json[kKeyCreatedAt]];
+        _updatedAt = [self checkForNull:json[kKeyUpdatedAt]];
+        _createdAt = [self checkForNull:json[kKeyCreatedAt]];
     }
     return self;
 }
@@ -55,6 +57,7 @@ static NSString * const kKeyCreatedAt = @"created_at";
     return [self isEqualToIssue:other];
 }
 
+#if 0
 - (BOOL)isEqualToIssue:(GLIssue *)issue {
     if (self == issue)
         return YES;
@@ -86,6 +89,7 @@ static NSString * const kKeyCreatedAt = @"created_at";
         return NO;
     return YES;
 }
+#endif
 
 - (NSUInteger)hash {
     NSUInteger hash = (NSUInteger) self.issueId;
@@ -121,6 +125,7 @@ static NSString * const kKeyCreatedAt = @"created_at";
     return description;
 }
 
+#if 0
 - (NSDictionary *)jsonRepresentation
 {
     id null = (id)[NSNull null];
@@ -140,6 +145,7 @@ static NSString * const kKeyCreatedAt = @"created_at";
              kKeyCreatedAt: _createdAt ? [formatter stringFromDate:_createdAt] : null
              };
 }
+#endif
 
 - (NSDictionary *)jsonCreateRepresentation
 {

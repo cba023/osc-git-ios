@@ -34,8 +34,7 @@ static NSString * const EventCellId = @"EventCellId";
     [super viewDidLoad];
     
     self.navigationController.navigationBar.translucent = NO;
-    
-    _events = [Event getUserEvent:_user.userId page:1];
+    self.title = _user.name;
 
     [self initSubviews];
     [self setAutoLayout];

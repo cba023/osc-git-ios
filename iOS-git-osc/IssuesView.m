@@ -12,6 +12,7 @@
 #import "NavigationController.h"
 #import "GLGitlab.h"
 #import "NotesView.h"
+#import "Tools.h"
 
 @interface IssuesView ()
 
@@ -34,18 +35,12 @@ static NSString * const cellId = @"IssueCell";
 {
     [super viewDidLoad];
     
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"three_lines"]
-                                                                             style:UIBarButtonItemStylePlain
-                                                                            target:(NavigationController *)self.navigationController
-                                                                            action:@selector(showMenu)];
     self.title = @"问题";
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     [self.tableView registerClass:[IssueCell class] forCellReuseIdentifier:cellId];
     
-    _issues = [[NSMutableArray alloc] init];
-    
-    _issues = [Issue getIssuesWithProjectId:_projectId];
+    _issues = [[NSMutableArray alloc] initWithArray:[Issue getIssuesWithProjectId:_projectId page:1]];
 }
 
 - (void)didReceiveMemoryWarning
@@ -54,7 +49,17 @@ static NSString * const cellId = @"IssueCell";
     // Dispose of any resources that can be recreated.
 }
 
-#pragma mark - Table view data source
+- (id)initWithProjectId:(int64_t)projectId
+{
+    self = [super init];
+    if (self) {
+        self.projectId = projectId;
+    }
+    
+    return self;
+}
+
+#pragma mark - UITableviewDataSource
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -71,20 +76,29 @@ static NSString * const cellId = @"IssueCell";
     IssueCell *cell = [tableView dequeueReusableCellWithIdentifier:cellId forIndexPath:indexPath];
     GLIssue *issue = [_issues objectAtIndex:indexPath.row];
     
-    [cell.title setText:[NSString stringWithFormat:@"<font face='Arial-BoldMT' size=14>%@</font>", issue.title]];
-    [cell.description setText:issue.issueDescription];
+    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    [Tools setPortraitForUser:issue.author view:cell.portrait cornerRadius:5.0];
+    [cell.title setText:issue.title];
+    [cell.issueInfo setAttributedText:[Issue generateIssueInfo:issue]];
     
     return cell;
+}
+
+#pragma mark - UITableViewDelegate
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 48;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    int row = [indexPath row];
-    if (row < self.issues.count) {
+    if (indexPath.row < self.issues.count) {
         GLIssue *issue = [_issues objectAtIndex:indexPath.row];
         NotesView *notesView = [[NotesView alloc] init];
         notesView.issue = issue;
+        notesView.title = [NSString stringWithFormat:@"# %lld", issue.issueIid];
         
         [self.navigationController pushViewController:notesView animated:YES];
     }

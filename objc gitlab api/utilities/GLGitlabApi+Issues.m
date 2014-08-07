@@ -15,7 +15,11 @@ static NSString * const kAllIssuesEndpoint = @"/issues";
 static NSString * const kProjectIssuesEndpoint = @"/projects/%llu/issues";
 static NSString * const kSingleIssueEndpoint = @"/projects/%llu/issues/%llu";
 
+static NSString * const kKeyPrivateToken = @"private_token";
+static NSString * const kKeyPage = @"page";
+
 @implementation GLGitlabApi (Issues)
+
 #pragma mark - Issues Methods
 
 - (GLNetworkOperation *)getAllIssuesWithSuccessBlock:(GLGitlabSuccessBlock)success
@@ -34,10 +38,13 @@ static NSString * const kSingleIssueEndpoint = @"/projects/%llu/issues/%llu";
 }
 
 - (GLNetworkOperation *)getAllIssuesForProjectId:(int64_t)projectId
+                                    privateToken:(NSString *)privateToken
+                                            page:(int)page
                                 withSuccessBlock:(GLGitlabSuccessBlock)success
                                  andFailureBlock:(GLGitlabFailureBlock)failure
 {
     NSMutableURLRequest *request = [self requestForEndPoint:[NSString stringWithFormat:kProjectIssuesEndpoint, projectId]
+                                                     params:@{kKeyPrivateToken:privateToken, kKeyPage:@(page)}
                                                      method:GLNetworkOperationGetMethod];
     
     GLNetworkOperationSuccessBlock localSuccessBlock = [self multipleObjectSuccessBlockForClass:[GLIssue class] successBlock:success];

@@ -34,9 +34,9 @@
 // state
 @property (nonatomic, copy) NSString *state;
 // updated_at
-@property (nonatomic, strong) NSDate *updatedAt;
+@property (nonatomic, strong) NSString *updatedAt;
 // created_at
-@property (nonatomic, strong) NSDate *createdAt;
+@property (nonatomic, strong) NSString *createdAt;
 
 - (BOOL)isEqualToIssue:(GLIssue *)issue;
 

@@ -21,6 +21,7 @@
 + (NSString *)intervalSinceNow:(NSString *)dateStr;
 + (NSAttributedString *)getIntervalAttrStr:(NSString *)dateStr;
 
++ (NSAttributedString *)grayString:(NSString *)string fontName:(NSString *)fontName fontSize:(CGFloat)size;
 + (void)roundCorner:(UIView *)view cornerRadius:(CGFloat)cornerRadius;
 + (void)setPortraitForUser:(GLUser *)user view:(UIImageView *)portraitView cornerRadius:(CGFloat)cornerRadius;
 

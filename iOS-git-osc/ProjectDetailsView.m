@@ -13,6 +13,7 @@
 #import "Project.h"
 #import "GLGitlab.h"
 #import "UserDetailsView.h"
+#import "IssuesView.h"
 
 static NSString * const ProjectDetailsCellId = @"ProjectDetailsCell";
 
@@ -36,6 +37,7 @@ static NSString * const ProjectDetailsCellId = @"ProjectDetailsCell";
     [super viewDidLoad];
     
     self.navigationController.navigationBar.translucent = NO;
+    self.title = _project.name;
     
     if (_project.parentId) {
         _parentProject = [Project getASingleProject:_project.parentId];
@@ -162,6 +164,17 @@ static NSString * const ProjectDetailsCellId = @"ProjectDetailsCell";
                 break;
         }
     } else if (indexPath.section == 1) {
+        switch (indexPath.row) {
+            case 0:
+                
+                break;
+            case 1: {
+                IssuesView *issuesView = [[IssuesView alloc] initWithProjectId:_project.projectId];
+                [self.navigationController pushViewController:issuesView animated:YES];
+            }
+            default:
+                break;
+        }
         
     } else if (indexPath.section == 2) {
         FilesTableController *filesTable = [FilesTableController new];
@@ -173,6 +186,8 @@ static NSString * const ProjectDetailsCellId = @"ProjectDetailsCell";
         [self.navigationController pushViewController:filesTable animated:YES];
     }
 }
+
+#pragma mark - generate table cell
 
 - (void)generateTabelCell:(UITableViewCell *)cell inRow:(NSInteger)row
 {

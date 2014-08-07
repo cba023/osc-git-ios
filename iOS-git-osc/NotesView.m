@@ -34,7 +34,7 @@ static NSString * const cellId = @"NoteCell";
     [super viewDidLoad];
     
     [self.tableView registerClass:[NoteCell class] forCellReuseIdentifier:cellId];
-    _notes = [Note getNotesForIssue:_issue];
+    _notes = [Note getNotesForIssue:_issue page:1];
     
     UIBarButtonItem *commentButton = [[UIBarButtonItem alloc] initWithTitle:@"评论" style:UIBarButtonItemStyleBordered target:self action:@selector(editComment)];
     self.navigationItem.rightBarButtonItem = commentButton;

@@ -25,6 +25,7 @@ static NSString * const kSingleMergeRequestNoteEndpoint = @"/projects/%llu/merge
 // API Params
 static NSString * const kParamBody = @"body";
 static NSString * const kKeyPrivate_token = @"private_token";
+static NSString * const kKeyPage = @"page";
 
 @implementation GLGitlabApi (Notes)
 #pragma mark - Notes Methods
@@ -83,10 +84,14 @@ static NSString * const kKeyPrivate_token = @"private_token";
 }
 
 - (GLNetworkOperation *)getAllNotesForIssue:(GLIssue *)issue
-                             withSuccessBlock:(GLGitlabSuccessBlock)success
-                              andFailureBlock:(GLGitlabFailureBlock)failure
+                               privateToken:(NSString *)privateToken
+                                       page:(int)page
+                           withSuccessBlock:(GLGitlabSuccessBlock)success
+                            andFailureBlock:(GLGitlabFailureBlock)failure
+
 {
     NSMutableURLRequest *request = [self requestForEndPoint:[NSString stringWithFormat:kIssueNotesEndpoint, issue.projectId, issue.issueId]
+                                                     params:@{kKeyPrivate_token:privateToken, kKeyPage:@(page)}
                                                      method:GLNetworkOperationGetMethod];
     
     GLNetworkOperationSuccessBlock localSuccessBlock = [self multipleObjectSuccessBlockForClass:[GLNote class] successBlock:success];

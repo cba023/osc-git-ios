@@ -7,11 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "RTLabel.h"
+
+@class GLUser;
 
 @interface IssueCell : UITableViewCell
 
-@property RTLabel *title;
-@property RTLabel *description;
+@property UIImageView *portrait;
+@property UILabel *title;
+//@property UILabel *description;
+@property UILabel *issueInfo;
 
 @end

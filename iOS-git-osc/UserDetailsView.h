@@ -16,7 +16,6 @@
 @property EventsView *eventsView;
 
 @property GLUser *user;
-@property NSArray *events;
 
 @property UIImageView *portrait;
 @property UILabel *name;

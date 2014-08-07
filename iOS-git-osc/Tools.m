@@ -177,16 +177,32 @@
 
 + (NSAttributedString *)getIntervalAttrStr:(NSString *)dateStr
 {
-    UIFont *font = [UIFont fontWithName:@"STHeitiSC-Medium" size:15];
-    UIColor *fontColor = [UIColor colorWithRed:153/255.0 green:153/255.0 blue:153/255.0 alpha:1];
-    NSDictionary *attributes = @{NSFontAttributeName: font,
-                                 NSForegroundColorAttributeName: fontColor};
-    NSAttributedString *intervalAttrStr = [[NSAttributedString alloc] initWithString:[self intervalSinceNow:dateStr]
-                                                                          attributes:attributes];
+    NSAttributedString *intervalAttrStr = [self grayString:[self intervalSinceNow:dateStr]
+                                                  fontName:@"STHeitiSC-Medium"
+                                                  fontSize:15];
+    
     return intervalAttrStr;
 }
 
 #pragma mark - UI thing
+
++ (NSAttributedString *)grayString:(NSString *)string fontName:(NSString *)fontName fontSize:(CGFloat)size
+{
+    UIFont *font;
+    if (fontName) {
+        font = [UIFont fontWithName:fontName size:size];
+    } else {
+        font = [UIFont systemFontOfSize:size];
+    }
+
+    UIColor *grayColor = [UIColor colorWithRed:153/255.0 green:153/255.0 blue:153/255.0 alpha:1];
+    NSAttributedString *grayString = [[NSAttributedString alloc] initWithString:string
+                                                                     attributes:@{NSFontAttributeName:font,
+                                                                                  NSForegroundColorAttributeName:grayColor}];
+    
+    return grayString;
+}
+
 + (void)roundCorner:(UIView *)view cornerRadius:(CGFloat)cornerRadius
 {
     view.layer.cornerRadius = cornerRadius;

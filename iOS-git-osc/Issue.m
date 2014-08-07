@@ -8,12 +8,16 @@
 
 #import "Issue.h"
 #import "GLGitlab.h"
+#import "Tools.h"
 
 @implementation Issue
 
-+ (NSMutableArray *)getIssuesWithProjectId:(int64_t)projectId {
++ (NSMutableArray *)getIssuesWithProjectId:(int64_t)projectId page:(int)page {
     __block BOOL done = NO;
     __block NSMutableArray *issues;
+    NSString *privateToken = [Tools getPrivateToken];
+    if (!privateToken) {return nil;}
+    
     GLGitlabSuccessBlock success = ^(id responseObject) {
         if (responseObject == nil) {
             NSLog(@"Request failed");
@@ -31,6 +35,8 @@
     };
     
     GLNetworkOperation *op = [[GLGitlabApi sharedInstance] getAllIssuesForProjectId:projectId
+                                                                       privateToken:privateToken
+                                                                               page:page
                                                                    withSuccessBlock:success
                                                                     andFailureBlock:failure];
     
@@ -39,6 +45,15 @@
     }
     
     return issues;
+}
+
++ (NSAttributedString *)generateIssueInfo:(GLIssue *)issue
+{
+    NSString *timeInterval = [Tools intervalSinceNow:issue.createdAt];
+    NSString *issueInfo = [NSString stringWithFormat:@"#%lld by %@ - %@", issue.issueIid, issue.author.name, timeInterval];
+    NSAttributedString *attrIssueInfo = [Tools grayString:issueInfo fontName:nil fontSize:14];
+    
+    return attrIssueInfo;
 }
 
 @end
