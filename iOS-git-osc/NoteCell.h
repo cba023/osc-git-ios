@@ -7,12 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "RTLabel.h"
 
 @interface NoteCell : UITableViewCell
 
-@property RTLabel *author;
-@property RTLabel *body;
-@property RTLabel *time;
+@property UIImageView *portrait;
+@property UILabel *author;
+@property UIWebView *body;
+@property UILabel *time;
 
 @end

@@ -75,4 +75,5 @@
                                                                                views:NSDictionaryOfVariableBindings(_title, _issueInfo)]];
 }
 
+
 @end

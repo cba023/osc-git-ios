@@ -98,7 +98,7 @@ static NSString * const cellId = @"IssueCell";
         GLIssue *issue = [_issues objectAtIndex:indexPath.row];
         NotesView *notesView = [[NotesView alloc] init];
         notesView.issue = issue;
-        notesView.title = [NSString stringWithFormat:@"# %lld", issue.issueIid];
+        notesView.title = [NSString stringWithFormat:@"#%lld", issue.issueIid];
         
         [self.navigationController pushViewController:notesView animated:YES];
     }

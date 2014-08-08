@@ -9,8 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "REFrostedViewController.h"
 #import "NavigationController.h"
-#import "HomeViewController.h"
 #import "MenuViewController.h"
+#import "ProjectsViewController.h"
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate, REFrostedViewControllerDelegate>
 

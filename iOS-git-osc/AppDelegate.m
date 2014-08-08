@@ -16,7 +16,7 @@
     
     // Create content and menu controllers
     //
-    NavigationController *navigationController = [[NavigationController alloc] initWithRootViewController:[[HomeViewController alloc] init]];
+    NavigationController *navigationController = [[NavigationController alloc] initWithRootViewController:[[ProjectsViewController alloc] init]];
     MenuViewController *menuController = [[MenuViewController alloc] initWithStyle:UITableViewStylePlain];
     
     // Create frosted view controller
@@ -33,7 +33,7 @@
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
     
-    [[UINavigationBar appearance] setBarTintColor:UIColorFromRGB(0x145096)];
+    [[UINavigationBar appearance] setBarTintColor:UIColorFromRGB(0x0a5090)];
     NSDictionary *navbarTitleTextAttributes = @{NSForegroundColorAttributeName:[UIColor whiteColor]};
     [[UINavigationBar appearance] setTitleTextAttributes:navbarTitleTextAttributes];
     [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];

@@ -11,12 +11,17 @@
 #import "NoteEditingView.h"
 #import "GLGitlab.h"
 #import "Note.h"
+#import "Tools.h"
+#import "CreationInfoCell.h"
+#import "IssueDescriptionCell.h"
 
 @interface NotesView ()
 
 @end
 
-static NSString * const cellId = @"NoteCell";
+static NSString * const NoteCellId = @"NoteCell";
+static NSString * const CreationInfoCellId = @"CreationInfoCell";
+static NSString * const IssueDescriptionCellId = @"IssueDescriptionCell";
 
 @implementation NotesView
 
@@ -33,7 +38,9 @@ static NSString * const cellId = @"NoteCell";
 {
     [super viewDidLoad];
     
-    [self.tableView registerClass:[NoteCell class] forCellReuseIdentifier:cellId];
+    [self.tableView registerClass:[NoteCell class] forCellReuseIdentifier:NoteCellId];
+    [self.tableView registerClass:[CreationInfoCell class] forCellReuseIdentifier:CreationInfoCellId];
+    [self.tableView registerClass:[IssueDescriptionCell class] forCellReuseIdentifier:IssueDescriptionCellId];
     _notes = [Note getNotesForIssue:_issue page:1];
     
     UIBarButtonItem *commentButton = [[UIBarButtonItem alloc] initWithTitle:@"评论" style:UIBarButtonItemStyleBordered target:self action:@selector(editComment)];
@@ -50,28 +57,72 @@ static NSString * const cellId = @"NoteCell";
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 1;
+    return _notes.count == 0? 1: 2;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return _notes.count;
+    switch (section) {
+        case 0:
+            return 2;
+        case 1:
+            return _notes.count;
+        default:
+            return 0;
+    }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 60;
+    NSInteger section = indexPath.section, row = indexPath.row;
+    
+    if (section == 0) {
+        if (row == 0) {return 41;}
+        else {return 80;}
+    } else {
+        return 90;
+    }
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+{
+    if (section == 0) {
+        return _issue.title;
+    } else {
+        return [NSString stringWithFormat:@"%lu条评论", _notes.count];
+    }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NoteCell *cell = [tableView dequeueReusableCellWithIdentifier:cellId forIndexPath:indexPath];
-    
-    GLNote *note = [_notes objectAtIndex:indexPath.row];
-    cell.author.text = note.author.name;
-    cell.body.text = note.body;
-    
-    return cell;
+    NSInteger section = indexPath.section;
+    NSInteger row = indexPath.row;
+    if (section == 0 && row == 0) {
+        CreationInfoCell *cell = [tableView dequeueReusableCellWithIdentifier:CreationInfoCellId forIndexPath:indexPath];
+        
+        [Tools setPortraitForUser:_issue.author view:cell.portrait cornerRadius:2.0];
+        NSString *timeInterval = [Tools intervalSinceNow:_issue.createdAt];
+        NSString *creationInfo = [NSString stringWithFormat:@"%@在%@创建该问题", _issue.author.name, timeInterval];
+        [cell.creationInfo setText:creationInfo];
+        
+        return cell;
+    } else if (section == 0 && row == 1) {
+        IssueDescriptionCell *cell = [tableView dequeueReusableCellWithIdentifier:IssueDescriptionCellId forIndexPath:indexPath];
+        
+        [cell.issueDescription loadHTMLString:_issue.issueDescription baseURL:nil];
+        
+        return cell;
+    } else {
+        NoteCell *cell = [tableView dequeueReusableCellWithIdentifier:NoteCellId forIndexPath:indexPath];
+        GLNote *note = [_notes objectAtIndex:row];
+        
+        [Tools setPortraitForUser:note.author view:cell.portrait cornerRadius:2.0];
+        [cell.author setText:note.author.name];
+        [cell.body loadHTMLString:note.body baseURL:nil];
+        [cell.time setAttributedText:[Tools getIntervalAttrStr:note.createdAt]];
+        
+        return cell;
+    }
 }
 
 #if 0
@@ -83,36 +134,15 @@ static NSString * const cellId = @"NoteCell";
 }
 #endif
 
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)sectionIndex
-{
-    NSString *author = _issue.author.name;
-    NSString *description = _issue.issueDescription;
+//- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)sectionIndex
+//{
     
-    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, 34)];
-    view.backgroundColor = [UIColor colorWithRed:167/255.0f green:167/255.0f blue:167/255.0f alpha:0.6f];
-    
-    UILabel *authorField = [[UILabel alloc] initWithFrame:CGRectMake(10, 8, 0, 0)];
-    authorField.text = author;
-    authorField.font = [UIFont systemFontOfSize:15];
-    authorField.textColor = [UIColor whiteColor];
-    authorField.backgroundColor = [UIColor clearColor];
-    [authorField sizeToFit];
-    [view addSubview:authorField];
-    
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(10, 30, 30, 30)];
-    label.text = description;
-    label.font = [UIFont systemFontOfSize:15];
-    label.textColor = [UIColor whiteColor];
-    label.backgroundColor = [UIColor clearColor];
-    [label sizeToFit];
-    [view addSubview:label];
-    
-    return view;
-}
+//    return view;
+//}
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)sectionIndex
 {
-    return 90;
+    return 40;
 }
 
 #pragma mark - 编辑评论

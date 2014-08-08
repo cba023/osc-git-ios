@@ -7,7 +7,6 @@
 //
 
 #import "MenuViewController.h"
-#import "HomeViewController.h"
 #import "NavigationController.h"
 #import "LoginViewController.h"
 #import "UIViewController+REFrostedViewController.h"
@@ -251,7 +250,7 @@ static NSString * const kKeyPortrait = @"new_portrait";
             break;
         
         case 1:
-            titles = @[@"星标", @"热门"];
+            titles = @[@"发现", @"热门"];
             break;
         
         case 2:

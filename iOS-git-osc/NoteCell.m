@@ -14,13 +14,9 @@
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
-        _author = [[RTLabel alloc] initWithFrame:CGRectMake(10, 0, 269, 20)];
-        _author.textAlignment = NSTextAlignmentLeft;
-        [self.contentView addSubview:_author];
-        
-        _body = [[RTLabel alloc] initWithFrame:CGRectMake(10, 20, 310, 21)];
-        _body.textAlignment = NSTextAlignmentLeft;
-        [self.contentView addSubview:_body];
+        self.contentView.autoresizingMask = UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth;
+        [self initSubviews];
+        [self setAutoLayout];
     }
     return self;
 }
@@ -36,5 +32,50 @@
 
     // Configure the view for the selected state
 }
+
+#pragma mark - Subviews and Layout
+
+- (void)initSubviews
+{
+    _portrait = [UIImageView new];
+    _portrait.contentMode = UIViewContentModeScaleAspectFit;
+    [self.contentView addSubview:_portrait];
+    
+    _author = [UILabel new];
+    [_author setFont:[UIFont systemFontOfSize:12]];
+    [self.contentView addSubview:_author];
+    
+    _body = [UIWebView new];
+    _body.scrollView.scrollEnabled = NO;
+    _body.scrollView.bounces = NO;
+    [self.contentView addSubview:_body];
+    
+    _time = [UILabel new];
+    [_time setFont:[UIFont systemFontOfSize:10]];
+    [self.contentView addSubview:_time];
+}
+
+- (void)setAutoLayout
+{
+    for (UIView *view in [self.contentView subviews]) {
+        [view setTranslatesAutoresizingMaskIntoConstraints:NO];
+    }
+    
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|-(8)-[_portrait(25)]-(8)-[_author]-[_time]-(8)-|"
+                                                                             options:NSLayoutFormatAlignAllCenterY
+                                                                             metrics:nil
+                                                                               views:NSDictionaryOfVariableBindings(_portrait, _author, _time)]];
+    
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(8)-[_portrait(25)]-(5)-[_body]-(5)-|"
+                                                                             options:NSLayoutFormatAlignAllLeft
+                                                                             metrics:nil
+                                                                               views:NSDictionaryOfVariableBindings(_portrait, _body)]];
+    
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[_time]-[_body]"
+                                                                             options:NSLayoutFormatAlignAllRight
+                                                                             metrics:nil
+                                                                               views:NSDictionaryOfVariableBindings(_time, _body)]];
+}
+
 
 @end

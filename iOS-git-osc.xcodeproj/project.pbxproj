@@ -22,7 +22,6 @@
 		0002D2B519163DF6001FDED8 /* UIImage+REFrostedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0002D2AD19163DF6001FDED8 /* UIImage+REFrostedViewController.m */; };
 		0002D2B619163DF6001FDED8 /* UIView+REFrostedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0002D2AF19163DF6001FDED8 /* UIView+REFrostedViewController.m */; };
 		0002D2B719163DF6001FDED8 /* UIViewController+REFrostedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0002D2B119163DF6001FDED8 /* UIViewController+REFrostedViewController.m */; };
-		0002D2BB191640B4001FDED8 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0002D2BA191640B4001FDED8 /* HomeViewController.m */; };
 		0002D2BE19164716001FDED8 /* MenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0002D2BD19164716001FDED8 /* MenuViewController.m */; };
 		0002D2C119164B02001FDED8 /* NavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0002D2C019164B02001FDED8 /* NavigationController.m */; };
 		0002D2D719188953001FDED8 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0002D2D619188953001FDED8 /* Images.xcassets */; };
@@ -109,13 +108,14 @@
 		00C408F31959CDFA001073BF /* star2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 00C408F01959CDFA001073BF /* star2@2x.png */; };
 		00C7C679196A85B70006B2E4 /* FileContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 00C7C678196A85B70006B2E4 /* FileContentView.m */; };
 		00CF21DF1929EF890087AF83 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00CF21DE1929EF890087AF83 /* ImageIO.framework */; };
-		00D4ED1E196E71E700F3A4A5 /* RTLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 00D4ED19196E71E700F3A4A5 /* RTLabel.m */; };
 		00D4ED23196F97FE00F3A4A5 /* Issue.m in Sources */ = {isa = PBXBuildFile; fileRef = 00D4ED22196F97FE00F3A4A5 /* Issue.m */; };
 		00D4ED26196F9B9900F3A4A5 /* IssueCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 00D4ED25196F9B9900F3A4A5 /* IssueCell.m */; };
 		00D4ED29196F9BCA00F3A4A5 /* IssuesView.m in Sources */ = {isa = PBXBuildFile; fileRef = 00D4ED28196F9BCA00F3A4A5 /* IssuesView.m */; };
 		00D4ED2C196FF5C500F3A4A5 /* Note.m in Sources */ = {isa = PBXBuildFile; fileRef = 00D4ED2B196FF5C500F3A4A5 /* Note.m */; };
 		00D4ED30196FF85E00F3A4A5 /* NoteCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 00D4ED2F196FF85E00F3A4A5 /* NoteCell.m */; };
 		00D4ED34196FF88300F3A4A5 /* NotesView.m in Sources */ = {isa = PBXBuildFile; fileRef = 00D4ED33196FF88300F3A4A5 /* NotesView.m */; };
+		00F017771994BB040076BE43 /* CreationInfoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 00F017761994BB040076BE43 /* CreationInfoCell.m */; };
+		00F0177D1994CDD10076BE43 /* IssueDescriptionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 00F0177C1994CDD10076BE43 /* IssueDescriptionCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -153,8 +153,6 @@
 		0002D2AF19163DF6001FDED8 /* UIView+REFrostedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+REFrostedViewController.m"; sourceTree = "<group>"; };
 		0002D2B019163DF6001FDED8 /* UIViewController+REFrostedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+REFrostedViewController.h"; sourceTree = "<group>"; };
 		0002D2B119163DF6001FDED8 /* UIViewController+REFrostedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+REFrostedViewController.m"; sourceTree = "<group>"; };
-		0002D2B9191640B4001FDED8 /* HomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeViewController.h; sourceTree = "<group>"; };
-		0002D2BA191640B4001FDED8 /* HomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeViewController.m; sourceTree = "<group>"; };
 		0002D2BC19164716001FDED8 /* MenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuViewController.h; sourceTree = "<group>"; };
 		0002D2BD19164716001FDED8 /* MenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuViewController.m; sourceTree = "<group>"; };
 		0002D2BF19164B02001FDED8 /* NavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavigationController.h; sourceTree = "<group>"; };
@@ -317,8 +315,6 @@
 		00C7C677196A85B70006B2E4 /* FileContentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileContentView.h; sourceTree = "<group>"; };
 		00C7C678196A85B70006B2E4 /* FileContentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FileContentView.m; sourceTree = "<group>"; };
 		00CF21DE1929EF890087AF83 /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
-		00D4ED18196E71E700F3A4A5 /* RTLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RTLabel.h; sourceTree = "<group>"; };
-		00D4ED19196E71E700F3A4A5 /* RTLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RTLabel.m; sourceTree = "<group>"; };
 		00D4ED21196F97FE00F3A4A5 /* Issue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Issue.h; sourceTree = "<group>"; };
 		00D4ED22196F97FE00F3A4A5 /* Issue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Issue.m; sourceTree = "<group>"; };
 		00D4ED24196F9B9900F3A4A5 /* IssueCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IssueCell.h; sourceTree = "<group>"; };
@@ -331,6 +327,10 @@
 		00D4ED2F196FF85E00F3A4A5 /* NoteCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NoteCell.m; sourceTree = "<group>"; };
 		00D4ED32196FF88300F3A4A5 /* NotesView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotesView.h; sourceTree = "<group>"; };
 		00D4ED33196FF88300F3A4A5 /* NotesView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotesView.m; sourceTree = "<group>"; };
+		00F017751994BB040076BE43 /* CreationInfoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreationInfoCell.h; sourceTree = "<group>"; };
+		00F017761994BB040076BE43 /* CreationInfoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreationInfoCell.m; sourceTree = "<group>"; };
+		00F0177B1994CDD10076BE43 /* IssueDescriptionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IssueDescriptionCell.h; sourceTree = "<group>"; };
+		00F0177C1994CDD10076BE43 /* IssueDescriptionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IssueDescriptionCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -363,7 +363,6 @@
 			isa = PBXGroup;
 			children = (
 				00760B6819767BDA00C88C6F /* SDWebImage */,
-				00D4ED13196E71E700F3A4A5 /* RTLabel */,
 				0002D2A519163DF6001FDED8 /* REFrostedViewController */,
 				0021BA7E192342BD00626A2C /* objc gitlab api */,
 				0002D24F1916324B001FDED8 /* iOS-git-osc */,
@@ -445,8 +444,6 @@
 		0002D2B81916407B001FDED8 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				0002D2B9191640B4001FDED8 /* HomeViewController.h */,
-				0002D2BA191640B4001FDED8 /* HomeViewController.m */,
 				0002D2BC19164716001FDED8 /* MenuViewController.h */,
 				0002D2BD19164716001FDED8 /* MenuViewController.m */,
 				0002D2BF19164B02001FDED8 /* NavigationController.h */,
@@ -723,16 +720,6 @@
 			name = User;
 			sourceTree = "<group>";
 		};
-		00D4ED13196E71E700F3A4A5 /* RTLabel */ = {
-			isa = PBXGroup;
-			children = (
-				00D4ED18196E71E700F3A4A5 /* RTLabel.h */,
-				00D4ED19196E71E700F3A4A5 /* RTLabel.m */,
-			);
-			name = RTLabel;
-			path = Classes;
-			sourceTree = "<group>";
-		};
 		00D4ED20196F97CF00F3A4A5 /* Issues */ = {
 			isa = PBXGroup;
 			children = (
@@ -757,6 +744,10 @@
 				00D4ED33196FF88300F3A4A5 /* NotesView.m */,
 				00760B5F1973BF6600C88C6F /* NoteEditingView.h */,
 				00760B601973BF6600C88C6F /* NoteEditingView.m */,
+				00F017751994BB040076BE43 /* CreationInfoCell.h */,
+				00F017761994BB040076BE43 /* CreationInfoCell.m */,
+				00F0177B1994CDD10076BE43 /* IssueDescriptionCell.h */,
+				00F0177C1994CDD10076BE43 /* IssueDescriptionCell.m */,
 			);
 			name = Notes;
 			sourceTree = "<group>";
@@ -892,11 +883,11 @@
 				0002D2B319163DF6001FDED8 /* REFrostedContainerViewController.m in Sources */,
 				0021BADA192342BD00626A2C /* GLTag.m in Sources */,
 				00760B9819767BDB00C88C6F /* UIImageView+WebCache.m in Sources */,
-				0002D2BB191640B4001FDED8 /* HomeViewController.m in Sources */,
 				0021BADF192342BD00626A2C /* GLGitlabApi+Groups.m in Sources */,
 				00760B9119767BDB00C88C6F /* SDWebImageManager.m in Sources */,
 				0021BAF7192360A100626A2C /* SSKeychain.m in Sources */,
 				0002D2B519163DF6001FDED8 /* UIImage+REFrostedViewController.m in Sources */,
+				00F017771994BB040076BE43 /* CreationInfoCell.m in Sources */,
 				0021BAE2192342BD00626A2C /* GLGitlabApi+Milestones.m in Sources */,
 				0021BADE192342BD00626A2C /* GLGitlabApi+Files.m in Sources */,
 				0002D25A1916324B001FDED8 /* AppDelegate.m in Sources */,
@@ -939,6 +930,7 @@
 				00760B9619767BDB00C88C6F /* UIImage+WebP.m in Sources */,
 				00760B9719767BDB00C88C6F /* UIImageView+HighlightedWebCache.m in Sources */,
 				00B7595C196C065E009C9C58 /* Event.m in Sources */,
+				00F0177D1994CDD10076BE43 /* IssueDescriptionCell.m in Sources */,
 				0021BAE3192342BD00626A2C /* GLGitlabApi+Notes.m in Sources */,
 				0021BACC192342BD00626A2C /* GLBaseObject.m in Sources */,
 				0021BAD4192342BD00626A2C /* GLMergeRequest.m in Sources */,
@@ -950,7 +942,6 @@
 				0021BAE1192342BD00626A2C /* GLGitlabApi+MergeRequest.m in Sources */,
 				0021BAED192342BD00626A2C /* GLVoidNetworkOperation.m in Sources */,
 				0002D2B419163DF6001FDED8 /* REFrostedViewController.m in Sources */,
-				00D4ED1E196E71E700F3A4A5 /* RTLabel.m in Sources */,
 				0021BAEC192342BD00626A2C /* GLRawNetworkOperation.m in Sources */,
 				00541C0A196684AB002EC356 /* GLBlob.m in Sources */,
 				00760B9919767BDB00C88C6F /* UIView+WebCacheOperation.m in Sources */,

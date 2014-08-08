@@ -22,7 +22,7 @@
 // author
 @property (nonatomic, strong) GLUser *author;
 // created_at
-@property (nonatomic, strong) NSDate *createdAt;
+@property (nonatomic, strong) NSString *createdAt;
 
 - (BOOL)isEqualToNote:(GLNote *)note;
 
