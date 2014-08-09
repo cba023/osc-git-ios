@@ -39,6 +39,7 @@ static NSString * const kKeyPortrait = @"new_portrait";
     self.tableView.dataSource = self;
     self.tableView.opaque = NO;
     self.tableView.backgroundColor = [UIColor clearColor];
+    self.tableView.separatorStyle = NO;
 #if 0
     self.tableView.tableHeaderView = ({
         UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, 184.0f)];
@@ -236,7 +237,7 @@ static NSString * const kKeyPortrait = @"new_portrait";
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *cellIdentifier = @"Cell";
-    NSArray *titles;
+    NSArray *titles, *images;
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     
@@ -246,7 +247,9 @@ static NSString * const kKeyPortrait = @"new_portrait";
     
     switch (indexPath.section) {
         case 0:
-            titles = @[@"动态", @"个人项目", @"收藏", @"关注", @"通知"];
+            titles = @[@"动态", @"项目", @"收藏", @"关注", @"通知"];
+            images = @[@"MenuProfile", @"MenuRepositories", @"MenuStarredRepos", @"MenuWatchedRepos", @"MenuIssues"];
+            cell.imageView.image = [UIImage imageNamed:images[indexPath.row]];
             break;
         
         case 1:

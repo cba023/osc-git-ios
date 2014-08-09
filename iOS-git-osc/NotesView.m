@@ -78,7 +78,9 @@ static NSString * const IssueDescriptionCellId = @"IssueDescriptionCell";
     
     if (section == 0) {
         if (row == 0) {return 41;}
-        else {return 80;}
+        else {
+            return 150;
+        }
     } else {
         return 90;
     }
@@ -108,8 +110,9 @@ static NSString * const IssueDescriptionCellId = @"IssueDescriptionCell";
         return cell;
     } else if (section == 0 && row == 1) {
         IssueDescriptionCell *cell = [tableView dequeueReusableCellWithIdentifier:IssueDescriptionCellId forIndexPath:indexPath];
+        NSString *html = [NSString stringWithFormat:@"<html><head><meta name=\"viewport\" content=\"user-scalable=no, width=device-width\"></head><body>%@</body><html>", _issue.issueDescription];
         
-        [cell.issueDescription loadHTMLString:_issue.issueDescription baseURL:nil];
+        [cell.issueDescription loadHTMLString:html baseURL:nil];
         
         return cell;
     } else {

@@ -14,7 +14,8 @@
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
-        self.contentView.autoresizingMask = UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth;
+        self.contentView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+        //self.contentView.bounds = CGRectMake(0, 0, 99999, 99999);
         [self initSubviews];
         [self setAutoLayout];
     }
@@ -52,7 +53,7 @@
         [view setTranslatesAutoresizingMaskIntoConstraints:NO];
     }
     
-    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|-(8)-[_portrait(25)]-[_creationInfo]-(8)-|"
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|-(8)-[_portrait(25)]-[_creationInfo]-(>=8)-|"
                                                                              options:NSLayoutFormatAlignAllCenterY
                                                                              metrics:nil
                                                                                views:NSDictionaryOfVariableBindings(_portrait, _creationInfo)]];

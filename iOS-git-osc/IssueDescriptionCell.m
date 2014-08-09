@@ -14,7 +14,7 @@
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
-        self.contentView.autoresizingMask = UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth;
+        self.contentView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
         [self initSubviews];
         [self setAutoLayout];
     }
@@ -40,6 +40,9 @@
     _issueDescription = [UIWebView new];
     _issueDescription.scrollView.scrollEnabled = NO;
     _issueDescription.scrollView.bounces = NO;
+    _issueDescription.opaque = NO;
+    _issueDescription.backgroundColor = [UIColor clearColor];
+    //_issueDescription.scalesPageToFit = YES;
     [self.contentView addSubview:_issueDescription];
 }
 

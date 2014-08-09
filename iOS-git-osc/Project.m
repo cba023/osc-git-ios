@@ -90,7 +90,7 @@
         if (responseObject == nil){
             NSLog(@"Request failed");
         } else {
-            content = [Tools decodeBase64String:[responseObject description]];
+            content = [responseObject description];
         }
         done = YES;
     };
