@@ -18,6 +18,7 @@
                                          failureBlock:(GLGitlabFailureBlock)failure;
 
 - (GLNetworkOperation *)getFileContentFromProject:(int64_t)projectId
+                                     privateToken:(NSString *)privateToken
                                              path:(NSString *)path
                                        branchName:(NSString *)branch
                                      successBlock:(GLGitlabSuccessBlock)success

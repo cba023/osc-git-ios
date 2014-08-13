@@ -7,6 +7,7 @@
 //
 
 #import "FileContentView.h"
+#import "Tools.h"
 
 @interface FileContentView ()
 
@@ -31,16 +32,25 @@
                                                                             target:self
                                                                             action:@selector(popBack)];
     self.title = self.fileName;
-#if 0
-    self.webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, 640, 480)];
-    self.webView.multipleTouchEnabled = YES;
-#else
+    
     self.webView = [[UIWebView alloc] initWithFrame:self.view.bounds];
-    //NSLog(@"bounds x:%f y:%f", self.view.bounds.origin.x, self.view.bounds.origin.y);
-    //NSLog(@"bounds w:%f h:%f", self.view.bounds.size.width, self.view.bounds.size.height);
-#endif
     self.webView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
-    [self.webView loadHTMLString:self.content baseURL:nil];
+    
+    NSURL *baseUrl = [NSURL fileURLWithPath:NSBundle.mainBundle.bundlePath];
+	BOOL lineNumbers = YES;//[[defaults valueForKey:kLineNumbersDefaultsKey] boolValue];
+    NSString *lang = [[_fileName componentsSeparatedByString:@"."] lastObject];
+	NSString *theme = @"tomorrow-night";//[defaults valueForKey:kThemeDefaultsKey];
+	NSString *formatPath = [[NSBundle mainBundle] pathForResource:@"code" ofType:@"html"];
+	NSString *highlightJsPath = [[NSBundle mainBundle] pathForResource:@"highlight.pack" ofType:@"js"];
+	NSString *themeCssPath = [[NSBundle mainBundle] pathForResource:theme ofType:@"css"];
+	NSString *codeCssPath = [[NSBundle mainBundle] pathForResource:@"code" ofType:@"css"];
+	NSString *lineNums = lineNumbers ? @"true" : @"false";
+	NSString *format = [NSString stringWithContentsOfFile:formatPath encoding:NSUTF8StringEncoding error:nil];
+	NSString *escapedCode = [Tools escapeHTML:self.content];
+	NSString *contentHTML = [NSString stringWithFormat:format, themeCssPath, codeCssPath, highlightJsPath, lineNums, lang, escapedCode];
+    
+	[self.webView loadHTMLString:contentHTML baseURL:baseUrl];
+    
     [self.view addSubview:self.webView];
 }
 

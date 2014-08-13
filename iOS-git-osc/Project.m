@@ -85,12 +85,15 @@
 
 + (NSString *)getFileContent:(int64_t)projectID Path:(NSString *)path Branch:(NSString *)branch {
     __block BOOL done = NO;
-    __block NSString *content;
+    __block GLBlob *blob;
+    NSString *privateToken = [Tools getPrivateToken];
+    if (!privateToken) {return nil;}
+    
     GLGitlabSuccessBlock success = ^(id responseObject) {
         if (responseObject == nil){
             NSLog(@"Request failed");
         } else {
-            content = [responseObject description];
+            blob = responseObject;
         }
         done = YES;
     };
@@ -105,6 +108,7 @@
     };
     
     GLNetworkOperation *op = [[GLGitlabApi sharedInstance] getFileContentFromProject:projectID
+                                                                        privateToken:privateToken
                                                                                 path:path
                                                                           branchName:branch
                                                                         successBlock:success
@@ -114,7 +118,7 @@
         [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate distantFuture]];
     }
     
-    return content;
+    return blob.content;
 }
 
 + (NSArray *)getOwnProjectsOnPage:(int)page

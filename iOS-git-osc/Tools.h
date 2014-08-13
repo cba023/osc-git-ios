@@ -16,7 +16,9 @@
 
 + (NSString *)md5:(NSString *)input;
 + (UIImage *)loadImage:(NSString *)imageURL;
-+ (NSString *)decodeBase64String:(NSString *)string;
++ (NSString *)decodeBase64String:(NSString *)originalHTML;
+
++ (NSString *)escapeHTML:(NSString *)string;
 
 + (NSString *)intervalSinceNow:(NSString *)dateStr;
 + (NSAttributedString *)getIntervalAttrStr:(NSString *)dateStr;

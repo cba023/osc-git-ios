@@ -56,12 +56,13 @@ static NSString * const kPrivateToken = @"private_token";
 }
 
 - (GLNetworkOperation *)getFileContentFromProject:(int64_t)projectId
+                                     privateToken:(NSString *)privateToken
                                              path:(NSString *)path
                                        branchName:(NSString *)branch
                                      successBlock:(GLGitlabSuccessBlock)success
                                      failureBlock:(GLGitlabFailureBlock)failure;
 {
-    NSDictionary *parameters = @{kRef: branch, kFilePath: path};
+    NSDictionary *parameters = @{kPrivateToken: privateToken, kRef: branch, kFilePath: path};
     NSMutableURLRequest *request = [self requestForEndPoint:[NSString stringWithFormat:kBlobEndpoint, projectId]
                                                      params:parameters
                                                      method:GLNetworkOperationGetMethod];
