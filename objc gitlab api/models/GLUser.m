@@ -86,8 +86,8 @@ static NSString * const kKeyFollow = @"follow";
         return NO;
     if (self.state != user.state && ![self.state isEqualToString:user.state])
         return NO;
-    if (self.createdAt != user.createdAt && ![self.createdAt isEqualToDate:user.createdAt])
-        return NO;
+    //if (self.createdAt != user.createdAt && ![self.createdAt isEqualToDate:user.createdAt])
+    //    return NO;
     if (self.portrait != user.portrait && ![self.portrait isEqualToString:user.portrait])
         return NO;
     if (self.admin != user.admin)
@@ -136,7 +136,7 @@ static NSString * const kKeyFollow = @"follow";
              kKeyBlog: _blog ?: null,
              kKeyThemeId: @(_themeId),
              kKeyState: _state ?: null,
-             kKeyCreatedAt: [formatter stringFromDate:_createdAt] ?: null,
+             //kKeyCreatedAt: [formatter stringFromDate:_createdAt] ?: null,
              kKeyThemeId: @(_themeId),
              kKeyAdmin: @(_admin),
              kKeyPortrait: _portrait ?: null

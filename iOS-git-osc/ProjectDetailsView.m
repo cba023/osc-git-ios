@@ -14,6 +14,7 @@
 #import "GLGitlab.h"
 #import "UserDetailsView.h"
 #import "IssuesView.h"
+#import "ReadmeView.h"
 
 static NSString * const ProjectDetailsCellId = @"ProjectDetailsCell";
 
@@ -43,6 +44,12 @@ static NSString * const ProjectDetailsCellId = @"ProjectDetailsCell";
         _parentProject = [Project getASingleProject:_project.parentId];
     }
     
+    if (_project.description && ![Tools isEmptyString:_project.description]) {
+        _haveADescription = YES;
+    } else {
+        _haveADescription = NO;
+    }
+    
     [self initSubviews];
     [self setAutoLayout];
 }
@@ -51,6 +58,15 @@ static NSString * const ProjectDetailsCellId = @"ProjectDetailsCell";
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (id)initWithProject:(GLProject *)project
+{
+    self = [super init];
+    if (self) {
+        _project = project;
+    }
+    return self;
 }
 
 #pragma mark - UITableViewDataSource
@@ -159,7 +175,34 @@ static NSString * const ProjectDetailsCellId = @"ProjectDetailsCell";
                 [self.navigationController pushViewController:userDetails animated:YES];
                 break;
             }
-                
+            case 1: {
+                if (_parentProject) {
+                    ProjectDetailsView *parentProjectDetails = [[ProjectDetailsView alloc] initWithProject:_parentProject];
+                    [self.navigationController pushViewController:parentProjectDetails animated:YES];
+                } else if (!_haveADescription) {
+                    ReadmeView *readme = [[ReadmeView alloc] initWithProjectID:_project.projectId];
+                    [self.navigationController pushViewController:readme animated:YES];
+                }
+                break;
+            }
+            case 2: {
+                if (_haveADescription) {
+                    if (_parentProject) {break;}
+                    else {
+                        ReadmeView *readme = [[ReadmeView alloc] initWithProjectID:_project.projectId];
+                        [self.navigationController pushViewController:readme animated:YES];
+                    }
+                } else {
+                    ReadmeView *readme = [[ReadmeView alloc] initWithProjectID:_project.projectId];
+                    [self.navigationController pushViewController:readme animated:YES];
+                }
+                break;
+            }
+            case 3: {
+                ReadmeView *readme = [[ReadmeView alloc] initWithProjectID:_project.projectId];
+                [self.navigationController pushViewController:readme animated:YES];
+                break;
+            }
             default:
                 break;
         }
@@ -171,11 +214,11 @@ static NSString * const ProjectDetailsCellId = @"ProjectDetailsCell";
             case 1: {
                 IssuesView *issuesView = [[IssuesView alloc] initWithProjectId:_project.projectId];
                 [self.navigationController pushViewController:issuesView animated:YES];
+                break;
             }
             default:
                 break;
         }
-        
     } else if (indexPath.section == 2) {
         FilesTableController *filesTable = [FilesTableController new];
         filesTable.projectID = _project.projectId;

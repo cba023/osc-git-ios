@@ -173,6 +173,8 @@
 		009B5229199B4CFE00E7F575 /* code.html in Resources */ = {isa = PBXBuildFile; fileRef = 009B5226199B4CFE00E7F575 /* code.html */; };
 		009B522A199B4CFE00E7F575 /* format.html in Resources */ = {isa = PBXBuildFile; fileRef = 009B5227199B4CFE00E7F575 /* format.html */; };
 		009B522B199B65E700E7F575 /* highlight.pack.js in Resources */ = {isa = PBXBuildFile; fileRef = 009B51B9199B4CB300E7F575 /* highlight.pack.js */; };
+		009B522E199C572000E7F575 /* ReadmeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 009B522D199C572000E7F575 /* ReadmeView.m */; };
+		009B5231199CAA4100E7F575 /* AccountManagement.m in Sources */ = {isa = PBXBuildFile; fileRef = 009B5230199CAA4100E7F575 /* AccountManagement.m */; };
 		00B01FE919221EB40095D488 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 00B01FE819221EB40095D488 /* User.m */; };
 		00B7594E196BE989009C9C58 /* GLGitLabApi+Events.m in Sources */ = {isa = PBXBuildFile; fileRef = 00B7594D196BE989009C9C58 /* GLGitLabApi+Events.m */; };
 		00B75954196BEB6F009C9C58 /* EventCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 00B75953196BEB6F009C9C58 /* EventCell.m */; };
@@ -450,6 +452,10 @@
 		009B5225199B4CFE00E7F575 /* code.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = code.css; sourceTree = "<group>"; };
 		009B5226199B4CFE00E7F575 /* code.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = code.html; sourceTree = "<group>"; };
 		009B5227199B4CFE00E7F575 /* format.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = format.html; sourceTree = "<group>"; };
+		009B522C199C572000E7F575 /* ReadmeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReadmeView.h; sourceTree = "<group>"; };
+		009B522D199C572000E7F575 /* ReadmeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReadmeView.m; sourceTree = "<group>"; };
+		009B522F199CAA4100E7F575 /* AccountManagement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccountManagement.h; sourceTree = "<group>"; };
+		009B5230199CAA4100E7F575 /* AccountManagement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccountManagement.m; sourceTree = "<group>"; };
 		00B01FE719221EB40095D488 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
 		00B01FE819221EB40095D488 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
 		00B7594C196BE989009C9C58 /* GLGitLabApi+Events.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GLGitLabApi+Events.h"; sourceTree = "<group>"; };
@@ -613,7 +619,7 @@
 				0002D2BD19164716001FDED8 /* MenuViewController.m */,
 				0002D2BF19164B02001FDED8 /* NavigationController.h */,
 				0002D2C019164B02001FDED8 /* NavigationController.m */,
-				006391C41987924100689FAD /* Login */,
+				006391C41987924100689FAD /* Login&Management */,
 				00B7AF0E198BADCC0025C868 /* User */,
 				00B75960196CE5EB009C9C58 /* Projects */,
 				00B7595F196CE5DA009C9C58 /* Files */,
@@ -752,15 +758,17 @@
 			path = private;
 			sourceTree = "<group>";
 		};
-		006391C41987924100689FAD /* Login */ = {
+		006391C41987924100689FAD /* Login&Management */ = {
 			isa = PBXGroup;
 			children = (
 				00B01FE719221EB40095D488 /* User.h */,
 				00B01FE819221EB40095D488 /* User.m */,
 				009018C51921D1B90050197D /* LoginViewController.h */,
 				009018C61921D1B90050197D /* LoginViewController.m */,
+				009B522F199CAA4100E7F575 /* AccountManagement.h */,
+				009B5230199CAA4100E7F575 /* AccountManagement.m */,
 			);
-			name = Login;
+			name = "Login&Management";
 			sourceTree = "<group>";
 		};
 		006BF00119963101000C868D /* Menu */ = {
@@ -978,6 +986,8 @@
 				00C3A42119639F8D002A34AB /* ProjectCell.m */,
 				006391C51988848800689FAD /* ProjectDetailsView.h */,
 				006391C61988848800689FAD /* ProjectDetailsView.m */,
+				009B522C199C572000E7F575 /* ReadmeView.h */,
+				009B522D199C572000E7F575 /* ReadmeView.m */,
 			);
 			name = Projects;
 			sourceTree = "<group>";
@@ -1222,6 +1232,7 @@
 				0021BADD192342BD00626A2C /* GLGitlabApi+Commits.m in Sources */,
 				00D4ED23196F97FE00F3A4A5 /* Issue.m in Sources */,
 				0021BAEF192342BD00626A2C /* GLGitlabApi+Private.m in Sources */,
+				009B5231199CAA4100E7F575 /* AccountManagement.m in Sources */,
 				00D4ED30196FF85E00F3A4A5 /* NoteCell.m in Sources */,
 				00760B8E19767BDB00C88C6F /* SDWebImageDecoder.m in Sources */,
 				009018C71921D1B90050197D /* LoginViewController.m in Sources */,
@@ -1247,6 +1258,7 @@
 				00760B8B19767BDB00C88C6F /* NSData+ImageContentType.m in Sources */,
 				0021BAEA192342BD00626A2C /* GLJsonNetworkOperation.m in Sources */,
 				00C7C679196A85B70006B2E4 /* FileContentView.m in Sources */,
+				009B522E199C572000E7F575 /* ReadmeView.m in Sources */,
 				0021BAE5192342BD00626A2C /* GLGitlabApi+Repositories.m in Sources */,
 				0021BAD0192342BD00626A2C /* GLEvent.m in Sources */,
 				0041FA9B191C87AF00E1F237 /* Tools.m in Sources */,

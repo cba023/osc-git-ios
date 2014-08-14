@@ -15,6 +15,8 @@
 @property GLProject *project;
 @property GLProject *parentProject;
 
+@property BOOL haveADescription;
+
 @property UIImageView *portrait;
 @property UILabel *projectName;
 @property UILabel *timeInterval;
@@ -24,5 +26,7 @@
 @property UIButton *forkButton;
 
 @property UITableView *projectInfo;
+
+- (id)initWithProject:(GLProject *)project;
 
 @end

@@ -164,4 +164,11 @@
                                      success:(GLGitlabSuccessBlock)successBlock
                                      failure:(GLGitlabFailureBlock)failureBlock;
 
+
+- (GLNetworkOperation *)loadReadmeForProjectID:(int64_t)projectID
+                                  privateToken:(NSString *)privateToken
+                                       success:(GLGitlabSuccessBlock)successBlock
+                                       failure:(GLGitlabFailureBlock)failureBlock;
+
+
 @end

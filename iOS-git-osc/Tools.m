@@ -142,6 +142,8 @@
     return result;
 }
 
+#pragma mark - about string
+
 + (NSString *)escapeHTML:(NSString *)originalHTML
 {
     NSMutableString *result = [[NSMutableString alloc] initWithString:originalHTML];
@@ -151,6 +153,14 @@
 	[result replaceOccurrencesOfString:@"\"" withString:@"&quot;" options:NSLiteralSearch range:NSMakeRange(0, [result length])];
 	[result replaceOccurrencesOfString:@"'" withString:@"&#39;" options:NSLiteralSearch range:NSMakeRange(0, [result length])];
 	return result;
+}
+
++ (BOOL)isEmptyString:(NSString *)string
+{
+    NSMutableString *temp = [[NSMutableString alloc] initWithString:[string stringByReplacingOccurrencesOfString:@" " withString:@""]];
+    [temp stringByReplacingOccurrencesOfString:@"\r" withString:@""];
+    [temp stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+    return [temp isEqualToString:@""];
 }
 
 #pragma mark - 时间间隔显示

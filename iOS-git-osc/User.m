@@ -27,6 +27,7 @@ static NSString * const kKeyAdmin = @"is_admin";
 static NSString * const kKeyCanCreateGroup = @"can_create_group";
 static NSString * const kKeyCanCreateProject = @"can_create_project";
 static NSString * const kKeyCanCreateTeam = @"can_create_team";
+static NSString * const kKeyFollow = @"follow";
 
 @implementation User
 
@@ -73,6 +74,7 @@ static NSString * const kKeyCanCreateTeam = @"can_create_team";
     [userDefaults setBool:user.canCreateGroup forKey:kKeyCanCreateGroup];
     [userDefaults setBool:user.canCreateProject forKey:kKeyCanCreateProject];
     [userDefaults setBool:user.canCreateTeam forKey:kKeyCanCreateTeam];
+    [userDefaults setObject:user.follow forKey:kKeyFollow];
 }
 
 + (void)saveUserName:(NSString *)username andPassword:(NSString *)password {

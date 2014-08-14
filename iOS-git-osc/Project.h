@@ -17,5 +17,6 @@
 + (NSString *)getFileContent:(int64_t)projectID Path:(NSString *)path Branch:(NSString *)branch;
 + (NSArray *)getOwnProjectsOnPage:(int)page;
 + (GLProject *)getASingleProject:(int64_t)projectID;
++ (NSString *)loadReadme:(int64_t)projectID;
 
 @end

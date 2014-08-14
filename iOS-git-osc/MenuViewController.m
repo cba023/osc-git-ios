@@ -18,6 +18,7 @@
 #import "ProjectsTableController.h"
 #import "EventsView.h"
 #import "IssuesView.h"
+#import "AccountManagement.h"
 #import <SDWebImage/UIImageView+WebCache.h>
 
 @interface MenuViewController ()
@@ -271,8 +272,16 @@ static NSString * const kKeyPortrait = @"new_portrait";
 #pragma mark - recognizer
 - (void)tapPortrait:(UITapGestureRecognizer *)recognizer
 {
-    LoginViewController *loginViewController = [[LoginViewController alloc] init];
-    NavigationController *navigationController = [[NavigationController alloc] initWithRootViewController:loginViewController];
+    NavigationController *navigationController;
+    
+    if ([_user objectForKey:@"private_token"]) {
+        AccountManagement *accountView = [AccountManagement new];
+        navigationController = [[NavigationController alloc] initWithRootViewController:accountView];
+    } else {
+        LoginViewController *loginViewController = [[LoginViewController alloc] init];
+        navigationController = [[NavigationController alloc] initWithRootViewController:loginViewController];
+    }
+    
     self.frostedViewController.contentViewController = navigationController;
     [self.frostedViewController hideMenuViewController];
 }

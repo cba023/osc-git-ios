@@ -9,6 +9,7 @@
 #import "LoginViewController.h"
 #import "NavigationController.h"
 #import "User.h"
+#import "Tools.h"
 
 @interface LoginViewController ()
 
@@ -53,6 +54,7 @@
     passwordLabel.text = @"密码";
     
     UIButton* summit = [UIButton buttonWithType:UIButtonTypeCustom];
+    [Tools roundCorner:summit cornerRadius:5.0];
     summit.frame = CGRectMake(137, 200, 46, 30);
     summit.backgroundColor = [UIColor redColor];
     [summit setTitle:@"登录" forState:UIControlStateNormal];
@@ -83,18 +85,8 @@
 
 - (void)login {
     [User loginWithAccount:self.accountTextField.text andPassword:self.passwordTextField.text];
+    [self.navigationController popViewControllerAnimated:YES];
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 #if 0
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {

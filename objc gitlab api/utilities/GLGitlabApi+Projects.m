@@ -11,6 +11,7 @@
 #import "GLProject.h"
 #import "GLUser.h"
 #import "GLEvent.h"
+#import "GLBlob.h"
 
 static NSString * const kProjectEndpoint = @"/projects";
 static NSString * const kProjectOwnedProjectsEndPoint = @"/projects/owned";
@@ -19,6 +20,7 @@ static NSString * const kProjectSingleProjectEndPoint = @"/projects/%llu";
 static NSString * const kProjectEndpointForUser = @"/projects/user/%llu";
 static NSString * const kProjectEventsEndPoint = @"/projects/%llu/events";
 static NSString * const kProjectUsersEndPoint = @"/projects/%llu/members";
+static NSString * const kProjectReadmeEndPoint = @"/projects/%llu/readme";
 static NSString * const kProjectPopularProjectEndPoint = @"/projects/popular";
 static NSString * const kProjectRecommendedProjectEndPoint = @"/projects/featured";
 static NSString * const kProjectLatestProjectEndPoint = @"/projects/latest";
@@ -203,6 +205,24 @@ static NSString * const kKeyPage = @"page";
                                                      method:GLNetworkOperationGetMethod];
     
     GLNetworkOperationSuccessBlock localSuccessBlock = [self multipleObjectSuccessBlockForClass:[GLProject class] successBlock:successBlock];
+    GLNetworkOperationFailureBlock localFailureBlock = [self defaultFailureBlock:failureBlock];
+    
+    return [self queueOperationWithRequest:request
+                                      type:GLNetworkOperationTypeJson
+                                   success:localSuccessBlock
+                                   failure:localFailureBlock];
+}
+
+- (GLNetworkOperation *)loadReadmeForProjectID:(int64_t)projectID
+                                  privateToken:(NSString *)privateToken
+                                       success:(GLGitlabSuccessBlock)successBlock
+                                       failure:(GLGitlabFailureBlock)failureBlock
+{
+    NSMutableURLRequest *request = [self requestForEndPoint:[NSString stringWithFormat:kProjectReadmeEndPoint, projectID]
+                                                     method:GLNetworkOperationGetMethod];
+    if (privateToken) {request.HTTPBody = [self urlEncodeParams:@{kKeyPrivate_token: privateToken}];}
+
+    GLNetworkOperationSuccessBlock localSuccessBlock = [self singleObjectSuccessBlockForClass:[GLBlob class] successBlock:successBlock];
     GLNetworkOperationFailureBlock localFailureBlock = [self defaultFailureBlock:failureBlock];
     
     return [self queueOperationWithRequest:request

@@ -28,7 +28,7 @@
 // state
 @property (nonatomic, copy) NSString *state;
 // created_at
-@property (nonatomic, strong) NSDate *createdAt;
+@property (nonatomic, strong) NSString *createdAt;
 // portrait
 @property (nonatomic, copy) NSString *portrait;
 // new_portrait

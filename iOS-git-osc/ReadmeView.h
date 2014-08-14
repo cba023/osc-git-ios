@@ -1,0 +1,18 @@
+//
+//  ReadmeView.h
+//  iOS-git-osc
+//
+//  Created by chenhaoxiang on 14-8-14.
+//  Copyright (c) 2014年 chenhaoxiang. All rights reserved.
+//
+
+#import <UIKit/UIKit.h>
+
+@interface ReadmeView : UIViewController
+
+@property int64_t projectID;
+@property UIWebView *readme;
+
+- (id)initWithProjectID:(int64_t)projectID;
+
+@end
