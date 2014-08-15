@@ -75,7 +75,7 @@ static NSString * const kBlobType = @"blob";
     [description appendFormat:@"self.fileId=%@", self.fileId];
     [description appendFormat:@", self.name=%@", self.name];
     [description appendFormat:@", self.mode=%@", self.mode];
-    [description appendFormat:@", self.type=%d", self.type];
+    [description appendFormat:@", self.type=%ld", self.type];
     [description appendString:@">"];
     return description;
 }

@@ -146,13 +146,13 @@ static NSString * const cellId = @"ProjectCell";
 	{
         BOOL reload = NO;
         if (_personal && [projectsArray count]%20 == 0) {
-            NSArray *nextPageProjects = [Project getOwnProjectsOnPage:projectsArray.count/20+1];
+            NSArray *nextPageProjects = [Project getOwnProjectsOnPage:(int)(projectsArray.count/20)+1];
             if (nextPageProjects) {
                 [projectsArray addObjectsFromArray:nextPageProjects];
             }
             reload = YES;
         } else if (!_personal){
-            [self.projectsArray addObjectsFromArray:[Project loadExtraProjectType:self.arrangeType onPage:self.projectsArray.count/20 + 1]];
+            [self.projectsArray addObjectsFromArray:[Project loadExtraProjectType:self.arrangeType onPage:(int)(self.projectsArray.count/20) + 1]];
             reload = YES;
         }
         if (reload) {[self.tableView reloadData];}
@@ -182,7 +182,7 @@ static NSString * const cellId = @"ProjectCell";
 }
 #endif
 
-- (void)reloadType:(int)newArrangeType
+- (void)reloadType:(NSInteger)newArrangeType
 {
     self.arrangeType = newArrangeType;
     [self.projectsArray removeAllObjects];

@@ -14,7 +14,8 @@
 
 @property UIImageView *portrait;
 @property UILabel *name;
-@property UITableView *userInfo;
+@property UITableView *follow;
+@property UITableView *social;
 @property UIButton *logoutButton;
 
 @end

@@ -38,6 +38,6 @@
 // created_at
 @property (nonatomic, strong) NSString *createdAt;
 
-- (BOOL)isEqualToIssue:(GLIssue *)issue;
+//- (BOOL)isEqualToIssue:(GLIssue *)issue;
 
 @end

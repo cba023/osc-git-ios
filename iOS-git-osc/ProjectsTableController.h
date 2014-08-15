@@ -14,6 +14,6 @@
 @property BOOL personal;
 @property int arrangeType;
 //@property BOOL loadingMore;
-- (void) reloadType:(int)newArrangeType;
+- (void) reloadType:(NSInteger)newArrangeType;
 
 @end

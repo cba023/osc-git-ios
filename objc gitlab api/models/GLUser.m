@@ -125,7 +125,7 @@ static NSString * const kKeyFollow = @"follow";
 
 - (NSDictionary *)jsonRepresentation
 {
-    NSDateFormatter *formatter = [[GLGitlabApi sharedInstance] gitLabDateFormatter];
+    //NSDateFormatter *formatter = [[GLGitlabApi sharedInstance] gitLabDateFormatter];
     NSNull *null = (id)[NSNull null];
     return @{
              kKeyUserId: @(_userId),

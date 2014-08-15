@@ -48,6 +48,7 @@ static NSString * const kKeyCreatedAt = @"created_at";
     return self;
 }
 
+#if 0
 - (BOOL)isEqual:(id)other {
     if (other == self)
         return YES;
@@ -57,7 +58,6 @@ static NSString * const kKeyCreatedAt = @"created_at";
     return [self isEqualToIssue:other];
 }
 
-#if 0
 - (BOOL)isEqualToIssue:(GLIssue *)issue {
     if (self == issue)
         return YES;
