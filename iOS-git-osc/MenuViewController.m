@@ -141,7 +141,7 @@ static NSString * const kKeyPortrait = @"new_portrait";
         return nil;
     
     NSArray *headerNames = [NSArray arrayWithObjects:
-                            @"", @"代码库", @"信息及设置", nil];
+                            @"", @"发现", @"设置", nil];
     
     UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, 34)];
     view.backgroundColor = [UIColor colorWithRed:167/255.0f green:167/255.0f blue:167/255.0f alpha:0.6f];
@@ -172,7 +172,7 @@ static NSString * const kKeyPortrait = @"new_portrait";
     if (indexPath.section == 0) {
         switch (indexPath.row) {
             case 0: {
-                EventsView *eventsView = [[EventsView alloc] init];
+                EventsView *eventsView = [EventsView new];
                 NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
                 NSString *privateToken = [userDefaults objectForKey:@"private_token"];
                 if (privateToken == nil) {
@@ -228,7 +228,7 @@ static NSString * const kKeyPortrait = @"new_portrait";
         case 1:
             return 2;
         case 2:
-            return 3;
+            return 1;
             
         default:
             return 0;
@@ -254,11 +254,11 @@ static NSString * const kKeyPortrait = @"new_portrait";
             break;
         
         case 1:
-            titles = @[@"发现", @"热门"];
+            titles = @[@"广场", @"搜索"];
             break;
         
         case 2:
-            titles = @[@"账号", @"设置", @"关于我们"];
+            titles = @[@"偏好设置"];
             break;
         
         default:
@@ -278,7 +278,7 @@ static NSString * const kKeyPortrait = @"new_portrait";
         AccountManagement *accountView = [AccountManagement new];
         navigationController = [[NavigationController alloc] initWithRootViewController:accountView];
     } else {
-        LoginViewController *loginViewController = [[LoginViewController alloc] init];
+        LoginViewController *loginViewController = [LoginViewController new];
         navigationController = [[NavigationController alloc] initWithRootViewController:loginViewController];
     }
     

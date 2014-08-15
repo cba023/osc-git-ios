@@ -10,6 +10,9 @@
 #import "NavigationController.h"
 #import "User.h"
 #import "Tools.h"
+#import "EventsView.h"
+#import "Event.h"
+#import "UIViewController+REFrostedViewController.h"
 
 @interface LoginViewController ()
 
@@ -85,7 +88,12 @@
 
 - (void)login {
     [User loginWithAccount:self.accountTextField.text andPassword:self.passwordTextField.text];
-    [self.navigationController popViewControllerAnimated:YES];
+    EventsView *eventsView = [EventsView new];
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    NSString *privateToken = [userDefaults objectForKey:@"private_token"];
+    eventsView.events = [[NSMutableArray alloc] initWithArray:[Event getEventsWithPrivateToekn:privateToken page:1]];
+    NavigationController *navigationController = [[NavigationController alloc] initWithRootViewController:eventsView];
+    self.frostedViewController.contentViewController = navigationController;
 }
 
 #if 0

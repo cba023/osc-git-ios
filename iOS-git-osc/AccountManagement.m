@@ -11,6 +11,8 @@
 #import "GLGitlab.h"
 #import "Tools.h"
 #import "UIImageView+WebCache.h"
+#import "ProjectsViewController.h"
+#import "UIViewController+REFrostedViewController.h"
 
 static NSString * const FollowCellId = @"FollowCell";
 static NSString * const SocialCellId = @"SocialCell";
@@ -236,6 +238,11 @@ static NSString * const kKeyFollow = @"follow";
     [userDefaults removeObjectForKey:kKeyCanCreateProject];
     [userDefaults removeObjectForKey:kKeyCanCreateTeam];
     [userDefaults removeObjectForKey:kKeyFollow];
+    
+    //[self.navigationController popToRootViewControllerAnimated:YES];
+    ProjectsViewController *projectViewController = [[ProjectsViewController alloc] init];
+    NavigationController *navigationController = [[NavigationController alloc] initWithRootViewController:projectViewController];
+    self.frostedViewController.contentViewController = navigationController;
 }
 
 

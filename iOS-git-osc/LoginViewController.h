@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "REFrostedViewController.h"
 
 @interface LoginViewController : UIViewController//<UITableViewDataSource>
 
