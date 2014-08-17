@@ -12,7 +12,7 @@
 
 @implementation Project
 
-+ (NSArray *)loadExtraProjectType:(int)type onPage:(int)page {
++ (NSArray *)loadExtraProjectType:(NSInteger)type onPage:(int)page {
     __block BOOL done = NO;
     __block NSArray *array;
     GLGitlabSuccessBlock success = ^(id responseObject) {

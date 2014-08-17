@@ -186,7 +186,7 @@ static NSString * const kKeyPage = @"page";
                                    failure:localFailureBlock];
 }
 
-- (GLNetworkOperation *)getExtraProjectsType:(int)type
+- (GLNetworkOperation *)getExtraProjectsType:(NSInteger)type
                                         page:(int)page
                                      success:(GLGitlabSuccessBlock)successBlock
                                      failure:(GLGitlabFailureBlock)failureBlock

@@ -159,7 +159,7 @@
  *
  *  @return The operation to be executed
  */
-- (GLNetworkOperation *)getExtraProjectsType:(int)type
+- (GLNetworkOperation *)getExtraProjectsType:(NSInteger)type
                                         page:(int)page
                                      success:(GLGitlabSuccessBlock)successBlock
                                      failure:(GLGitlabFailureBlock)failureBlock;

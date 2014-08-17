@@ -12,7 +12,7 @@
 
 @property NSMutableArray *projectsArray;
 @property BOOL personal;
-@property int arrangeType;
+@property NSInteger arrangeType;
 //@property BOOL loadingMore;
 - (void) reloadType:(NSInteger)newArrangeType;
 

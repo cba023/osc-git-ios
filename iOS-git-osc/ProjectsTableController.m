@@ -46,12 +46,13 @@ static NSString * const cellId = @"ProjectCell";
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     [self.tableView registerClass:[ProjectCell class] forCellReuseIdentifier:cellId];
+    self.navigationController.navigationBar.translucent = NO;
     
-#if 0
-    self.refreshControl = [[UIRefreshControl alloc] init];
-    [self.refreshControl setAttributedTitle:[[NSAttributedString alloc] initWithString:@"松手更新数据"]];
-    [self.refreshControl addTarget:self action:@selector(refreshView) forControlEvents:UIControlEventValueChanged];
-    //[self setRefreshControl:self.refreshControl];
+#if 1
+    self.refreshControl = [UIRefreshControl new];
+    //[self.refreshControl setAttributedTitle:[[NSAttributedString alloc] initWithString:@"松手更新数据"]];
+    [self.refreshControl addTarget:self action:@selector(refreshView:) forControlEvents:UIControlEventValueChanged];
+    [self.tableView addSubview:self.refreshControl];
 #endif
     
     self.projectsArray = [[NSMutableArray alloc] initWithCapacity:20];
@@ -94,18 +95,6 @@ static NSString * const cellId = @"ProjectCell";
     if (row < self.projectsArray.count) {
         GLProject *project = [projectsArray objectAtIndex:row];
         if (project) {
-#if 0
-            FilesTableController *filesTable = [[FilesTableController alloc] init];
-            filesTable.projectID = project.projectId;
-            filesTable.filesArray = [[NSMutableArray alloc] initWithCapacity:20];
-            filesTable.currentPath = @"";
-            [filesTable.filesArray addObjectsFromArray:[Project getProjectTreeWithID:project.projectId Branch:nil Path:nil]];
-            if (self.personal) {
-                [self.navigationController pushViewController:filesTable animated:YES];
-            } else {
-                [self.parentViewController.navigationController pushViewController:filesTable animated:YES];
-            }
-#else
             ProjectDetailsView *projectDetails = [[ProjectDetailsView alloc] init];
             projectDetails.project = project;
             if (self.personal) {
@@ -113,7 +102,6 @@ static NSString * const cellId = @"ProjectCell";
             } else {
                 [self.parentViewController.navigationController pushViewController:projectDetails animated:YES];
             }
-#endif
         }
     }
 }
@@ -160,27 +148,35 @@ static NSString * const cellId = @"ProjectCell";
 }
 
 
-#pragma mark - 加载更多
+#pragma mark - 刷新
 
-#if 0
-- (void)refreshView
+- (void)refreshView:(UIRefreshControl *)refreshControl
 {
-    NSLog(@"refreshed");
-    [self.refreshControl endRefreshing];
-    self.refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:@"更新数据中..."];
+    // http://stackoverflow.com/questions/19683892/pull-to-refresh-crashes-app help a lot
     
-    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    [formatter setDateFormat:@"MMM d, h:mm a"];
-    NSString *lastUpdated = [NSString stringWithFormat:@"上次更新日期 %@",
-                             [formatter stringFromDate:[NSDate date]]];
-    self.refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:lastUpdated];
-    //[self.projectsArray removeAllObjects];
-    [self.projectsArray addObjectsFromArray:[Project loadPopularProjectOnPage:self.projectsArray.count/20 + 1]];
-    NSLog(@"%i", self.projectsArray.count);
+    static BOOL refreshInProgress = NO;
     
-    [self.tableView reloadData];
+    if (!refreshInProgress)
+    {
+        refreshInProgress = YES;
+        [self.projectsArray removeAllObjects];
+        
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            if (_personal) {
+                [self.projectsArray addObjectsFromArray:[Project getOwnProjectsOnPage:1]];
+            } else {
+                [self.projectsArray addObjectsFromArray:[Project loadExtraProjectType:self.arrangeType onPage:1]];
+            }
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.refreshControl endRefreshing];
+                [self.tableView reloadData];
+                
+                refreshInProgress = NO;
+            });
+        });
+    }
 }
-#endif
 
 - (void)reloadType:(NSInteger)newArrangeType
 {
