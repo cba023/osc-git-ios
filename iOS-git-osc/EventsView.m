@@ -80,7 +80,7 @@ static NSString * const EventCellIdentifier = @"EventCell";
     if (_privateToken) {
         events = [[NSMutableArray alloc] initWithArray:[Event getEventsWithPrivateToekn:_privateToken page:1]];
     } else {
-        events = [[NSMutableArray alloc] initWithArray:[Event getUserEvent:_userId page:1]];
+        events = [[NSMutableArray alloc] initWithArray:[Event getUserEvents:_userId page:1]];
     }
     
     self.refreshControl = [UIRefreshControl new];
@@ -197,7 +197,7 @@ static NSString * const EventCellIdentifier = @"EventCell";
             if (_privateToken) {
                 [events addObjectsFromArray:[Event getEventsWithPrivateToekn:_privateToken page:1]];
             } else {
-                [events addObjectsFromArray:[Event getUserEvent:_userId page:1]];
+                [events addObjectsFromArray:[Event getUserEvents:_userId page:1]];
             }
             
             dispatch_async(dispatch_get_main_queue(), ^{

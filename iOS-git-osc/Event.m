@@ -47,7 +47,7 @@ enum action {
     return events;
 }
 
-+ (NSArray *)getUserEvent:(int64_t)userId page:(int)page
++ (NSArray *)getUserEvents:(int64_t)userId page:(int)page
 {
     __block BOOL done = NO;
     __block NSArray *events;

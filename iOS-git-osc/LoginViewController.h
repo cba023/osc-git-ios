@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "REFrostedViewController.h"
 
-@interface LoginViewController : UIViewController//<UITableViewDataSource>
+@interface LoginViewController : UIViewController <UITextFieldDelegate>
 
 @property (nonatomic, strong) UITableView* loginTableView;
 @property (nonatomic, strong) UITextField* accountTextField;

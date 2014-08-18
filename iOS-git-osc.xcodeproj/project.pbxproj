@@ -191,6 +191,7 @@
 		00C408F11959CDFA001073BF /* fork@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 00C408EE1959CDFA001073BF /* fork@2x.png */; };
 		00C408F21959CDFA001073BF /* language@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 00C408EF1959CDFA001073BF /* language@2x.png */; };
 		00C408F31959CDFA001073BF /* star2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 00C408F01959CDFA001073BF /* star2@2x.png */; };
+		00C5460919A1F6CA00314E33 /* IssueCreation.m in Sources */ = {isa = PBXBuildFile; fileRef = 00C5460819A1F6CA00314E33 /* IssueCreation.m */; };
 		00C7C679196A85B70006B2E4 /* FileContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 00C7C678196A85B70006B2E4 /* FileContentView.m */; };
 		00CF21DF1929EF890087AF83 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00CF21DE1929EF890087AF83 /* ImageIO.framework */; };
 		00D4ED23196F97FE00F3A4A5 /* Issue.m in Sources */ = {isa = PBXBuildFile; fileRef = 00D4ED22196F97FE00F3A4A5 /* Issue.m */; };
@@ -483,6 +484,8 @@
 		00C408EE1959CDFA001073BF /* fork@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "fork@2x.png"; sourceTree = "<group>"; };
 		00C408EF1959CDFA001073BF /* language@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "language@2x.png"; sourceTree = "<group>"; };
 		00C408F01959CDFA001073BF /* star2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "star2@2x.png"; sourceTree = "<group>"; };
+		00C5460719A1F6CA00314E33 /* IssueCreation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IssueCreation.h; sourceTree = "<group>"; };
+		00C5460819A1F6CA00314E33 /* IssueCreation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IssueCreation.m; sourceTree = "<group>"; };
 		00C7C677196A85B70006B2E4 /* FileContentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileContentView.h; sourceTree = "<group>"; };
 		00C7C678196A85B70006B2E4 /* FileContentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FileContentView.m; sourceTree = "<group>"; };
 		00CF21DE1929EF890087AF83 /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
@@ -1010,6 +1013,8 @@
 				00D4ED25196F9B9900F3A4A5 /* IssueCell.m */,
 				00D4ED27196F9BCA00F3A4A5 /* IssuesView.h */,
 				00D4ED28196F9BCA00F3A4A5 /* IssuesView.m */,
+				00C5460719A1F6CA00314E33 /* IssueCreation.h */,
+				00C5460819A1F6CA00314E33 /* IssueCreation.m */,
 			);
 			name = Issues;
 			sourceTree = "<group>";
@@ -1260,6 +1265,7 @@
 				00C7C679196A85B70006B2E4 /* FileContentView.m in Sources */,
 				009B522E199C572000E7F575 /* ReadmeView.m in Sources */,
 				0021BAE5192342BD00626A2C /* GLGitlabApi+Repositories.m in Sources */,
+				00C5460919A1F6CA00314E33 /* IssueCreation.m in Sources */,
 				0021BAD0192342BD00626A2C /* GLEvent.m in Sources */,
 				0041FA9B191C87AF00E1F237 /* Tools.m in Sources */,
 				0021BADC192342BD00626A2C /* GLConstants.m in Sources */,

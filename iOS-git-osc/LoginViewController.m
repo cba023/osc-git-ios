@@ -37,19 +37,28 @@
     
     self.title = @"登录";
 
-#if 1
     self.accountTextField = [[UITextField alloc] initWithFrame: CGRectMake(78, 98, 212, 30)];
     self.accountTextField.placeholder = @"Email";
     self.accountTextField.textColor = [UIColor colorWithRed:56.0f/255.0f green:84.0f/255.0f blue:135.0f/255.0f alpha:1.0f];
     self.accountTextField.autocapitalizationType = UITextAutocapitalizationTypeNone;
     self.accountTextField.keyboardType = UIKeyboardTypeEmailAddress;
+    self.accountTextField.delegate = self;
     self.accountTextField.returnKeyType = UIReturnKeyNext;
     
     self.passwordTextField = [[UITextField alloc] initWithFrame: CGRectMake(78, 151, 212, 30)];
     self.passwordTextField.placeholder = @"Password";
     self.passwordTextField.textColor = [UIColor colorWithRed:56.0f/255.0f green:84.0f/255.0f blue:135.0f/255.0f alpha:1.0f];
     self.passwordTextField.secureTextEntry = YES;
+    self.passwordTextField.delegate = self;
     self.passwordTextField.returnKeyType = UIReturnKeyDone;
+    
+    [self.accountTextField addTarget:self action:@selector(returnOnKeyboard:) forControlEvents:UIControlEventEditingDidEndOnExit];
+    [self.passwordTextField addTarget:self action:@selector(returnOnKeyboard:) forControlEvents:UIControlEventEditingDidEndOnExit];
+    
+    //添加手势，点击屏幕其他区域关闭键盘的操作
+    UITapGestureRecognizer *gesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hidenKeyboard)];
+    gesture.numberOfTapsRequired = 1;
+    [self.view addGestureRecognizer:gesture];
     
     UILabel* accountLabel = [[UILabel alloc] initWithFrame:CGRectMake(28, 102, 42, 21)];
     accountLabel.text = @"账号";
@@ -68,12 +77,7 @@
     [self.view addSubview: self.accountTextField];
     [self.view addSubview: self.passwordTextField];
     [self.view addSubview: summit];
-#endif
-    
-#if 0
-    self.loginTableView = [[UITableView alloc] initWithFrame: CGRectMake(36, 100, 230, 100)];
-    [self.view addSubview: self.loginTableView];
-#endif
+
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"three_lines"]
                                                                              style:UIBarButtonItemStylePlain
                                                                             target:(NavigationController *)self.navigationController
@@ -91,129 +95,58 @@
     EventsView *eventsView = [EventsView new];
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     NSString *privateToken = [userDefaults objectForKey:@"private_token"];
-    eventsView.events = [[NSMutableArray alloc] initWithArray:[Event getEventsWithPrivateToekn:privateToken page:1]];
+    eventsView.privateToken = privateToken;
     NavigationController *navigationController = [[NavigationController alloc] initWithRootViewController:eventsView];
     self.frostedViewController.contentViewController = navigationController;
 }
 
-#if 0
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    switch (section) {
-        case 0:
-            return 2;
-            
-        default:
-            return 0;
-    }
-}
 
+#pragma mark - 键盘操作
 
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSString* cellIdentifier = @"dataCell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-    if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
-                                      reuseIdentifier:cellIdentifier];
-        //cell.backgroundColor = [UIColor clearColor];
-        cell.accessoryType = UITableViewCellAccessoryNone;
-        
-        if ([indexPath section] == 0) {
-            UITextField *loginTextField = [[UITextField alloc] initWithFrame:CGRectMake(110, 10, 185, 30)];
-            loginTextField.adjustsFontSizeToFitWidth = YES;
-            loginTextField.textColor = [UIColor blackColor];
-            if ([indexPath row] == 0) {
-                loginTextField.placeholder = @"Email";
-                loginTextField.keyboardType = UIKeyboardTypeEmailAddress;
-                loginTextField.returnKeyType = UIReturnKeyNext;
-            }
-            else {
-                loginTextField.placeholder = @"Password";
-                loginTextField.secureTextEntry = YES;
-                loginTextField.secureTextEntry = YES;
-                loginTextField.returnKeyType = UIReturnKeyDone;
-            }
-            loginTextField.backgroundColor = [UIColor whiteColor];
-            loginTextField.autocorrectionType = UITextAutocorrectionTypeNo;
-            loginTextField.autocapitalizationType = UITextAutocapitalizationTypeNone;
-            loginTextField.textAlignment = NSTextAlignmentLeft;
-            loginTextField.tag = 0;
-            //playerTextField.delegate = self;
-            
-            loginTextField.clearButtonMode = UITextFieldViewModeNever; // no clear 'x' button to the right
-            [loginTextField setEnabled: YES];
-            
-            //cell.textLabel.backgroundColor = [UIColor clearColor];
-            [cell.contentView addSubview:loginTextField];
-        }
-    }
-    if ([indexPath section] == 0) { // Email & Password Section
-        if ([indexPath row] == 0) { // Email
-            cell.textLabel.text = @"账号";
-        }
-        else {
-            cell.textLabel.text = @"密码";
-        }
-    }
-    else { // Login button section
-        cell.textLabel.text = @"登录";
-    }
-    return cell;    
-}
-#endif
-
-#if 0
-- (UITextField*)getTextField{
-    UITextField *tf = [[UITextField alloc] initWithFrame:CGRectMake(0, 0, 20, 35)];
-    tf.delegate = self;
-    tf.textColor        = [UIColor colorWithRed:.231 green:.337 blue:.533 alpha:1];
-    tf.autocorrectionType = UITextAutocorrectionTypeNo;
-    tf.borderStyle = UITextBorderStyleNone;
-    tf.frame = CGRectMake(0, 20, 170, 30);
-    tf.clearButtonMode = UITextFieldViewModeWhileEditing;
-    tf.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
-    tf.font = [UIFont systemFontOfSize:13];
-    return tf;
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    switch (section) {
-        case 0:
-            return 2;
-            
-        default:
-            return 0;
-    }
-}
-
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+-(BOOL)textFieldShouldBeginEditing:(UITextField *)textField
 {
-    static NSString *CellIdentifier = @"Cell";
-    
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier];
-        cell.textLabel.font = [UIFont systemFontOfSize:13];
-        cell.detailTextLabel.font = [UIFont systemFontOfSize:13];
-        cell.detailTextLabel.numberOfLines = 2;
-    }
-    
-    if (indexPath.section == 0) {
-        
-        UITextField *tf = (UITextField*)cell.accessoryView;
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        cell.textLabel.numberOfLines = 2;
-        tf = [self getTextField];
-        cell.accessoryView = cell.editingAccessoryView = tf;
-        [((UITextField*)cell.accessoryView) setBorderStyle:self.loginTableView.editing ? UITextBorderStyleRoundedRect : UITextBorderStyleNone];
-        [((UITextField*)cell.accessoryView) setUserInteractionEnabled:self.loginTableView.editing ? YES : NO];
-        [((UITextField*)cell.accessoryView) setTextAlignment:!self.loginTableView.editing ? NSTextAlignmentRight : NSTextAlignmentLeft];
-        ((UITextField*)cell.accessoryView).tag = indexPath.row;
-    }
-    
-    return cell;
+    NSTimeInterval animationDuration=0.30f;
+    [UIView beginAnimations:@"ResizeForKeyboard" context:nil];
+    [UIView setAnimationDuration:animationDuration];
+    float width = self.view.frame.size.width;
+    float height = self.view.frame.size.height;
+    //上移30个单位，按实际情况设置
+    CGRect rect=CGRectMake(0.0f,-30,width,height);
+    self.view.frame=rect;
+    [UIView commitAnimations];
+    return YES;
 }
-#endif
+
+-(void)resumeView
+{
+    NSTimeInterval animationDuration=0.30f;
+    [UIView beginAnimations:@"ResizeForKeyboard" context:nil];
+    [UIView setAnimationDuration:animationDuration];
+    float width = self.view.frame.size.width;
+    float height = self.view.frame.size.height;
+    //如果当前View是父视图，则Y为20个像素高度，如果当前View为其他View的子视图，则动态调节Y的高度
+    float Y = 20.0f;
+    CGRect rect=CGRectMake(0.0f,Y,width,height);
+    self.view.frame=rect;
+    [UIView commitAnimations];
+}
+
+-(void)hidenKeyboard
+{
+    [self.accountTextField resignFirstResponder];
+    [self.passwordTextField resignFirstResponder];
+    [self resumeView];
+}
+
+//点击键盘上的Return按钮响应的方法
+-(void)returnOnKeyboard:(UITextField *)sender
+{
+    if (sender == self.accountTextField) {
+        [self.passwordTextField becomeFirstResponder];
+    }else if (sender == self.passwordTextField){
+        [self hidenKeyboard];
+    }
+}
+
 
 @end

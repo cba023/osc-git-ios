@@ -12,6 +12,7 @@
 #import "NavigationController.h"
 #import "GLGitlab.h"
 #import "NotesView.h"
+#import "IssueCreation.h"
 #import "Tools.h"
 
 @interface IssuesView ()
@@ -36,6 +37,10 @@ static NSString * const cellId = @"IssueCell";
     [super viewDidLoad];
     
     self.title = @"问题";
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"创建Issue"
+                                                                              style:UIBarButtonItemStylePlain
+                                                                             target:self
+                                                                             action:@selector(pushIssueCreationView)];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     [self.tableView registerClass:[IssueCell class] forCellReuseIdentifier:cellId];
@@ -102,6 +107,14 @@ static NSString * const cellId = @"IssueCell";
         
         [self.navigationController pushViewController:notesView animated:YES];
     }
+}
+
+#pragma mark - pushIssueCreationView
+
+- (void)pushIssueCreationView
+{
+    IssueCreation *issueCreationView = [IssueCreation new];
+    [self.navigationController pushViewController:issueCreationView animated:YES];
 }
 
 

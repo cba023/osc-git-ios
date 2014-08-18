@@ -172,17 +172,18 @@ static NSString * const kKeyPortrait = @"new_portrait";
     if (indexPath.section == 0) {
         switch (indexPath.row) {
             case 0: {
-                EventsView *eventsView = [EventsView new];
+                NavigationController *navigationController;
                 NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
                 NSString *privateToken = [userDefaults objectForKey:@"private_token"];
                 if (privateToken == nil) {
-                    NSLog(@"No private_token!");
-                    break;
+                    LoginViewController *loginViewController = [LoginViewController new];
+                    navigationController = [[NavigationController alloc] initWithRootViewController:loginViewController];
                 } else {
+                    EventsView *eventsView = [EventsView new];
                     eventsView.privateToken = privateToken;
+                    navigationController = [[NavigationController alloc] initWithRootViewController:eventsView];
                 }
-
-                NavigationController *navigationController = [[NavigationController alloc] initWithRootViewController:eventsView];
+                
                 self.frostedViewController.contentViewController = navigationController;
                 break;
             }

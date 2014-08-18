@@ -87,8 +87,8 @@ static NSString * const EventCellId = @"EventCellId";
     [self.view addSubview:_watchedCount];
     
     _eventsView = [EventsView new];
-    _eventsTable = _eventsView.tableView;
     _eventsView.userId = _user.userId;
+    _eventsTable = _eventsView.tableView;
     [self.view addSubview:_eventsTable];
 }
 
