@@ -88,7 +88,7 @@ static NSString * const EventCellId = @"EventCellId";
     
     _eventsView = [EventsView new];
     _eventsTable = _eventsView.tableView;
-    _eventsView.events = [[NSMutableArray alloc] initWithArray:[Event getUserEvent:_user.userId page:1]];
+    _eventsView.userId = _user.userId;
     [self.view addSubview:_eventsTable];
 }
 

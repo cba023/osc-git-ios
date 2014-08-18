@@ -48,12 +48,9 @@ static NSString * const cellId = @"ProjectCell";
     [self.tableView registerClass:[ProjectCell class] forCellReuseIdentifier:cellId];
     self.navigationController.navigationBar.translucent = NO;
     
-#if 1
     self.refreshControl = [UIRefreshControl new];
-    //[self.refreshControl setAttributedTitle:[[NSAttributedString alloc] initWithString:@"松手更新数据"]];
     [self.refreshControl addTarget:self action:@selector(refreshView:) forControlEvents:UIControlEventValueChanged];
     [self.tableView addSubview:self.refreshControl];
-#endif
     
     self.projectsArray = [[NSMutableArray alloc] initWithCapacity:20];
     if (_personal) {
@@ -152,7 +149,7 @@ static NSString * const cellId = @"ProjectCell";
 
 - (void)refreshView:(UIRefreshControl *)refreshControl
 {
-    // http://stackoverflow.com/questions/19683892/pull-to-refresh-crashes-app help a lot
+    // http://stackoverflow.com/questions/19683892/pull-to-refresh-crashes-app helps a lot
     
     static BOOL refreshInProgress = NO;
     

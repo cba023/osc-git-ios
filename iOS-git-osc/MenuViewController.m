@@ -179,7 +179,7 @@ static NSString * const kKeyPortrait = @"new_portrait";
                     NSLog(@"No private_token!");
                     break;
                 } else {
-                    eventsView.events = [[NSMutableArray alloc] initWithArray:[Event getEventsWithPrivateToekn:privateToken page:1]];
+                    eventsView.privateToken = privateToken;
                 }
 
                 NavigationController *navigationController = [[NavigationController alloc] initWithRootViewController:eventsView];

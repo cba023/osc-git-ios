@@ -10,6 +10,9 @@
 
 @interface EventsView : UITableViewController
 
+@property int64_t userId;
+@property NSString *privateToken;
+
 @property NSMutableArray *events;
 
 @end

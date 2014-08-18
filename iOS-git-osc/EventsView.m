@@ -76,6 +76,16 @@ static NSString * const EventCellIdentifier = @"EventCell";
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     [self.tableView registerClass:[EventCell class] forCellReuseIdentifier:EventCellIdentifier];
+    
+    if (_privateToken) {
+        events = [[NSMutableArray alloc] initWithArray:[Event getEventsWithPrivateToekn:_privateToken page:1]];
+    } else {
+        events = [[NSMutableArray alloc] initWithArray:[Event getUserEvent:_userId page:1]];
+    }
+    
+    self.refreshControl = [UIRefreshControl new];
+    [self.refreshControl addTarget:self action:@selector(refreshView:) forControlEvents:UIControlEventValueChanged];
+    [self.tableView addSubview:self.refreshControl];
 }
 
 - (void)dealloc
@@ -170,6 +180,34 @@ static NSString * const EventCellIdentifier = @"EventCell";
     UserDetailsView *userDetails = [UserDetailsView new];
     userDetails.user = [events objectAtIndex:((UIImageView *)sender.view).tag];
     [self.navigationController pushViewController:userDetails animated:YES];
+}
+
+- (void)refreshView:(UIRefreshControl *)refreshControl
+{
+    // http://stackoverflow.com/questions/19683892/pull-to-refresh-crashes-app helps a lot
+    
+    static BOOL refreshInProgress = NO;
+    
+    if (!refreshInProgress)
+    {
+        refreshInProgress = YES;
+        [events removeAllObjects];
+        
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            if (_privateToken) {
+                [events addObjectsFromArray:[Event getEventsWithPrivateToekn:_privateToken page:1]];
+            } else {
+                [events addObjectsFromArray:[Event getUserEvent:_userId page:1]];
+            }
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.refreshControl endRefreshing];
+                [self.tableView reloadData];
+                
+                refreshInProgress = NO;
+            });
+        });
+    }
 }
 
 

@@ -82,65 +82,6 @@ enum action {
 
 
 #pragma mark - 返回event描述
-#if 0
-+ (NSString *)getEventDescriptionForEvent:(GLEvent *)event
-{
-    NSString *eventDescription = [NSString new];
-    
-    NSString *author = [NSString stringWithFormat: @"<font face='Arial-BoldMT' size=14 color='#0e5986'>%@</font>", event.author.name];
-    
-    NSString *actionFormat = @"<font size=14 color='#999999'>%@</font>";
-    NSString *action = [NSString new];
-    NSString *branch = [[event.data objectForKey:@"ref"] lastPathComponent];
-    
-    NSString *project = [NSString stringWithFormat:@"<font size=14 color='#0D6DA8'>%@ / %@</font>", event.project.owner.name, event.project.name];
-    
-    enum action actionType = event.action;
-    switch (actionType) {
-        case CREATED:
-            action = [NSString stringWithFormat:@"在项目%@创建了%@", project, event.targetType];
-            break;
-        case UPDATED:
-            action = [NSString stringWithFormat:@"更新了项目%@", project];
-            break;
-        case CLOSED:
-            action = [NSString stringWithFormat:@"关闭了项目%@", project];
-            break;
-        case REOPENED:
-            action = [NSString stringWithFormat:@"重新打开了项目%@", project];
-            break;
-        case PUSHED:
-            action = [NSString stringWithFormat:@"推送到了项目%@的%@", project, branch];
-            break;
-        case COMMENTED:
-            action = [NSString stringWithFormat:@"评论了项目%@的%@", project, event.targetType];
-            break;
-        case MERGED:
-            action = [NSString stringWithFormat:@"接受了项目%@的%@", project, event.targetType];
-            break;
-        case JOINED:
-            action = [NSString stringWithFormat:@"加入了项目%@", project];
-            break;
-        case LEFT:
-            action = [NSString stringWithFormat:@"离开了项目%@", project];
-            break;
-        case FORKED:
-            action = [NSString stringWithFormat:@"FORK了项目%@", project];
-            break;
-        default:
-            break;
-    }
-
-    if (event.action > 0 && event.action <= 10) {
-        eventDescription = [NSString stringWithFormat:@"%@ %@", author, action];
-    } else {
-        eventDescription = [NSString stringWithFormat:@"%@更新了动态", author];
-    }
-    
-    return eventDescription;
-}
-
-#else
 
 + (NSAttributedString *)getEventDescriptionForEvent:(GLEvent *)event
 {
@@ -230,7 +171,6 @@ enum action {
     
     return eventDescription;
 }
-#endif
 
 
 @end
