@@ -19,4 +19,6 @@
 + (GLProject *)getASingleProject:(int64_t)projectID;
 + (NSString *)loadReadme:(int64_t)projectID;
 
++ (NSArray *)getTeamMembersForProjectId:(int64_t)projectId;
+
 @end

@@ -69,6 +69,15 @@ static NSString * const ProjectDetailsCellId = @"ProjectDetailsCell";
     return self;
 }
 
+- (id)initWithProjectId:(int64_t)projectId
+{
+    self = [super init];
+    if (self) {
+        _project = [Project getASingleProject:projectId];
+    }
+    return self;
+}
+
 #pragma mark - UITableViewDataSource
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView

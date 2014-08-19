@@ -114,6 +114,7 @@ static NSString * const cellId = @"IssueCell";
 - (void)pushIssueCreationView
 {
     IssueCreation *issueCreationView = [IssueCreation new];
+    issueCreationView.projectId = self.projectId;
     [self.navigationController pushViewController:issueCreationView animated:YES];
 }
 

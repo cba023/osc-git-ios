@@ -28,5 +28,6 @@
 @property UITableView *projectInfo;
 
 - (id)initWithProject:(GLProject *)project;
+- (id)initWithProjectId:(int64_t)projectId;
 
 @end

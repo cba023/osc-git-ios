@@ -103,7 +103,7 @@
 
 #pragma mark - 键盘操作
 
--(BOOL)textFieldShouldBeginEditing:(UITextField *)textField
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
 {
     NSTimeInterval animationDuration=0.30f;
     [UIView beginAnimations:@"ResizeForKeyboard" context:nil];
@@ -117,7 +117,7 @@
     return YES;
 }
 
--(void)resumeView
+- (void)resumeView
 {
     NSTimeInterval animationDuration=0.30f;
     [UIView beginAnimations:@"ResizeForKeyboard" context:nil];
@@ -131,7 +131,7 @@
     [UIView commitAnimations];
 }
 
--(void)hidenKeyboard
+- (void)hidenKeyboard
 {
     [self.accountTextField resignFirstResponder];
     [self.passwordTextField resignFirstResponder];
@@ -139,12 +139,12 @@
 }
 
 //点击键盘上的Return按钮响应的方法
--(void)returnOnKeyboard:(UITextField *)sender
+- (void)returnOnKeyboard:(UITextField *)sender
 {
     if (sender == self.accountTextField) {
         [self.passwordTextField becomeFirstResponder];
     }else if (sender == self.passwordTextField){
-        [self hidenKeyboard];
+        [self login];
     }
 }
 

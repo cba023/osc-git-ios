@@ -14,6 +14,7 @@
 #import "Tools.h"
 #import "UIImageView+WebCache.h"
 #import "UserDetailsView.h"
+#import "ProjectDetailsView.h"
 //#import <SDWebImage/UIImageView+WebCache.h>
 
 static NSString * const kKeyPrivate_token = @"private_token";
@@ -172,6 +173,13 @@ static NSString * const EventCellIdentifier = @"EventCell";
     
     [cell.time setAttributedText:[Tools getIntervalAttrStr:event.createdAt]];
     [cell.contentView addSubview:cell.time];
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    GLEvent *event = [self.events objectAtIndex:indexPath.row];
+    ProjectDetailsView *projectDetails = [[ProjectDetailsView alloc] initWithProjectId:event.projectId];
+    [self.navigationController pushViewController:projectDetails animated:YES];
 }
 
 #pragma mark - recognizer

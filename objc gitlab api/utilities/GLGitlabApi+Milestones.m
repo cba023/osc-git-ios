@@ -18,10 +18,12 @@ static NSString * const kSingleMilestoneEndpoint = @"/projects/%llu/milestones/%
 #pragma mark - Milestone Methods
 
 - (GLNetworkOperation *)getAllMilestonesForProjectId:(int64_t)projectId
+                                                page:(int)page
                                     withSuccessBlock:(GLGitlabSuccessBlock)success
                                      andFailureBlock:(GLGitlabFailureBlock)failure
 {
     NSMutableURLRequest *request = [self requestForEndPoint:[NSString stringWithFormat:kMilestonesEndpoint, projectId]
+                                                     params:@{@"page": @(page)}
                                                      method:GLNetworkOperationGetMethod];
     
     GLNetworkOperationSuccessBlock localSuccessBlock = [self multipleObjectSuccessBlockForClass:[GLMilestone class] successBlock:success];

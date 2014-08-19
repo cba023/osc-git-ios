@@ -27,6 +27,7 @@
                        andFailureBlock:(GLGitlabFailureBlock)failure;
 
 - (GLNetworkOperation *)createIssue:(GLIssue *)issue
+                       privateToken:(NSString *)privateToken
                    withSuccessBlock:(GLGitlabSuccessBlock)success
                     andFailureBlock:(GLGitlabFailureBlock)failure;
 

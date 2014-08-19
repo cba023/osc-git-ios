@@ -67,10 +67,12 @@ static NSString * const kKeyPage = @"page";
 }
 
 - (GLNetworkOperation *)getProjectWithId:(int64_t)projectId
+                            privateToken:(NSString *)privateToken
                                  success:(GLGitlabSuccessBlock)successBlock
                                  failure:(GLGitlabFailureBlock)failureBlock
 {
     NSMutableURLRequest *request = [self requestForEndPoint:[NSString stringWithFormat:kProjectSingleProjectEndPoint, projectId]
+                                                     params:@{kKeyPrivate_token: privateToken}
                                                      method:GLNetworkOperationGetMethod];
     
     GLNetworkOperationSuccessBlock localSuccessBlock = [self singleObjectSuccessBlockForClass:[GLProject class] successBlock:successBlock];
@@ -92,10 +94,12 @@ static NSString * const kKeyPage = @"page";
 }
 
 - (GLNetworkOperation *)getProjectTeamUsers:(int64_t)projectId
+                               privateToken:(NSString *)privateToken
                                     success:(GLGitlabSuccessBlock)successBlock
                                     failure:(GLGitlabFailureBlock)failureBlock
 {
     NSMutableURLRequest *request = [self requestForEndPoint:[NSString stringWithFormat:kProjectUsersEndPoint, projectId]
+                                                     params:@{kKeyPrivate_token: privateToken}
                                                      method:GLNetworkOperationGetMethod];
     
     GLNetworkOperationSuccessBlock localCussessBlock = [self multipleObjectSuccessBlockForClass:[GLUser class] successBlock:successBlock];

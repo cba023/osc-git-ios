@@ -47,6 +47,7 @@
  *  @return The operation to be executed
  */
 - (GLNetworkOperation *)getProjectWithId:(int64_t)projectId
+                            privateToken:(NSString *)privateToken
                                  success:(GLGitlabSuccessBlock)successBlock
                                  failure:(GLGitlabFailureBlock)failureBlock;
 
@@ -88,6 +89,7 @@
  *  @return The operation to be executed
  */
 - (GLNetworkOperation *)getProjectTeamUsers:(int64_t)projectId
+                               privateToken:(NSString *)privateToken
                                     success:(GLGitlabSuccessBlock)successBlock
                                     failure:(GLGitlabFailureBlock)failureBlock;
 

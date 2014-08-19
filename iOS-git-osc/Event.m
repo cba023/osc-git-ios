@@ -109,7 +109,7 @@ enum action {
     switch (actionType) {
         case CREATED: 
             action = [action initWithString:@"在项目创建了" attributes:actionAttributes];
-            [action insertAttributedString:project atIndex:2];
+            [action insertAttributedString:project atIndex:3];
             [action appendAttributedString:[[NSAttributedString alloc] initWithString:event.targetType
                                                                            attributes:projectAttributes]];
             break;

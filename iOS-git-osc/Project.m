@@ -49,7 +49,6 @@
     __block BOOL done = NO;
     __block NSArray *array;
     NSString *privateToken = [Tools getPrivateToken];
-    if (!privateToken) {return nil;}
     
     GLGitlabSuccessBlock success = ^(id responseObject) {
         if (responseObject == nil){
@@ -87,7 +86,6 @@
     __block BOOL done = NO;
     __block GLBlob *blob;
     NSString *privateToken = [Tools getPrivateToken];
-    if (!privateToken) {return nil;}
     
     GLGitlabSuccessBlock success = ^(id responseObject) {
         if (responseObject == nil){
@@ -166,6 +164,7 @@
 {
     __block BOOL done = NO;
     __block GLProject *project;
+    NSString *privateToken = [Tools getPrivateToken];
     
     GLGitlabSuccessBlock success = ^(id responseObject) {
         if (responseObject == nil) {
@@ -186,6 +185,7 @@
     };
     
     GLNetworkOperation *op = [[GLGitlabApi sharedInstance] getProjectWithId:projectID
+                                                               privateToken:privateToken
                                                                     success:success
                                                                     failure:failure];
     
@@ -231,5 +231,42 @@
     
     return readme;
 }
+
++ (NSArray *)getTeamMembersForProjectId:(int64_t)projectId
+{
+    __block BOOL done = NO;
+    __block NSArray *members;
+    NSString *privateToken = [Tools getPrivateToken];
+    
+    GLGitlabSuccessBlock success = ^(id responseObject) {
+        if (responseObject == nil) {
+            NSLog(@"Request failed");
+        } else {
+            members = responseObject;
+        }
+        done = YES;
+    };
+    
+    GLGitlabFailureBlock failure = ^(NSError *error) {
+        if (error != nil) {
+            NSLog(@"%@, Request failed", error);
+        } else {
+            NSLog(@"error == nil");
+        }
+        done = YES;
+    };
+    
+    GLNetworkOperation *op = [[GLGitlabApi sharedInstance] getProjectTeamUsers:projectId
+                                                                  privateToken:privateToken
+                                                                       success:success
+                                                                       failure:failure];
+    
+    while (!done) {
+        [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate distantFuture]];
+    }
+    
+    return members;
+}
+
 
 @end

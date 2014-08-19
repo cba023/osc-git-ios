@@ -75,12 +75,16 @@ static NSString * const kKeyPage = @"page";
 }
 
 - (GLNetworkOperation *)createIssue:(GLIssue *)issue
+                       privateToken:(NSString *)privateToken
                    withSuccessBlock:(GLGitlabSuccessBlock)success
                     andFailureBlock:(GLGitlabFailureBlock)failure
 {
     NSMutableURLRequest *request = [self requestForEndPoint:[NSString stringWithFormat:kProjectIssuesEndpoint, issue.projectId]
                                                      method:GLNetworkOperationPostMethod];
-    request.HTTPBody = [self urlEncodeParams:[issue jsonCreateRepresentation]];
+    
+    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:[issue jsonCreateRepresentation]];
+    [params setObject:privateToken forKey:kKeyPrivateToken];
+    request.HTTPBody = [self urlEncodeParams:params];
     
     GLNetworkOperationSuccessBlock localSuccessBlock = [self singleObjectSuccessBlockForClass:[GLIssue class] successBlock:success];
     GLNetworkOperationFailureBlock localFailureBlock = [self defaultFailureBlock:failure];

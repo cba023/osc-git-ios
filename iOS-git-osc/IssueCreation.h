@@ -8,7 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
-@interface IssueCreation : UIViewController
+@interface IssueCreation : UIViewController <UITextFieldDelegate, UITextViewDelegate>//<UIPickerViewDataSource, UIPickerViewAccessibilityDelegate>
+
+@property int64_t projectId;
+@property NSArray *members;
+@property NSArray *milestones;
 
 @property UILabel *titleLabel;
 @property UILabel *consignorLabel;
@@ -17,7 +21,7 @@
 
 @property UITextField *issueTitle;
 @property UIPickerView *consignor;
-@property UIPickerView *mileStone;
+@property UIPickerView *milestone;
 @property UITextView *description;
 
 @property UIButton *submit;

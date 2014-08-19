@@ -13,6 +13,7 @@
 @interface GLGitlabApi (Milestones)
 
 - (GLNetworkOperation *)getAllMilestonesForProjectId:(int64_t)projectId
+                                                page:(int)page
                                     withSuccessBlock:(GLGitlabSuccessBlock)success
                                      andFailureBlock:(GLGitlabFailureBlock)failure;
 

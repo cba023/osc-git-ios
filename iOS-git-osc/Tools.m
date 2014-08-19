@@ -19,7 +19,7 @@
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     NSString *privateToken = [userDefaults stringForKey:@"private_token"];
     if  (!privateToken) {
-        NSLog(@"private_token not exist.");
+        privateToken = @"";
     }
     return privateToken;
 }

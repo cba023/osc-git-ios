@@ -126,7 +126,8 @@
     }
     
     [_eventAbstract setAttributedText:digest];
-    _eventAbstract.selectable = NO;
+    //_eventAbstract.selectable = NO;
+    _eventAbstract.editable = NO;
     _eventAbstract.scrollEnabled = NO;
 }
 

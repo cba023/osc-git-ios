@@ -17,7 +17,6 @@
     __block BOOL done = NO;
     __block NSMutableArray *notes;
     NSString *privateToken = [Tools getPrivateToken];
-    if (!privateToken) {return nil;}
     
     GLGitlabSuccessBlock success = ^(id responseObject) {
         if (responseObject == nil) {

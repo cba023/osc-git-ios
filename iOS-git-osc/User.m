@@ -39,7 +39,6 @@ static NSString * const kKeyFollow = @"follow";
             NSLog(@"Request failed");
         } else {
             [User saveUserInformation:user];
-            NSLog(@"username: %@, name = %@", user.username, user.name);
         }
         done = YES;
     };
