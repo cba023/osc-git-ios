@@ -49,6 +49,7 @@
     _body.scrollView.scrollEnabled = NO;
     _body.scrollView.bounces = NO;
     _body.opaque = NO;
+    _body.scalesPageToFit = YES;
     _body.backgroundColor = [UIColor clearColor];
     [self.contentView addSubview:_body];
     

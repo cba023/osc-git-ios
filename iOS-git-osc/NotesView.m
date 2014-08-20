@@ -43,8 +43,10 @@ static NSString * const IssueDescriptionCellId = @"IssueDescriptionCell";
     [self.tableView registerClass:[IssueDescriptionCell class] forCellReuseIdentifier:IssueDescriptionCellId];
     _notes = [Note getNotesForIssue:_issue page:1];
     
-    UIBarButtonItem *commentButton = [[UIBarButtonItem alloc] initWithTitle:@"评论" style:UIBarButtonItemStyleBordered target:self action:@selector(editComment)];
-    self.navigationItem.rightBarButtonItem = commentButton;
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"评论"
+                                                                              style:UIBarButtonItemStylePlain
+                                                                             target:self
+                                                                             action:@selector(editComment)];
 }
 
 - (void)didReceiveMemoryWarning
@@ -78,9 +80,7 @@ static NSString * const IssueDescriptionCellId = @"IssueDescriptionCell";
     
     if (section == 0) {
         if (row == 0) {return 41;}
-        else {
-            return 150;
-        }
+        else {return 150;}
     } else {
         return 90;
     }
@@ -121,27 +121,13 @@ static NSString * const IssueDescriptionCellId = @"IssueDescriptionCell";
         
         [Tools setPortraitForUser:note.author view:cell.portrait cornerRadius:2.0];
         [cell.author setText:note.author.name];
-        [cell.body loadHTMLString:note.body baseURL:nil];
+        NSString *html = [NSString stringWithFormat:@"<html><head><meta name=\"viewport\" content=\"user-scalable=no, width=device-width\"></head><body>%@</body><html>", note.body];
+        [cell.body loadHTMLString:html baseURL:nil];
         [cell.time setAttributedText:[Tools getIntervalAttrStr:note.createdAt]];
         
         return cell;
     }
 }
-
-#if 0
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    NoteEditingView *noteEditingView = [[NoteEditingView alloc] init];
-    [self.navigationController pushViewController:noteEditingView animated:YES];
-}
-#endif
-
-//- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)sectionIndex
-//{
-    
-//    return view;
-//}
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)sectionIndex
 {

@@ -52,12 +52,8 @@ static NSString * const cellId = @"ProjectCell";
     [self.refreshControl addTarget:self action:@selector(refreshView:) forControlEvents:UIControlEventValueChanged];
     [self.tableView addSubview:self.refreshControl];
     
-    self.projectsArray = [[NSMutableArray alloc] initWithCapacity:20];
-    if (_personal) {
-        [self.projectsArray addObjectsFromArray:[Project getOwnProjectsOnPage:1]];
-    } else {
-        [self.projectsArray addObjectsFromArray:[Project loadExtraProjectType:self.arrangeType onPage:1]];
-    }
+    self.projectsArray = [NSMutableArray new];
+    [self.projectsArray addObjectsFromArray:[Project loadProjectsType:_projectsType page:1]];
 }
 
 - (void)didReceiveMemoryWarning
@@ -94,7 +90,7 @@ static NSString * const cellId = @"ProjectCell";
         if (project) {
             ProjectDetailsView *projectDetails = [[ProjectDetailsView alloc] init];
             projectDetails.project = project;
-            if (self.personal) {
+            if (_projectsType > 2) {
                 [self.navigationController pushViewController:projectDetails animated:YES];
             } else {
                 [self.parentViewController.navigationController pushViewController:projectDetails animated:YES];
@@ -130,14 +126,15 @@ static NSString * const cellId = @"ProjectCell";
 	if(scrollView.contentOffset.y > ((scrollView.contentSize.height - scrollView.frame.size.height)))
 	{
         BOOL reload = NO;
-        if (_personal && [projectsArray count]%20 == 0) {
-            NSArray *nextPageProjects = [Project getOwnProjectsOnPage:(int)(projectsArray.count/20)+1];
+        NSUInteger page = projectsArray.count/20 + 1;
+        if (_projectsType > 2 && [projectsArray count]%20 == 0) {
+            NSArray *nextPageProjects = [Project getOwnProjectsOnPage:page];
             if (nextPageProjects) {
                 [projectsArray addObjectsFromArray:nextPageProjects];
             }
             reload = YES;
-        } else if (!_personal){
-            [self.projectsArray addObjectsFromArray:[Project loadExtraProjectType:self.arrangeType onPage:(int)(self.projectsArray.count/20) + 1]];
+        } else if (_projectsType < 2){
+            [self.projectsArray addObjectsFromArray:[Project loadExtraProjectType:self.arrangeType onPage:page]];
             reload = YES;
         }
         if (reload) {[self.tableView reloadData];}
@@ -159,11 +156,7 @@ static NSString * const cellId = @"ProjectCell";
         [self.projectsArray removeAllObjects];
         
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-            if (_personal) {
-                [self.projectsArray addObjectsFromArray:[Project getOwnProjectsOnPage:1]];
-            } else {
-                [self.projectsArray addObjectsFromArray:[Project loadExtraProjectType:self.arrangeType onPage:1]];
-            }
+            [self.projectsArray addObjectsFromArray:[Project loadProjectsType:_projectsType page:1]];
             
             dispatch_async(dispatch_get_main_queue(), ^{
                 [self.refreshControl endRefreshing];

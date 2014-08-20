@@ -22,7 +22,7 @@
  *  @return The operation to be executed
  */
 - (GLNetworkOperation *)getUsersProjectsWithPrivateToken:(NSString *)privateToken
-                                                  onPage:(int)page
+                                                  onPage:(NSUInteger)page
                                                  success:(GLGitlabSuccessBlock)successBlock
                                                  failure:(GLGitlabFailureBlock)failureBlock;
 
@@ -162,7 +162,7 @@
  *  @return The operation to be executed
  */
 - (GLNetworkOperation *)getExtraProjectsType:(NSInteger)type
-                                        page:(int)page
+                                        page:(NSUInteger)page
                                      success:(GLGitlabSuccessBlock)successBlock
                                      failure:(GLGitlabFailureBlock)failureBlock;
 
@@ -171,6 +171,16 @@
                                   privateToken:(NSString *)privateToken
                                        success:(GLGitlabSuccessBlock)successBlock
                                        failure:(GLGitlabFailureBlock)failureBlock;
+
+
+- (GLNetworkOperation *)getStarredProjectsForUser:(int64_t)userID
+                                          success:(GLGitlabSuccessBlock)successBlock
+                                          failuer:(GLGitlabFailureBlock)failureBlock;
+
+
+- (GLNetworkOperation *)getWatchedProjectsForUser:(int64_t)userID
+                                          success:(GLGitlabSuccessBlock)successBlock
+                                          failuer:(GLGitlabFailureBlock)failureBlock;
 
 
 @end

@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface IssueDescriptionCell : UITableViewCell
+@interface IssueDescriptionCell : UITableViewCell <UIWebViewDelegate>
 
 @property UIWebView *issueDescription;
 

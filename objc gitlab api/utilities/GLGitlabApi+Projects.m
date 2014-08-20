@@ -24,6 +24,7 @@ static NSString * const kProjectReadmeEndPoint = @"/projects/%llu/readme";
 static NSString * const kProjectPopularProjectEndPoint = @"/projects/popular";
 static NSString * const kProjectRecommendedProjectEndPoint = @"/projects/featured";
 static NSString * const kProjectLatestProjectEndPoint = @"/projects/latest";
+static NSString * const kProjectStarredProjectEndPoint = @"/user/star";
 
 static NSString * const kKeyPrivate_token = @"private_token";
 static NSString * const kKeyPage = @"page";
@@ -32,14 +33,14 @@ static NSString * const kKeyPage = @"page";
 #pragma mark - Project Methods
 
 - (GLNetworkOperation *)getUsersProjectsWithPrivateToken:(NSString *)privateToken
-                                                  onPage:(int)page
+                                                  onPage:(NSUInteger)page
                                                  success:(GLGitlabSuccessBlock)successBlock
                                                  failure:(GLGitlabFailureBlock)failureBlock
 
 {
     NSMutableURLRequest *request = [self requestForEndPoint:kProjectEndpoint
                                                      params:@{kKeyPrivate_token: privateToken,
-                                                              kKeyPage: [NSNumber numberWithInt:page]}
+                                                              kKeyPage: @(page)}
                                                      method:GLNetworkOperationGetMethod];
     
     GLNetworkOperationSuccessBlock localSuccessBlock = [self multipleObjectSuccessBlockForClass:[GLProject class] successBlock:successBlock];
@@ -191,7 +192,7 @@ static NSString * const kKeyPage = @"page";
 }
 
 - (GLNetworkOperation *)getExtraProjectsType:(NSInteger)type
-                                        page:(int)page
+                                        page:(NSUInteger)page
                                      success:(GLGitlabSuccessBlock)successBlock
                                      failure:(GLGitlabFailureBlock)failureBlock
 {
@@ -234,6 +235,24 @@ static NSString * const kKeyPage = @"page";
                                    success:localSuccessBlock
                                    failure:localFailureBlock];
 }
+
+- (GLNetworkOperation *)getStarredProjectsForUser:(int64_t)userID
+                                          success:(GLGitlabSuccessBlock)successBlock
+                                          failuer:(GLGitlabFailureBlock)failureBlock
+{
+    NSMutableURLRequest *request = [self requestForEndPoint:[NSString stringWithFormat:kProjectStarredProjectEndPoint]
+                                                     method:GLNetworkOperationGetMethod];
+    
+    GLNetworkOperationSuccessBlock localSuccessBlock = [self singleObjectSuccessBlockForClass:[GLProject class] successBlock:successBlock];
+    GLNetworkOperationFailureBlock localFailureBlock = [self defaultFailureBlock:failureBlock];
+    
+    return [self queueOperationWithRequest:request
+                                      type:GLNetworkOperationTypeJson
+                                   success:localSuccessBlock
+                                   failure:localFailureBlock];
+
+}
+
 
 
 @end

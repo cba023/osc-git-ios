@@ -189,8 +189,22 @@ static NSString * const kKeyPortrait = @"new_portrait";
             }
             case 1: {
                 ProjectsTableController *ownProjectsView = [[ProjectsTableController alloc] init];
-                ownProjectsView.personal = YES;
+                ownProjectsView.projectsType = 3;
                 NavigationController *navigationController = [[NavigationController alloc] initWithRootViewController:ownProjectsView];
+                self.frostedViewController.contentViewController = navigationController;
+                break;
+            }
+            case 2: {
+                ProjectsTableController *starredProjectsView = [[ProjectsTableController alloc] init];
+                starredProjectsView.projectsType = 4;
+                NavigationController *navigationController = [[NavigationController alloc] initWithRootViewController:starredProjectsView];
+                self.frostedViewController.contentViewController = navigationController;
+                break;
+            }
+            case 3: {
+                ProjectsTableController *watchedProjectsView = [[ProjectsTableController alloc] init];
+                watchedProjectsView.projectsType = 5;
+                NavigationController *navigationController = [[NavigationController alloc] initWithRootViewController:watchedProjectsView];
                 self.frostedViewController.contentViewController = navigationController;
                 break;
             }
@@ -256,6 +270,9 @@ static NSString * const kKeyPortrait = @"new_portrait";
         
         case 1:
             titles = @[@"广场", @"搜索"];
+            if (indexPath.row == 0) {
+                cell.imageView.image = [UIImage imageNamed:@"MenuOrgRepos"];
+            }
             break;
         
         case 2:

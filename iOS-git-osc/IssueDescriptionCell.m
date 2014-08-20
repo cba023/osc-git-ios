@@ -38,11 +38,12 @@
 - (void)initSubviews
 {
     _issueDescription = [UIWebView new];
+    _issueDescription.delegate = self;
     _issueDescription.scrollView.scrollEnabled = NO;
     _issueDescription.scrollView.bounces = NO;
     _issueDescription.opaque = NO;
     _issueDescription.backgroundColor = [UIColor clearColor];
-    //_issueDescription.scalesPageToFit = YES;
+    _issueDescription.scalesPageToFit = YES;
     [self.contentView addSubview:_issueDescription];
 }
 
@@ -50,12 +51,12 @@
 {
     [_issueDescription setTranslatesAutoresizingMaskIntoConstraints:NO];
     
-    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|-(8)-[_issueDescription]-(8)-|"
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|-[_issueDescription]-|"
                                                                              options:0
                                                                              metrics:nil
                                                                                views:NSDictionaryOfVariableBindings(_issueDescription)]];
     
-    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(8)-[_issueDescription]-(8)-|"
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-8-[_issueDescription]-8-|"
                                                                              options:0
                                                                              metrics:nil
                                                                                views:NSDictionaryOfVariableBindings(_issueDescription)]];

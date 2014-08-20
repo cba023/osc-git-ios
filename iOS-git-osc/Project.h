@@ -12,13 +12,19 @@
 
 @interface Project : NSObject
 
-+ (NSArray *)loadExtraProjectType:(NSInteger)type onPage:(int)page;
 + (NSArray *)getProjectTreeWithID:(int64_t)projectID Branch:(NSString *)branch Path:(NSString *)path;
 + (NSString *)getFileContent:(int64_t)projectID Path:(NSString *)path Branch:(NSString *)branch;
-+ (NSArray *)getOwnProjectsOnPage:(int)page;
+
++ (NSArray *)loadExtraProjectType:(NSInteger)type onPage:(NSUInteger)page;
++ (NSArray *)getOwnProjectsOnPage:(NSUInteger)page;
++ (NSArray *)getStarredProjectsOnPage:(NSUInteger)page;
++ (NSArray *)getWatchedProjectsOnPage:(NSUInteger)page;
 + (GLProject *)getASingleProject:(int64_t)projectID;
+
 + (NSString *)loadReadme:(int64_t)projectID;
 
 + (NSArray *)getTeamMembersForProjectId:(int64_t)projectId;
+
++ (NSArray *)loadProjectsType:(NSInteger)type page:(NSUInteger)page;
 
 @end

@@ -78,6 +78,7 @@
     _issueTitle.layer.cornerRadius = 3.0;
     _issueTitle.returnKeyType = UIReturnKeyNext;
     _issueTitle.layer.borderColor = [[UIColor grayColor] CGColor];
+    _issueTitle.enablesReturnKeyAutomatically = YES;
     _issueTitle.delegate = self;
     [self.view addSubview:_issueTitle];
     
@@ -91,7 +92,6 @@
     _description.layer.borderColor = [[UIColor grayColor] CGColor];
     _description.returnKeyType = UIReturnKeyDone;
     _description.autocorrectionType = UITextAutocorrectionTypeNo;
-    _description.enablesReturnKeyAutomatically = YES;
     _description.delegate = self;
     [self.view addSubview:_description];
     

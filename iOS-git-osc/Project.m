@@ -12,7 +12,7 @@
 
 @implementation Project
 
-+ (NSArray *)loadExtraProjectType:(NSInteger)type onPage:(int)page {
++ (NSArray *)loadExtraProjectType:(NSInteger)type onPage:(NSUInteger)page {
     __block BOOL done = NO;
     __block NSArray *array;
     GLGitlabSuccessBlock success = ^(id responseObject) {
@@ -119,16 +119,11 @@
     return blob.content;
 }
 
-+ (NSArray *)getOwnProjectsOnPage:(int)page
++ (NSArray *)getOwnProjectsOnPage:(NSUInteger)page
 {
     __block BOOL done = NO;
     __block NSArray *array;
-    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    NSString *privateToken = [userDefaults stringForKey:@"private_token"];
-    if  (!privateToken) {
-        NSLog(@"private_token not exist.");
-        return nil;
-    }
+    NSString *privateToken = [Tools getPrivateToken];
     
     GLGitlabSuccessBlock success = ^(id responseObject) {
         if (responseObject == nil) {
@@ -159,6 +154,43 @@
     
     return array;
 }
+
+#if 0
++ (NSArray *)getStarredProjectsOnPage:(NSUInteger)page
+{
+    __block BOOL done = NO;
+    __block NSArray *array;
+    
+    GLGitlabSuccessBlock success = ^(id responseObject) {
+        if (responseObject == nil) {
+            NSLog(@"Request failed");
+        } else {
+            array = responseObject;
+        }
+        done = YES;
+    };
+    
+    GLGitlabFailureBlock failure = ^(NSError *error) {
+        if (error != nil) {
+            NSLog(@"%@, Request failed", error);
+        } else {
+            NSLog(@"error == nil");
+        }
+        done = YES;
+    };
+    
+    GLNetworkOperation *op = [[GLGitlabApi sharedInstance] getUsersProjectsWithPrivateToken:privateToken
+                                                                                     onPage:page
+                                                                                    success:success
+                                                                                    failure:failure];
+    
+    while (!done) {
+        [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate distantFuture]];
+    }
+    
+    return array;
+}
+#endif
 
 + (GLProject *)getASingleProject:(int64_t)projectID
 {
@@ -267,6 +299,21 @@
     
     return members;
 }
+
++ (NSArray *)loadProjectsType:(NSInteger)type page:(NSUInteger)page
+{
+    if (type < 3) {
+        return [Project loadExtraProjectType:type onPage:page];
+    } else if (type == 3) {
+        return [Project getOwnProjectsOnPage:1];
+    //} else if (type == 4) {
+        //return [self.projectsArray addObjectsFromArray:[Project ]];
+    } else {
+        return [Project getOwnProjectsOnPage:1];
+        //return [self.projectsArray addObjectsFromArray:[Project ]];
+    }
+}
+
 
 
 @end
