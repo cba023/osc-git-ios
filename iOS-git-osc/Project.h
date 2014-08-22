@@ -21,11 +21,12 @@
 + (NSArray *)getWatchedProjectsForUser:(int64_t)userID;
 + (GLProject *)getASingleProject:(int64_t)projectID;
 + (NSArray *)searchProjects:(NSString *)query page:(NSInteger)page;
++ (NSArray *)getProjectsForLanguage:(NSInteger)languageID;
 
 + (NSString *)loadReadme:(int64_t)projectID;
 
-+ (NSArray *)getTeamMembersForProjectId:(int64_t)projectId;
++ (NSArray *)getLanguagesList;
 
-+ (NSArray *)loadProjectsType:(NSInteger)type userID:(int64_t)userID page:(NSUInteger)page;
++ (NSArray *)getTeamMembersForProjectId:(int64_t)projectId;
 
 @end

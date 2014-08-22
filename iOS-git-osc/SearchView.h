@@ -10,7 +10,7 @@
 
 @class ProjectsTableController;
 
-@interface SearchView : UIViewController <UISearchBarDelegate, UISearchDisplayDelegate, UITableViewDataSource, UITableViewDelegate>
+@interface SearchView : UIViewController <UISearchBarDelegate, UITableViewDataSource, UITableViewDelegate>
 
 @property NSMutableArray *projects;
 

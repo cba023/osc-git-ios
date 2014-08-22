@@ -20,6 +20,7 @@
 #import "IssuesView.h"
 #import "AccountManagement.h"
 #import "SearchView.h"
+#import "LanguageSearchView.h"
 #import <SDWebImage/UIImageView+WebCache.h>
 
 @interface MenuViewController ()
@@ -191,6 +192,7 @@ static NSString * const kKeyPortrait = @"new_portrait";
             }
             case 1: {
                 ProjectsTableController *ownProjectsView = [[ProjectsTableController alloc] init];
+                ownProjectsView.title = @"我的项目";
                 ownProjectsView.projectsType = 3;
                 NavigationController *navigationController = [[NavigationController alloc] initWithRootViewController:ownProjectsView];
                 self.frostedViewController.contentViewController = navigationController;
@@ -223,8 +225,12 @@ static NSString * const kKeyPortrait = @"new_portrait";
             NavigationController *navigationController = [[NavigationController alloc] initWithRootViewController:projectViewController];
             self.frostedViewController.contentViewController = navigationController;
         } else if (indexPath.row == 1) {
-            SearchView *searchView = [[SearchView alloc] init];
+            SearchView *searchView = [SearchView new];
             NavigationController *navigationController = [[NavigationController alloc] initWithRootViewController:searchView];
+            self.frostedViewController.contentViewController = navigationController;
+        } else {
+            LanguageSearchView *languageSearchView = [LanguageSearchView new];
+            NavigationController *navigationController = [[NavigationController alloc] initWithRootViewController:languageSearchView];
             self.frostedViewController.contentViewController = navigationController;
         }
     } else {
@@ -253,7 +259,7 @@ static NSString * const kKeyPortrait = @"new_portrait";
         case 0:
             return 5;
         case 1:
-            return 2;
+            return 3;
         case 2:
             return 1;
             
@@ -281,7 +287,7 @@ static NSString * const kKeyPortrait = @"new_portrait";
             break;
         
         case 1:
-            titles = @[@"广场", @"搜索"];
+            titles = @[@"广场", @"搜索", @"语言"];
             if (indexPath.row == 0) {
                 cell.imageView.image = [UIImage imageNamed:@"MenuOrgRepos"];
             }

@@ -12,6 +12,7 @@
 #import "GLUser.h"
 #import "GLEvent.h"
 #import "GLBlob.h"
+#import "GLLanguage.h"
 
 static NSString * const kProjectEndpoint = @"/projects";
 static NSString * const kProjectOwnedProjectsEndPoint = @"/projects/owned";
@@ -27,6 +28,8 @@ static NSString * const kProjectLatestProjectEndPoint = @"/projects/latest";
 static NSString * const kProjectStarredProjectEndPoint = @"/user/%llu/stared_projects";
 static NSString * const kProjectWatchedProjectEndPoint = @"/user/%llu/watched_projects";
 static NSString * const kProjectSearchProjectEndPoint = @"/projects/search/%@";
+static NSString * const kProjectLanguagesEndPoint = @"/projects/languages";
+static NSString * const kProjectLanguageProjectsEndPoint = @"/projects/languages/%ld";
 
 static NSString * const kKeyPrivate_token = @"private_token";
 static NSString * const kKeyPage = @"page";
@@ -289,9 +292,38 @@ static NSString * const kKeyPage = @"page";
                                       type:GLNetworkOperationTypeJson
                                    success:localSuccessBlock
                                    failure:localFailureBlock];
-
 }
 
+- (GLNetworkOperation *)getLanguagesListSuccess:(GLGitlabSuccessBlock)successBlock
+                                       failure:(GLGitlabFailureBlock)failureBlock
+{
+    NSMutableURLRequest *request = [self requestForEndPoint:kProjectLanguagesEndPoint
+                                                     method:GLNetworkOperationGetMethod];
+    
+    GLNetworkOperationSuccessBlock localSuccessBlock = [self multipleObjectSuccessBlockForClass:[GLLanguage class] successBlock:successBlock];
+    GLNetworkOperationFailureBlock localFailureBlock = [self defaultFailureBlock:failureBlock];
+    
+    return [self queueOperationWithRequest:request
+                                      type:GLNetworkOperationTypeJson
+                                   success:localSuccessBlock
+                                   failure:localFailureBlock];
+}
+
+- (GLNetworkOperation *)getProjectsForLanguage:(NSInteger)languageID
+                                       success:(GLGitlabSuccessBlock)successBlock
+                                       failure:(GLGitlabFailureBlock)failureBlock
+{
+    NSMutableURLRequest *request = [self requestForEndPoint:[NSString stringWithFormat:kProjectLanguageProjectsEndPoint, languageID]
+                                                     method:GLNetworkOperationGetMethod];
+    
+    GLNetworkOperationSuccessBlock localSuccessBlock = [self multipleObjectSuccessBlockForClass:[GLProject class] successBlock:successBlock];
+    GLNetworkOperationFailureBlock localFailureBlock = [self defaultFailureBlock:failureBlock];
+    
+    return [self queueOperationWithRequest:request
+                                      type:GLNetworkOperationTypeJson
+                                   success:localSuccessBlock
+                                   failure:localFailureBlock];
+}
 
 
 @end

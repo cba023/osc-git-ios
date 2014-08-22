@@ -14,6 +14,7 @@
 @property NSInteger projectsType;
 @property NSInteger arrangeType;
 @property int64_t userID;
+@property NSInteger languageID;
 //@property BOOL loadingMore;
 - (void) reloadType:(NSInteger)newArrangeType;
 

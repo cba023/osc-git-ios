@@ -145,11 +145,15 @@ static NSString * const LoadingCellID = @"LoadingCell";
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+#if 0
     if (_isLoadOver) {
         return _projects.count == 0 ? 60 : 48;
     } else {
         return indexPath.row < _projects.count ? 60 : 48;
     }
+#else
+    return 60;
+#endif
 }
 
 #if 0

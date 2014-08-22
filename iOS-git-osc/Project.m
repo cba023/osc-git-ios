@@ -332,19 +332,6 @@
     return members;
 }
 
-+ (NSArray *)loadProjectsType:(NSInteger)type userID:(int64_t)userID page:(NSUInteger)page
-{
-    if (type < 3) {
-        return [Project loadExtraProjectType:type onPage:page];
-    } else if (type == 3) {
-        return [Project getOwnProjectsOnPage:1];
-    } else if (type == 4) {
-        return [Project getStarredProjectsForUser:userID];
-    } else {
-        return [Project getWatchedProjectsForUser:userID];
-    }
-}
-
 + (NSArray *)searchProjects:(NSString *)query page:(NSInteger)page
 {
     __block BOOL done = NO;
@@ -372,6 +359,73 @@
                                                                             page:page
                                                                          success:success
                                                                          failure:failure];
+    
+    while (!done) {
+        [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate distantFuture]];
+    }
+    
+    return projects;
+}
+
++ (NSArray *)getLanguagesList
+{
+    __block BOOL done = NO;
+    __block NSArray *languages;
+    
+    GLGitlabSuccessBlock success = ^(id responseObject) {
+        if (responseObject == nil) {
+            NSLog(@"Request failed");
+        } else {
+            languages = responseObject;
+        }
+        done = YES;
+    };
+    
+    GLGitlabFailureBlock failure = ^(NSError *error) {
+        if (error != nil) {
+            NSLog(@"%@, Request failed", error);
+        } else {
+            NSLog(@"error == nil");
+        }
+        done = YES;
+    };
+    
+    GLNetworkOperation *op = [[GLGitlabApi sharedInstance] getLanguagesListSuccess:success
+                                                                           failure:failure];
+    
+    while (!done) {
+        [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate distantFuture]];
+    }
+    
+    return languages;
+}
+
++ (NSArray *)getProjectsForLanguage:(NSInteger)languageID
+{
+    __block BOOL done = NO;
+    __block NSArray *projects;
+    
+    GLGitlabSuccessBlock success = ^(id responseObject) {
+        if (responseObject == nil) {
+            NSLog(@"Request failed");
+        } else {
+            projects = responseObject;
+        }
+        done = YES;
+    };
+    
+    GLGitlabFailureBlock failure = ^(NSError *error) {
+        if (error != nil) {
+            NSLog(@"%@, Request failed", error);
+        } else {
+            NSLog(@"error == nil");
+        }
+        done = YES;
+    };
+    
+    GLNetworkOperation *op = [[GLGitlabApi sharedInstance] getProjectsForLanguage:languageID
+                                                                          success:success
+                                                                          failure:failure];
     
     while (!done) {
         [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate distantFuture]];

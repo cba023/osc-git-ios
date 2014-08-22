@@ -188,6 +188,11 @@
                                       success:(GLGitlabSuccessBlock)successBlock
                                       failure:(GLGitlabFailureBlock)failureBlock;
 
+- (GLNetworkOperation *)getLanguagesListSuccess:(GLGitlabSuccessBlock)successBlock
+                                        failure:(GLGitlabFailureBlock)failureBlock;
 
+- (GLNetworkOperation *)getProjectsForLanguage:(NSInteger)languageID
+                                       success:(GLGitlabSuccessBlock)successBlock
+                                       failure:(GLGitlabFailureBlock)failureBlock;
 
 @end

@@ -42,6 +42,7 @@
     #import "GLSnippet.h"
     #import "GLTag.h"
     #import "GLUser.h"
+    #import "GLLanguage.h"
 
     #define git_osc_url @"https://git.oschina.net"
 #endif

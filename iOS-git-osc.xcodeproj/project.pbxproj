@@ -77,6 +77,8 @@
 		00541C0A196684AB002EC356 /* GLBlob.m in Sources */ = {isa = PBXBuildFile; fileRef = 00541C09196684AB002EC356 /* GLBlob.m */; };
 		0057719219A625C500EAA606 /* LoadingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0057719119A625C500EAA606 /* LoadingCell.m */; };
 		0057719519A6298900EAA606 /* DataSingleton.m in Sources */ = {isa = PBXBuildFile; fileRef = 0057719419A6298900EAA606 /* DataSingleton.m */; };
+		0057719919A73D6A00EAA606 /* LanguageSearchView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0057719819A73D6A00EAA606 /* LanguageSearchView.m */; };
+		0057719C19A73F8C00EAA606 /* GLLanguage.m in Sources */ = {isa = PBXBuildFile; fileRef = 0057719B19A73F8C00EAA606 /* GLLanguage.m */; };
 		0062237D1963F30D00454CB9 /* back@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0062237C1963F30D00454CB9 /* back@2x.png */; };
 		006391C71988848800689FAD /* ProjectDetailsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 006391C61988848800689FAD /* ProjectDetailsView.m */; };
 		006BF01C19963101000C868D /* MenuApp.png in Resources */ = {isa = PBXBuildFile; fileRef = 006BF00219963101000C868D /* MenuApp.png */; };
@@ -342,6 +344,10 @@
 		0057719119A625C500EAA606 /* LoadingCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoadingCell.m; sourceTree = "<group>"; };
 		0057719319A6298900EAA606 /* DataSingleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataSingleton.h; sourceTree = "<group>"; };
 		0057719419A6298900EAA606 /* DataSingleton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataSingleton.m; sourceTree = "<group>"; };
+		0057719719A73D6A00EAA606 /* LanguageSearchView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LanguageSearchView.h; sourceTree = "<group>"; };
+		0057719819A73D6A00EAA606 /* LanguageSearchView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LanguageSearchView.m; sourceTree = "<group>"; };
+		0057719A19A73F8C00EAA606 /* GLLanguage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLLanguage.h; sourceTree = "<group>"; };
+		0057719B19A73F8C00EAA606 /* GLLanguage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GLLanguage.m; sourceTree = "<group>"; };
 		0062237C1963F30D00454CB9 /* back@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "back@2x.png"; sourceTree = "<group>"; };
 		006391C51988848800689FAD /* ProjectDetailsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProjectDetailsView.h; sourceTree = "<group>"; };
 		006391C61988848800689FAD /* ProjectDetailsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProjectDetailsView.m; sourceTree = "<group>"; };
@@ -708,6 +714,8 @@
 				0021BA9E192342BD00626A2C /* GLTag.m */,
 				0021BA9F192342BD00626A2C /* GLUser.h */,
 				0021BAA0192342BD00626A2C /* GLUser.m */,
+				0057719A19A73F8C00EAA606 /* GLLanguage.h */,
+				0057719B19A73F8C00EAA606 /* GLLanguage.m */,
 			);
 			path = models;
 			sourceTree = "<group>";
@@ -1014,6 +1022,8 @@
 				009B522D199C572000E7F575 /* ReadmeView.m */,
 				00A74FD319A59FD7009DACDF /* SearchView.h */,
 				00A74FD419A59FD7009DACDF /* SearchView.m */,
+				0057719719A73D6A00EAA606 /* LanguageSearchView.h */,
+				0057719819A73D6A00EAA606 /* LanguageSearchView.m */,
 			);
 			name = Projects;
 			sourceTree = "<group>";
@@ -1332,6 +1342,7 @@
 				0021BACC192342BD00626A2C /* GLBaseObject.m in Sources */,
 				0021BAD4192342BD00626A2C /* GLMergeRequest.m in Sources */,
 				0021BAD1192342BD00626A2C /* GLFile.m in Sources */,
+				0057719919A73D6A00EAA606 /* LanguageSearchView.m in Sources */,
 				0021BAD3192342BD00626A2C /* GLIssue.m in Sources */,
 				0021BAD7192342BD00626A2C /* GLNote.m in Sources */,
 				00C3A4151961538B002A34AB /* ProjectsTableController.m in Sources */,
@@ -1343,6 +1354,7 @@
 				00541C0A196684AB002EC356 /* GLBlob.m in Sources */,
 				00760B9919767BDB00C88C6F /* UIView+WebCacheOperation.m in Sources */,
 				0021BACD192342BD00626A2C /* GLBranch.m in Sources */,
+				0057719C19A73F8C00EAA606 /* GLLanguage.m in Sources */,
 				009B51EF199B4CB300E7F575 /* highlight.pack.js in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

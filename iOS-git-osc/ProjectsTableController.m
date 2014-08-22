@@ -53,7 +53,7 @@ static NSString * const cellId = @"ProjectCell";
     [self.tableView addSubview:self.refreshControl];
     
     self.projectsArray = [NSMutableArray new];
-    [self.projectsArray addObjectsFromArray:[Project loadProjectsType:_projectsType userID:_userID page:1]];
+    [self.projectsArray addObjectsFromArray:[self loadProjectsType:_projectsType page:1]];
 }
 
 - (void)didReceiveMemoryWarning
@@ -156,7 +156,7 @@ static NSString * const cellId = @"ProjectCell";
         [self.projectsArray removeAllObjects];
         
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-            [self.projectsArray addObjectsFromArray:[Project loadProjectsType:_projectsType userID:_userID page:1]];
+            [self.projectsArray addObjectsFromArray:[self loadProjectsType:_projectsType page:1]];
             
             dispatch_async(dispatch_get_main_queue(), ^{
                 [self.refreshControl endRefreshing];
@@ -175,6 +175,22 @@ static NSString * const cellId = @"ProjectCell";
     
     [self.projectsArray addObjectsFromArray:[Project loadExtraProjectType:self.arrangeType onPage:1]];
     [self.tableView reloadData];
+}
+
+
+- (NSArray *)loadProjectsType:(NSInteger)type page:(NSUInteger)page
+{
+    if (type < 3) {
+        return [Project loadExtraProjectType:type onPage:page];
+    } else if (type == 3) {
+        return [Project getOwnProjectsOnPage:1];
+    } else if (type == 4) {
+        return [Project getStarredProjectsForUser:_userID];
+    } else if (type == 5) {
+        return [Project getWatchedProjectsForUser:_userID];
+    } else {
+        return [Project getProjectsForLanguage:_languageID];
+    }
 }
 
 @end
