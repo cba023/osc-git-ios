@@ -19,12 +19,14 @@
 #import "EventsView.h"
 #import "IssuesView.h"
 #import "AccountManagement.h"
+#import "SearchView.h"
 #import <SDWebImage/UIImageView+WebCache.h>
 
 @interface MenuViewController ()
 
 @end
 
+static NSString * const kKeyUserId = @"id";
 static NSString * const kKeyName = @"name";
 static NSString * const kKeyPortrait = @"new_portrait";
 
@@ -196,14 +198,18 @@ static NSString * const kKeyPortrait = @"new_portrait";
             }
             case 2: {
                 ProjectsTableController *starredProjectsView = [[ProjectsTableController alloc] init];
+                NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
                 starredProjectsView.projectsType = 4;
+                starredProjectsView.userID = [[userDefaults objectForKey:kKeyUserId] intValue];
                 NavigationController *navigationController = [[NavigationController alloc] initWithRootViewController:starredProjectsView];
                 self.frostedViewController.contentViewController = navigationController;
                 break;
             }
             case 3: {
                 ProjectsTableController *watchedProjectsView = [[ProjectsTableController alloc] init];
+                NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
                 watchedProjectsView.projectsType = 5;
+                watchedProjectsView.userID = [[userDefaults objectForKey:kKeyUserId] intValue];
                 NavigationController *navigationController = [[NavigationController alloc] initWithRootViewController:watchedProjectsView];
                 self.frostedViewController.contentViewController = navigationController;
                 break;
@@ -212,9 +218,15 @@ static NSString * const kKeyPortrait = @"new_portrait";
                 break;
         }
     } else if (indexPath.section == 1) {
-        ProjectsViewController *projectViewController = [[ProjectsViewController alloc] init];
-        NavigationController *navigationController = [[NavigationController alloc] initWithRootViewController:projectViewController];
-        self.frostedViewController.contentViewController = navigationController;
+        if (indexPath.row == 0) {
+            ProjectsViewController *projectViewController = [[ProjectsViewController alloc] init];
+            NavigationController *navigationController = [[NavigationController alloc] initWithRootViewController:projectViewController];
+            self.frostedViewController.contentViewController = navigationController;
+        } else if (indexPath.row == 1) {
+            SearchView *searchView = [[SearchView alloc] init];
+            NavigationController *navigationController = [[NavigationController alloc] initWithRootViewController:searchView];
+            self.frostedViewController.contentViewController = navigationController;
+        }
     } else {
         IssuesView *issuesView = [[IssuesView alloc] init];
         issuesView.projectId = 82;

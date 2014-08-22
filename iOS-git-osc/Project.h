@@ -17,14 +17,15 @@
 
 + (NSArray *)loadExtraProjectType:(NSInteger)type onPage:(NSUInteger)page;
 + (NSArray *)getOwnProjectsOnPage:(NSUInteger)page;
-+ (NSArray *)getStarredProjectsOnPage:(NSUInteger)page;
-+ (NSArray *)getWatchedProjectsOnPage:(NSUInteger)page;
++ (NSArray *)getStarredProjectsForUser:(int64_t)userID;
++ (NSArray *)getWatchedProjectsForUser:(int64_t)userID;
 + (GLProject *)getASingleProject:(int64_t)projectID;
++ (NSArray *)searchProjects:(NSString *)query page:(NSInteger)page;
 
 + (NSString *)loadReadme:(int64_t)projectID;
 
 + (NSArray *)getTeamMembersForProjectId:(int64_t)projectId;
 
-+ (NSArray *)loadProjectsType:(NSInteger)type page:(NSUInteger)page;
++ (NSArray *)loadProjectsType:(NSInteger)type userID:(int64_t)userID page:(NSUInteger)page;
 
 @end

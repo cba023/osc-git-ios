@@ -18,7 +18,7 @@ static NSString * const kSingleMilestoneEndpoint = @"/projects/%llu/milestones/%
 #pragma mark - Milestone Methods
 
 - (GLNetworkOperation *)getAllMilestonesForProjectId:(int64_t)projectId
-                                                page:(int)page
+                                                page:(NSInteger)page
                                     withSuccessBlock:(GLGitlabSuccessBlock)success
                                      andFailureBlock:(GLGitlabFailureBlock)failure
 {

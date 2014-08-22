@@ -18,7 +18,7 @@ static NSString * const kKeyPage = @"page";
 @implementation GLGitlabApi (Events)
 
 - (GLNetworkOperation *)getEventsWithPrivateToken:(NSString *)privateToken
-                                             page:(int)page
+                                             page:(NSInteger)page
                                           success:(GLGitlabSuccessBlock)successBlock
                                           failure:(GLGitlabFailureBlock)failureBlock
 {
@@ -36,7 +36,7 @@ static NSString * const kKeyPage = @"page";
 }
 
 - (GLNetworkOperation *)getUserEvents:(int64_t)userId
-                                 page:(int)page
+                                 page:(NSInteger)page
                               success:(GLGitlabSuccessBlock)successBlock
                               failure:(GLGitlabFailureBlock)failureBlock
 {

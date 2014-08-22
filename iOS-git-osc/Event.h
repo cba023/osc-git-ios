@@ -11,8 +11,8 @@
 
 @interface Event : NSObject
 
-+ (NSArray *)getEventsWithPrivateToekn:(NSString *)private_token page:(int)page;
++ (NSArray *)getEventsWithPrivateToekn:(NSString *)private_token page:(NSInteger)page;
 + (NSAttributedString *)getEventDescriptionForEvent:(GLEvent *)event;
-+ (NSArray *)getUserEvents:(int64_t)userId page:(int)page;
++ (NSArray *)getUserEvents:(int64_t)userId page:(NSInteger)page;
 
 @end

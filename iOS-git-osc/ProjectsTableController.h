@@ -13,6 +13,7 @@
 @property NSMutableArray *projectsArray;
 @property NSInteger projectsType;
 @property NSInteger arrangeType;
+@property int64_t userID;
 //@property BOOL loadingMore;
 - (void) reloadType:(NSInteger)newArrangeType;
 

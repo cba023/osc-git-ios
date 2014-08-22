@@ -11,12 +11,12 @@
 @interface GLGitlabApi (Events)
 
 - (GLNetworkOperation *)getEventsWithPrivateToken:(NSString *)privateToken
-                                             page:(int)page
+                                             page:(NSInteger)page
                                           success:(GLGitlabSuccessBlock)successBlock
                                           failure:(GLGitlabFailureBlock)failureBlock;
 
 - (GLNetworkOperation *)getUserEvents:(int64_t)userId
-                                 page:(int)page
+                                 page:(NSInteger)page
                               success:(GLGitlabSuccessBlock)successBlock
                               failure:(GLGitlabFailureBlock)failureBlock;
 

@@ -39,7 +39,7 @@ static NSString * const kKeyPage = @"page";
 
 - (GLNetworkOperation *)getAllIssuesForProjectId:(int64_t)projectId
                                     privateToken:(NSString *)privateToken
-                                            page:(int)page
+                                            page:(NSInteger)page
                                 withSuccessBlock:(GLGitlabSuccessBlock)success
                                  andFailureBlock:(GLGitlabFailureBlock)failure
 {

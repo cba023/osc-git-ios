@@ -53,7 +53,7 @@ static NSString * const cellId = @"ProjectCell";
     [self.tableView addSubview:self.refreshControl];
     
     self.projectsArray = [NSMutableArray new];
-    [self.projectsArray addObjectsFromArray:[Project loadProjectsType:_projectsType page:1]];
+    [self.projectsArray addObjectsFromArray:[Project loadProjectsType:_projectsType userID:_userID page:1]];
 }
 
 - (void)didReceiveMemoryWarning
@@ -156,7 +156,7 @@ static NSString * const cellId = @"ProjectCell";
         [self.projectsArray removeAllObjects];
         
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-            [self.projectsArray addObjectsFromArray:[Project loadProjectsType:_projectsType page:1]];
+            [self.projectsArray addObjectsFromArray:[Project loadProjectsType:_projectsType userID:_userID page:1]];
             
             dispatch_async(dispatch_get_main_queue(), ^{
                 [self.refreshControl endRefreshing];

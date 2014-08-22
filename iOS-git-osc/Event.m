@@ -16,7 +16,7 @@ enum action {
 
 @implementation Event
 
-+ (NSArray *)getEventsWithPrivateToekn:(NSString *)private_token page:(int)page {
++ (NSArray *)getEventsWithPrivateToekn:(NSString *)private_token page:(NSInteger)page {
     __block BOOL done = NO;
     __block NSArray *events;
     GLGitlabSuccessBlock success = ^(id responseObject) {
@@ -47,7 +47,7 @@ enum action {
     return events;
 }
 
-+ (NSArray *)getUserEvents:(int64_t)userId page:(int)page
++ (NSArray *)getUserEvents:(int64_t)userId page:(NSInteger)page
 {
     __block BOOL done = NO;
     __block NSArray *events;

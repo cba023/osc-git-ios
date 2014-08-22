@@ -155,8 +155,7 @@
     return array;
 }
 
-#if 0
-+ (NSArray *)getStarredProjectsOnPage:(NSUInteger)page
++ (NSArray *)getStarredProjectsForUser:(int64_t)userID
 {
     __block BOOL done = NO;
     __block NSArray *array;
@@ -179,10 +178,9 @@
         done = YES;
     };
     
-    GLNetworkOperation *op = [[GLGitlabApi sharedInstance] getUsersProjectsWithPrivateToken:privateToken
-                                                                                     onPage:page
-                                                                                    success:success
-                                                                                    failure:failure];
+    GLNetworkOperation *op = [[GLGitlabApi sharedInstance] getStarredProjectsForUser:userID
+                                                                             success:success
+                                                                             failure:failure];
     
     while (!done) {
         [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate distantFuture]];
@@ -190,7 +188,41 @@
     
     return array;
 }
-#endif
+
++ (NSArray *)getWatchedProjectsForUser:(int64_t)userID
+{
+    __block BOOL done = NO;
+    __block NSArray *array;
+    
+    GLGitlabSuccessBlock success = ^(id responseObject) {
+        if (responseObject == nil) {
+            NSLog(@"Request failed");
+        } else {
+            array = responseObject;
+        }
+        done = YES;
+    };
+    
+    GLGitlabFailureBlock failure = ^(NSError *error) {
+        if (error != nil) {
+            NSLog(@"%@, Request failed", error);
+        } else {
+            NSLog(@"error == nil");
+        }
+        done = YES;
+    };
+    
+    GLNetworkOperation *op = [[GLGitlabApi sharedInstance] getWatchedProjectsForUser:userID
+                                                                             success:success
+                                                                             failure:failure];
+    
+    while (!done) {
+        [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate distantFuture]];
+    }
+    
+    return array;
+}
+
 
 + (GLProject *)getASingleProject:(int64_t)projectID
 {
@@ -300,18 +332,52 @@
     return members;
 }
 
-+ (NSArray *)loadProjectsType:(NSInteger)type page:(NSUInteger)page
++ (NSArray *)loadProjectsType:(NSInteger)type userID:(int64_t)userID page:(NSUInteger)page
 {
     if (type < 3) {
         return [Project loadExtraProjectType:type onPage:page];
     } else if (type == 3) {
         return [Project getOwnProjectsOnPage:1];
-    //} else if (type == 4) {
-        //return [self.projectsArray addObjectsFromArray:[Project ]];
+    } else if (type == 4) {
+        return [Project getStarredProjectsForUser:userID];
     } else {
-        return [Project getOwnProjectsOnPage:1];
-        //return [self.projectsArray addObjectsFromArray:[Project ]];
+        return [Project getWatchedProjectsForUser:userID];
     }
+}
+
++ (NSArray *)searchProjects:(NSString *)query page:(NSInteger)page
+{
+    __block BOOL done = NO;
+    __block NSArray *projects;
+    
+    GLGitlabSuccessBlock success = ^(id responseObject) {
+        if (responseObject == nil) {
+            NSLog(@"Request failed");
+        } else {
+            projects = responseObject;
+        }
+        done = YES;
+    };
+    
+    GLGitlabFailureBlock failure = ^(NSError *error) {
+        if (error != nil) {
+            NSLog(@"%@, Request failed", error);
+        } else {
+            NSLog(@"error == nil");
+        }
+        done = YES;
+    };
+    
+    GLNetworkOperation *op = [[GLGitlabApi sharedInstance] searchProjectsByQuery:query
+                                                                            page:page
+                                                                         success:success
+                                                                         failure:failure];
+    
+    while (!done) {
+        [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate distantFuture]];
+    }
+    
+    return projects;
 }
 
 

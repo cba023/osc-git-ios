@@ -24,7 +24,9 @@ static NSString * const kProjectReadmeEndPoint = @"/projects/%llu/readme";
 static NSString * const kProjectPopularProjectEndPoint = @"/projects/popular";
 static NSString * const kProjectRecommendedProjectEndPoint = @"/projects/featured";
 static NSString * const kProjectLatestProjectEndPoint = @"/projects/latest";
-static NSString * const kProjectStarredProjectEndPoint = @"/user/star";
+static NSString * const kProjectStarredProjectEndPoint = @"/user/%llu/stared_projects";
+static NSString * const kProjectWatchedProjectEndPoint = @"/user/%llu/watched_projects";
+static NSString * const kProjectSearchProjectEndPoint = @"/projects/search/%@";
 
 static NSString * const kKeyPrivate_token = @"private_token";
 static NSString * const kKeyPage = @"page";
@@ -206,7 +208,7 @@ static NSString * const kKeyPage = @"page";
             endPoint = kProjectLatestProjectEndPoint;break;
     }
     NSMutableURLRequest *request = [self requestForEndPoint:endPoint
-                                                     params:@{@"page": [NSNumber numberWithInt:page]}
+                                                     params:@{@"page": @(page)}
                                                      method:GLNetworkOperationGetMethod];
     
     GLNetworkOperationSuccessBlock localSuccessBlock = [self multipleObjectSuccessBlockForClass:[GLProject class] successBlock:successBlock];
@@ -238,12 +240,49 @@ static NSString * const kKeyPage = @"page";
 
 - (GLNetworkOperation *)getStarredProjectsForUser:(int64_t)userID
                                           success:(GLGitlabSuccessBlock)successBlock
-                                          failuer:(GLGitlabFailureBlock)failureBlock
+                                          failure:(GLGitlabFailureBlock)failureBlock
 {
-    NSMutableURLRequest *request = [self requestForEndPoint:[NSString stringWithFormat:kProjectStarredProjectEndPoint]
+    NSMutableURLRequest *request = [self requestForEndPoint:[NSString stringWithFormat:kProjectStarredProjectEndPoint, userID]
                                                      method:GLNetworkOperationGetMethod];
     
-    GLNetworkOperationSuccessBlock localSuccessBlock = [self singleObjectSuccessBlockForClass:[GLProject class] successBlock:successBlock];
+    GLNetworkOperationSuccessBlock localSuccessBlock = [self multipleObjectSuccessBlockForClass:[GLProject class] successBlock:successBlock];
+    GLNetworkOperationFailureBlock localFailureBlock = [self defaultFailureBlock:failureBlock];
+    
+    return [self queueOperationWithRequest:request
+                                      type:GLNetworkOperationTypeJson
+                                   success:localSuccessBlock
+                                   failure:localFailureBlock];
+
+}
+
+- (GLNetworkOperation *)getWatchedProjectsForUser:(int64_t)userID
+                                          success:(GLGitlabSuccessBlock)successBlock
+                                          failure:(GLGitlabFailureBlock)failureBlock
+{
+    NSMutableURLRequest *request = [self requestForEndPoint:[NSString stringWithFormat:kProjectWatchedProjectEndPoint, userID]
+                                                     method:GLNetworkOperationGetMethod];
+    
+    GLNetworkOperationSuccessBlock localSuccessBlock = [self multipleObjectSuccessBlockForClass:[GLProject class] successBlock:successBlock];
+    GLNetworkOperationFailureBlock localFailureBlock = [self defaultFailureBlock:failureBlock];
+    
+    return [self queueOperationWithRequest:request
+                                      type:GLNetworkOperationTypeJson
+                                   success:localSuccessBlock
+                                   failure:localFailureBlock];
+    
+}
+
+
+- (GLNetworkOperation *)searchProjectsByQuery:(NSString *)query
+                                         page:(NSInteger)page
+                                      success:(GLGitlabSuccessBlock)successBlock
+                                      failure:(GLGitlabFailureBlock)failureBlock
+{
+    NSMutableURLRequest *request = [self requestForEndPoint:[NSString stringWithFormat:kProjectSearchProjectEndPoint, query]
+                                                     params:@{kKeyPage: @(page)}
+                                                     method:GLNetworkOperationGetMethod];
+    
+    GLNetworkOperationSuccessBlock localSuccessBlock = [self multipleObjectSuccessBlockForClass:[GLProject class] successBlock:successBlock];
     GLNetworkOperationFailureBlock localFailureBlock = [self defaultFailureBlock:failureBlock];
     
     return [self queueOperationWithRequest:request
