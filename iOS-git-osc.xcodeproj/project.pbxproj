@@ -205,6 +205,9 @@
 		00D4ED2C196FF5C500F3A4A5 /* Note.m in Sources */ = {isa = PBXBuildFile; fileRef = 00D4ED2B196FF5C500F3A4A5 /* Note.m */; };
 		00D4ED30196FF85E00F3A4A5 /* NoteCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 00D4ED2F196FF85E00F3A4A5 /* NoteCell.m */; };
 		00D4ED34196FF88300F3A4A5 /* NotesView.m in Sources */ = {isa = PBXBuildFile; fileRef = 00D4ED33196FF88300F3A4A5 /* NotesView.m */; };
+		00DB0DFE19A7B86F0021E257 /* loginLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 00DB0DFD19A7B86F0021E257 /* loginLogo.png */; };
+		00DB0E0119A7B8EA0021E257 /* password.png in Resources */ = {isa = PBXBuildFile; fileRef = 00DB0DFF19A7B8EA0021E257 /* password.png */; };
+		00DB0E0219A7B8EA0021E257 /* email.png in Resources */ = {isa = PBXBuildFile; fileRef = 00DB0E0019A7B8EA0021E257 /* email.png */; };
 		00F017771994BB040076BE43 /* CreationInfoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 00F017761994BB040076BE43 /* CreationInfoCell.m */; };
 		00F0177D1994CDD10076BE43 /* IssueDescriptionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 00F0177C1994CDD10076BE43 /* IssueDescriptionCell.m */; };
 /* End PBXBuildFile section */
@@ -516,6 +519,9 @@
 		00D4ED2F196FF85E00F3A4A5 /* NoteCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NoteCell.m; sourceTree = "<group>"; };
 		00D4ED32196FF88300F3A4A5 /* NotesView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotesView.h; sourceTree = "<group>"; };
 		00D4ED33196FF88300F3A4A5 /* NotesView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotesView.m; sourceTree = "<group>"; };
+		00DB0DFD19A7B86F0021E257 /* loginLogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = loginLogo.png; sourceTree = "<group>"; };
+		00DB0DFF19A7B8EA0021E257 /* password.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = password.png; sourceTree = "<group>"; };
+		00DB0E0019A7B8EA0021E257 /* email.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = email.png; sourceTree = "<group>"; };
 		00F017751994BB040076BE43 /* CreationInfoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreationInfoCell.h; sourceTree = "<group>"; };
 		00F017761994BB040076BE43 /* CreationInfoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreationInfoCell.m; sourceTree = "<group>"; };
 		00F0177B1994CDD10076BE43 /* IssueDescriptionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IssueDescriptionCell.h; sourceTree = "<group>"; };
@@ -650,6 +656,7 @@
 		0002D2C519179858001FDED8 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				00DB0DFC19A7B83B0021E257 /* Login */,
 				009B5224199B4CBE00E7F575 /* highlight */,
 				006BF00119963101000C868D /* Menu */,
 				0062237C1963F30D00454CB9 /* back@2x.png */,
@@ -1071,6 +1078,16 @@
 			name = Notes;
 			sourceTree = "<group>";
 		};
+		00DB0DFC19A7B83B0021E257 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				00DB0DFF19A7B8EA0021E257 /* password.png */,
+				00DB0E0019A7B8EA0021E257 /* email.png */,
+				00DB0DFD19A7B86F0021E257 /* loginLogo.png */,
+			);
+			name = Login;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1166,6 +1183,7 @@
 				006BF02C19963101000C868D /* MenuRepositories.png in Resources */,
 				00C3A41F1962BD55002A34AB /* folder@2x.png in Resources */,
 				009B51FD199B4CB300E7F575 /* brown_papersq.png in Resources */,
+				00DB0E0219A7B8EA0021E257 /* email.png in Resources */,
 				009B51F5199B4CB300E7F575 /* atelier-forest.light.css in Resources */,
 				009B51FF199B4CB300E7F575 /* color-brewer.css in Resources */,
 				009B5222199B4CB300E7F575 /* xcode.css in Resources */,
@@ -1231,6 +1249,7 @@
 				006BF02E19963101000C868D /* MenuSearch.png in Resources */,
 				009B520C199B4CB300E7F575 /* magula.css in Resources */,
 				0002D2541916324B001FDED8 /* InfoPlist.strings in Resources */,
+				00DB0DFE19A7B86F0021E257 /* loginLogo.png in Resources */,
 				009B51FA199B4CB300E7F575 /* atelier-seaside.dark.css in Resources */,
 				006BF02B19963101000C868D /* MenuPullRequests@2x.png in Resources */,
 				009B5209199B4CB300E7F575 /* ir_black.css in Resources */,
@@ -1239,6 +1258,7 @@
 				009B521C199B4CB300E7F575 /* tomorrow-night-blue.css in Resources */,
 				009B51F4199B4CB300E7F575 /* atelier-forest.dark.css in Resources */,
 				009B521F199B4CB300E7F575 /* tomorrow-night.css in Resources */,
+				00DB0E0119A7B8EA0021E257 /* password.png in Resources */,
 				009B51F0199B4CB300E7F575 /* arta.css in Resources */,
 				009B51F8199B4CB300E7F575 /* atelier-lakeside.dark.css in Resources */,
 			);

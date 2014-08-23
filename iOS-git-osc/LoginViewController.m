@@ -36,8 +36,38 @@
     [super viewDidLoad];
     
     self.title = @"登录";
+    
+    [self initSubviews];
+    [self setLayout];
+    
+    //[self.navigationController.navigationBar setTranslucent:NO];
+    
+#if 1
+    //适配iOS7uinavigationbar遮挡tableView的问题
+    if([[[UIDevice currentDevice]systemVersion]floatValue]>=7.0)
+    {
+        self.parentViewController.edgesForExtendedLayout = UIRectEdgeNone;
+        self.parentViewController.automaticallyAdjustsScrollViewInsets = YES;
+    }
+#endif
+    
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"three_lines"]
+                                                                             style:UIBarButtonItemStylePlain
+                                                                            target:(NavigationController *)self.navigationController
+                                                                            action:@selector(showMenu)];
+}
 
-    self.accountTextField = [[UITextField alloc] initWithFrame: CGRectMake(78, 98, 212, 30)];
+- (void)didReceiveMemoryWarning
+{
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+
+#pragma mark - about subviews
+- (void)initSubviews
+{
+    self.accountTextField = [UITextField new];
     self.accountTextField.placeholder = @"Email";
     self.accountTextField.textColor = [UIColor colorWithRed:56.0f/255.0f green:84.0f/255.0f blue:135.0f/255.0f alpha:1.0f];
     self.accountTextField.autocapitalizationType = UITextAutocapitalizationTypeNone;
@@ -45,7 +75,7 @@
     self.accountTextField.delegate = self;
     self.accountTextField.returnKeyType = UIReturnKeyNext;
     
-    self.passwordTextField = [[UITextField alloc] initWithFrame: CGRectMake(78, 151, 212, 30)];
+    self.passwordTextField = [UITextField new];
     self.passwordTextField.placeholder = @"Password";
     self.passwordTextField.textColor = [UIColor colorWithRed:56.0f/255.0f green:84.0f/255.0f blue:135.0f/255.0f alpha:1.0f];
     self.passwordTextField.secureTextEntry = YES;
@@ -60,34 +90,84 @@
     gesture.numberOfTapsRequired = 1;
     [self.view addGestureRecognizer:gesture];
     
-    UILabel* accountLabel = [[UILabel alloc] initWithFrame:CGRectMake(28, 102, 42, 21)];
-    accountLabel.text = @"账号";
-    UILabel* passwordLabel = [[UILabel alloc] initWithFrame:CGRectMake(28, 155, 42, 21)];
-    passwordLabel.text = @"密码";
-    
-    UIButton* summit = [UIButton buttonWithType:UIButtonTypeCustom];
-    [Tools roundCorner:summit cornerRadius:5.0];
-    summit.frame = CGRectMake(137, 200, 46, 30);
-    summit.backgroundColor = [UIColor redColor];
-    [summit setTitle:@"登录" forState:UIControlStateNormal];
-    [summit addTarget:self action:@selector(login) forControlEvents:UIControlEventTouchUpInside];
-    
-    [self.view addSubview: accountLabel];
-    [self.view addSubview: passwordLabel];
     [self.view addSubview: self.accountTextField];
     [self.view addSubview: self.passwordTextField];
-    [self.view addSubview: summit];
-
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"three_lines"]
-                                                                             style:UIBarButtonItemStylePlain
-                                                                            target:(NavigationController *)self.navigationController
-                                                                            action:@selector(showMenu)];
 }
 
-- (void)didReceiveMemoryWarning
+- (void)setLayout
 {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    UIImageView *loginLogo = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"loginLogo"]];
+    loginLogo.contentMode = UIViewContentModeScaleAspectFit;
+    UIImageView *email = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"email"]];
+    email.contentMode = UIViewContentModeScaleAspectFill;
+    UIImageView *password = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"password"]];
+    password.contentMode = UIViewContentModeScaleAspectFit;
+    [self.view addSubview:loginLogo];
+    [self.view addSubview:email];
+    [self.view addSubview:password];
+    
+    UIButton* submit = [UIButton buttonWithType:UIButtonTypeCustom];
+    [Tools roundCorner:submit cornerRadius:5.0];
+    submit.backgroundColor = [UIColor redColor];
+    [submit setTitle:@"登录" forState:UIControlStateNormal];
+    [submit addTarget:self action:@selector(login) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview: submit];
+    
+    UILabel *tips = [UILabel new];
+    tips.font = [UIFont systemFontOfSize:10];
+    tips.textColor = [UIColor grayColor];
+    tips.lineBreakMode = NSLineBreakByCharWrapping;
+    tips.numberOfLines = 0;
+    tips.text = @"tips:\n\t请使用Git@OSC的push邮箱和密码登录\n\t注册请前往 https://git.oschina.net";
+    [self.view addSubview:tips];
+    
+    for (UIView *view in [self.view subviews]) {
+        view.translatesAutoresizingMaskIntoConstraints = NO;
+    }
+    
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-100-[loginLogo(60)]-30-[email(20)]-8-[password(20)]"
+                                                                      options:0
+                                                                      metrics:nil
+                                                                        views:NSDictionaryOfVariableBindings(loginLogo, email, password)]];
+    
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|->=50-[loginLogo(60)]->=50-|"
+                                                                      options:NSLayoutFormatAlignAllCenterX
+                                                                      metrics:nil
+                                                                        views:NSDictionaryOfVariableBindings(loginLogo)]];
+    
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:loginLogo
+                                                          attribute:NSLayoutAttributeCenterX
+                                                          relatedBy:NSLayoutRelationEqual
+                                                             toItem:self.view
+                                                          attribute:NSLayoutAttributeCenterX
+                                                         multiplier:1.f constant:0.f]];
+    
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|-30-[email(20)]-[_accountTextField]-30-|"
+                                                                      options:NSLayoutFormatAlignAllCenterY
+                                                                      metrics:nil
+                                                                        views:NSDictionaryOfVariableBindings(email, _accountTextField)]];
+    
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|-30-[password(20)]-[_passwordTextField]-30-|"
+                                                                      options:NSLayoutFormatAlignAllCenterY
+                                                                      metrics:nil
+                                                                        views:NSDictionaryOfVariableBindings(password, _passwordTextField)]];
+    
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[password]->=20-[submit]-20-[tips]"
+                                                                      options:NSLayoutFormatAlignAllLeft
+                                                                      metrics:nil
+                                                                        views:NSDictionaryOfVariableBindings(password, submit, tips)]];
+    
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[_passwordTextField]-30-[submit]"
+                                                                      options:NSLayoutFormatAlignAllRight
+                                                                      metrics:nil
+                                                                        views:NSDictionaryOfVariableBindings(_passwordTextField, submit)]];
+
+#if 0
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[submit]-10-[tips]"
+                                                                      options:0
+                                                                      metrics:nil
+                                                                        views:NSDictionaryOfVariableBindings(submit, tips)]];
+#endif
 }
 
 - (void)login {
