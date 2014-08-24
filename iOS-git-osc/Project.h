@@ -21,7 +21,7 @@
 + (NSArray *)getWatchedProjectsForUser:(int64_t)userID;
 + (GLProject *)getASingleProject:(int64_t)projectID;
 + (NSArray *)searchProjects:(NSString *)query page:(NSInteger)page;
-+ (NSArray *)getProjectsForLanguage:(NSInteger)languageID;
++ (NSArray *)getProjectsForLanguage:(NSInteger)languageID page:(NSInteger)page;
 
 + (NSString *)loadReadme:(int64_t)projectID;
 

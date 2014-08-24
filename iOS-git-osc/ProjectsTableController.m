@@ -38,11 +38,13 @@ static NSString * const cellId = @"ProjectCell";
 {
     [super viewDidLoad];
     
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"three_lines"]
-                                                                             style:UIBarButtonItemStylePlain
-                                                                            target:(NavigationController *)self.navigationController
-                                                                            action:@selector(showMenu)];
-    self.title = @"个人项目";
+    if (self.navigationController.viewControllers.count <= 1) {
+        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"three_lines"]
+                                                                                 style:UIBarButtonItemStylePlain
+                                                                                target:(NavigationController *)self.navigationController
+                                                                                action:@selector(showMenu)];
+    }
+    
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     [self.tableView registerClass:[ProjectCell class] forCellReuseIdentifier:cellId];
@@ -52,8 +54,10 @@ static NSString * const cellId = @"ProjectCell";
     [self.refreshControl addTarget:self action:@selector(refreshView:) forControlEvents:UIControlEventValueChanged];
     [self.tableView addSubview:self.refreshControl];
     
+    _isLoadOver = NO;
+    
     self.projectsArray = [NSMutableArray new];
-    [self.projectsArray addObjectsFromArray:[self loadProjectsType:_projectsType page:1]];
+    [self.projectsArray addObjectsFromArray:[self loadProjectsPage:1]];
 }
 
 - (void)didReceiveMemoryWarning
@@ -74,7 +78,7 @@ static NSString * const cellId = @"ProjectCell";
     [Tools setPortraitForUser:project.owner view:cell.portrait cornerRadius:5.0];
     cell.projectNameField.text = [NSString stringWithFormat:@"%@ / %@", project.owner.name, project.name];
     cell.projectDescriptionField.text = project.projectDescription;
-    cell.languageField.text = project.language;
+    cell.languageField.text = project.language? project.language: @"Unknown";
     cell.forksCount.text = [NSString stringWithFormat:@"%i", project.forksCount];
     cell.starsCount.text = [NSString stringWithFormat:@"%i", project.starsCount];
     
@@ -122,22 +126,21 @@ static NSString * const cellId = @"ProjectCell";
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
 {
+    if (_isLoadOver) {return;}
+    
     // 下拉到最底部时显示更多数据
 	if(scrollView.contentOffset.y > ((scrollView.contentSize.height - scrollView.frame.size.height)))
 	{
         BOOL reload = NO;
         NSUInteger page = projectsArray.count/20 + 1;
-        if (_projectsType > 2 && [projectsArray count]%20 == 0) {
-            NSArray *nextPageProjects = [Project getOwnProjectsOnPage:page];
-            if (nextPageProjects) {
-                [projectsArray addObjectsFromArray:nextPageProjects];
-            }
-            reload = YES;
-        } else if (_projectsType < 2){
-            [self.projectsArray addObjectsFromArray:[Project loadExtraProjectType:self.arrangeType onPage:page]];
-            reload = YES;
+        [self.projectsArray addObjectsFromArray:[self loadProjectsPage:page]];
+        reload = YES;
+        
+        if (reload) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.tableView reloadData];
+            });
         }
-        if (reload) {[self.tableView reloadData];}
 	}
 }
 
@@ -156,7 +159,7 @@ static NSString * const cellId = @"ProjectCell";
         [self.projectsArray removeAllObjects];
         
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-            [self.projectsArray addObjectsFromArray:[self loadProjectsType:_projectsType page:1]];
+            [self.projectsArray addObjectsFromArray:[self loadProjectsPage:1]];
             
             dispatch_async(dispatch_get_main_queue(), ^{
                 [self.refreshControl endRefreshing];
@@ -168,29 +171,41 @@ static NSString * const cellId = @"ProjectCell";
     }
 }
 
-- (void)reloadType:(NSInteger)newArrangeType
+- (void)reloadType:(NSInteger)NewProjectsType
 {
-    self.arrangeType = newArrangeType;
+    _projectsType = NewProjectsType;
     [self.projectsArray removeAllObjects];
+    _isLoadOver = NO;
     
-    [self.projectsArray addObjectsFromArray:[Project loadExtraProjectType:self.arrangeType onPage:1]];
-    [self.tableView reloadData];
+    [self.projectsArray addObjectsFromArray:[Project loadExtraProjectType:_projectsType onPage:1]];
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.tableView reloadData];
+    });
 }
 
 
-- (NSArray *)loadProjectsType:(NSInteger)type page:(NSUInteger)page
+- (NSArray *)loadProjectsPage:(NSUInteger)page
 {
-    if (type < 3) {
-        return [Project loadExtraProjectType:type onPage:page];
-    } else if (type == 3) {
-        return [Project getOwnProjectsOnPage:1];
-    } else if (type == 4) {
-        return [Project getStarredProjectsForUser:_userID];
-    } else if (type == 5) {
-        return [Project getWatchedProjectsForUser:_userID];
+    NSArray *projects;
+    
+    if (_projectsType < 3) {
+        projects = [Project loadExtraProjectType:_projectsType onPage:page];
+    } else if (_projectsType == 3) {
+        projects = [Project getOwnProjectsOnPage:page];
+    } else if (_projectsType == 4) {
+        projects = [Project getStarredProjectsForUser:_userID];
+    } else if (_projectsType == 5) {
+        projects = [Project getWatchedProjectsForUser:_userID];
     } else {
-        return [Project getProjectsForLanguage:_languageID];
+        projects = [Project getProjectsForLanguage:_languageID page:page];
     }
+    
+    if (projects.count < 20) {
+        _isLoadOver = YES;
+    }
+    
+    return projects;
 }
 
 @end

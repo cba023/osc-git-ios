@@ -28,7 +28,7 @@
         self.navigationItem.titleView = self.segmentTitle;
         
         self.projectsTable = [[ProjectsTableController alloc] init];
-        self.projectsTable.arrangeType = 0;
+        self.projectsTable.projectsType = 0;
         [self addChildViewController:self.projectsTable];
         [self.view addSubview:self.projectsTable.view];
         self.projectsTable.view.frame = self.view.bounds;

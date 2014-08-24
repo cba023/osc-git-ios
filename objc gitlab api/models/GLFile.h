@@ -28,7 +28,7 @@ typedef NS_ENUM(NSInteger, GLFileType) {
 
 - (NSUInteger)hash;
 
-- (NSString *)description;
+//- (NSString *)description;
 
 - (NSString *)nameWithoutExtension;
 

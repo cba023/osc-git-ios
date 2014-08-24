@@ -400,7 +400,7 @@
     return languages;
 }
 
-+ (NSArray *)getProjectsForLanguage:(NSInteger)languageID
++ (NSArray *)getProjectsForLanguage:(NSInteger)languageID page:(NSInteger)page
 {
     __block BOOL done = NO;
     __block NSArray *projects;
@@ -424,6 +424,7 @@
     };
     
     GLNetworkOperation *op = [[GLGitlabApi sharedInstance] getProjectsForLanguage:languageID
+                                                                             page:page
                                                                           success:success
                                                                           failure:failure];
     

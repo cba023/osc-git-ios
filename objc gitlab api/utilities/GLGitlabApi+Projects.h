@@ -192,6 +192,7 @@
                                         failure:(GLGitlabFailureBlock)failureBlock;
 
 - (GLNetworkOperation *)getProjectsForLanguage:(NSInteger)languageID
+                                          page:(NSInteger)page
                                        success:(GLGitlabSuccessBlock)successBlock
                                        failure:(GLGitlabFailureBlock)failureBlock;
 

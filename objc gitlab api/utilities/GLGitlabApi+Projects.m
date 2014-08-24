@@ -310,10 +310,12 @@ static NSString * const kKeyPage = @"page";
 }
 
 - (GLNetworkOperation *)getProjectsForLanguage:(NSInteger)languageID
+                                          page:(NSInteger)page
                                        success:(GLGitlabSuccessBlock)successBlock
                                        failure:(GLGitlabFailureBlock)failureBlock
 {
-    NSMutableURLRequest *request = [self requestForEndPoint:[NSString stringWithFormat:kProjectLanguageProjectsEndPoint, languageID]
+    NSMutableURLRequest *request = [self requestForEndPoint:[NSString stringWithFormat:kProjectLanguageProjectsEndPoint, (long)languageID]
+                                                     params:@{kKeyPage: @(page)}
                                                      method:GLNetworkOperationGetMethod];
     
     GLNetworkOperationSuccessBlock localSuccessBlock = [self multipleObjectSuccessBlockForClass:[GLProject class] successBlock:successBlock];

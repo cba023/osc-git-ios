@@ -70,6 +70,7 @@ static NSString * const kBlobType = @"blob";
     return hash;
 }
 
+#if 0
 - (NSString *)description {
     NSMutableString *description = [NSMutableString stringWithFormat:@"<%@: ", NSStringFromClass([self class])];
     [description appendFormat:@"self.fileId=%@", self.fileId];
@@ -79,6 +80,7 @@ static NSString * const kBlobType = @"blob";
     [description appendString:@">"];
     return description;
 }
+#endif
 
 - (NSString *)nameWithoutExtension
 {

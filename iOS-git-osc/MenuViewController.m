@@ -21,7 +21,7 @@
 #import "AccountManagement.h"
 #import "SearchView.h"
 #import "LanguageSearchView.h"
-#import <SDWebImage/UIImageView+WebCache.h>
+#import "UIImageView+WebCache.h"
 
 @interface MenuViewController ()
 
@@ -94,7 +94,7 @@ static NSString * const kKeyPortrait = @"new_portrait";
         NSString *name = [self.user objectForKey:kKeyName];
         
         if (portrait) {
-            [self.imageView setImageWithURL:[NSURL URLWithString:portrait]];
+            [self.imageView sd_setImageWithURL:[NSURL URLWithString:portrait]];
         } else {
             self.imageView.image = [UIImage imageNamed:@"avatar.jpg"];
         }
@@ -172,71 +172,73 @@ static NSString * const kKeyPortrait = @"new_portrait";
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
+    NavigationController *navigationController;
     if (indexPath.section == 0) {
-        switch (indexPath.row) {
-            case 0: {
-                NavigationController *navigationController;
-                NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-                NSString *privateToken = [userDefaults objectForKey:@"private_token"];
-                if (privateToken == nil) {
-                    LoginViewController *loginViewController = [LoginViewController new];
-                    navigationController = [[NavigationController alloc] initWithRootViewController:loginViewController];
-                } else {
+        NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+        NSString *privateToken = [userDefaults objectForKey:@"private_token"];
+        if (privateToken == nil) {
+            LoginViewController *loginViewController = [LoginViewController new];
+            navigationController = [[NavigationController alloc] initWithRootViewController:loginViewController];
+        } else {
+            switch (indexPath.row) {
+                case 0: {
                     EventsView *eventsView = [EventsView new];
                     eventsView.privateToken = privateToken;
                     navigationController = [[NavigationController alloc] initWithRootViewController:eventsView];
+                    
+                    self.frostedViewController.contentViewController = navigationController;
+                    break;
                 }
-                
-                self.frostedViewController.contentViewController = navigationController;
-                break;
+                case 1: {
+                    ProjectsTableController *ownProjectsView = [[ProjectsTableController alloc] init];
+                    ownProjectsView.title = @"我的项目";
+                    ownProjectsView.projectsType = 3;
+                    navigationController = [[NavigationController alloc] initWithRootViewController:ownProjectsView];
+                    self.frostedViewController.contentViewController = navigationController;
+                    break;
+                }
+                case 2: {
+                    ProjectsTableController *starredProjectsView = [[ProjectsTableController alloc] init];
+                    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+                    starredProjectsView.title = @"收藏项目";
+                    starredProjectsView.projectsType = 4;
+                    starredProjectsView.userID = [[userDefaults objectForKey:kKeyUserId] intValue];
+                    navigationController = [[NavigationController alloc] initWithRootViewController:starredProjectsView];
+                    self.frostedViewController.contentViewController = navigationController;
+                    break;
+                }
+                case 3: {
+                    ProjectsTableController *watchedProjectsView = [[ProjectsTableController alloc] init];
+                    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+                    watchedProjectsView.title = @"关注项目";
+                    watchedProjectsView.projectsType = 5;
+                    watchedProjectsView.userID = [[userDefaults objectForKey:kKeyUserId] intValue];
+                    navigationController = [[NavigationController alloc] initWithRootViewController:watchedProjectsView];
+                    self.frostedViewController.contentViewController = navigationController;
+                    break;
+                }
+                default:
+                    break;
             }
-            case 1: {
-                ProjectsTableController *ownProjectsView = [[ProjectsTableController alloc] init];
-                ownProjectsView.title = @"我的项目";
-                ownProjectsView.projectsType = 3;
-                NavigationController *navigationController = [[NavigationController alloc] initWithRootViewController:ownProjectsView];
-                self.frostedViewController.contentViewController = navigationController;
-                break;
-            }
-            case 2: {
-                ProjectsTableController *starredProjectsView = [[ProjectsTableController alloc] init];
-                NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-                starredProjectsView.projectsType = 4;
-                starredProjectsView.userID = [[userDefaults objectForKey:kKeyUserId] intValue];
-                NavigationController *navigationController = [[NavigationController alloc] initWithRootViewController:starredProjectsView];
-                self.frostedViewController.contentViewController = navigationController;
-                break;
-            }
-            case 3: {
-                ProjectsTableController *watchedProjectsView = [[ProjectsTableController alloc] init];
-                NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-                watchedProjectsView.projectsType = 5;
-                watchedProjectsView.userID = [[userDefaults objectForKey:kKeyUserId] intValue];
-                NavigationController *navigationController = [[NavigationController alloc] initWithRootViewController:watchedProjectsView];
-                self.frostedViewController.contentViewController = navigationController;
-                break;
-            }
-            default:
-                break;
         }
     } else if (indexPath.section == 1) {
         if (indexPath.row == 0) {
             ProjectsViewController *projectViewController = [[ProjectsViewController alloc] init];
-            NavigationController *navigationController = [[NavigationController alloc] initWithRootViewController:projectViewController];
+            navigationController = [[NavigationController alloc] initWithRootViewController:projectViewController];
             self.frostedViewController.contentViewController = navigationController;
         } else if (indexPath.row == 1) {
             SearchView *searchView = [SearchView new];
-            NavigationController *navigationController = [[NavigationController alloc] initWithRootViewController:searchView];
+            navigationController = [[NavigationController alloc] initWithRootViewController:searchView];
             self.frostedViewController.contentViewController = navigationController;
         } else {
             LanguageSearchView *languageSearchView = [LanguageSearchView new];
-            NavigationController *navigationController = [[NavigationController alloc] initWithRootViewController:languageSearchView];
+            navigationController = [[NavigationController alloc] initWithRootViewController:languageSearchView];
             self.frostedViewController.contentViewController = navigationController;
         }
     } else {
         IssuesView *issuesView = [[IssuesView alloc] init];
         issuesView.projectId = 82;
-        NavigationController *navigationController = [[NavigationController alloc] initWithRootViewController:issuesView];
+        navigationController = [[NavigationController alloc] initWithRootViewController:issuesView];
         self.frostedViewController.contentViewController = navigationController;
     }
     

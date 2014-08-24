@@ -91,7 +91,7 @@ static NSString * const IssueDescriptionCellId = @"IssueDescriptionCell";
     if (section == 0) {
         return _issue.title;
     } else {
-        return [NSString stringWithFormat:@"%lu条评论", _notes.count];
+        return [NSString stringWithFormat:@"%lu条评论", (unsigned long)_notes.count];
     }
 }
 
