@@ -121,8 +121,7 @@ static NSString * const IssueDescriptionCellId = @"IssueDescriptionCell";
         
         [Tools setPortraitForUser:note.author view:cell.portrait cornerRadius:2.0];
         [cell.author setText:note.author.name];
-        NSString *html = [NSString stringWithFormat:@"<html><head><meta name=\"viewport\" content=\"user-scalable=no, width=device-width\"></head><body>%@</body><html>", note.body];
-        [cell.body loadHTMLString:html baseURL:nil];
+        cell.body.text = [Tools flattenHTML:note.body];
         [cell.time setAttributedText:[Tools getIntervalAttrStr:note.createdAt]];
         
         return cell;

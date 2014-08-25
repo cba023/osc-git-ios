@@ -19,6 +19,7 @@
 + (NSString *)decodeBase64String:(NSString *)originalHTML;
 
 + (NSString *)escapeHTML:(NSString *)string;
++ (NSString *)flattenHTML:(NSString *)html;
 + (BOOL)isEmptyString:(NSString *)string;
 
 + (NSString *)intervalSinceNow:(NSString *)dateStr;

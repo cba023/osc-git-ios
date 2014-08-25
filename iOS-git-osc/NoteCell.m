@@ -45,11 +45,7 @@
     [_author setFont:[UIFont systemFontOfSize:12]];
     [self.contentView addSubview:_author];
     
-    _body = [UIWebView new];
-    _body.scrollView.scrollEnabled = NO;
-    _body.scrollView.bounces = NO;
-    _body.opaque = NO;
-    _body.scalesPageToFit = YES;
+    _body = [UITextView new];
     _body.backgroundColor = [UIColor clearColor];
     [self.contentView addSubview:_body];
     
