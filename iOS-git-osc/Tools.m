@@ -157,6 +157,7 @@
 
 + (BOOL)isEmptyString:(NSString *)string
 {
+    if (!string || string.length == 0) {return YES;}
     NSMutableString *temp = [[NSMutableString alloc] initWithString:[string stringByReplacingOccurrencesOfString:@" " withString:@""]];
     [temp stringByReplacingOccurrencesOfString:@"\r" withString:@""];
     [temp stringByReplacingOccurrencesOfString:@"\n" withString:@""];
