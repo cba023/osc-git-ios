@@ -82,8 +82,26 @@ static NSString * const IssueDescriptionCellId = @"IssueDescriptionCell";
     NSInteger section = indexPath.section, row = indexPath.row;
     
     if (section == 0) {
-        if (row == 0) {return 41;}
-        else {return 450;}
+        if (row == 0) {
+            return 41;
+        }
+        else {
+#if 0
+            if (!_issueDescription) {
+                _issueDescription = [self.tableView dequeueReusableCellWithIdentifier:CreationInfoCellId];
+            }
+            _issueDescription.selectionStyle = UITableViewCellSelectionStyleNone;
+            
+            NSString *html = [NSString stringWithFormat:@"<html><head><meta name=\"viewport\" content=\"user-scalable=no, width=device-width\"></head><body>%@</body><html>", _issue.issueDescription];
+            
+            [_issueDescription.issueDescription loadHTMLString:html baseURL:nil];
+#endif
+            if (_webViewFinishedLoad) {
+                return _webViewHeight;
+            } else {
+                return 40;
+            }
+        }
     } else {
         if (!self.prototypeCell) {
             self.prototypeCell = [self.tableView dequeueReusableCellWithIdentifier:NoteCellId];
@@ -153,9 +171,9 @@ static NSString * const IssueDescriptionCellId = @"IssueDescriptionCell";
     } else if (section == 0 && row == 1) {
         IssueDescriptionCell *cell = [tableView dequeueReusableCellWithIdentifier:IssueDescriptionCellId forIndexPath:indexPath];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        cell.issueDescription.delegate = self;
         
         NSString *html = [NSString stringWithFormat:@"<html><head><meta name=\"viewport\" content=\"user-scalable=no, width=device-width\"></head><body>%@</body><html>", _issue.issueDescription];
-        
         [cell.issueDescription loadHTMLString:html baseURL:nil];
         
         return cell;
@@ -186,11 +204,22 @@ static NSString * const IssueDescriptionCellId = @"IssueDescriptionCell";
         titleView.text = _issue.title;
         titleView.font = [UIFont boldSystemFontOfSize:13];
         
-        CGSize size = [titleView sizeThatFits:CGSizeMake(330, MAXFLOAT)];
+        CGSize size = [titleView sizeThatFits:CGSizeMake(300, MAXFLOAT)];
         
         return size.height;
     }
     return 35;
+}
+
+#pragma mark - UIWebView Delegate Methods
+-(void)webViewDidFinishLoad:(UIWebView *)webView
+{
+    if (!_webViewFinishedLoad) {
+        _webViewFinishedLoad = YES;
+        _webViewHeight = [[webView stringByEvaluatingJavaScriptFromString:@"document.body.offsetHeight"] floatValue];
+        NSIndexPath *path = [NSIndexPath indexPathForRow:1 inSection:0];
+        [self.tableView reloadRowsAtIndexPaths:@[path] withRowAnimation:UITableViewRowAnimationNone];
+    }
 }
 
 #pragma mark - 编辑评论

@@ -9,10 +9,15 @@
 #import <UIKit/UIKit.h>
 
 @class GLIssue;
+@class IssueDescriptionCell;
 
-@interface NotesView : UITableViewController
+@interface NotesView : UITableViewController <UIWebViewDelegate>
 
 @property GLIssue *issue;
 @property NSMutableArray *notes;
+
+@property BOOL webViewFinishedLoad;
+@property (nonatomic, strong) IssueDescriptionCell *issueDescription;
+@property CGFloat webViewHeight;
 
 @end
