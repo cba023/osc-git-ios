@@ -47,6 +47,9 @@
     
     _body = [UITextView new];
     _body.backgroundColor = [UIColor clearColor];
+    _body.editable = NO;
+    _body.selectable = NO;
+    _body.scrollEnabled = NO;
     [self.contentView addSubview:_body];
     
     _time = [UILabel new];
@@ -70,10 +73,18 @@
                                                                              metrics:nil
                                                                                views:NSDictionaryOfVariableBindings(_portrait, _body)]];
     
+#if 1
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"[_body]-8-|"
+                                                                             options:0
+                                                                             metrics:nil
+                                                                               views:NSDictionaryOfVariableBindings(_body)]];
+    
+#else
     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[_time]-[_body]"
                                                                              options:NSLayoutFormatAlignAllRight
                                                                              metrics:nil
                                                                                views:NSDictionaryOfVariableBindings(_time, _body)]];
+#endif
 }
 
 

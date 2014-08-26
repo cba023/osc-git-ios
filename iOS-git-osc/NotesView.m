@@ -17,6 +17,8 @@
 
 @interface NotesView ()
 
+@property (nonatomic, strong) NoteCell *prototypeCell;
+
 @end
 
 static NSString * const NoteCellId = @"NoteCell";
@@ -41,6 +43,7 @@ static NSString * const IssueDescriptionCellId = @"IssueDescriptionCell";
     [self.tableView registerClass:[NoteCell class] forCellReuseIdentifier:NoteCellId];
     [self.tableView registerClass:[CreationInfoCell class] forCellReuseIdentifier:CreationInfoCellId];
     [self.tableView registerClass:[IssueDescriptionCell class] forCellReuseIdentifier:IssueDescriptionCellId];
+    
     _notes = [Note getNotesForIssue:_issue page:1];
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"评论"
@@ -80,19 +83,57 @@ static NSString * const IssueDescriptionCellId = @"IssueDescriptionCell";
     
     if (section == 0) {
         if (row == 0) {return 41;}
-        else {return 150;}
+        else {return 450;}
     } else {
-        return 90;
+        if (!self.prototypeCell) {
+            self.prototypeCell = [self.tableView dequeueReusableCellWithIdentifier:NoteCellId];
+        }
+        
+        [self configureNoteCell:self.prototypeCell forRowInSection:indexPath.row];
+        
+        [self.prototypeCell layoutIfNeeded];
+        CGSize size = [self.prototypeCell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
+        return size.height;
     }
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
     if (section == 0) {
-        return _issue.title;
+        return nil;
     } else {
         return [NSString stringWithFormat:@"%lu条评论", (unsigned long)_notes.count];
     }
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    if (section > 0) {return nil;}
+    UIView *headerView = [UIView new];
+    headerView.backgroundColor = [UIColor colorWithRed:247/255.0f green:247/255.0f blue:247/255.0f alpha:1.0f];
+    
+    UITextView *titleText = [UITextView new];
+    titleText.backgroundColor = [UIColor clearColor];
+    titleText.font = [UIFont boldSystemFontOfSize:13];
+    [headerView addSubview:titleText];
+    titleText.translatesAutoresizingMaskIntoConstraints = NO;
+    
+    [headerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[titleText]|"
+                                                                       options:0
+                                                                       metrics:nil
+                                                                         views:NSDictionaryOfVariableBindings(titleText)]];
+    
+    [headerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|-8-[titleText]-8-|"
+                                                                       options:0
+                                                                       metrics:nil
+                                                                         views:NSDictionaryOfVariableBindings(titleText)]];
+    
+    
+    if (section == 0) {
+        titleText.text = _issue.title;
+    }
+    
+    return headerView;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -101,6 +142,7 @@ static NSString * const IssueDescriptionCellId = @"IssueDescriptionCell";
     NSInteger row = indexPath.row;
     if (section == 0 && row == 0) {
         CreationInfoCell *cell = [tableView dequeueReusableCellWithIdentifier:CreationInfoCellId forIndexPath:indexPath];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
         
         [Tools setPortraitForUser:_issue.author view:cell.portrait cornerRadius:2.0];
         NSString *timeInterval = [Tools intervalSinceNow:_issue.createdAt];
@@ -110,6 +152,8 @@ static NSString * const IssueDescriptionCellId = @"IssueDescriptionCell";
         return cell;
     } else if (section == 0 && row == 1) {
         IssueDescriptionCell *cell = [tableView dequeueReusableCellWithIdentifier:IssueDescriptionCellId forIndexPath:indexPath];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        
         NSString *html = [NSString stringWithFormat:@"<html><head><meta name=\"viewport\" content=\"user-scalable=no, width=device-width\"></head><body>%@</body><html>", _issue.issueDescription];
         
         [cell.issueDescription loadHTMLString:html baseURL:nil];
@@ -117,20 +161,36 @@ static NSString * const IssueDescriptionCellId = @"IssueDescriptionCell";
         return cell;
     } else {
         NoteCell *cell = [tableView dequeueReusableCellWithIdentifier:NoteCellId forIndexPath:indexPath];
-        GLNote *note = [_notes objectAtIndex:row];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
         
-        [Tools setPortraitForUser:note.author view:cell.portrait cornerRadius:2.0];
-        [cell.author setText:note.author.name];
-        cell.body.text = [Tools flattenHTML:note.body];
-        [cell.time setAttributedText:[Tools getIntervalAttrStr:note.createdAt]];
+        [self configureNoteCell:cell forRowInSection:indexPath.row];
         
         return cell;
     }
 }
 
+- (void)configureNoteCell:(NoteCell *)noteCell forRowInSection:(NSInteger)row
+{
+    GLNote *note = [_notes objectAtIndex:row];
+    
+    [Tools setPortraitForUser:note.author view:noteCell.portrait cornerRadius:2.0];
+    [noteCell.author setText:note.author.name];
+    noteCell.body.text = [Tools flattenHTML:note.body];
+    [noteCell.time setAttributedText:[Tools getIntervalAttrStr:note.createdAt]];
+}
+
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)sectionIndex
 {
-    return 40;
+    if (sectionIndex == 0) {
+        UITextView *titleView = [UITextView new];
+        titleView.text = _issue.title;
+        titleView.font = [UIFont boldSystemFontOfSize:13];
+        
+        CGSize size = [titleView sizeThatFits:CGSizeMake(330, MAXFLOAT)];
+        
+        return size.height;
+    }
+    return 35;
 }
 
 #pragma mark - 编辑评论
