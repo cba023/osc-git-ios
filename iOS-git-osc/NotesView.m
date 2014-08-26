@@ -45,6 +45,7 @@ static NSString * const IssueDescriptionCellId = @"IssueDescriptionCell";
     [self.tableView registerClass:[IssueDescriptionCell class] forCellReuseIdentifier:IssueDescriptionCellId];
     
     _notes = [Note getNotesForIssue:_issue page:1];
+    _issueContentHTML = _issue.issueDescription;
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"评论"
                                                                               style:UIBarButtonItemStylePlain
@@ -86,21 +87,7 @@ static NSString * const IssueDescriptionCellId = @"IssueDescriptionCell";
             return 41;
         }
         else {
-#if 0
-            if (!_issueDescription) {
-                _issueDescription = [self.tableView dequeueReusableCellWithIdentifier:CreationInfoCellId];
-            }
-            _issueDescription.selectionStyle = UITableViewCellSelectionStyleNone;
-            
-            NSString *html = [NSString stringWithFormat:@"<html><head><meta name=\"viewport\" content=\"user-scalable=no, width=device-width\"></head><body>%@</body><html>", _issue.issueDescription];
-            
-            [_issueDescription.issueDescription loadHTMLString:html baseURL:nil];
-#endif
-            if (_webViewFinishedLoad) {
-                return _webViewHeight;
-            } else {
-                return 40;
-            }
+            return _webViewHeight + 10;
         }
     } else {
         if (!self.prototypeCell) {
@@ -172,9 +159,10 @@ static NSString * const IssueDescriptionCellId = @"IssueDescriptionCell";
         IssueDescriptionCell *cell = [tableView dequeueReusableCellWithIdentifier:IssueDescriptionCellId forIndexPath:indexPath];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.issueDescription.delegate = self;
+        cell.issueDescription.hidden = YES;
         
-        NSString *html = [NSString stringWithFormat:@"<html><head><meta name=\"viewport\" content=\"user-scalable=no, width=device-width\"></head><body>%@</body><html>", _issue.issueDescription];
-        [cell.issueDescription loadHTMLString:html baseURL:nil];
+        //NSString *html = [NSString stringWithFormat:@"<html><head><meta name=\"viewport\" content=\"user-scalable=no, width=device-width\"></head><body>%@</body><html>", _issue.issueDescription];
+        [cell.issueDescription loadHTMLString:_issueContentHTML baseURL:nil];
         
         return cell;
     } else {
@@ -211,15 +199,45 @@ static NSString * const IssueDescriptionCellId = @"IssueDescriptionCell";
     return 35;
 }
 
-#pragma mark - UIWebView Delegate Methods
+#pragma mark - UIWebView things
 -(void)webViewDidFinishLoad:(UIWebView *)webView
 {
-    if (!_webViewFinishedLoad) {
-        _webViewFinishedLoad = YES;
-        _webViewHeight = [[webView stringByEvaluatingJavaScriptFromString:@"document.body.offsetHeight"] floatValue];
-        NSIndexPath *path = [NSIndexPath indexPathForRow:1 inSection:0];
-        [self.tableView reloadRowsAtIndexPaths:@[path] withRowAnimation:UITableViewRowAnimationNone];
+    if (_isLoadingFinished) {
+        webView.hidden = NO;
+        return;
     }
+    
+    NSString *bodyWidth= [webView stringByEvaluatingJavaScriptFromString: @"document.body.scrollWidth "];
+    int widthOfBody = [bodyWidth intValue];
+    
+    //获取实际要显示的html
+    _issueContentHTML = [self htmlAdjustWithPageWidth:widthOfBody
+                                                 html:_issue.issueDescription
+                                              webView:webView];
+    
+    //加载实际要现实的html
+    //[webView loadHTMLString:html baseURL:nil];
+    NSIndexPath *path = [NSIndexPath indexPathForRow:1 inSection:0];
+    [self.tableView reloadRowsAtIndexPaths:@[path] withRowAnimation:UITableViewRowAnimationNone];
+    
+    //设置为已经加载完成
+    _isLoadingFinished = YES;
+}
+
+//获取宽度已经适配于webView的html。这里的原始html也可以通过js从webView里获取
+- (NSString *)htmlAdjustWithPageWidth:(CGFloat )pageWidth
+                                 html:(NSString *)html
+                              webView:(UIWebView *)webView
+{
+    //计算要缩放的比例
+    CGFloat initialScale = webView.frame.size.width/pageWidth;
+    _webViewHeight = [[webView stringByEvaluatingJavaScriptFromString:@"document.body.offsetHeight"] floatValue] * initialScale;
+    
+    NSString *header = [NSString stringWithFormat:@"<meta name=\"viewport\" content=\" initial-scale=%f, minimum-scale=0.1, maximum-scale=2.0, user-scalable=yes\">", initialScale];
+    
+    NSString *newHTML = [NSString stringWithFormat:@"<html><head>%@</head><body>%@</body></html>", header, html];
+    
+    return newHTML;
 }
 
 #pragma mark - 编辑评论

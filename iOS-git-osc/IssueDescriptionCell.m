@@ -43,7 +43,7 @@
     _issueDescription.scrollView.bounces = NO;
     _issueDescription.opaque = NO;
     _issueDescription.backgroundColor = [UIColor clearColor];
-    _issueDescription.scalesPageToFit = YES;
+    _issueDescription.scalesPageToFit = NO;
     [self.contentView addSubview:_issueDescription];
 }
 
@@ -51,12 +51,12 @@
 {
     [_issueDescription setTranslatesAutoresizingMaskIntoConstraints:NO];
     
-    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|-[_issueDescription]-|"
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|[_issueDescription]|"
                                                                              options:0
                                                                              metrics:nil
                                                                                views:NSDictionaryOfVariableBindings(_issueDescription)]];
     
-    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-8-[_issueDescription]-8-|"
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[_issueDescription]|"
                                                                              options:0
                                                                              metrics:nil
                                                                                views:NSDictionaryOfVariableBindings(_issueDescription)]];

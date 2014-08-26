@@ -19,5 +19,7 @@
 @property BOOL webViewFinishedLoad;
 @property (nonatomic, strong) IssueDescriptionCell *issueDescription;
 @property CGFloat webViewHeight;
+@property BOOL isLoadingFinished;
+@property NSString *issueContentHTML;
 
 @end
