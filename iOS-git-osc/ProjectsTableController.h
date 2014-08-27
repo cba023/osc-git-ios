@@ -10,7 +10,7 @@
 
 @interface ProjectsTableController : UITableViewController <UIScrollViewDelegate>
 
-@property NSMutableArray *projectsArray;
+@property NSMutableArray *projects;
 @property NSInteger projectsType;
 @property int64_t userID;
 @property NSInteger languageID;

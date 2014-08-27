@@ -181,6 +181,9 @@
 		009B5231199CAA4100E7F575 /* AccountManagement.m in Sources */ = {isa = PBXBuildFile; fileRef = 009B5230199CAA4100E7F575 /* AccountManagement.m */; };
 		00A74FD519A59FD7009DACDF /* SearchView.m in Sources */ = {isa = PBXBuildFile; fileRef = 00A74FD419A59FD7009DACDF /* SearchView.m */; };
 		00B01FE919221EB40095D488 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 00B01FE819221EB40095D488 /* User.m */; };
+		00B685B319AD8CFE00705534 /* StatusCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 00B685B219AD8CFE00705534 /* StatusCell.m */; };
+		00B685B619ADCF2A00705534 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 00B685B519ADCF2A00705534 /* Reachability.m */; };
+		00B685B819ADCF7D00705534 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00B685B719ADCF7D00705534 /* SystemConfiguration.framework */; };
 		00B7594E196BE989009C9C58 /* GLGitLabApi+Events.m in Sources */ = {isa = PBXBuildFile; fileRef = 00B7594D196BE989009C9C58 /* GLGitLabApi+Events.m */; };
 		00B75954196BEB6F009C9C58 /* EventCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 00B75953196BEB6F009C9C58 /* EventCell.m */; };
 		00B75957196BEB90009C9C58 /* EventsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 00B75956196BEB90009C9C58 /* EventsView.m */; };
@@ -477,6 +480,11 @@
 		00A74FD419A59FD7009DACDF /* SearchView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchView.m; sourceTree = "<group>"; };
 		00B01FE719221EB40095D488 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
 		00B01FE819221EB40095D488 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
+		00B685B119AD8CFE00705534 /* StatusCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StatusCell.h; sourceTree = "<group>"; };
+		00B685B219AD8CFE00705534 /* StatusCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StatusCell.m; sourceTree = "<group>"; };
+		00B685B419ADCF2A00705534 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
+		00B685B519ADCF2A00705534 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
+		00B685B719ADCF7D00705534 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		00B7594C196BE989009C9C58 /* GLGitLabApi+Events.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GLGitLabApi+Events.h"; sourceTree = "<group>"; };
 		00B7594D196BE989009C9C58 /* GLGitLabApi+Events.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "GLGitLabApi+Events.m"; sourceTree = "<group>"; };
 		00B75952196BEB6F009C9C58 /* EventCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventCell.h; sourceTree = "<group>"; };
@@ -533,6 +541,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				00B685B819ADCF7D00705534 /* SystemConfiguration.framework in Frameworks */,
 				00CF21DF1929EF890087AF83 /* ImageIO.framework in Frameworks */,
 				0021BAF41923608200626A2C /* Security.framework in Frameworks */,
 				0002D24C1916324B001FDED8 /* CoreGraphics.framework in Frameworks */,
@@ -579,6 +588,7 @@
 		0002D2481916324B001FDED8 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				00B685B719ADCF7D00705534 /* SystemConfiguration.framework */,
 				00CF21DE1929EF890087AF83 /* ImageIO.framework */,
 				0021BAF31923608200626A2C /* Security.framework */,
 				0002D2491916324B001FDED8 /* Foundation.framework */,
@@ -787,12 +797,16 @@
 		0057719619A6299500EAA606 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				00B685B419ADCF2A00705534 /* Reachability.h */,
+				00B685B519ADCF2A00705534 /* Reachability.m */,
 				0041FA99191C87AF00E1F237 /* Tools.h */,
 				0041FA9A191C87AF00E1F237 /* Tools.m */,
 				0057719319A6298900EAA606 /* DataSingleton.h */,
 				0057719419A6298900EAA606 /* DataSingleton.m */,
 				0057719019A625C500EAA606 /* LoadingCell.h */,
 				0057719119A625C500EAA606 /* LoadingCell.m */,
+				00B685B119AD8CFE00705534 /* StatusCell.h */,
+				00B685B219AD8CFE00705534 /* StatusCell.m */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
@@ -1304,6 +1318,7 @@
 				0021BAE9192342BD00626A2C /* GLGitlabApi.m in Sources */,
 				00760B8A19767BDA00C88C6F /* MKAnnotationView+WebCache.m in Sources */,
 				0002D2B319163DF6001FDED8 /* REFrostedContainerViewController.m in Sources */,
+				00B685B319AD8CFE00705534 /* StatusCell.m in Sources */,
 				0021BADA192342BD00626A2C /* GLTag.m in Sources */,
 				00760B9819767BDB00C88C6F /* UIImageView+WebCache.m in Sources */,
 				0021BADF192342BD00626A2C /* GLGitlabApi+Groups.m in Sources */,
@@ -1331,6 +1346,7 @@
 				0021BADB192342BD00626A2C /* GLUser.m in Sources */,
 				00D4ED2C196FF5C500F3A4A5 /* Note.m in Sources */,
 				0021BAD5192342BD00626A2C /* GLMilestone.m in Sources */,
+				00B685B619ADCF2A00705534 /* Reachability.m in Sources */,
 				00D4ED34196FF88300F3A4A5 /* NotesView.m in Sources */,
 				0002D2B219163DF6001FDED8 /* RECommonFunctions.m in Sources */,
 				0057719519A6298900EAA606 /* DataSingleton.m in Sources */,

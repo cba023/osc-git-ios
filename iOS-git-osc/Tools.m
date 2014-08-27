@@ -10,6 +10,7 @@
 #import "GLGitlab.h"
 #import <CommonCrypto/CommonDigest.h>
 #import "UIImageView+WebCache.h"
+#import "Reachability.h"
 //#import <SDWebImage/UIImageView+WebCache.h>
 
 @implementation Tools
@@ -257,6 +258,18 @@
     
     [self roundCorner:portraitView cornerRadius:cornerRadius];
 }
+
++ (NSInteger)networkStatus
+{
+    Reachability *reach = [Reachability reachabilityWithHostName:git_osc_url];
+    return [reach currentReachabilityStatus];
+}
+
++ (BOOL)isNetworkExist
+{
+    return [self networkStatus] > 0;
+}
+
 
 
 @end

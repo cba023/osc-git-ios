@@ -29,4 +29,7 @@
 + (void)roundCorner:(UIView *)view cornerRadius:(CGFloat)cornerRadius;
 + (void)setPortraitForUser:(GLUser *)user view:(UIImageView *)portraitView cornerRadius:(CGFloat)cornerRadius;
 
++ (NSInteger)networkStatus;
++ (BOOL)isNetworkExist;
+
 @end

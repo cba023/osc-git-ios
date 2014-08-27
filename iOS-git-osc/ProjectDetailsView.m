@@ -324,29 +324,25 @@ static NSString * const ProjectDetailsCellId = @"ProjectDetailsCell";
     [self.view addSubview:_timeInterval];
     
     _language = [UILabel new];
-    [_language setText:_project.language?_project.language: @""];
+    [_language setText:_project.language?_project.language: @"Unknown"];
     [self.view addSubview:_language];
     
     _starButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     [_starButton setImage:[UIImage imageNamed:@"star2"] forState:UIControlStateNormal];
-    //[_starButton setBackgroundColor:UIColorFromRGB(0x00FFFF)];
     _starButton.tintColor = [UIColor blackColor];
     //[Tools roundCorner:_starButton];
     //[_starButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    NSString *star = _project.starsCount > 1? @"stars": @"star";
-    [_starButton setTitle:[NSString stringWithFormat:@"%i %@", _project.starsCount, star] forState:UIControlStateNormal];
+    [_starButton setTitle:[NSString stringWithFormat:@"%i", _project.starsCount] forState:UIControlStateNormal];
     //[starButton setImage:[UIImage imageNamed:@"star2"] forState:UIControlStateSelected];
     //[starButton setTitle:[NSString stringWithFormat:@"%i stars", _project.starsCount+1] forState:UIControlStateSelected];
     [self.view addSubview:_starButton];
     
     _forkButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     [_forkButton setImage:[UIImage imageNamed:@"fork"] forState:UIControlStateNormal];
-    //[_forkButton setBackgroundColor:UIColorFromRGB(0x00FFFF)];
     _forkButton.tintColor = [UIColor blackColor];
     //[Tools roundCorner:_forkButton];
-    NSString *fork = _project.forksCount > 1? @"forks": @"fork";
     [_forkButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    [_forkButton setTitle:[NSString stringWithFormat:@"%i %@", _project.forksCount, fork] forState:UIControlStateNormal];
+    [_forkButton setTitle:[NSString stringWithFormat:@"%i", _project.forksCount] forState:UIControlStateNormal];
     [self.view addSubview:_forkButton];
     
     _projectInfo = [UITableView new];
@@ -372,7 +368,7 @@ static NSString * const ProjectDetailsCellId = @"ProjectDetailsCell";
                                                                       metrics:nil
                                                                         views:NSDictionaryOfVariableBindings(_portrait, _projectName)]];
     
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:[NSString stringWithFormat:@"|-(8)-[_language]-(%d)-[_starButton(_forkButton)]-(15)-[_forkButton(>=30)]", _project.language? 15: 0]
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|-(8)-[_language]-(15)-[_starButton(_forkButton)]-(15)-[_forkButton(>=30)]"
                                                                       options:NSLayoutFormatAlignAllCenterY
                                                                       metrics:nil
                                                                         views:NSDictionaryOfVariableBindings(_language, _starButton, _forkButton)]];
