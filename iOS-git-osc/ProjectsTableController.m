@@ -17,6 +17,9 @@
 
 @interface ProjectsTableController ()
 
+@property BOOL isLoadOver;
+@property BOOL isLoading;
+
 @end
 
 @implementation ProjectsTableController

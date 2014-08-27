@@ -15,8 +15,6 @@
 @property int64_t userID;
 @property NSInteger languageID;
 
-@property BOOL isLoadOver;
-
 - (void) reloadType:(NSInteger)newArrangeType;
 
 @end

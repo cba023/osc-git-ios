@@ -16,10 +16,4 @@
 @property GLIssue *issue;
 @property NSMutableArray *notes;
 
-@property BOOL webViewFinishedLoad;
-@property (nonatomic, strong) IssueDescriptionCell *issueDescription;
-@property CGFloat webViewHeight;
-@property BOOL isLoadingFinished;
-@property NSString *issueContentHTML;
-
 @end

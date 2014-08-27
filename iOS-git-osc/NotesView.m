@@ -19,6 +19,10 @@
 
 @property (nonatomic, strong) NoteCell *prototypeCell;
 
+@property BOOL isLoadingFinished;
+@property CGFloat webViewHeight;
+@property NSString *issueContentHTML;
+
 @end
 
 static NSString * const NoteCellId = @"NoteCell";
@@ -161,7 +165,6 @@ static NSString * const IssueDescriptionCellId = @"IssueDescriptionCell";
         cell.issueDescription.delegate = self;
         cell.issueDescription.hidden = YES;
         
-        //NSString *html = [NSString stringWithFormat:@"<html><head><meta name=\"viewport\" content=\"user-scalable=no, width=device-width\"></head><body>%@</body><html>", _issue.issueDescription];
         [cell.issueDescription loadHTMLString:_issueContentHTML baseURL:nil];
         
         return cell;
@@ -200,6 +203,9 @@ static NSString * const IssueDescriptionCellId = @"IssueDescriptionCell";
 }
 
 #pragma mark - UIWebView things
+
+//http://borissun.iteye.com/blog/2023712 helps a lot
+
 -(void)webViewDidFinishLoad:(UIWebView *)webView
 {
     if (_isLoadingFinished) {
@@ -225,7 +231,7 @@ static NSString * const IssueDescriptionCellId = @"IssueDescriptionCell";
 }
 
 //获取宽度已经适配于webView的html。这里的原始html也可以通过js从webView里获取
-- (NSString *)htmlAdjustWithPageWidth:(CGFloat )pageWidth
+- (NSString *)htmlAdjustWithPageWidth:(CGFloat)pageWidth
                                  html:(NSString *)html
                               webView:(UIWebView *)webView
 {
@@ -233,7 +239,7 @@ static NSString * const IssueDescriptionCellId = @"IssueDescriptionCell";
     CGFloat initialScale = webView.frame.size.width/pageWidth;
     _webViewHeight = [[webView stringByEvaluatingJavaScriptFromString:@"document.body.offsetHeight"] floatValue] * initialScale;
     
-    NSString *header = [NSString stringWithFormat:@"<meta name=\"viewport\" content=\" initial-scale=%f, minimum-scale=0.1, maximum-scale=2.0, user-scalable=yes\">", initialScale];
+    NSString *header = [NSString stringWithFormat:@"<meta name=\"viewport\" content=\" initial-scale=%f, minimum-scale=0.1, maximum-scale=2.0, user-scalable=no\">", initialScale];
     
     NSString *newHTML = [NSString stringWithFormat:@"<html><head>%@</head><body>%@</body></html>", header, html];
     
