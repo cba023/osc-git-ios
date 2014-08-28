@@ -75,8 +75,6 @@
 		003232BC19A49F71007243CA /* MenuOrgs@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 003232B819A49F71007243CA /* MenuOrgs@2x.png */; };
 		0041FA9B191C87AF00E1F237 /* Tools.m in Sources */ = {isa = PBXBuildFile; fileRef = 0041FA9A191C87AF00E1F237 /* Tools.m */; };
 		00541C0A196684AB002EC356 /* GLBlob.m in Sources */ = {isa = PBXBuildFile; fileRef = 00541C09196684AB002EC356 /* GLBlob.m */; };
-		0057719219A625C500EAA606 /* LoadingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0057719119A625C500EAA606 /* LoadingCell.m */; };
-		0057719519A6298900EAA606 /* DataSingleton.m in Sources */ = {isa = PBXBuildFile; fileRef = 0057719419A6298900EAA606 /* DataSingleton.m */; };
 		0057719919A73D6A00EAA606 /* LanguageSearchView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0057719819A73D6A00EAA606 /* LanguageSearchView.m */; };
 		0057719C19A73F8C00EAA606 /* GLLanguage.m in Sources */ = {isa = PBXBuildFile; fileRef = 0057719B19A73F8C00EAA606 /* GLLanguage.m */; };
 		0062237D1963F30D00454CB9 /* back@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0062237C1963F30D00454CB9 /* back@2x.png */; };
@@ -181,7 +179,7 @@
 		009B5231199CAA4100E7F575 /* AccountManagement.m in Sources */ = {isa = PBXBuildFile; fileRef = 009B5230199CAA4100E7F575 /* AccountManagement.m */; };
 		00A74FD519A59FD7009DACDF /* SearchView.m in Sources */ = {isa = PBXBuildFile; fileRef = 00A74FD419A59FD7009DACDF /* SearchView.m */; };
 		00B01FE919221EB40095D488 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 00B01FE819221EB40095D488 /* User.m */; };
-		00B685B319AD8CFE00705534 /* StatusCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 00B685B219AD8CFE00705534 /* StatusCell.m */; };
+		00B481B819AED592001F3B2D /* LastCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 00B481B719AED592001F3B2D /* LastCell.m */; };
 		00B685B619ADCF2A00705534 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 00B685B519ADCF2A00705534 /* Reachability.m */; };
 		00B685B819ADCF7D00705534 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00B685B719ADCF7D00705534 /* SystemConfiguration.framework */; };
 		00B7594E196BE989009C9C58 /* GLGitLabApi+Events.m in Sources */ = {isa = PBXBuildFile; fileRef = 00B7594D196BE989009C9C58 /* GLGitLabApi+Events.m */; };
@@ -346,10 +344,6 @@
 		0041FA9A191C87AF00E1F237 /* Tools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Tools.m; sourceTree = "<group>"; };
 		00541C08196684AB002EC356 /* GLBlob.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLBlob.h; sourceTree = "<group>"; };
 		00541C09196684AB002EC356 /* GLBlob.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GLBlob.m; sourceTree = "<group>"; };
-		0057719019A625C500EAA606 /* LoadingCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoadingCell.h; sourceTree = "<group>"; };
-		0057719119A625C500EAA606 /* LoadingCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoadingCell.m; sourceTree = "<group>"; };
-		0057719319A6298900EAA606 /* DataSingleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataSingleton.h; sourceTree = "<group>"; };
-		0057719419A6298900EAA606 /* DataSingleton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataSingleton.m; sourceTree = "<group>"; };
 		0057719719A73D6A00EAA606 /* LanguageSearchView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LanguageSearchView.h; sourceTree = "<group>"; };
 		0057719819A73D6A00EAA606 /* LanguageSearchView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LanguageSearchView.m; sourceTree = "<group>"; };
 		0057719A19A73F8C00EAA606 /* GLLanguage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLLanguage.h; sourceTree = "<group>"; };
@@ -480,8 +474,8 @@
 		00A74FD419A59FD7009DACDF /* SearchView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchView.m; sourceTree = "<group>"; };
 		00B01FE719221EB40095D488 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
 		00B01FE819221EB40095D488 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
-		00B685B119AD8CFE00705534 /* StatusCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StatusCell.h; sourceTree = "<group>"; };
-		00B685B219AD8CFE00705534 /* StatusCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StatusCell.m; sourceTree = "<group>"; };
+		00B481B619AED592001F3B2D /* LastCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LastCell.h; sourceTree = "<group>"; };
+		00B481B719AED592001F3B2D /* LastCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LastCell.m; sourceTree = "<group>"; };
 		00B685B419ADCF2A00705534 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		00B685B519ADCF2A00705534 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		00B685B719ADCF7D00705534 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
@@ -801,12 +795,8 @@
 				00B685B519ADCF2A00705534 /* Reachability.m */,
 				0041FA99191C87AF00E1F237 /* Tools.h */,
 				0041FA9A191C87AF00E1F237 /* Tools.m */,
-				0057719319A6298900EAA606 /* DataSingleton.h */,
-				0057719419A6298900EAA606 /* DataSingleton.m */,
-				0057719019A625C500EAA606 /* LoadingCell.h */,
-				0057719119A625C500EAA606 /* LoadingCell.m */,
-				00B685B119AD8CFE00705534 /* StatusCell.h */,
-				00B685B219AD8CFE00705534 /* StatusCell.m */,
+				00B481B619AED592001F3B2D /* LastCell.h */,
+				00B481B719AED592001F3B2D /* LastCell.m */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
@@ -1301,6 +1291,7 @@
 				00A74FD519A59FD7009DACDF /* SearchView.m in Sources */,
 				00D4ED26196F9B9900F3A4A5 /* IssueCell.m in Sources */,
 				0021BAEB192342BD00626A2C /* GLNetworkOperation.m in Sources */,
+				00B481B819AED592001F3B2D /* LastCell.m in Sources */,
 				00760B8D19767BDB00C88C6F /* SDWebImageCompat.m in Sources */,
 				0021BADD192342BD00626A2C /* GLGitlabApi+Commits.m in Sources */,
 				00D4ED23196F97FE00F3A4A5 /* Issue.m in Sources */,
@@ -1318,7 +1309,6 @@
 				0021BAE9192342BD00626A2C /* GLGitlabApi.m in Sources */,
 				00760B8A19767BDA00C88C6F /* MKAnnotationView+WebCache.m in Sources */,
 				0002D2B319163DF6001FDED8 /* REFrostedContainerViewController.m in Sources */,
-				00B685B319AD8CFE00705534 /* StatusCell.m in Sources */,
 				0021BADA192342BD00626A2C /* GLTag.m in Sources */,
 				00760B9819767BDB00C88C6F /* UIImageView+WebCache.m in Sources */,
 				0021BADF192342BD00626A2C /* GLGitlabApi+Groups.m in Sources */,
@@ -1349,7 +1339,6 @@
 				00B685B619ADCF2A00705534 /* Reachability.m in Sources */,
 				00D4ED34196FF88300F3A4A5 /* NotesView.m in Sources */,
 				0002D2B219163DF6001FDED8 /* RECommonFunctions.m in Sources */,
-				0057719519A6298900EAA606 /* DataSingleton.m in Sources */,
 				00760B9519767BDB00C88C6F /* UIImage+MultiFormat.m in Sources */,
 				0002D2C119164B02001FDED8 /* NavigationController.m in Sources */,
 				00B75957196BEB90009C9C58 /* EventsView.m in Sources */,
@@ -1360,7 +1349,6 @@
 				0021BAE8192342BD00626A2C /* GLGitlabApi+Users.m in Sources */,
 				0021BAD6192342BD00626A2C /* GLNamespace.m in Sources */,
 				00C3A40F196113E7002A34AB /* ProjectsViewController.m in Sources */,
-				0057719219A625C500EAA606 /* LoadingCell.m in Sources */,
 				0021BACE192342BD00626A2C /* GLCommit.m in Sources */,
 				00760B9019767BDB00C88C6F /* SDWebImageDownloaderOperation.m in Sources */,
 				0021BAE4192342BD00626A2C /* GLGitlabApi+Projects.m in Sources */,

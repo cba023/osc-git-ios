@@ -14,14 +14,14 @@
 #import "Tools.h"
 #import "ProjectDetailsView.h"
 #import "NavigationController.h"
-#import "LoadingCell.h"
+#import "LastCell.h"
 
 @interface SearchView ()
 
 @end
 
 static NSString * const SearchResultsCellID = @"SearchResultsCell";
-static NSString * const LoadingCellID = @"LoadingCell";
+static NSString * const LastCellID = @"LastCell";
 
 
 @implementation SearchView
@@ -182,12 +182,12 @@ static NSString * const LoadingCellID = @"LoadingCell";
             return cell;
         } else {
             //return [[DataSingleton Instance] getLoadMoreCell:tableView andIsLoadOver:isLoadOver andLoadOverString:@"搜索完毕" andLoadingString:(isLoading ? loadingTip : loadNext20Tip) andIsLoading:isLoading];
-            LoadingCell *cell = [tableView dequeueReusableCellWithIdentifier:LoadingCellID forIndexPath:indexPath];
+            LastCell *cell = [tableView dequeueReusableCellWithIdentifier:LastCellID forIndexPath:indexPath];
             return cell;
         }
     } else {
         //return [[DataSingleton Instance] getLoadMoreCell:tableView andIsLoadOver:isLoadOver andLoadOverString:@"查无结果" andLoadingString:(isLoading ? loadingTip : loadNext20Tip) andIsLoading:isLoading];
-        LoadingCell *cell = [tableView dequeueReusableCellWithIdentifier:LoadingCellID forIndexPath:indexPath];
+        LastCell *cell = [tableView dequeueReusableCellWithIdentifier:LastCellID forIndexPath:indexPath];
         return cell;
     }
 }
@@ -220,7 +220,7 @@ static NSString * const LoadingCellID = @"LoadingCell";
     _resultsTable.dataSource = self;
     _resultsTable.delegate = self;
     [_resultsTable registerClass:[ProjectCell class] forCellReuseIdentifier:SearchResultsCellID];
-    [_resultsTable registerClass:[LoadingCell class] forCellReuseIdentifier:LoadingCellID];
+    [_resultsTable registerClass:[LastCell class] forCellReuseIdentifier:LastCellID];
     [self.view addSubview:_resultsTable];
 }
 

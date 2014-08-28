@@ -14,9 +14,8 @@
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
-        UIColor *bgColor = [UIColor colorWithRed:235.0/255 green:235.0/255 blue:243.0/255 alpha:1.0];
-        self.contentView.backgroundColor = bgColor;
-    
+        self.backgroundColor = [UIColor clearColor];
+        
         [self initSubViews];
         [self setLayout];
     }

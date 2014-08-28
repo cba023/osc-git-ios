@@ -14,12 +14,13 @@
 #import "GLGitlab.h"
 #import "Project.h"
 #import "Tools.h"
-#import "StatusCell.h"
+#import "LastCell.h"
 
 @interface ProjectsTableController ()
 
-@property BOOL isLoadOver;
+@property BOOL isFinishedLoad;
 @property BOOL isLoading;
+@property LastCell *lastCell;
 
 @end
 
@@ -51,6 +52,7 @@ static NSString * const cellId = @"ProjectCell";
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     [self.tableView registerClass:[ProjectCell class] forCellReuseIdentifier:cellId];
+    self.tableView.backgroundColor = [UIColor colorWithRed:235.0/255 green:235.0/255 blue:243.0/255 alpha:1.0];
     self.navigationController.navigationBar.translucent = NO;
     
     self.refreshControl = [UIRefreshControl new];
@@ -58,6 +60,8 @@ static NSString * const cellId = @"ProjectCell";
     [self.tableView addSubview:self.refreshControl];
     
     self.projects = [NSMutableArray new];
+    _lastCell = [[LastCell alloc] initCell];
+    _isFinishedLoad = NO;
 }
 
 - (void)didReceiveMemoryWarning
@@ -75,12 +79,6 @@ static NSString * const cellId = @"ProjectCell";
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (projects.count == 0) {
-        NSInteger status = _isLoadOver? 3: 0;
-        StatusCell *statusCell = [[StatusCell alloc] initWithStatus:status];
-        return statusCell;
-    }
-    
     if (indexPath.row < projects.count) {
         ProjectCell *cell = [tableView dequeueReusableCellWithIdentifier:cellId forIndexPath:indexPath];
         
@@ -95,9 +93,7 @@ static NSString * const cellId = @"ProjectCell";
         
         return cell;
     } else {
-        NSInteger status = _isLoading? 1: 2;
-        StatusCell *statusCell = [[StatusCell alloc] initWithStatus:status];
-        return statusCell;
+        return _lastCell;
     }
 }
 
@@ -105,7 +101,7 @@ static NSString * const cellId = @"ProjectCell";
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     NSInteger row = indexPath.row;
-    if (_isLoadOver && projects.count == 0) {
+    if (_isFinishedLoad && projects.count == 0) {
         return;
     }
     if (row < self.projects.count) {
@@ -136,10 +132,7 @@ static NSString * const cellId = @"ProjectCell";
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    if (_isLoadOver) {
-        return projects.count == 0? 1: projects.count;
-    }
-    return self.projects.count;
+    return self.projects.count + 1;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -152,7 +145,7 @@ static NSString * const cellId = @"ProjectCell";
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
 {
-    if (_isLoadOver || _isLoading) {return;}
+    if (_isFinishedLoad || _isLoading) {return;}
     
     // 下拉到最底部时显示更多数据
 	if(scrollView.contentOffset.y > ((scrollView.contentSize.height - scrollView.frame.size.height)))
@@ -163,16 +156,19 @@ static NSString * const cellId = @"ProjectCell";
 
 - (void)loadMore
 {
-    if (_isLoadOver || _isLoading) {return;}
-    _isLoading = YES;
-    
+    if (_isFinishedLoad || _isLoading) {return;}
+
+    [_lastCell loading];
     NSUInteger page = projects.count/20 + 1;
     [self.projects addObjectsFromArray:[self loadProjectsPage:page]];
     
-    _isLoading = NO;
-    
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.tableView reloadData];
+        if (_isFinishedLoad) {
+            [_lastCell finishedLoad];
+        } else {
+            [_lastCell normal];
+        }
     });
 }
 
@@ -209,7 +205,7 @@ static NSString * const cellId = @"ProjectCell";
 {
     _projectsType = NewProjectsType;
     [self.projects removeAllObjects];
-    _isLoadOver = NO;
+    _isFinishedLoad = NO;
     
     [self.projects addObjectsFromArray:[Project loadExtraProjectType:_projectsType onPage:1]];
     
@@ -236,7 +232,7 @@ static NSString * const cellId = @"ProjectCell";
     }
     
     if (newProjects.count < 20) {
-        _isLoadOver = YES;
+        _isFinishedLoad = YES;
     }
     
     return newProjects;
