@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ReadmeView : UIViewController
+@interface ReadmeView : UIViewController <UIWebViewDelegate>
 
 @property int64_t projectID;
 @property UIWebView *readme;

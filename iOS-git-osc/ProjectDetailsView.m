@@ -44,11 +44,6 @@ static NSString * const ProjectDetailsCellId = @"ProjectDetailsCell";
         _parentProject = [Project getASingleProject:_project.parentId];
     }
     
-    if (_project.projectDescription.length == 0) {
-        //_project.projectDescription = @"暂无介绍";
-        _haveADescription = YES;
-    }
-    
     [self initSubviews];
     [self setAutoLayout];
 }
@@ -205,13 +200,13 @@ static NSString * const ProjectDetailsCellId = @"ProjectDetailsCell";
                 if (_parentProject) {break;}
                 else {
                     ReadmeView *readme = [[ReadmeView alloc] initWithProjectID:_project.projectId];
-                    [self.navigationController pushViewController:readme animated:YES];
+                    [self.navigationController pushViewController:readme animated:NO];
                 }
                 break;
             }
             case 3: {
                 ReadmeView *readme = [[ReadmeView alloc] initWithProjectID:_project.projectId];
-                [self.navigationController pushViewController:readme animated:YES];
+                [self.navigationController pushViewController:readme animated:NO];
                 break;
             }
             default:
@@ -276,7 +271,11 @@ static NSString * const ProjectDetailsCellId = @"ProjectDetailsCell";
             } else {
                 content.lineBreakMode = NSLineBreakByCharWrapping;
                 content.numberOfLines = 0;
-                [content setText:_project.projectDescription];
+                if (_project.projectDescription.length) {
+                    [content setText:_project.projectDescription];
+                } else {
+                    [content setText:@"暂无项目介绍"];
+                }
                 cell.accessoryType = UITableViewCellAccessoryNone;
             }
             break;
@@ -351,6 +350,8 @@ static NSString * const ProjectDetailsCellId = @"ProjectDetailsCell";
     [_projectInfo registerClass:[UITableViewCell class] forCellReuseIdentifier:ProjectDetailsCellId];
     _projectInfo.dataSource = self;
     _projectInfo.delegate = self;
+    _projectInfo.bounces = NO;
+    //_projectInfo.scrollEnabled = NO;
     [self.view addSubview:_projectInfo];
 }
 

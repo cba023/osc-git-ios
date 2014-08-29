@@ -149,7 +149,7 @@ static NSString * const kKeyPortrait = @"new_portrait";
     UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, 34)];
     view.backgroundColor = [UIColor colorWithRed:167/255.0f green:167/255.0f blue:167/255.0f alpha:0.6f];
     
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(10, 8, 0, 0)];
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(62, 8, 0, 0)];
     label.text = headerNames[sectionIndex];
     label.font = [UIFont systemFontOfSize:15];
     label.textColor = [UIColor whiteColor];

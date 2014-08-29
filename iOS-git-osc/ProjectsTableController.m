@@ -55,13 +55,15 @@ static NSString * const cellId = @"ProjectCell";
     self.tableView.backgroundColor = [UIColor colorWithRed:235.0/255 green:235.0/255 blue:243.0/255 alpha:1.0];
     self.navigationController.navigationBar.translucent = NO;
     
-    self.refreshControl = [UIRefreshControl new];
-    [self.refreshControl addTarget:self action:@selector(refresh) forControlEvents:UIControlEventValueChanged];
-    [self.tableView addSubview:self.refreshControl];
+    //self.refreshControl = [UIRefreshControl new];
+    //[self.refreshControl addTarget:self action:@selector(refresh) forControlEvents:UIControlEventValueChanged];
+    //[self.tableView addSubview:self.refreshControl];
     
     self.projects = [NSMutableArray new];
     _lastCell = [[LastCell alloc] initCell];
     _isFinishedLoad = NO;
+    
+    [self loadMore];
 }
 
 - (void)didReceiveMemoryWarning
@@ -71,7 +73,13 @@ static NSString * const cellId = @"ProjectCell";
 
 - (void)viewDidAppear:(BOOL)animated
 {
-    [self loadMore];
+    [super viewDidAppear:animated];
+    //[self loadMore];
+}
+
+- (void)viewDidDisappear:(BOOL)animated
+{
+    
 }
 
 

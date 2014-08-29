@@ -229,8 +229,8 @@ static NSString * const kKeyPage = @"page";
                                        failure:(GLGitlabFailureBlock)failureBlock
 {
     NSMutableURLRequest *request = [self requestForEndPoint:[NSString stringWithFormat:kProjectReadmeEndPoint, projectID]
+                                                     params:@{kKeyPrivate_token: privateToken}
                                                      method:GLNetworkOperationGetMethod];
-    if (privateToken) {request.HTTPBody = [self urlEncodeParams:@{kKeyPrivate_token: privateToken}];}
 
     GLNetworkOperationSuccessBlock localSuccessBlock = [self singleObjectSuccessBlockForClass:[GLBlob class] successBlock:successBlock];
     GLNetworkOperationFailureBlock localFailureBlock = [self defaultFailureBlock:failureBlock];
