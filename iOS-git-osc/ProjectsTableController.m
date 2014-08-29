@@ -56,7 +56,7 @@ static NSString * const cellId = @"ProjectCell";
     self.navigationController.navigationBar.translucent = NO;
     
     self.refreshControl = [UIRefreshControl new];
-    [self.refreshControl addTarget:self action:@selector(refreshView:) forControlEvents:UIControlEventValueChanged];
+    [self.refreshControl addTarget:self action:@selector(refresh) forControlEvents:UIControlEventValueChanged];
     [self.tableView addSubview:self.refreshControl];
     
     self.projects = [NSMutableArray new];
@@ -145,8 +145,6 @@ static NSString * const cellId = @"ProjectCell";
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
 {
-    if (_isFinishedLoad || _isLoading) {return;}
-    
     // 下拉到最底部时显示更多数据
 	if(scrollView.contentOffset.y > ((scrollView.contentSize.height - scrollView.frame.size.height)))
 	{
@@ -156,7 +154,7 @@ static NSString * const cellId = @"ProjectCell";
 
 - (void)loadMore
 {
-    if (_isFinishedLoad || _isLoading) {return;}
+    if (_isFinishedLoad) {return;}
 
     [_lastCell loading];
     NSUInteger page = projects.count/20 + 1;
@@ -175,26 +173,24 @@ static NSString * const cellId = @"ProjectCell";
 
 #pragma mark - 刷新
 
-- (void)refreshView:(UIRefreshControl *)refreshControl
+- (void)refresh
 {
-    // http://stackoverflow.com/questions/19683892/pull-to-refresh-crashes-app helps a lot
-    
     static BOOL refreshInProgress = NO;
-    _isLoading = YES;
     
     if (!refreshInProgress)
     {
         refreshInProgress = YES;
-        [self.projects removeAllObjects];
-        
+
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-            [self.projects addObjectsFromArray:[self loadProjectsPage:1]];
-            _isLoading = NO;
+            NSArray *newProjects = [self loadProjectsPage:1];
+            if (newProjects.count > 0) {
+                [self.projects removeAllObjects];
+                [self.projects addObjectsFromArray:newProjects];
+            }
             
             dispatch_async(dispatch_get_main_queue(), ^{
-                [self.refreshControl endRefreshing];
                 [self.tableView reloadData];
-                
+                [self.refreshControl endRefreshing];
                 refreshInProgress = NO;
             });
         });
@@ -204,14 +200,14 @@ static NSString * const cellId = @"ProjectCell";
 - (void)reloadType:(NSInteger)NewProjectsType
 {
     _projectsType = NewProjectsType;
-    [self.projects removeAllObjects];
     _isFinishedLoad = NO;
-    
-    [self.projects addObjectsFromArray:[Project loadExtraProjectType:_projectsType onPage:1]];
+    [self.projects removeAllObjects];
     
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.tableView reloadData];
     });
+    
+    [self loadMore];
 }
 
 

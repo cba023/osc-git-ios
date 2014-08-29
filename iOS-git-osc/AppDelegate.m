@@ -33,10 +33,14 @@
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
     
-    [[UINavigationBar appearance] setBarTintColor:UIColorFromRGB(0x0a5090)];
-    NSDictionary *navbarTitleTextAttributes = @{NSForegroundColorAttributeName:[UIColor whiteColor]};
-    [[UINavigationBar appearance] setTitleTextAttributes:navbarTitleTextAttributes];
-    [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
+    if([[[UIDevice currentDevice] systemVersion] floatValue]>=7.0) {
+        [[UINavigationBar appearance] setBarTintColor:UIColorFromRGB(0x0a5090)];
+        NSDictionary *navbarTitleTextAttributes = @{NSForegroundColorAttributeName:[UIColor whiteColor]};
+        [[UINavigationBar appearance] setTitleTextAttributes:navbarTitleTextAttributes];
+        [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
+    } else {
+        [[UINavigationBar appearance] setBackgroundColor:UIColorFromRGB(0x0a5090)];
+    }
 
     return YES;
 }

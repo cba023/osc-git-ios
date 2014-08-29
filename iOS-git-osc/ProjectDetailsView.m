@@ -44,10 +44,9 @@ static NSString * const ProjectDetailsCellId = @"ProjectDetailsCell";
         _parentProject = [Project getASingleProject:_project.parentId];
     }
     
-    if (_project.description && ![Tools isEmptyString:_project.description]) {
+    if (_project.projectDescription.length == 0) {
+        //_project.projectDescription = @"暂无介绍";
         _haveADescription = YES;
-    } else {
-        _haveADescription = NO;
     }
     
     [self initSubviews];
@@ -89,9 +88,8 @@ static NSString * const ProjectDetailsCellId = @"ProjectDetailsCell";
 {
     switch (section) {
         case 0: {
-            int sectionsCount = 2;
+            int sectionsCount = 3;
             if (_project.parentId) {sectionsCount++;}
-            if (_project.projectDescription && ![_project.projectDescription isEqualToString:@""]) {sectionsCount++;}
             return sectionsCount;
         }
         case 1:
@@ -163,6 +161,18 @@ static NSString * const ProjectDetailsCellId = @"ProjectDetailsCell";
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    NSInteger section = indexPath.section, row = indexPath.row;
+    if (section == 0) {
+        if ((row == 1 && !_parentProject) || (row == 2 && _parentProject)) {
+            UITextView *titleView = [UITextView new];
+            titleView.text = _project.projectDescription;
+            titleView.font = [UIFont boldSystemFontOfSize:14];
+            
+            CGSize size = [titleView sizeThatFits:CGSizeMake(tableView.frame.size.width - 60, MAXFLOAT)];
+            
+            return size.height + 20;
+        }
+    }
     return 40;
 }
 
@@ -188,20 +198,12 @@ static NSString * const ProjectDetailsCellId = @"ProjectDetailsCell";
                 if (_parentProject) {
                     ProjectDetailsView *parentProjectDetails = [[ProjectDetailsView alloc] initWithProject:_parentProject];
                     [self.navigationController pushViewController:parentProjectDetails animated:YES];
-                } else if (!_haveADescription) {
-                    ReadmeView *readme = [[ReadmeView alloc] initWithProjectID:_project.projectId];
-                    [self.navigationController pushViewController:readme animated:YES];
                 }
                 break;
             }
             case 2: {
-                if (_haveADescription) {
-                    if (_parentProject) {break;}
-                    else {
-                        ReadmeView *readme = [[ReadmeView alloc] initWithProjectID:_project.projectId];
-                        [self.navigationController pushViewController:readme animated:YES];
-                    }
-                } else {
+                if (_parentProject) {break;}
+                else {
                     ReadmeView *readme = [[ReadmeView alloc] initWithProjectID:_project.projectId];
                     [self.navigationController pushViewController:readme animated:YES];
                 }
@@ -245,52 +247,52 @@ static NSString * const ProjectDetailsCellId = @"ProjectDetailsCell";
 {
     NSDictionary *nameAttributes = @{NSForegroundColorAttributeName: [UIColor grayColor]};
     
+    UILabel *content = [UILabel new];
+    [cell.contentView addSubview:content];
+    content.translatesAutoresizingMaskIntoConstraints = NO;
+    [cell.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-5-[content]-5-|"
+                                                                            options:0
+                                                                            metrics:nil
+                                                                              views:NSDictionaryOfVariableBindings(content)]];
+    
+    [cell.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|-[content]-|"
+                                                                             options:0
+                                                                             metrics:nil
+                                                                               views:NSDictionaryOfVariableBindings(content)]];
+    
     switch (row) {
         case 0: {
-            UILabel *owner = [[UILabel alloc] initWithFrame:CGRectMake(20, 9, 254, 21)];
             NSMutableAttributedString *ownerAttrTxt = [[NSMutableAttributedString alloc] initWithString:@"拥有者 " attributes:nameAttributes];
             [ownerAttrTxt appendAttributedString:[[NSAttributedString alloc] initWithString:_project.owner.name]];
-            [owner setAttributedText:ownerAttrTxt];
-            [cell.contentView addSubview:owner];
+            [content setAttributedText:ownerAttrTxt];
             break;
         }
         case 1: {
             if (_parentProject) {
-                UILabel *forkFrom = [[UILabel alloc] initWithFrame:CGRectMake(20, 9, 254, 21)];
                 NSMutableAttributedString *forkFromAttrTxt = [[NSMutableAttributedString alloc] initWithString:@"fork from "
                                                                                                     attributes:nameAttributes];
                 [forkFromAttrTxt appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@ / %@", _parentProject.owner.name, _parentProject.name]]];
-                [forkFrom setAttributedText:forkFromAttrTxt];
-                [cell.contentView addSubview:forkFrom];
-            } else if (_project.projectDescription && ![_project.projectDescription isEqualToString:@""]) {
-                UILabel *description = [[UILabel alloc] initWithFrame:CGRectMake(20, 9, 254, 21)];
-                [description setText:_project.projectDescription];
-                cell.accessoryType = UITableViewCellAccessoryNone;
-                [cell.contentView addSubview:description];
+                [content setAttributedText:forkFromAttrTxt];
             } else {
-                UILabel *readme = [[UILabel alloc] initWithFrame:CGRectMake(20, 9, 254, 21)];
-                [readme setText:@"README"];
-                [cell.contentView addSubview:readme];
+                content.lineBreakMode = NSLineBreakByCharWrapping;
+                content.numberOfLines = 0;
+                [content setText:_project.projectDescription];
+                cell.accessoryType = UITableViewCellAccessoryNone;
             }
             break;
         }
         case 2: {
             if (_project.projectDescription && _parentProject) {
-                UILabel *description = [[UILabel alloc] initWithFrame:CGRectMake(20, 9, 254, 21)];
-                [description setText:_project.projectDescription];
+                [content setText:_project.projectDescription];
                 cell.accessoryType = UITableViewCellAccessoryNone;
-                [cell.contentView addSubview:description];
             } else {
-                UILabel *readme = [[UILabel alloc] initWithFrame:CGRectMake(20, 9, 254, 21)];
-                [readme setText:@"README"];
-                [cell.contentView addSubview:readme];
+                [content setText:@"README"];
+                [cell.contentView addSubview:content];
             }
             break;
         }
         case 3: {
-            UILabel *readme = [[UILabel alloc] initWithFrame:CGRectMake(20, 9, 254, 21)];
-            [readme setText:@"README"];
-            [cell.contentView addSubview:readme];
+            [content setText:@"README"];
             break;
         }
         default:
