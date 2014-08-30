@@ -90,8 +90,6 @@ static NSString * const LastCellID = @"LastCell";
     _isLoading = YES;
     __block BOOL done = NO;
     
-    //[_projects addObjectsFromArray:[Project searchProjects:_searchBar.text page:_projects.count/15+1]];
-    
     [[GLGitlabApi sharedInstance] searchProjectsByQuery:_searchBar.text
                                                    page:_projects.count/15+1
                                                 success:^(id responseObject) {
@@ -143,6 +141,7 @@ static NSString * const LastCellID = @"LastCell";
         return _projects.count + 1;
     }
 }
+
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
 #if 0
@@ -155,14 +154,6 @@ static NSString * const LastCellID = @"LastCell";
     return 60;
 #endif
 }
-
-#if 0
-- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    cell.backgroundColor = [Tool getCellBackgroundColor];
-}
-#endif
-
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {

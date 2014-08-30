@@ -55,9 +55,11 @@ static NSString * const cellId = @"ProjectCell";
     self.tableView.backgroundColor = [UIColor colorWithRed:235.0/255 green:235.0/255 blue:243.0/255 alpha:1.0];
     self.navigationController.navigationBar.translucent = NO;
     
-    //self.refreshControl = [UIRefreshControl new];
-    //[self.refreshControl addTarget:self action:@selector(refresh) forControlEvents:UIControlEventValueChanged];
-    //[self.tableView addSubview:self.refreshControl];
+#if 0
+    self.refreshControl = [UIRefreshControl new];
+    [self.refreshControl addTarget:self action:@selector(refresh) forControlEvents:UIControlEventValueChanged];
+    [self.tableView addSubview:self.refreshControl];
+#endif
     
     self.projects = [NSMutableArray new];
     _lastCell = [[LastCell alloc] initCell];
@@ -73,11 +75,6 @@ static NSString * const cellId = @"ProjectCell";
 {
     [super viewDidAppear:animated];
     [self loadMore];
-}
-
-- (void)viewDidDisappear:(BOOL)animated
-{
-    
 }
 
 
@@ -164,19 +161,7 @@ static NSString * const cellId = @"ProjectCell";
 
     [_lastCell loading];
     NSUInteger page = projects.count/20 + 1;
-    //[self.projects addObjectsFromArray:[self loadProjectsPage:page]];
     [self loadProjectsPage:page];
-    
-#if 0
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [self.tableView reloadData];
-        if (_isFinishedLoad) {
-            [_lastCell finishedLoad];
-        } else {
-            [_lastCell normal];
-        }
-    });
-#endif
 }
 
 
@@ -192,17 +177,8 @@ static NSString * const cellId = @"ProjectCell";
         refreshInProgress = YES;
 
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-            NSArray *newProjects = [self loadProjectsPage:1];
-            if (newProjects.count > 0) {
-                [self.projects removeAllObjects];
-                [self.projects addObjectsFromArray:newProjects];
-            }
-            
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [self.tableView reloadData];
-                [self.refreshControl endRefreshing];
-                refreshInProgress = NO;
-            });
+            [projects removeAllObjects];
+            [self loadProjectsPage:1];
         });
     }
 }
@@ -253,29 +229,16 @@ static NSString * const cellId = @"ProjectCell";
 
     
     if (_projectsType < 3) {
-        [[GLGitlabApi sharedInstance] getExtraProjectsType:_projectsType
-                                                      page:page
-                                                   success:success
-                                                   failure:failure];
+        [[GLGitlabApi sharedInstance] getExtraProjectsType:_projectsType page:page success:success failure:failure];
     } else if (_projectsType == 3) {
         NSString *privateToken = [Tools getPrivateToken];
-        [[GLGitlabApi sharedInstance] getUsersProjectsWithPrivateToken:privateToken
-                                                                onPage:page
-                                                               success:success
-                                                               failure:failure];
+        [[GLGitlabApi sharedInstance] getUsersProjectsWithPrivateToken:privateToken onPage:page success:success failure:failure];
     } else if (_projectsType == 4) {
-        [[GLGitlabApi sharedInstance] getStarredProjectsForUser:_userID
-                                                        success:success
-                                                        failure:failure];
+        [[GLGitlabApi sharedInstance] getStarredProjectsForUser:_userID success:success failure:failure];
     } else if (_projectsType == 5) {
-        [[GLGitlabApi sharedInstance] getWatchedProjectsForUser:_userID
-                                                        success:success
-                                                        failure:failure];
+        [[GLGitlabApi sharedInstance] getWatchedProjectsForUser:_userID success:success failure:failure];
     } else {
-        [[GLGitlabApi sharedInstance] getProjectsForLanguage:_languageID
-                                                        page:page
-                                                     success:success
-                                                     failure:failure];
+        [[GLGitlabApi sharedInstance] getProjectsForLanguage:_languageID page:page success:success failure:failure];
     }
 }
 

@@ -39,15 +39,42 @@ static NSString * const LanguageCellID = @"LanguageCell";
                                                                             action:@selector(showMenu)];
     self.title = @"编程语言";
     
-    _languages = [Project getLanguagesList];
-    
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:LanguageCellID];
+    self.tableView.bounces = NO;
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+    GLGitlabSuccessBlock success = ^(id responseObject) {
+        if (responseObject == nil) {
+            NSLog(@"Request failed");
+        } else {
+            _languages = responseObject;
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.tableView reloadData];
+            });
+
+        }
+    };
+    
+    GLGitlabFailureBlock failure = ^(NSError *error) {
+        if (error != nil) {
+            NSLog(@"%@, Request failed", error);
+        } else {
+            NSLog(@"error == nil");
+        }
+    };
+    
+    [[GLGitlabApi sharedInstance] getLanguagesListSuccess:success failure:failure];
+
 }
 
 #pragma mark - Table view data source
