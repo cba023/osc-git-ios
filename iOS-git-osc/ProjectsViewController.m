@@ -27,7 +27,7 @@
         [self.segmentTitle addTarget:self action:@selector(switchView) forControlEvents:UIControlEventValueChanged];
         self.navigationItem.titleView = self.segmentTitle;
         
-        self.projectsTable = [[ProjectsTableController alloc] init];
+        self.projectsTable = [ProjectsTableController new];
         self.projectsTable.projectsType = 0;
         [self addChildViewController:self.projectsTable];
         [self.view addSubview:self.projectsTable.view];

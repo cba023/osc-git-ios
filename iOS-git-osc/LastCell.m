@@ -36,7 +36,7 @@
     if (self) {
         self.backgroundColor = [UIColor clearColor];
         [self setLayout];
-        [self loading];
+        [self empty];
     }
     
     return self;
@@ -72,7 +72,13 @@
     [_indicator stopAnimating];
     _statusLabel.text = @"全部加载完毕";
     self.selectionStyle = UITableViewCellSelectionStyleNone;
+}
 
+- (void)empty
+{
+    [_indicator stopAnimating];
+    _statusLabel.text = @"";
+    self.selectionStyle = UITableViewCellSelectionStyleNone;
 }
 
 

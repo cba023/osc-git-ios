@@ -74,7 +74,10 @@ static NSString * const cellId = @"ProjectCell";
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    [self loadMore];
+    if (_projectsType < 7) {
+        [self loadMore];
+        [_lastCell loading];
+    }
 }
 
 
@@ -160,8 +163,7 @@ static NSString * const cellId = @"ProjectCell";
     if (_isFinishedLoad) {return;}
 
     [_lastCell loading];
-    NSUInteger page = projects.count/20 + 1;
-    [self loadProjectsPage:page];
+    [self loadProjectsPage:[self getNextPage]];
 }
 
 
@@ -184,6 +186,13 @@ static NSString * const cellId = @"ProjectCell";
 }
 #endif
 
+- (void)refresh
+{
+    [projects removeAllObjects];
+    _isFinishedLoad = NO;
+    [self loadMore];
+}
+
 - (void)reloadType:(NSInteger)NewProjectsType
 {
     _projectsType = NewProjectsType;
@@ -204,7 +213,7 @@ static NSString * const cellId = @"ProjectCell";
         if (responseObject == nil) {
             NSLog(@"Request failed");
         } else {
-            if ([(NSArray *)responseObject count] < 20) {
+            if ([self isAllProjectsLoaded:responseObject]) {
                 _isFinishedLoad = YES;
             }
             [projects addObjectsFromArray:responseObject];
@@ -237,9 +246,26 @@ static NSString * const cellId = @"ProjectCell";
         [[GLGitlabApi sharedInstance] getStarredProjectsForUser:_userID success:success failure:failure];
     } else if (_projectsType == 5) {
         [[GLGitlabApi sharedInstance] getWatchedProjectsForUser:_userID success:success failure:failure];
-    } else {
+    } else if (_projectsType == 6) {
         [[GLGitlabApi sharedInstance] getProjectsForLanguage:_languageID page:page success:success failure:failure];
+    } else {
+        [[GLGitlabApi sharedInstance] searchProjectsByQuery:_query page:page success:success failure:failure];
     }
 }
+
+
+#pragma mark - helpers
+- (NSInteger)getNextPage
+{
+    if (_projectsType < 7) {return projects.count/20 + 1;}
+    else {return projects.count/15 + 1;}
+}
+
+- (BOOL)isAllProjectsLoaded:(NSArray *)projectsLoaded
+{
+    if (_projectsType < 7) {return projectsLoaded.count < 20;}
+    else {return projectsLoaded.count < 15;}
+}
+
 
 @end

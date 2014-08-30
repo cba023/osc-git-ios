@@ -14,7 +14,9 @@
 @property NSInteger projectsType;
 @property int64_t userID;
 @property NSInteger languageID;
+@property NSString *query;
 
 - (void)reloadType:(NSInteger)newArrangeType;
+- (void)refresh;
 
 @end

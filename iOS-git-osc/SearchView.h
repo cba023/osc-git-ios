@@ -10,12 +10,13 @@
 
 @class ProjectsTableController;
 
-@interface SearchView : UIViewController <UISearchBarDelegate, UITableViewDataSource, UITableViewDelegate>
+@interface SearchView : UIViewController <UISearchBarDelegate>
 
 @property NSMutableArray *projects;
 
 @property UISearchBar *searchBar;
-@property UITableView *resultsTable;
+@property ProjectsTableController *resultsTableController;
+@property UITableView *results;
 
 @property BOOL isLoading;
 @property BOOL isLoadOver;

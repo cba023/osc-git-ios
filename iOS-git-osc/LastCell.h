@@ -19,5 +19,6 @@
 - (void)normal;
 - (void)loading;
 - (void)finishedLoad;
+- (void)empty;
 
 @end

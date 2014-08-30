@@ -184,7 +184,7 @@
 
 
 - (GLNetworkOperation *)searchProjectsByQuery:(NSString *)query
-                                         page:(NSInteger)page
+                                         page:(NSUInteger)page
                                       success:(GLGitlabSuccessBlock)successBlock
                                       failure:(GLGitlabFailureBlock)failureBlock;
 
@@ -192,7 +192,7 @@
                                         failure:(GLGitlabFailureBlock)failureBlock;
 
 - (GLNetworkOperation *)getProjectsForLanguage:(NSInteger)languageID
-                                          page:(NSInteger)page
+                                          page:(NSUInteger)page
                                        success:(GLGitlabSuccessBlock)successBlock
                                        failure:(GLGitlabFailureBlock)failureBlock;
 
