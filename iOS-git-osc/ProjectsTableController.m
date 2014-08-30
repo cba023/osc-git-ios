@@ -62,8 +62,6 @@ static NSString * const cellId = @"ProjectCell";
     self.projects = [NSMutableArray new];
     _lastCell = [[LastCell alloc] initCell];
     _isFinishedLoad = NO;
-    
-    [self loadMore];
 }
 
 - (void)didReceiveMemoryWarning
@@ -74,7 +72,7 @@ static NSString * const cellId = @"ProjectCell";
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    //[self loadMore];
+    [self loadMore];
 }
 
 - (void)viewDidDisappear:(BOOL)animated
@@ -166,8 +164,10 @@ static NSString * const cellId = @"ProjectCell";
 
     [_lastCell loading];
     NSUInteger page = projects.count/20 + 1;
-    [self.projects addObjectsFromArray:[self loadProjectsPage:page]];
+    //[self.projects addObjectsFromArray:[self loadProjectsPage:page]];
+    [self loadProjectsPage:page];
     
+#if 0
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.tableView reloadData];
         if (_isFinishedLoad) {
@@ -176,11 +176,13 @@ static NSString * const cellId = @"ProjectCell";
             [_lastCell normal];
         }
     });
+#endif
 }
 
 
 #pragma mark - 刷新
 
+#if 0
 - (void)refresh
 {
     static BOOL refreshInProgress = NO;
@@ -204,6 +206,7 @@ static NSString * const cellId = @"ProjectCell";
         });
     }
 }
+#endif
 
 - (void)reloadType:(NSInteger)NewProjectsType
 {
@@ -219,27 +222,61 @@ static NSString * const cellId = @"ProjectCell";
 }
 
 
-- (NSArray *)loadProjectsPage:(NSUInteger)page
+- (void)loadProjectsPage:(NSUInteger)page
 {
-    NSArray *newProjects;
+    GLGitlabSuccessBlock success = ^(id responseObject) {
+        if (responseObject == nil) {
+            NSLog(@"Request failed");
+        } else {
+            if ([(NSArray *)responseObject count] < 20) {
+                _isFinishedLoad = YES;
+            }
+            [projects addObjectsFromArray:responseObject];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.tableView reloadData];
+                if (_isFinishedLoad) {
+                    [_lastCell finishedLoad];
+                } else {
+                    [_lastCell normal];
+                }
+            });
+        }
+    };
+    
+    GLGitlabFailureBlock failure = ^(NSError *error) {
+        if (error != nil) {
+            NSLog(@"%@, Request failed", error);
+        } else {
+            NSLog(@"error == nil");
+        }
+    };
+
     
     if (_projectsType < 3) {
-        newProjects = [Project loadExtraProjectType:_projectsType onPage:page];
+        [[GLGitlabApi sharedInstance] getExtraProjectsType:_projectsType
+                                                      page:page
+                                                   success:success
+                                                   failure:failure];
     } else if (_projectsType == 3) {
-        newProjects = [Project getOwnProjectsOnPage:page];
+        NSString *privateToken = [Tools getPrivateToken];
+        [[GLGitlabApi sharedInstance] getUsersProjectsWithPrivateToken:privateToken
+                                                                onPage:page
+                                                               success:success
+                                                               failure:failure];
     } else if (_projectsType == 4) {
-        newProjects = [Project getStarredProjectsForUser:_userID];
+        [[GLGitlabApi sharedInstance] getStarredProjectsForUser:_userID
+                                                        success:success
+                                                        failure:failure];
     } else if (_projectsType == 5) {
-        newProjects = [Project getWatchedProjectsForUser:_userID];
+        [[GLGitlabApi sharedInstance] getWatchedProjectsForUser:_userID
+                                                        success:success
+                                                        failure:failure];
     } else {
-        newProjects = [Project getProjectsForLanguage:_languageID page:page];
+        [[GLGitlabApi sharedInstance] getProjectsForLanguage:_languageID
+                                                        page:page
+                                                     success:success
+                                                     failure:failure];
     }
-    
-    if (newProjects.count < 20) {
-        _isFinishedLoad = YES;
-    }
-    
-    return newProjects;
 }
 
 @end

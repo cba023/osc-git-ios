@@ -15,6 +15,6 @@
 @property int64_t userID;
 @property NSInteger languageID;
 
-- (void) reloadType:(NSInteger)newArrangeType;
+- (void)reloadType:(NSInteger)newArrangeType;
 
 @end
