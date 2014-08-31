@@ -98,10 +98,9 @@ static NSString * const LastCellID = @"LastCell";
     [self.view addSubview:_searchBar];
     [_searchBar becomeFirstResponder];
     
-    _resultsTableController = [ProjectsTableController new];
+    _resultsTableController = [[ProjectsTableController alloc] initWithProjectsType:7];
     [self addChildViewController:_resultsTableController];
     _results = _resultsTableController.tableView;
-    _resultsTableController.projectsType = 7;
     [self.view addSubview:_results];
 }
 

@@ -10,13 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "iOS-git-osc/ProjectsTableController.m"
-            timestampString = "431100339.080159"
+            timestampString = "431177487.969031"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "267"
-            endingLineNumber = "267"
-            landmarkName = "-isAllProjectsLoaded:"
-            landmarkType = "5">
+            startingLineNumber = "277"
+            endingLineNumber = "277">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

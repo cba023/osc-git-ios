@@ -195,40 +195,6 @@
     return members;
 }
 
-+ (NSArray *)searchProjects:(NSString *)query page:(NSInteger)page
-{
-    __block BOOL done = NO;
-    __block NSArray *projects;
-    
-    GLGitlabSuccessBlock success = ^(id responseObject) {
-        if (responseObject == nil) {
-            NSLog(@"Request failed");
-        } else {
-            projects = responseObject;
-        }
-        done = YES;
-    };
-    
-    GLGitlabFailureBlock failure = ^(NSError *error) {
-        if (error != nil) {
-            NSLog(@"%@, Request failed", error);
-        } else {
-            NSLog(@"error == nil");
-        }
-        done = YES;
-    };
-    
-    GLNetworkOperation *op = [[GLGitlabApi sharedInstance] searchProjectsByQuery:query
-                                                                            page:page
-                                                                         success:success
-                                                                         failure:failure];
-    
-    while (!done) {
-        [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate distantFuture]];
-    }
-    
-    return projects;
-}
 
 
 @end

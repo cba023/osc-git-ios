@@ -190,28 +190,25 @@ static NSString * const kKeyPortrait = @"new_portrait";
                     break;
                 }
                 case 1: {
-                    ProjectsTableController *ownProjectsView = [[ProjectsTableController alloc] init];
+                    ProjectsTableController *ownProjectsView = [[ProjectsTableController alloc] initWithProjectsType:3];
                     ownProjectsView.title = @"我的项目";
-                    ownProjectsView.projectsType = 3;
                     navigationController = [[NavigationController alloc] initWithRootViewController:ownProjectsView];
                     self.frostedViewController.contentViewController = navigationController;
                     break;
                 }
                 case 2: {
-                    ProjectsTableController *starredProjectsView = [[ProjectsTableController alloc] init];
+                    ProjectsTableController *starredProjectsView = [[ProjectsTableController alloc] initWithProjectsType:4];
                     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
                     starredProjectsView.title = @"收藏项目";
-                    starredProjectsView.projectsType = 4;
                     starredProjectsView.userID = [[userDefaults objectForKey:kKeyUserId] intValue];
                     navigationController = [[NavigationController alloc] initWithRootViewController:starredProjectsView];
                     self.frostedViewController.contentViewController = navigationController;
                     break;
                 }
                 case 3: {
-                    ProjectsTableController *watchedProjectsView = [[ProjectsTableController alloc] init];
+                    ProjectsTableController *watchedProjectsView = [[ProjectsTableController alloc] initWithProjectsType:5];
                     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
                     watchedProjectsView.title = @"关注项目";
-                    watchedProjectsView.projectsType = 5;
                     watchedProjectsView.userID = [[userDefaults objectForKey:kKeyUserId] intValue];
                     navigationController = [[NavigationController alloc] initWithRootViewController:watchedProjectsView];
                     self.frostedViewController.contentViewController = navigationController;

@@ -18,6 +18,8 @@
 
 @interface ProjectsTableController ()
 
+@property NSInteger projectsType;
+@property NSUInteger pageSize;
 @property BOOL isFinishedLoad;
 @property BOOL isLoading;
 @property LastCell *lastCell;
@@ -25,9 +27,21 @@
 @end
 
 @implementation ProjectsTableController
+
 @synthesize projects;
 
 static NSString * const cellId = @"ProjectCell";
+
+- (id)initWithProjectsType:(NSInteger)projectsType
+{
+    self = [super init];
+    if (self) {
+        _projectsType = projectsType;
+        _pageSize = projectsType < 7? 20: 15;
+    }
+    
+    return self;
+}
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -160,10 +174,11 @@ static NSString * const cellId = @"ProjectCell";
 
 - (void)loadMore
 {
-    if (_isFinishedLoad) {return;}
+    if (_isFinishedLoad || _isLoading) {return;}
 
+    _isLoading = YES;
     [_lastCell loading];
-    [self loadProjectsPage:[self getNextPage]];
+    [self loadProjectsPage:projects.count/_pageSize + 1];
 }
 
 
@@ -213,7 +228,7 @@ static NSString * const cellId = @"ProjectCell";
         if (responseObject == nil) {
             NSLog(@"Request failed");
         } else {
-            if ([self isAllProjectsLoaded:responseObject]) {
+            if ([(NSArray *)responseObject count] < _pageSize) {
                 _isFinishedLoad = YES;
             }
             [projects addObjectsFromArray:responseObject];
@@ -226,6 +241,7 @@ static NSString * const cellId = @"ProjectCell";
                 }
             });
         }
+        _isLoading = NO;
     };
     
     GLGitlabFailureBlock failure = ^(NSError *error) {
@@ -234,6 +250,7 @@ static NSString * const cellId = @"ProjectCell";
         } else {
             NSLog(@"error == nil");
         }
+        _isLoading = NO;
     };
 
     
@@ -251,20 +268,6 @@ static NSString * const cellId = @"ProjectCell";
     } else {
         [[GLGitlabApi sharedInstance] searchProjectsByQuery:_query page:page success:success failure:failure];
     }
-}
-
-
-#pragma mark - helpers
-- (NSInteger)getNextPage
-{
-    if (_projectsType < 7) {return projects.count/20 + 1;}
-    else {return projects.count/15 + 1;}
-}
-
-- (BOOL)isAllProjectsLoaded:(NSArray *)projectsLoaded
-{
-    if (_projectsType < 7) {return projectsLoaded.count < 20;}
-    else {return projectsLoaded.count < 15;}
 }
 
 
