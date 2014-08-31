@@ -47,8 +47,7 @@
 #pragma mark - init
 - (void)initSubview
 {
-    UIColor *bgColor = [UIColor colorWithRed:235.0/255 green:235.0/255 blue:243.0/255 alpha:1.0];
-    self.contentView.backgroundColor = bgColor;
+    self.backgroundColor = [UIColor clearColor];
     
     _userPortrait = [[UIImageView alloc] initWithFrame:CGRectMake(10, 12, 36, 36)];
     _userPortrait.contentMode = UIViewContentModeScaleAspectFit;

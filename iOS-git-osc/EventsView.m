@@ -15,7 +15,7 @@
 #import "UIImageView+WebCache.h"
 #import "UserDetailsView.h"
 #import "ProjectDetailsView.h"
-//#import <SDWebImage/UIImageView+WebCache.h>
+#import "LastCell.h"
 
 static NSString * const kKeyPrivate_token = @"private_token";
 static NSString * const EventCellIdentifier = @"EventCell";
@@ -23,6 +23,9 @@ static NSString * const EventCellIdentifier = @"EventCell";
 @interface EventsView ()
 
 @property (nonatomic, strong) EventCell *prototypeCell;
+@property BOOL isFinishedLoad;
+@property BOOL isLoading;
+@property LastCell *lastCell;
 
 @end
 
@@ -77,16 +80,23 @@ static NSString * const EventCellIdentifier = @"EventCell";
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     [self.tableView registerClass:[EventCell class] forCellReuseIdentifier:EventCellIdentifier];
-    
-    if (_privateToken) {
-        events = [[NSMutableArray alloc] initWithArray:[Event getEventsWithPrivateToekn:_privateToken page:1]];
-    } else {
-        events = [[NSMutableArray alloc] initWithArray:[Event getUserEvents:_userId page:1]];
-    }
+    self.tableView.backgroundColor = [UIColor colorWithRed:235.0/255 green:235.0/255 blue:243.0/255 alpha:1.0];
     
     self.refreshControl = [UIRefreshControl new];
-    [self.refreshControl addTarget:self action:@selector(refreshView:) forControlEvents:UIControlEventValueChanged];
+    [self.refreshControl addTarget:self action:@selector(refresh) forControlEvents:UIControlEventValueChanged];
     [self.tableView addSubview:self.refreshControl];
+    
+    events = [NSMutableArray new];
+    _lastCell = [[LastCell alloc] initCell];
+    _isFinishedLoad = NO;
+
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    [_lastCell loading];
+    [self loadMore];
 }
 
 - (void)dealloc
@@ -105,19 +115,24 @@ static NSString * const EventCellIdentifier = @"EventCell";
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    GLEvent *event = [self.events objectAtIndex:indexPath.row];
-    [self configureCell:self.prototypeCell atIndexPath:indexPath];
-    
-    GLfloat descriptionHeight = _prototypeCell.eventDescription.frame.size.height,
-            timeHeight = _prototypeCell.time.frame.size.height,
-            totalHeight = descriptionHeight + timeHeight + 15;
-    
-    int totalCommitsCount = [[event.data objectForKey:@"total_commits_count"] intValue];
-    if (event.data && totalCommitsCount > 0) {
-        totalHeight += _prototypeCell.eventAbstract.frame.size.height + 5;
+    if (indexPath.row < events.count) {
+        GLEvent *event = [self.events objectAtIndex:indexPath.row];
+        [self configureCell:self.prototypeCell atIndexPath:indexPath];
+        
+        GLfloat descriptionHeight = _prototypeCell.eventDescription.frame.size.height,
+        timeHeight = _prototypeCell.time.frame.size.height,
+        totalHeight = descriptionHeight + timeHeight + 15;
+        
+        int totalCommitsCount = [[event.data objectForKey:@"total_commits_count"] intValue];
+        if (event.data && totalCommitsCount > 0) {
+            totalHeight += _prototypeCell.eventAbstract.frame.size.height + 5;
+        }
+        
+        return totalHeight;
+    } else {
+        return 60;
     }
 
-    return totalHeight;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -127,16 +142,20 @@ static NSString * const EventCellIdentifier = @"EventCell";
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return self.events.count;
+    return events.count + 1;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    EventCell *cell = [tableView dequeueReusableCellWithIdentifier:EventCellIdentifier forIndexPath:indexPath];
-    
-    [self configureCell:cell atIndexPath:indexPath];
-    
-    return cell;
+    if (indexPath.row < events.count) {
+        EventCell *cell = [tableView dequeueReusableCellWithIdentifier:EventCellIdentifier forIndexPath:indexPath];
+        
+        [self configureCell:cell atIndexPath:indexPath];
+        
+        return cell;        
+    } else {
+        return _lastCell;
+    }
 }
 
 - (void)configureCell:(EventCell *)cell atIndexPath:(NSIndexPath *)indexPath
@@ -190,33 +209,99 @@ static NSString * const EventCellIdentifier = @"EventCell";
     [self.navigationController pushViewController:userDetails animated:YES];
 }
 
-- (void)refreshView:(UIRefreshControl *)refreshControl
+#pragma mark - 上拉加载更多
+
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
 {
-    // http://stackoverflow.com/questions/19683892/pull-to-refresh-crashes-app helps a lot
-    
+    // 下拉到最底部时显示更多数据
+	if(scrollView.contentOffset.y > ((scrollView.contentSize.height - scrollView.frame.size.height)))
+	{
+        [self loadMore];
+	}
+}
+
+
+#pragma mark - 刷新
+
+- (void)refresh
+{
     static BOOL refreshInProgress = NO;
     
     if (!refreshInProgress)
     {
         refreshInProgress = YES;
-        [events removeAllObjects];
         
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-            if (_privateToken) {
-                [events addObjectsFromArray:[Event getEventsWithPrivateToekn:_privateToken page:1]];
-            } else {
-                [events addObjectsFromArray:[Event getUserEvents:_userId page:1]];
-            }
-            
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [self.refreshControl endRefreshing];
-                [self.tableView reloadData];
-                
-                refreshInProgress = NO;
-            });
+            BOOL related = _privateToken? YES: NO;
+            [self loadEventsOnPage:1 related:related refresh:YES];
+            refreshInProgress = NO;
         });
     }
 }
+
+- (void)loadMore
+{
+    if (_isFinishedLoad || _isLoading) {return;}
+    
+    _isLoading = YES;
+    [_lastCell loading];
+    
+    BOOL related = _privateToken? YES: NO;
+    
+    [self loadEventsOnPage:events.count/20 + 1 related:related refresh:NO];
+}
+
+
+
+
+- (void)loadEventsOnPage:(NSUInteger)page related:(BOOL)related refresh:(BOOL)refresh
+{
+    GLGitlabSuccessBlock success = ^(id responseObject) {
+        if (responseObject == nil) {
+            NSLog(@"Request failed");
+        } else {
+            if (refresh) {
+                [self.refreshControl endRefreshing];
+                [events removeAllObjects];
+                _isFinishedLoad = NO;
+            }
+            if ([(NSArray *)responseObject count] < 20) {
+                _isFinishedLoad = YES;
+            }
+            [events addObjectsFromArray:responseObject];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.tableView reloadData];
+                if (_isFinishedLoad) {
+                    [_lastCell finishedLoad];
+                } else {
+                    [_lastCell normal];
+                }
+            });
+        }
+        _isLoading = NO;
+    };
+    
+    GLGitlabFailureBlock failure = ^(NSError *error) {
+        if (error != nil) {
+            NSLog(@"%@, Request failed", error);
+        } else {
+            NSLog(@"error == nil");
+        }
+        if (refresh) {
+            [self.refreshControl endRefreshing];
+        }
+        _isLoading = NO;
+    };
+    
+    if (related) {
+        [[GLGitlabApi sharedInstance] getEventsWithPrivateToken:_privateToken page:page success:success failure:failure];
+    } else {
+        [[GLGitlabApi sharedInstance] getUserEvents:_userId page:page success:success failure:failure];
+    }
+    
+    
+}
+
 
 
 @end

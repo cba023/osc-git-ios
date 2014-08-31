@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface EventsView : UITableViewController
+@interface EventsView : UITableViewController <UIScrollViewDelegate>
 
 @property int64_t userId;
 @property NSString *privateToken;
