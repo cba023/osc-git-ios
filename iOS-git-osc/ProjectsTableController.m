@@ -69,11 +69,9 @@ static NSString * const cellId = @"ProjectCell";
     self.tableView.backgroundColor = [UIColor colorWithRed:235.0/255 green:235.0/255 blue:243.0/255 alpha:1.0];
     self.navigationController.navigationBar.translucent = NO;
     
-#if 0
     self.refreshControl = [UIRefreshControl new];
     [self.refreshControl addTarget:self action:@selector(refresh) forControlEvents:UIControlEventValueChanged];
     [self.tableView addSubview:self.refreshControl];
-#endif
     
     self.projects = [NSMutableArray new];
     _lastCell = [[LastCell alloc] initCell];
@@ -172,19 +170,9 @@ static NSString * const cellId = @"ProjectCell";
 	}
 }
 
-- (void)loadMore
-{
-    if (_isFinishedLoad || _isLoading) {return;}
-
-    _isLoading = YES;
-    [_lastCell loading];
-    [self loadProjectsPage:projects.count/_pageSize + 1];
-}
-
 
 #pragma mark - 刷新
 
-#if 0
 - (void)refresh
 {
     static BOOL refreshInProgress = NO;
@@ -194,25 +182,16 @@ static NSString * const cellId = @"ProjectCell";
         refreshInProgress = YES;
 
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-            [projects removeAllObjects];
-            [self loadProjectsPage:1];
+            [self loadProjectsOnPage:1 refresh:YES];
+            refreshInProgress = NO;
         });
     }
 }
-#endif
 
-- (void)refresh
+- (void)reload
 {
     [projects removeAllObjects];
     _isFinishedLoad = NO;
-    [self loadMore];
-}
-
-- (void)reloadType:(NSInteger)NewProjectsType
-{
-    _projectsType = NewProjectsType;
-    _isFinishedLoad = NO;
-    [self.projects removeAllObjects];
     
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.tableView reloadData];
@@ -221,13 +200,33 @@ static NSString * const cellId = @"ProjectCell";
     [self loadMore];
 }
 
+- (void)reloadType:(NSInteger)NewProjectsType
+{
+    _projectsType = NewProjectsType;
+    [self reload];
+}
 
-- (void)loadProjectsPage:(NSUInteger)page
+- (void)loadMore
+{
+    if (_isFinishedLoad || _isLoading) {return;}
+    
+    _isLoading = YES;
+    [_lastCell loading];
+    [self loadProjectsOnPage:projects.count/_pageSize + 1 refresh:NO];
+}
+
+
+- (void)loadProjectsOnPage:(NSUInteger)page refresh:(BOOL)refresh
 {
     GLGitlabSuccessBlock success = ^(id responseObject) {
         if (responseObject == nil) {
             NSLog(@"Request failed");
         } else {
+            if (refresh) {
+                [self.refreshControl endRefreshing];
+                [projects removeAllObjects];
+                _isFinishedLoad = NO;
+            }
             if ([(NSArray *)responseObject count] < _pageSize) {
                 _isFinishedLoad = YES;
             }
@@ -249,6 +248,9 @@ static NSString * const cellId = @"ProjectCell";
             NSLog(@"%@, Request failed", error);
         } else {
             NSLog(@"error == nil");
+        }
+        if (refresh) {
+            [self.refreshControl endRefreshing];
         }
         _isLoading = NO;
     };

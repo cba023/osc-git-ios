@@ -86,7 +86,7 @@ static NSString * const LastCellID = @"LastCell";
 -(void)doSearch
 {
     _resultsTableController.query = _searchBar.text;
-    [_resultsTableController refresh];
+    [_resultsTableController reload];
 }
 
 - (void)initSubviews

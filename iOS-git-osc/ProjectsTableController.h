@@ -17,6 +17,6 @@
 
 - (id)initWithProjectsType:(NSInteger)projectsType;
 - (void)reloadType:(NSInteger)newArrangeType;
-- (void)refresh;
+- (void)reload;
 
 @end
