@@ -100,7 +100,7 @@
                                                                              metrics:nil
                                                                                views:NSDictionaryOfVariableBindings(_portrait, _projectNameField)]];
     
-    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-8-[_projectNameField(15)]-8-[_projectDescriptionField(>=17,<=70)]-8-[languageImage]-8-|"
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-8-[_projectNameField(15)]-8-[_projectDescriptionField]-8-[languageImage]-8-|"
                                                                              options:NSLayoutFormatAlignAllLeft
                                                                              metrics:nil
                                                                                views:NSDictionaryOfVariableBindings(_projectNameField, _projectDescriptionField, languageImage)]];

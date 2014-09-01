@@ -167,10 +167,7 @@ static NSString * const cellId = @"ProjectCell";
         CGSize size = [descriptionLabel sizeThatFits:CGSizeMake(300, MAXFLOAT)];
         CGFloat height = size.height;
         
-        if (height < 17) {height = 17;}
-        else if (height > 70) {height = 70;}
-        
-        return 17 + height + 47;
+        return height + 64;
     } else {
         return 60;
     }
