@@ -155,7 +155,25 @@ static NSString * const cellId = @"ProjectCell";
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 60;
+    if (indexPath.row < projects.count) {
+        GLProject *project = [projects objectAtIndex:indexPath.row];
+        UILabel *descriptionLabel = [UILabel new];
+        descriptionLabel.lineBreakMode = NSLineBreakByWordWrapping;
+        descriptionLabel.numberOfLines = 4;
+        descriptionLabel.textAlignment = NSTextAlignmentLeft;
+        descriptionLabel.font = [UIFont systemFontOfSize:14];
+        descriptionLabel.text = project.projectDescription.length > 0? project.projectDescription: @"暂无项目介绍";
+        
+        CGSize size = [descriptionLabel sizeThatFits:CGSizeMake(300, MAXFLOAT)];
+        CGFloat height = size.height;
+        
+        if (height < 17) {height = 17;}
+        else if (height > 70) {height = 70;}
+        
+        return 17 + height + 47;
+    } else {
+        return 60;
+    }
 }
 
 
@@ -244,13 +262,18 @@ static NSString * const cellId = @"ProjectCell";
     };
     
     GLGitlabFailureBlock failure = ^(NSError *error) {
-        if (error != nil) {
-            NSLog(@"%@, Request failed", error);
-        } else {
-            NSLog(@"error == nil");
-        }
         if (refresh) {
             [self.refreshControl endRefreshing];
+        }
+        
+        if (_isFinishedLoad) {
+            [_lastCell finishedLoad];
+        } else {
+            [_lastCell normal];
+        }
+        
+        if (![Tools isNetworkExist]) {
+            [Tools ToastNotification:@"错误 网络无连接" inView:self.view];
         }
         _isLoading = NO;
     };

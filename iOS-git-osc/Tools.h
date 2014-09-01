@@ -29,6 +29,7 @@
 + (void)roundCorner:(UIView *)view cornerRadius:(CGFloat)cornerRadius;
 + (void)setPortraitForUser:(GLUser *)user view:(UIImageView *)portraitView cornerRadius:(CGFloat)cornerRadius;
 
++ (void)ToastNotification:(NSString *)text inView:(UIView *)view;
 + (NSInteger)networkStatus;
 + (BOOL)isNetworkExist;
 

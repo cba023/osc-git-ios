@@ -16,6 +16,7 @@
     if (self) {
         self.backgroundColor = [UIColor clearColor];
         
+        self.contentView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
         [self initSubViews];
         [self setLayout];
     }
@@ -42,46 +43,52 @@
     
     _projectNameField = [UILabel new];
     _projectNameField.textAlignment = NSTextAlignmentLeft;
-    _projectNameField.font = [UIFont boldSystemFontOfSize:13];
+    _projectNameField.font = [UIFont boldSystemFontOfSize:14];
+    _projectNameField.textColor = UIColorFromRGB(0x294fa1);
     [self.contentView addSubview:_projectNameField];
     
     _projectDescriptionField = [UILabel new];
+    _projectDescriptionField.lineBreakMode = NSLineBreakByWordWrapping | NSLineBreakByTruncatingTail;
+    _projectDescriptionField.numberOfLines = 4;
     _projectDescriptionField.textAlignment = NSTextAlignmentLeft;
-    _projectDescriptionField.font = [UIFont boldSystemFontOfSize:12];
+    _projectDescriptionField.font = [UIFont systemFontOfSize:14];
+    _projectDescriptionField.textColor = UIColorFromRGB(0x515151);
     [self.contentView addSubview:_projectDescriptionField];
     
     _languageField = [UILabel new];
     _languageField.textAlignment = NSTextAlignmentLeft;
-    _languageField.font = [UIFont boldSystemFontOfSize:12];
+    _languageField.font = [UIFont systemFontOfSize:12];
+    _languageField.textColor = UIColorFromRGB(0xb6b6b6);
     [self.contentView addSubview:_languageField];
     
     _forksCount = [UILabel new];
     _forksCount.textAlignment = NSTextAlignmentLeft;
     _forksCount.font = [UIFont boldSystemFontOfSize:12];
+    _forksCount.textColor = UIColorFromRGB(0xb6b6b6);
     [self.contentView addSubview:_forksCount];
     
     _starsCount = [UILabel new];
     _starsCount.textAlignment = NSTextAlignmentLeft;
     _starsCount.font = [UIFont boldSystemFontOfSize:12];
+    _starsCount.textColor = UIColorFromRGB(0xb6b6b6);
     [self.contentView addSubview:_starsCount];
-
 }
 
 - (void)setLayout
 {
     UIImageView *languageImage = [UIImageView new];
     languageImage.contentMode = UIViewContentModeScaleAspectFit;
-    [languageImage setImage:[UIImage imageNamed:@"language"]];
+    [languageImage setImage:[UIImage imageNamed:@"projectCellLanguage"]];
     [self.contentView addSubview:languageImage];
     
-    UIImageView *forkImage = [[UIImageView alloc] initWithFrame:CGRectMake(54, 42, 15, 15)];
+    UIImageView *forkImage = [UIImageView new];
     forkImage.contentMode = UIViewContentModeScaleAspectFit;
-    [forkImage setImage:[UIImage imageNamed:@"fork"]];
+    [forkImage setImage:[UIImage imageNamed:@"projectCellFork"]];
     [self.contentView addSubview:forkImage];
     
-    UIImageView *starImage = [[UIImageView alloc] initWithFrame:CGRectMake(145, 42, 15, 15)];
+    UIImageView *starImage = [UIImageView new];
     starImage.contentMode = UIViewContentModeScaleAspectFit;
-    [starImage setImage:[UIImage imageNamed:@"star2"]];
+    [starImage setImage:[UIImage imageNamed:@"projectCellStar"]];
     [self.contentView addSubview:starImage];
 
     for (UIView *view in [self.contentView subviews]) {
@@ -93,7 +100,7 @@
                                                                              metrics:nil
                                                                                views:NSDictionaryOfVariableBindings(_portrait, _projectNameField)]];
     
-    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-3-[_projectNameField]-3-[_projectDescriptionField]-5-[languageImage]"
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-8-[_projectNameField(15)]-8-[_projectDescriptionField(>=17,<=70)]-8-[languageImage]-8-|"
                                                                              options:NSLayoutFormatAlignAllLeft
                                                                              metrics:nil
                                                                                views:NSDictionaryOfVariableBindings(_projectNameField, _projectDescriptionField, languageImage)]];
@@ -108,17 +115,26 @@
                                                                              metrics:nil
                                                                                views:NSDictionaryOfVariableBindings(_projectDescriptionField)]];
     
-    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-5-[_portrait(36)]"
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-8-[_portrait(36)]"
                                                                              options:0
                                                                              metrics:nil
                                                                                views:NSDictionaryOfVariableBindings(_portrait)]];
+
     
-#if 0
-    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[languageImage(==15==forkImage, ==starImage)]"
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[languageImage(15)]"
                                                                              options:0
                                                                              metrics:nil
                                                                                views:NSDictionaryOfVariableBindings(languageImage, forkImage, starImage)]];
-#endif
+    
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[forkImage(==languageImage)]"
+                                                                             options:0
+                                                                             metrics:nil
+                                                                               views:NSDictionaryOfVariableBindings(languageImage, forkImage, starImage)]];
+    
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[starImage(==languageImage)]"
+                                                                             options:0
+                                                                             metrics:nil
+                                                                               views:NSDictionaryOfVariableBindings(languageImage, forkImage, starImage)]];
 }
 
 

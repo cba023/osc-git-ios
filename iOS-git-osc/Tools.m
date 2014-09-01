@@ -11,7 +11,7 @@
 #import <CommonCrypto/CommonDigest.h>
 #import "UIImageView+WebCache.h"
 #import "Reachability.h"
-//#import <SDWebImage/UIImageView+WebCache.h>
+#import "GCDiscreetNotificationView.h"
 
 @implementation Tools
 
@@ -257,6 +257,16 @@
                     placeholderImage:[UIImage imageNamed:@"avatar"]];
     
     [self roundCorner:portraitView cornerRadius:cornerRadius];
+}
+
++ (void)ToastNotification:(NSString *)text inView:(UIView *)view
+{
+    GCDiscreetNotificationView *notificationView = [[GCDiscreetNotificationView alloc] initWithText:text
+                                                                                       showActivity:NO
+                                                                                 inPresentationMode:GCDiscreetNotificationViewPresentationModeTop
+                                                                                             inView:view];
+    [notificationView show:YES];
+    [notificationView hideAnimatedAfter:2.6];
 }
 
 + (NSInteger)networkStatus
