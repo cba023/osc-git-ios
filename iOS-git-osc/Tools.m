@@ -11,7 +11,7 @@
 #import <CommonCrypto/CommonDigest.h>
 #import "UIImageView+WebCache.h"
 #import "Reachability.h"
-#import "GCDiscreetNotificationView.h"
+#import "UIView+Toast.h"
 
 @implementation Tools
 
@@ -259,19 +259,14 @@
     [self roundCorner:portraitView cornerRadius:cornerRadius];
 }
 
-+ (void)ToastNotification:(NSString *)text inView:(UIView *)view
++ (void)toastNotification:(NSString *)text inView:(UIView *)view
 {
-    GCDiscreetNotificationView *notificationView = [[GCDiscreetNotificationView alloc] initWithText:text
-                                                                                       showActivity:NO
-                                                                                 inPresentationMode:GCDiscreetNotificationViewPresentationModeTop
-                                                                                             inView:view];
-    [notificationView show:YES];
-    [notificationView hideAnimatedAfter:2.6];
+    [view makeToast:text duration:2.0 position:@"center"];
 }
 
 + (NSInteger)networkStatus
 {
-    Reachability *reach = [Reachability reachabilityWithHostName:git_osc_url];
+    Reachability *reach = [Reachability reachabilityWithHostName:@"git.oschina.net"];
     return [reach currentReachabilityStatus];
 }
 

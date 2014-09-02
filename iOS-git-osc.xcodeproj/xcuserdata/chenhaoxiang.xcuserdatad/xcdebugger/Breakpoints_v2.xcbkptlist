@@ -6,15 +6,15 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "iOS-git-osc/ProjectsTableController.m"
-            timestampString = "431272070.856331"
+            timestampString = "431321135.798028"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "262"
-            endingLineNumber = "262"
+            startingLineNumber = "238"
+            endingLineNumber = "238"
             landmarkName = "-loadProjectsOnPage:refresh:"
             landmarkType = "5">
          </BreakpointContent>

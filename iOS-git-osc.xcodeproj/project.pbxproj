@@ -119,9 +119,9 @@
 		0079C00A19B452A5005EF089 /* projectCellFork.png in Resources */ = {isa = PBXBuildFile; fileRef = 0079C00919B452A5005EF089 /* projectCellFork.png */; };
 		0079C00D19B452CF005EF089 /* projectCellLanguage.png in Resources */ = {isa = PBXBuildFile; fileRef = 0079C00B19B452CF005EF089 /* projectCellLanguage.png */; };
 		0079C00E19B452CF005EF089 /* projectCellStar.png in Resources */ = {isa = PBXBuildFile; fileRef = 0079C00C19B452CF005EF089 /* projectCellStar.png */; };
+		0079C03719B56521005EF089 /* UIView+Toast.m in Sources */ = {isa = PBXBuildFile; fileRef = 0079C03619B56521005EF089 /* UIView+Toast.m */; };
 		0087828A19583E7D003F331C /* Project.m in Sources */ = {isa = PBXBuildFile; fileRef = 0087828919583E7D003F331C /* Project.m */; };
 		009018C71921D1B90050197D /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 009018C61921D1B90050197D /* LoginViewController.m */; };
-		009496C319B416D6001C6B63 /* GCDiscreetNotificationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 009496C219B416D5001C6B63 /* GCDiscreetNotificationView.m */; };
 		009B51EF199B4CB300E7F575 /* highlight.pack.js in Sources */ = {isa = PBXBuildFile; fileRef = 009B51B9199B4CB300E7F575 /* highlight.pack.js */; };
 		009B51F0199B4CB300E7F575 /* arta.css in Resources */ = {isa = PBXBuildFile; fileRef = 009B51BB199B4CB300E7F575 /* arta.css */; };
 		009B51F1199B4CB300E7F575 /* ascetic.css in Resources */ = {isa = PBXBuildFile; fileRef = 009B51BC199B4CB300E7F575 /* ascetic.css */; };
@@ -410,12 +410,12 @@
 		0079C00919B452A5005EF089 /* projectCellFork.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = projectCellFork.png; sourceTree = "<group>"; };
 		0079C00B19B452CF005EF089 /* projectCellLanguage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = projectCellLanguage.png; sourceTree = "<group>"; };
 		0079C00C19B452CF005EF089 /* projectCellStar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = projectCellStar.png; sourceTree = "<group>"; };
+		0079C03519B56521005EF089 /* UIView+Toast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Toast.h"; sourceTree = "<group>"; };
+		0079C03619B56521005EF089 /* UIView+Toast.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Toast.m"; sourceTree = "<group>"; };
 		0087828819583E7D003F331C /* Project.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Project.h; sourceTree = "<group>"; };
 		0087828919583E7D003F331C /* Project.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Project.m; sourceTree = "<group>"; };
 		009018C51921D1B90050197D /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		009018C61921D1B90050197D /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
-		009496C119B416D5001C6B63 /* GCDiscreetNotificationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCDiscreetNotificationView.h; sourceTree = "<group>"; };
-		009496C219B416D5001C6B63 /* GCDiscreetNotificationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCDiscreetNotificationView.m; sourceTree = "<group>"; };
 		009B51B9199B4CB300E7F575 /* highlight.pack.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = highlight.pack.js; sourceTree = "<group>"; };
 		009B51BB199B4CB300E7F575 /* arta.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = arta.css; sourceTree = "<group>"; };
 		009B51BC199B4CB300E7F575 /* ascetic.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = ascetic.css; sourceTree = "<group>"; };
@@ -792,10 +792,10 @@
 		0057719619A6299500EAA606 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				0079C03519B56521005EF089 /* UIView+Toast.h */,
+				0079C03619B56521005EF089 /* UIView+Toast.m */,
 				0021BAF5192360A100626A2C /* SSKeychain.h */,
 				0021BAF6192360A100626A2C /* SSKeychain.m */,
-				009496C119B416D5001C6B63 /* GCDiscreetNotificationView.h */,
-				009496C219B416D5001C6B63 /* GCDiscreetNotificationView.m */,
 				00B685B419ADCF2A00705534 /* Reachability.h */,
 				00B685B519ADCF2A00705534 /* Reachability.m */,
 				0041FA99191C87AF00E1F237 /* Tools.h */,
@@ -1298,7 +1298,6 @@
 				0002D2B719163DF6001FDED8 /* UIViewController+REFrostedViewController.m in Sources */,
 				00A74FD519A59FD7009DACDF /* SearchView.m in Sources */,
 				00D4ED26196F9B9900F3A4A5 /* IssueCell.m in Sources */,
-				009496C319B416D6001C6B63 /* GCDiscreetNotificationView.m in Sources */,
 				0021BAEB192342BD00626A2C /* GLNetworkOperation.m in Sources */,
 				00B481B819AED592001F3B2D /* LastCell.m in Sources */,
 				00760B8D19767BDB00C88C6F /* SDWebImageCompat.m in Sources */,
@@ -1318,6 +1317,7 @@
 				0021BAE9192342BD00626A2C /* GLGitlabApi.m in Sources */,
 				00760B8A19767BDA00C88C6F /* MKAnnotationView+WebCache.m in Sources */,
 				0002D2B319163DF6001FDED8 /* REFrostedContainerViewController.m in Sources */,
+				0079C03719B56521005EF089 /* UIView+Toast.m in Sources */,
 				0021BADA192342BD00626A2C /* GLTag.m in Sources */,
 				00760B9819767BDB00C88C6F /* UIImageView+WebCache.m in Sources */,
 				0021BADF192342BD00626A2C /* GLGitlabApi+Groups.m in Sources */,

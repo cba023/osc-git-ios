@@ -62,12 +62,14 @@ static NSString * const cellId = @"ProjectCell";
                                                                                 target:(NavigationController *)self.navigationController
                                                                                 action:@selector(showMenu)];
     }
+    self.navigationController.navigationBar.translucent = NO;
     
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     [self.tableView registerClass:[ProjectCell class] forCellReuseIdentifier:cellId];
     self.tableView.backgroundColor = [UIColor colorWithRed:235.0/255 green:235.0/255 blue:243.0/255 alpha:1.0];
-    self.navigationController.navigationBar.translucent = NO;
+    UIView *footer =[[UIView alloc] initWithFrame:CGRectZero];
+    self.tableView.tableFooterView = footer;
     
     self.refreshControl = [UIRefreshControl new];
     [self.refreshControl addTarget:self action:@selector(refresh) forControlEvents:UIControlEventValueChanged];
@@ -87,8 +89,8 @@ static NSString * const cellId = @"ProjectCell";
 {
     [super viewDidAppear:animated];
     if (_projectsType < 7) {
-        [self loadMore];
         [_lastCell loading];
+        [self loadMore];
     }
 }
 
@@ -233,6 +235,16 @@ static NSString * const cellId = @"ProjectCell";
 
 - (void)loadProjectsOnPage:(NSUInteger)page refresh:(BOOL)refresh
 {
+    if (![Tools isNetworkExist]) {
+        if (refresh) {
+            [self.refreshControl endRefreshing];
+        } else {
+            [_lastCell empty];
+        }
+        [Tools toastNotification:@"错误 无网络连接" inView:self.view];
+        return;
+    }
+    
     GLGitlabSuccessBlock success = ^(id responseObject) {
         if (responseObject == nil) {
             NSLog(@"Request failed");
@@ -248,11 +260,7 @@ static NSString * const cellId = @"ProjectCell";
             [projects addObjectsFromArray:responseObject];
             dispatch_async(dispatch_get_main_queue(), ^{
                 [self.tableView reloadData];
-                if (_isFinishedLoad) {
-                    [_lastCell finishedLoad];
-                } else {
-                    [_lastCell normal];
-                }
+                _isFinishedLoad? [_lastCell finishedLoad]: [_lastCell normal];
             });
         }
         _isLoading = NO;
@@ -269,9 +277,6 @@ static NSString * const cellId = @"ProjectCell";
             [_lastCell normal];
         }
         
-        if (![Tools isNetworkExist]) {
-            [Tools ToastNotification:@"错误 网络无连接" inView:self.view];
-        }
         _isLoading = NO;
     };
 

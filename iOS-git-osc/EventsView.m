@@ -256,6 +256,16 @@ static NSString * const EventCellIdentifier = @"EventCell";
 
 - (void)loadEventsOnPage:(NSUInteger)page related:(BOOL)related refresh:(BOOL)refresh
 {
+    if (![Tools isNetworkExist]) {
+        if (refresh) {
+            [self.refreshControl endRefreshing];
+        } else {
+            [_lastCell empty];
+        }
+        [Tools toastNotification:@"错误 无网络连接" inView:self.view];
+        return;
+    }
+
     GLGitlabSuccessBlock success = ^(id responseObject) {
         if (responseObject == nil) {
             NSLog(@"Request failed");
