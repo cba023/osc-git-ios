@@ -33,4 +33,8 @@
 + (NSInteger)networkStatus;
 + (BOOL)isNetworkExist;
 
++ (BOOL)isPageCacheExist:(NSInteger)type;
++ (NSArray *)getPageCache:(NSInteger)type;
++ (void)savePageCache:(NSArray *)page type:(NSInteger)type;
+
 @end

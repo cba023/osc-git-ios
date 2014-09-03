@@ -81,6 +81,8 @@ static NSString * const EventCellIdentifier = @"EventCell";
     self.tableView.dataSource = self;
     [self.tableView registerClass:[EventCell class] forCellReuseIdentifier:EventCellIdentifier];
     self.tableView.backgroundColor = [UIColor colorWithRed:235.0/255 green:235.0/255 blue:243.0/255 alpha:1.0];
+    UIView *footer =[[UIView alloc] initWithFrame:CGRectZero];
+    self.tableView.tableFooterView = footer;
     
     self.refreshControl = [UIRefreshControl new];
     [self.refreshControl addTarget:self action:@selector(refresh) forControlEvents:UIControlEventValueChanged];
@@ -281,11 +283,7 @@ static NSString * const EventCellIdentifier = @"EventCell";
             [events addObjectsFromArray:responseObject];
             dispatch_async(dispatch_get_main_queue(), ^{
                 [self.tableView reloadData];
-                if (_isFinishedLoad) {
-                    [_lastCell finishedLoad];
-                } else {
-                    [_lastCell normal];
-                }
+                _isFinishedLoad? [_lastCell finishedLoad]: [_lastCell normal];
             });
         }
         _isLoading = NO;
@@ -308,8 +306,6 @@ static NSString * const EventCellIdentifier = @"EventCell";
     } else {
         [[GLGitlabApi sharedInstance] getUserEvents:_userId page:page success:success failure:failure];
     }
-    
-    
 }
 
 

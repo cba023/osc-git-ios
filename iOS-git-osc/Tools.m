@@ -8,6 +8,7 @@
 
 #import "Tools.h"
 #import "GLGitlab.h"
+#import "GLGitlabApi+Private.h"
 #import <CommonCrypto/CommonDigest.h>
 #import "UIImageView+WebCache.h"
 #import "Reachability.h"
@@ -273,6 +274,43 @@
 + (BOOL)isNetworkExist
 {
     return [self networkStatus] > 0;
+}
+
++ (BOOL)isPageCacheExist:(NSInteger)type
+{
+    NSUserDefaults *cache = [NSUserDefaults standardUserDefaults];
+    NSArray *cachePage = [cache arrayForKey:[NSString stringWithFormat:@"type-%ld", (long)type]];
+    
+    return cachePage != nil;
+}
+
++ (NSArray *)getPageCache:(NSInteger)type
+{
+    NSUserDefaults *cache = [NSUserDefaults standardUserDefaults];
+    //NSArray *cachePage = [cache arrayForKey:[NSString stringWithFormat:@"type-%ld", (long)type]];
+    NSArray *cachePage = [cache objectForKey:[NSString stringWithFormat:@"type-%ld", (long)type]];
+    
+    Class class = type < 8? [GLProject class]: [GLEvent class];
+    
+    NSArray *page = [[GLGitlabApi sharedInstance] processJsonArray:cachePage class:class];
+    
+    return page;
+}
+
++ (void)savePageCache:(NSArray *)page type:(NSInteger)type
+{
+    NSMutableArray *jsonCache = [NSMutableArray arrayWithCapacity:page.count];
+    NSString *key = [NSString stringWithFormat:@"type-%ld", (long)type];
+    for (GLBaseObject *glObject in page) {
+        NSDictionary *jsonRep = [glObject jsonRepresentation];
+        [jsonCache addObject:jsonRep];
+    }
+    
+    NSUserDefaults *cache = [NSUserDefaults standardUserDefaults];
+    if ([cache objectForKey:key]) {[cache removeObjectForKey:key];}
+    [cache setObject:jsonCache forKey:key];
+    
+    [cache synchronize];
 }
 
 

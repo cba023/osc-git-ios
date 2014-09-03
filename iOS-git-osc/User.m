@@ -74,6 +74,8 @@ static NSString * const kKeyFollow = @"follow";
     [userDefaults setBool:user.canCreateProject forKey:kKeyCanCreateProject];
     [userDefaults setBool:user.canCreateTeam forKey:kKeyCanCreateTeam];
     [userDefaults setObject:user.follow forKey:kKeyFollow];
+    
+    [userDefaults synchronize];
 }
 
 + (void)saveUserName:(NSString *)username andPassword:(NSString *)password {

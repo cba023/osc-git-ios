@@ -22,6 +22,7 @@
 @property NSUInteger pageSize;
 @property BOOL isFinishedLoad;
 @property BOOL isLoading;
+@property BOOL isFirstRequest;
 @property LastCell *lastCell;
 
 @end
@@ -75,7 +76,7 @@ static NSString * const cellId = @"ProjectCell";
     [self.refreshControl addTarget:self action:@selector(refresh) forControlEvents:UIControlEventValueChanged];
     [self.tableView addSubview:self.refreshControl];
     
-    self.projects = [NSMutableArray new];
+    projects = [NSMutableArray new];
     _lastCell = [[LastCell alloc] initCell];
     _isFinishedLoad = NO;
 }
@@ -88,6 +89,18 @@ static NSString * const cellId = @"ProjectCell";
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
+    
+    //if (_projectsType != 7) {
+        
+    //}
+    
+    _isFirstRequest = YES;
+    
+    if ([Tools isPageCacheExist:_projectsType]) {
+        [self loadFromCache];
+        return;
+    }
+    
     if (_projectsType < 7) {
         [_lastCell loading];
         [self loadMore];
@@ -160,13 +173,13 @@ static NSString * const cellId = @"ProjectCell";
     if (indexPath.row < projects.count) {
         GLProject *project = [projects objectAtIndex:indexPath.row];
         UILabel *descriptionLabel = [UILabel new];
-        descriptionLabel.lineBreakMode = NSLineBreakByWordWrapping;
+        descriptionLabel.lineBreakMode = NSLineBreakByWordWrapping | NSLineBreakByTruncatingTail;
         descriptionLabel.numberOfLines = 4;
         descriptionLabel.textAlignment = NSTextAlignmentLeft;
         descriptionLabel.font = [UIFont systemFontOfSize:14];
         descriptionLabel.text = project.projectDescription.length > 0? project.projectDescription: @"暂无项目介绍";
         
-        CGSize size = [descriptionLabel sizeThatFits:CGSizeMake(300, MAXFLOAT)];
+        CGSize size = [descriptionLabel sizeThatFits:CGSizeMake(tableView.frame.size.width - 60, MAXFLOAT)];
         CGFloat height = size.height;
         
         return height + 64;
@@ -185,6 +198,21 @@ static NSString * const cellId = @"ProjectCell";
 	{
         [self loadMore];
 	}
+}
+
+#pragma mark - 从缓存加载
+
+- (void)loadFromCache
+{
+    [projects removeAllObjects];
+    _isFinishedLoad = NO;
+    
+    [projects addObjectsFromArray:[Tools getPageCache:_projectsType]];
+    _isFinishedLoad = projects.count < _pageSize;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.tableView reloadData];
+        _isFinishedLoad? [_lastCell finishedLoad]: [_lastCell normal];
+    });
 }
 
 
@@ -220,7 +248,13 @@ static NSString * const cellId = @"ProjectCell";
 - (void)reloadType:(NSInteger)NewProjectsType
 {
     _projectsType = NewProjectsType;
-    [self reload];
+    _isFirstRequest = YES;
+    
+    if ([Tools isPageCacheExist:NewProjectsType]) {
+        [self loadFromCache];
+    } else {
+        [self reload];
+    }
 }
 
 - (void)loadMore
@@ -247,17 +281,20 @@ static NSString * const cellId = @"ProjectCell";
     
     GLGitlabSuccessBlock success = ^(id responseObject) {
         if (responseObject == nil) {
-            NSLog(@"Request failed");
+            [Tools toastNotification:@"网络错误" inView:self.view];
         } else {
+            _isFinishedLoad = [(NSArray *)responseObject count] < _pageSize;
             if (refresh) {
                 [self.refreshControl endRefreshing];
                 [projects removeAllObjects];
-                _isFinishedLoad = NO;
-            }
-            if ([(NSArray *)responseObject count] < _pageSize) {
-                _isFinishedLoad = YES;
             }
             [projects addObjectsFromArray:responseObject];
+            
+            if (refresh || _isFirstRequest) {
+                [Tools savePageCache:projects type:_projectsType];
+                _isFirstRequest = NO;
+            }
+            
             dispatch_async(dispatch_get_main_queue(), ^{
                 [self.tableView reloadData];
                 _isFinishedLoad? [_lastCell finishedLoad]: [_lastCell normal];

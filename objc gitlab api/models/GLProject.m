@@ -18,17 +18,19 @@ static NSString * const kKeyDefaultBranch = @"default_branch";
 static NSString * const kKeyOwner = @"owner";
 static NSString * const kKeyPublicProject = @"public";
 static NSString * const kKeyPath = @"path";
+#if 0
 static NSString * const kKeyVisibilityLevel = @"visibility_level";
 static NSString * const kKeySshUrl = @"ssh_url_to_repo";
 static NSString * const kKeyHttpUrl = @"http_url_to_repo";
 static NSString * const kKeyWebUrl = @"web_url";
 static NSString * const kKeyNameWithNamespace = @"name_with_namespace";
 static NSString * const kKeyPathWithNamespace = @"path_with_namespace";
+static NSString * const kKeyWallEnabled = @"wall_enabled";
+static NSString * const kKeySnippetsEnabled = @"snippets_enabled";
+#endif
 static NSString * const kKeyIssuesEnabled = @"issues_enabled";
 static NSString * const kKeyPullRequestsEnabled = @"pull_requests_enabled";
-static NSString * const kKeyWallEnabled = @"wall_enabled";
 static NSString * const kKeyWikiEnabled = @"wiki_enabled";
-static NSString * const kKeySnippetsEnabled = @"snippets_enabled";
 static NSString * const kKeyParentId = @"parent_id";
 static NSString * const kKeyCreatedAt = @"created_at";
 static NSString * const kKeyLastPushAt = @"last_push_at";
@@ -46,20 +48,22 @@ static NSString * const kKeyLanguage = @"language";
         _projectDescription = [self checkForNull:json[kKeyDescription]];
         _defaultBranch = [self checkForNull:json[kKeyDefaultBranch]];
         _publicProject = [json[kKeyPublicProject] boolValue];
+#if 0
         _visibilityLevel = [json[kKeyVisibilityLevel] intValue];
         _sshUrl = [self checkForNull:json[kKeySshUrl]];
         _httpUrl = [self checkForNull:json[kKeyHttpUrl]];
         _webUrl = [self checkForNull:json[kKeyWebUrl]];
+        _pathWithNamespace = [self checkForNull:json[kKeyPathWithNamespace]];
+        _nameWithNamespace = [self checkForNull:json[kKeyNameWithNamespace]];
+        _wallEnabled = [json[kKeyWallEnabled] boolValue];
+        _snippetsEnabled = [json[kKeySnippetsEnabled] boolValue];
+#endif
         _owner = [[GLUser alloc] initWithJSON:json[kKeyOwner]];
         _name = [self checkForNull:json[kKeyName]];
-        _nameWithNamespace = [self checkForNull:json[kKeyNameWithNamespace]];
         _path = [self checkForNull:json[kKeyPath]];
-        _pathWithNamespace = [self checkForNull:json[kKeyPathWithNamespace]];
         _issuesEnabled = [json[kKeyIssuesEnabled] boolValue];
         _pullRequestsEnabled = [json[kKeyPullRequestsEnabled] boolValue];
-        _wallEnabled = [json[kKeyWallEnabled] boolValue];
         _wikiEnabled = [json[kKeyWikiEnabled] boolValue];
-        _snippetsEnabled = [json[kKeySnippetsEnabled] boolValue];
         _parentId = [[self checkForNull:json[kKeyParentId]] longLongValue];
         _createdAt = [self checkForNull:json[kKeyCreatedAt]];
         _lastPushAt = [self checkForNull:json[kKeyLastPushAt]];
@@ -197,37 +201,38 @@ static NSString * const kKeyLanguage = @"language";
     return description;
 }
 
-#if 0
 - (NSDictionary *)jsonRepresentation
 {
-    NSDateFormatter *formatter = [[GLGitlabApi sharedInstance] gitLabDateFormatter];
-    NSNull *null = [NSNull null];
+    //NSDateFormatter *formatter = [[GLGitlabApi sharedInstance] gitLabDateFormatter];
+    //NSNull *null = [NSNull null];
+    NSString *null = @"";
     
     return @{
              kKeyProjectId: @(_projectId),
              kKeyDescription: _projectDescription ?: null,
              kKeyDefaultBranch: _defaultBranch ?: null,
              kKeyPublicProject: @(_publicProject),
+#if 0
              kKeyVisibilityLevel: @(_visibilityLevel),
              kKeySshUrl: _sshUrl ?: null,
              kKeyHttpUrl: _httpUrl ?: null,
              kKeyWebUrl: _webUrl ?: null,
+             kKeyNameWithNamespace: _nameWithNamespace ?: null,
+             kKeyPathWithNamespace: _pathWithNamespace ?: null,
+             kKeyWallEnabled: @(_wallEnabled),
+             kKeySnippetsEnabled: @(_snippetsEnabled),
+#endif
              kKeyOwner: [_owner jsonRepresentation],
              kKeyName: _name ?: null,
-             kKeyNameWithNamespace: _nameWithNamespace ?: null,
              kKeyPath: _path ?: null,
-             kKeyPathWithNamespace: _pathWithNamespace ?: null,
              kKeyIssuesEnabled: @(_issuesEnabled),
              kKeyPullRequestsEnabled: @(_pullRequestsEnabled),
-             kKeyWallEnabled: @(_wallEnabled),
              kKeyWikiEnabled: @(_wikiEnabled),
-             kKeySnippetsEnabled: @(_snippetsEnabled),
-             kKeyCreatedAt: [formatter stringFromDate:_createdAt],
-             kKeyLastPushAt: [formatter stringFromDate:_lastPushAt],
-             kKeyNamespace: [_glNamespace jsonRepresentation]
+             kKeyCreatedAt: _createdAt ?: null,                 //[formatter stringFromDate:_createdAt],
+             kKeyLastPushAt: _lastPushAt ?: null,                       //[formatter stringFromDate:_lastPushAt],
+             //kKeyNamespace: [_glNamespace jsonRepresentation]
              };
 }
-#endif
 
 - (NSDictionary *)jsonCreateRepresentation
 {
@@ -237,10 +242,12 @@ static NSString * const kKeyLanguage = @"language";
              kKeyName: _name,
              kKeyDescription: _projectDescription ?: null,
              kKeyIssuesEnabled: @(_issuesEnabled),
+#if 0
              kKeyWallEnabled: @(_wallEnabled),
+             kKeySnippetsEnabled: @(_snippetsEnabled),
+#endif
              kKeyPullRequestsEnabled: @(_pullRequestsEnabled),
              kKeyWikiEnabled: @(_wikiEnabled),
-             kKeySnippetsEnabled: @(_snippetsEnabled),
              kKeyPublicProject: @(_publicProject)
              };
 }
