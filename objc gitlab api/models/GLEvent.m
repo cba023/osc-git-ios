@@ -22,6 +22,10 @@ static NSString * const kKeyPublic = @"public";
 static NSString * const kKeyProject = @"project";
 static NSString * const kKeyAuthor = @"author";
 static NSString * const kKeyEvents = @"events";
+static NSString * const kKeyNote = @"note";
+static NSString * const kKeyIssue = @"issue";
+static NSString * const kKeyIId = @"iid";
+static NSString * const kKeyPullRequest = @"pull_request";
 
 @implementation GLEvent
 
@@ -32,23 +36,50 @@ static NSString * const kKeyEvents = @"events";
         _targetId = [[self checkForNull:json[kKeyTargetId]] longLongValue];
         _targetType = [self checkForNull:json[kKeyTargetType]];
         _title = [self checkForNull:json[kKeyTitle]];
-        _data = json[kKeyData];
+        _data = [self checkForNull:json[kKeyData]];
+#if 0
         if ((id)_data == [NSNull null]) {
             _data = nil;
         }
+#endif
         _projectId = [[self checkForNull:json[kKeyProjectId]] longLongValue];
         _createdAt = [self checkForNull:json[kKeyCreatedAt]];
         _updatedAt = [self checkForNull:json[kKeyUpdatedAt]];
         _action = [[self checkForNull:json[kKeyAction]] intValue];
         _authorId = [[self checkForNull:json[kKeyAuthorId]] longLongValue];
-        _public = [[self checkForNull:json[kKeyPublic]] boolValue];
+        _isPublic = [[self checkForNull:json[kKeyPublic]] boolValue];
         _project = [[GLProject alloc] initWithJSON:json[kKeyProject]];
         _author = [[GLUser alloc] initWithJSON:json[kKeyAuthor]];
-        _events = [self checkForNull:json[kKeyEvents]];
+        _events = [self eventsInitWithJson:json[kKeyEvents]];
     }
     
     return self;
 }
+
+- (NSDictionary *)eventsInitWithJson:(NSDictionary *)json
+{
+    NSDictionary *note = [self checkForNull:json[kKeyNote]];
+    NSDictionary *issue = [self checkForNull:json[kKeyIssue]] ?: @"";
+    NSDictionary *pullRequest = [self checkForNull:json[kKeyPullRequest]] ?: @"";
+    
+    return @{
+             kKeyNote: note ?@"": @{
+                                    kKeyId: [self checkForNull:note[kKeyId]] ?: @"",
+                                    kKeyNote: [self checkForNull:note[kKeyNote]] ?: @""
+                                    },
+             kKeyIssue: issue ?@"": @{
+                                      kKeyId: [self checkForNull:issue[kKeyId]] ?: @"",
+                                      kKeyIId: [self checkForNull:issue[kKeyIId]] ?: @"",
+                                      kKeyTitle: [self checkForNull:issue[kKeyTitle]] ?: @""
+                                     },
+             kKeyPullRequest: pullRequest ?@"": @{
+                                                  kKeyId: [self checkForNull:pullRequest[kKeyId]] ?: @"",
+                                                  kKeyIId: [self checkForNull:pullRequest[kKeyIId]] ?: @"",
+                                                  kKeyTitle: [self checkForNull:pullRequest[kKeyTitle]] ?: @""
+                                                  }
+             };
+}
+
 - (NSString *)description
 {
     NSString *description = @"";
@@ -75,5 +106,28 @@ static NSString * const kKeyEvents = @"events";
     return description;
 #endif
 }
+
+- (NSDictionary *)jsonRepresentation
+{
+    //id null = (id)[NSNull null];
+    NSString *null = @"";
+    
+    return @{
+             kKeyId: @(_id),
+             kKeyTargetId: @(_targetId),
+             kKeyTargetType: _targetType ?: null,
+             kKeyTitle: _title ?: null,
+             kKeyAction: @(_action),
+             kKeyData: _data ?: null,
+             kKeyProjectId: @(_projectId),
+             kKeyCreatedAt: _createdAt ?: null,
+             kKeyAuthorId: @(_authorId),
+             kKeyPublic: @(_isPublic),
+             kKeyProject: [_project jsonRepresentation],
+             kKeyAuthor: [_author jsonRepresentation],
+             kKeyEvents: _events ?: null,
+             };
+}
+
 
 @end

@@ -37,6 +37,7 @@ static NSString * const kKeyLastPushAt = @"last_push_at";
 static NSString * const kKeyNamespace = @"namespace";
 static NSString * const kKeyForksCount = @"forks_count";
 static NSString * const kKeyStarsCount = @"stars_count";
+static NSString * const kKeyWatchesCount = @"watches_count";
 static NSString * const kKeyLanguage = @"language";
 
 @implementation GLProject
@@ -73,6 +74,7 @@ static NSString * const kKeyLanguage = @"language";
         _language = [self checkForNull:json[kKeyLanguage]];
         _forksCount = [json[kKeyForksCount] intValue];
         _starsCount = [json[kKeyStarsCount] intValue];
+        _watchesCount = [json[kKeyWatchesCount] intValue];
     }
     return self;
 }
@@ -230,7 +232,11 @@ static NSString * const kKeyLanguage = @"language";
              kKeyWikiEnabled: @(_wikiEnabled),
              kKeyCreatedAt: _createdAt ?: null,                 //[formatter stringFromDate:_createdAt],
              kKeyLastPushAt: _lastPushAt ?: null,                       //[formatter stringFromDate:_lastPushAt],
-             //kKeyNamespace: [_glNamespace jsonRepresentation]
+             kKeyNamespace: [_glNamespace jsonRepresentation],
+             kKeyForksCount: @(_forksCount),
+             kKeyStarsCount: @(_starsCount),
+             kKeyWatchesCount: @(_watchesCount),
+             kKeyLanguage: _language ?: null
              };
 }
 

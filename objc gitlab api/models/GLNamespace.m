@@ -26,8 +26,13 @@ static NSString * const kKeyOwnerId = @"owner_id";
         _name = [self checkForNull:json[kKeyName]];
         _path = [self checkForNull:json[kKeyPath]];
         _namespaceDescription = [self checkForNull:json[kKeyDescription]];
+#if 0
         _createdAt = [[[GLGitlabApi sharedInstance] gitLabDateFormatter] dateFromString:json[kKeyCreatedAt]];
         _updatedAt = [[[GLGitlabApi sharedInstance] gitLabDateFormatter] dateFromString:json[kKeyUpdatedAt]];
+#else
+        _createdAt = [self checkForNull:json[kKeyCreatedAt]];
+        _updatedAt = [self checkForNull:json[kKeyUpdatedAt]];
+#endif
         _ownerId = [json[kKeyOwnerId] longLongValue];
     }
     return self;
@@ -55,10 +60,12 @@ static NSString * const kKeyOwnerId = @"owner_id";
         return NO;
     if (self.namespaceDescription != glNamespace.namespaceDescription && ![self.namespaceDescription isEqualToString:glNamespace.namespaceDescription])
         return NO;
+#if 0
     if (self.createdAt != glNamespace.createdAt && ![self.createdAt isEqualToDate:glNamespace.createdAt])
         return NO;
     if (self.updatedAt != glNamespace.updatedAt && ![self.updatedAt isEqualToDate:glNamespace.updatedAt])
         return NO;
+#endif
     if (self.ownerId != glNamespace.ownerId)
         return NO;
     return YES;
@@ -90,15 +97,17 @@ static NSString * const kKeyOwnerId = @"owner_id";
 
 - (NSDictionary *)jsonRepresentation
 {
-    NSDateFormatter *formatter = [[GLGitlabApi sharedInstance] gitLabDateFormatter];
-    NSNull *null = [NSNull null];
+    //NSDateFormatter *formatter = [[GLGitlabApi sharedInstance] gitLabDateFormatter];
+    //NSNull *null = [NSNull null];
+    NSString *null = @"";
+
     return @{
              kKeyNamespaceId: @(_namespaceId),
              kKeyName: _name ?: null,
              kKeyPath: _path ?: null,
              kKeyDescription: _namespaceDescription ?: null,
-             kKeyCreatedAt: [formatter stringFromDate:_createdAt],
-             kKeyUpdatedAt: [formatter stringFromDate:_updatedAt],
+             kKeyCreatedAt: _createdAt ?: null,                 //[formatter stringFromDate:_createdAt],
+             kKeyUpdatedAt: _createdAt ?: null,                 //[formatter stringFromDate:_updatedAt],
              kKeyOwnerId: @(_ownerId)
              };
 }

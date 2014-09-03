@@ -34,12 +34,12 @@
 // author_id
 @property (nonatomic, assign) int64_t authorId;
 // public
-@property (nonatomic) BOOL public;
+@property (nonatomic) BOOL isPublic;
 // project
 @property (nonatomic, strong) GLProject *project;
 // user
 @property (nonatomic, strong) GLUser *author;
 // events
-@property (nonatomic, strong) NSArray *events;
+@property (nonatomic, strong) NSDictionary *events;
 
 @end

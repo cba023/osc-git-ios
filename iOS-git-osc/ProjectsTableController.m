@@ -139,6 +139,13 @@ static NSString * const cellId = @"ProjectCell";
     }
     if (row < self.projects.count) {
         GLProject *project = [projects objectAtIndex:row];
+#if 0
+        if ([Tools isNetworkExist]) {
+            //ProjectDetailsView *projectDetails = [[ProjectDetailsView alloc] initWithProjectID];
+            project = [Project getASingleProject:project.projectId];
+        }
+#endif
+        
         if (project) {
             ProjectDetailsView *projectDetails = [[ProjectDetailsView alloc] init];
             projectDetails.project = project;
@@ -279,44 +286,8 @@ static NSString * const cellId = @"ProjectCell";
         return;
     }
     
-    GLGitlabSuccessBlock success = ^(id responseObject) {
-        if (responseObject == nil) {
-            [Tools toastNotification:@"网络错误" inView:self.view];
-        } else {
-            _isFinishedLoad = [(NSArray *)responseObject count] < _pageSize;
-            if (refresh) {
-                [self.refreshControl endRefreshing];
-                [projects removeAllObjects];
-            }
-            [projects addObjectsFromArray:responseObject];
-            
-            if (refresh || _isFirstRequest) {
-                [Tools savePageCache:projects type:_projectsType];
-                _isFirstRequest = NO;
-            }
-            
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [self.tableView reloadData];
-                _isFinishedLoad? [_lastCell finishedLoad]: [_lastCell normal];
-            });
-        }
-        _isLoading = NO;
-    };
-    
-    GLGitlabFailureBlock failure = ^(NSError *error) {
-        if (refresh) {
-            [self.refreshControl endRefreshing];
-        }
-        
-        if (_isFinishedLoad) {
-            [_lastCell finishedLoad];
-        } else {
-            [_lastCell normal];
-        }
-        
-        _isLoading = NO;
-    };
-
+    GLGitlabSuccessBlock success = [self successBlockIfRefresh:refresh];
+    GLGitlabFailureBlock failure = [self failureBlockIfrefresh:refresh];
     
     if (_projectsType < 3) {
         [[GLGitlabApi sharedInstance] getExtraProjectsType:_projectsType page:page success:success failure:failure];
@@ -332,6 +303,55 @@ static NSString * const cellId = @"ProjectCell";
     } else {
         [[GLGitlabApi sharedInstance] searchProjectsByQuery:_query page:page success:success failure:failure];
     }
+}
+
+- (GLGitlabSuccessBlock)successBlockIfRefresh:(BOOL)refresh
+{
+    return
+    
+    ^(id responseObject) {
+        if (responseObject == nil) {
+            [Tools toastNotification:@"网络错误" inView:self.view];
+        } else {
+            if (refresh) {
+                [self.refreshControl endRefreshing];
+                [projects removeAllObjects];
+            }
+            
+            _isFinishedLoad = [(NSArray *)responseObject count] < _pageSize;
+            [projects addObjectsFromArray:responseObject];
+            
+            if (refresh || _isFirstRequest) {
+                [Tools savePageCache:projects type:_projectsType];
+                _isFirstRequest = NO;
+            }
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.tableView reloadData];
+                _isFinishedLoad? [_lastCell finishedLoad]: [_lastCell normal];
+            });
+        }
+        _isLoading = NO;
+    };
+}
+
+- (GLGitlabFailureBlock)failureBlockIfrefresh:(BOOL)refresh
+{
+    return
+    
+    ^(NSError *error) {
+        if (refresh) {
+            [self.refreshControl endRefreshing];
+        }
+        
+        if (_isFinishedLoad) {
+            [_lastCell finishedLoad];
+        } else {
+            [_lastCell normal];
+        }
+        
+        _isLoading = NO;
+    };
 }
 
 

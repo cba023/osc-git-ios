@@ -40,12 +40,15 @@ static NSString * const ProjectDetailsCellId = @"ProjectDetailsCell";
     self.navigationController.navigationBar.translucent = NO;
     self.title = _project.name;
     
+    [self initSubviews];
+    [self setAutoLayout];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
     if (_project.parentId) {
         _parentProject = [Project getASingleProject:_project.parentId];
     }
-    
-    [self initSubviews];
-    [self setAutoLayout];
 }
 
 - (void)didReceiveMemoryWarning

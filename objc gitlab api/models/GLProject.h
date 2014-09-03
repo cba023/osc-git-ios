@@ -63,6 +63,8 @@
 @property (nonatomic, assign) int32_t forksCount;
 // stars_count
 @property (nonatomic, assign) int32_t starsCount;
+// watches_count
+@property (nonatomic, assign) int32_t watchesCount;
 
 //- (BOOL)isEqualToProject:(GLProject *)project;
 

@@ -20,9 +20,9 @@
 // description
 @property (nonatomic, copy) NSString *namespaceDescription;
 // created_at
-@property (nonatomic, strong) NSDate *createdAt;
+@property (nonatomic, strong) NSString *createdAt;      //NSDate *createdAt;
 // updated_at
-@property (nonatomic, strong) NSDate *updatedAt;
+@property (nonatomic, strong) NSString *updatedAt;      //NSDate *updatedAt;
 // owner_id
 @property (nonatomic, assign) int64_t ownerId;
 

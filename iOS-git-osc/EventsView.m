@@ -25,6 +25,7 @@ static NSString * const EventCellIdentifier = @"EventCell";
 @property (nonatomic, strong) EventCell *prototypeCell;
 @property BOOL isFinishedLoad;
 @property BOOL isLoading;
+@property BOOL isFirstRequest;
 @property LastCell *lastCell;
 
 @end
@@ -97,6 +98,13 @@ static NSString * const EventCellIdentifier = @"EventCell";
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
+    
+    _isFirstRequest = YES;
+    if (_privateToken) {
+        [self loadFromCache];
+        return;
+    }
+    
     [_lastCell loading];
     [self loadMore];
 }
@@ -222,6 +230,24 @@ static NSString * const EventCellIdentifier = @"EventCell";
 	}
 }
 
+#pragma mark - 从缓存加载
+
+- (void)loadFromCache
+{
+    [_lastCell loading];
+    
+    [events removeAllObjects];
+    _isFinishedLoad = NO;
+    
+    [events addObjectsFromArray:[Tools getPageCache:8]];
+    _isFinishedLoad = events.count < 20;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.tableView reloadData];
+        _isFinishedLoad? [_lastCell finishedLoad]: [_lastCell normal];
+    });
+}
+
+
 
 #pragma mark - 刷新
 
@@ -275,12 +301,16 @@ static NSString * const EventCellIdentifier = @"EventCell";
             if (refresh) {
                 [self.refreshControl endRefreshing];
                 [events removeAllObjects];
-                _isFinishedLoad = NO;
             }
-            if ([(NSArray *)responseObject count] < 20) {
-                _isFinishedLoad = YES;
-            }
+            
+            _isFinishedLoad = [(NSArray *)responseObject count] < 20;
             [events addObjectsFromArray:responseObject];
+
+            if ((refresh || _isFirstRequest) && related) {
+                [Tools savePageCache:events type:8];
+                _isFirstRequest = NO;
+            }
+            
             dispatch_async(dispatch_get_main_queue(), ^{
                 [self.tableView reloadData];
                 _isFinishedLoad? [_lastCell finishedLoad]: [_lastCell normal];
