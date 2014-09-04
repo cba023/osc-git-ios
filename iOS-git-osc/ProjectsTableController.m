@@ -138,17 +138,10 @@ static NSString * const cellId = @"ProjectCell";
         return;
     }
     if (row < self.projects.count) {
-        GLProject *project = [projects objectAtIndex:row];
-#if 0
-        if ([Tools isNetworkExist]) {
-            //ProjectDetailsView *projectDetails = [[ProjectDetailsView alloc] initWithProjectID];
-            project = [Project getASingleProject:project.projectId];
-        }
-#endif
+        GLProject *project = [projects objectAtIndex:row];        
         
         if (project) {
-            ProjectDetailsView *projectDetails = [[ProjectDetailsView alloc] init];
-            projectDetails.project = project;
+            ProjectDetailsView *projectDetails = [[ProjectDetailsView alloc] initWithProjectId:project.projectId];
             if (_projectsType > 2) {
                 [self.navigationController pushViewController:projectDetails animated:YES];
             } else {

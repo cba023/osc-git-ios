@@ -100,7 +100,7 @@ static NSString * const EventCellIdentifier = @"EventCell";
     [super viewDidAppear:animated];
     
     _isFirstRequest = YES;
-    if (_privateToken) {
+    if (_privateToken && [Tools isPageCacheExist:8]) {
         [self loadFromCache];
         return;
     }
