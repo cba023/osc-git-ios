@@ -107,7 +107,7 @@
     [self.view addSubview:password];
     
     UIButton* submit = [UIButton buttonWithType:UIButtonTypeCustom];
-    [Tools roundCorner:submit cornerRadius:5.0];
+    [Tools roundView:submit cornerRadius:5.0];
     submit.backgroundColor = [UIColor redColor];
     [submit setTitle:@"登录" forState:UIControlStateNormal];
     [submit addTarget:self action:@selector(login) forControlEvents:UIControlEventTouchUpInside];

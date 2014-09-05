@@ -81,7 +81,7 @@ static NSString * const kKeyFollow = @"follow";
     [_portrait sd_setImageWithURL:[NSURL URLWithString:portraitURL]
                  placeholderImage:[UIImage imageNamed:@"avatar"]];
     
-    [Tools roundCorner:_portrait cornerRadius:5.0];
+    [Tools roundView:_portrait cornerRadius:5.0];
     [self.view addSubview:_portrait];
     
     _name = [UILabel new];
@@ -93,7 +93,7 @@ static NSString * const kKeyFollow = @"follow";
     _follow.dataSource = self;
     _follow.delegate = self;
     _follow.separatorStyle = NO;
-    [Tools roundCorner:_follow cornerRadius:5.0];
+    [Tools roundView:_follow cornerRadius:5.0];
     [self.view addSubview:_follow];
     
     _social = [UITableView new];
@@ -101,14 +101,14 @@ static NSString * const kKeyFollow = @"follow";
     _social.dataSource = self;
     _social.delegate = self;
     _social.separatorStyle = NO;
-    [Tools roundCorner:_social cornerRadius:5.0];
+    [Tools roundView:_social cornerRadius:5.0];
     [self.view addSubview:_social];
     
     _logoutButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    [Tools roundCorner:_logoutButton cornerRadius:5.0];
+    [Tools roundView:_logoutButton cornerRadius:5.0];
     _logoutButton.tintColor = [UIColor whiteColor];
     _logoutButton.backgroundColor = [UIColor redColor];
-    [Tools roundCorner:_logoutButton cornerRadius:5.0];
+    [Tools roundView:_logoutButton cornerRadius:5.0];
     [_logoutButton setTitle:@"注销登录" forState:UIControlStateNormal];
     [_logoutButton addTarget:self action:@selector(logout) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:_logoutButton];

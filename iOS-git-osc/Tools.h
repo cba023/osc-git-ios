@@ -9,6 +9,8 @@
 #import <Foundation/Foundation.h>
 
 @class GLUser;
+@class GLProject;
+@class GLEvent;
 
 @interface Tools : NSObject
 
@@ -26,7 +28,7 @@
 + (NSAttributedString *)getIntervalAttrStr:(NSString *)dateStr;
 
 + (NSAttributedString *)grayString:(NSString *)string fontName:(NSString *)fontName fontSize:(CGFloat)size;
-+ (void)roundCorner:(UIView *)view cornerRadius:(CGFloat)cornerRadius;
++ (void)roundView:(UIView *)view cornerRadius:(CGFloat)cornerRadius;
 + (void)setPortraitForUser:(GLUser *)user view:(UIImageView *)portraitView cornerRadius:(CGFloat)cornerRadius;
 
 + (void)toastNotification:(NSString *)text inView:(UIView *)view;
@@ -36,5 +38,8 @@
 + (BOOL)isPageCacheExist:(NSInteger)type;
 + (NSArray *)getPageCache:(NSInteger)type;
 + (void)savePageCache:(NSArray *)page type:(NSInteger)type;
+
++ (NSUInteger)numberOfRepeatedProjects:(NSArray *)projects project:(GLProject *)project;
++ (NSUInteger)numberOfRepeatedEvents:(NSArray *)events event:(GLEvent *)event;
 
 @end

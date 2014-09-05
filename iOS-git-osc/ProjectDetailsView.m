@@ -15,8 +15,11 @@
 #import "UserDetailsView.h"
 #import "IssuesView.h"
 #import "ReadmeView.h"
+#import "ProjectDescriptionCell.h"
+#import "ProjectBasicInfoCell.h"
 
-static NSString * const ProjectDetailsCellId = @"ProjectDetailsCell";
+static NSString * const ProjectDetailsCellID = @"ProjectDetailsCell";
+//static NSString * const ProjcetDescriptionCellID = @"ProjcetDescriptionCell";
 
 @interface ProjectDetailsView ()
 
@@ -79,107 +82,106 @@ static NSString * const ProjectDetailsCellId = @"ProjectDetailsCell";
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 3;
+    return 2;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     switch (section) {
-        case 0: {
-            int sectionsCount = 3;
-            if (_project.parentId) {sectionsCount++;}
-            return sectionsCount;
-        }
+        case 0:
+            return 3;
         case 1:
-            return 2;
-        case 2:
-            return 1;
+            return 3;       //return 4;
         default:
             return 0;
     }
 }
 
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
-{
-    switch (section) {
-        case 0:
-            return @"项目信息";
-        case 1:
-            return @"项目情况";
-        case 2:
-            return @"代码";
-        default:
-            return @"";
-    }
-}
-
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ProjectDetailsCellId forIndexPath:indexPath];
-    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-    
+#if 0
     for (UIView *view in [cell.contentView subviews]) {
         [view removeFromSuperview];
     }
+#endif
     
     if (indexPath.section == 0) {
-        [self generateTabelCell:cell inRow:indexPath.row];
-    } else if (indexPath.section == 1){
         switch (indexPath.row) {
             case 0: {
-                UILabel *members = [[UILabel alloc] initWithFrame:CGRectMake(20, 9, 254, 21)];
-                [members setText:@"成员"];
-                [cell.contentView addSubview:members];
-                break;
+                ProjectDescriptionCell *cell = [[ProjectDescriptionCell alloc] initWithStarsCount:_project.starsCount
+                                                                                     watchesCount:_project.watchesCount
+                                                                                        isStarred:NO
+                                                                                        isWatched:NO
+                                                                                      description:_project.projectDescription];
+                return cell;
             }
             case 1: {
-                UILabel *issues = [[UILabel alloc] initWithFrame:CGRectMake(20, 9, 254, 21)];
-                [issues setText:@"问题"];
-                [cell.contentView addSubview:issues];
-                break;
+                ProjectBasicInfoCell *cell = [[ProjectBasicInfoCell alloc] initWithCreatedTime:_project.createdAt
+                                                                                    forksCount:_project.forksCount
+                                                                                      isPublic:_project.isPublicProject
+                                                                                      language:_project.language];
+                
+                return cell;
             }
+            case 2: {
+                UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ProjectDetailsCellID forIndexPath:indexPath];
+                cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+                
+                NSDictionary *nameAttributes = @{NSForegroundColorAttributeName: [UIColor grayColor]};
+                NSMutableAttributedString *ownerAttrTxt = [[NSMutableAttributedString alloc] initWithString:@"拥有者 "
+                                                                                                 attributes:nameAttributes];
+                [ownerAttrTxt appendAttributedString:[[NSAttributedString alloc] initWithString:_project.owner.name]];
+                UILabel *owner = [[UILabel alloc] initWithFrame:CGRectMake(20, 9, 254, 21)];
+                [owner setAttributedText:ownerAttrTxt];
+                [cell addSubview:owner];
+                
+                return cell;
+            }
+                
             default:
-                break;
+                return nil;
         }
     } else {
-        UILabel *code = [[UILabel alloc] initWithFrame:CGRectMake(20, 9, 254, 21)];
-        [code setText:_project.defaultBranch];
-        [cell.contentView addSubview:code];
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ProjectDetailsCellID forIndexPath:indexPath];
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        
+        NSArray *rowTitle = @[@"Readme", @"代码", @"问题"];             //@"提交"
+        UILabel *title = [[UILabel alloc] initWithFrame:CGRectMake(20, 9, 254, 21)];
+        [title setText:rowTitle[indexPath.row]];
+        [cell.contentView addSubview:title];
+        
+        return cell;
     }
-    
-    return cell;
 }
 
 #pragma mark - UITableViewDelegate
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    return 45;
+    if (section == 0) {
+        return 0;
+    }
+    return 30;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSInteger section = indexPath.section, row = indexPath.row;
-    if (section == 0) {
-        if ((row == 1 && !_parentProject) || (row == 2 && _parentProject)) {
-            UITextView *titleView = [UITextView new];
-            titleView.text = _project.projectDescription;
-            titleView.font = [UIFont boldSystemFontOfSize:14];
-            
-            CGSize size = [titleView sizeThatFits:CGSizeMake(tableView.frame.size.width - 60, MAXFLOAT)];
-            
-            return size.height + 20;
-        }
+    
+    if (section == 0 && row == 0) {
+        UILabel *tmpLabel = [UILabel new];
+        tmpLabel.lineBreakMode = NSLineBreakByWordWrapping;
+        tmpLabel.numberOfLines = 0;
+        tmpLabel.font = [UIFont systemFontOfSize:15];
+        tmpLabel.text = _project.projectDescription;
+        
+        CGSize size = [tmpLabel sizeThatFits:CGSizeMake(tableView.frame.size.width - 16, MAXFLOAT)];
+        return size.height + 59;
+    } else if (section == 0 && row == 1) {
+        return 80;
     }
     return 40;
 }
-
-#if 0
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
-{
-    
-}
-#endif
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -239,69 +241,6 @@ static NSString * const ProjectDetailsCellId = @"ProjectDetailsCell";
     }
 }
 
-#pragma mark - generate table cell
-
-- (void)generateTabelCell:(UITableViewCell *)cell inRow:(NSInteger)row
-{
-    NSDictionary *nameAttributes = @{NSForegroundColorAttributeName: [UIColor grayColor]};
-    
-    UILabel *content = [UILabel new];
-    [cell.contentView addSubview:content];
-    content.translatesAutoresizingMaskIntoConstraints = NO;
-    [cell.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-5-[content]-5-|"
-                                                                            options:0
-                                                                            metrics:nil
-                                                                              views:NSDictionaryOfVariableBindings(content)]];
-    
-    [cell.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|-[content]-|"
-                                                                             options:0
-                                                                             metrics:nil
-                                                                               views:NSDictionaryOfVariableBindings(content)]];
-    
-    switch (row) {
-        case 0: {
-            NSMutableAttributedString *ownerAttrTxt = [[NSMutableAttributedString alloc] initWithString:@"拥有者 " attributes:nameAttributes];
-            [ownerAttrTxt appendAttributedString:[[NSAttributedString alloc] initWithString:_project.owner.name]];
-            [content setAttributedText:ownerAttrTxt];
-            break;
-        }
-        case 1: {
-            if (_parentProject) {
-                NSMutableAttributedString *forkFromAttrTxt = [[NSMutableAttributedString alloc] initWithString:@"fork from "
-                                                                                                    attributes:nameAttributes];
-                [forkFromAttrTxt appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@ / %@", _parentProject.owner.name, _parentProject.name]]];
-                [content setAttributedText:forkFromAttrTxt];
-            } else {
-                content.lineBreakMode = NSLineBreakByCharWrapping;
-                content.numberOfLines = 0;
-                if (_project.projectDescription.length) {
-                    [content setText:_project.projectDescription];
-                } else {
-                    [content setText:@"暂无项目介绍"];
-                }
-                cell.accessoryType = UITableViewCellAccessoryNone;
-            }
-            break;
-        }
-        case 2: {
-            if (_project.projectDescription && _parentProject) {
-                [content setText:_project.projectDescription];
-                cell.accessoryType = UITableViewCellAccessoryNone;
-            } else {
-                [content setText:@"README"];
-                [cell.contentView addSubview:content];
-            }
-            break;
-        }
-        case 3: {
-            [content setText:@"README"];
-            break;
-        }
-        default:
-            break;
-    }
-}
-
 
 #pragma mark - About Subviews and Layout
 
@@ -321,40 +260,22 @@ static NSString * const ProjectDetailsCellId = @"ProjectDetailsCell";
     [self.view addSubview:_projectName];
     
     _timeInterval = [UILabel new];
-    NSDictionary *grayTextAttributes = @{NSForegroundColorAttributeName:[UIColor grayColor]};
-    NSMutableAttributedString *updateTime = [[NSMutableAttributedString alloc] initWithString:@"更新于" attributes:grayTextAttributes];
+    NSDictionary *grayTextAttributes = @{
+                                         NSForegroundColorAttributeName:[UIColor grayColor],
+                                         NSFontAttributeName:[UIFont fontWithName:@"STHeitiSC-Medium" size:15]
+                                         };
+    NSMutableAttributedString *updateTime = [[NSMutableAttributedString alloc] initWithString:@"更新于 " attributes:grayTextAttributes];
     [updateTime appendAttributedString:[Tools getIntervalAttrStr:_project.lastPushAt]];
     [_timeInterval setAttributedText:updateTime];
     [self.view addSubview:_timeInterval];
     
-    _language = [UILabel new];
-    [_language setText:_project.language?_project.language: @"Unknown"];
-    [self.view addSubview:_language];
-    
-    _starButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    [_starButton setImage:[UIImage imageNamed:@"star2"] forState:UIControlStateNormal];
-    _starButton.tintColor = [UIColor blackColor];
-    //[Tools roundCorner:_starButton];
-    //[_starButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    [_starButton setTitle:[NSString stringWithFormat:@"%i", _project.starsCount] forState:UIControlStateNormal];
-    //[starButton setImage:[UIImage imageNamed:@"star2"] forState:UIControlStateSelected];
-    //[starButton setTitle:[NSString stringWithFormat:@"%i stars", _project.starsCount+1] forState:UIControlStateSelected];
-    [self.view addSubview:_starButton];
-    
-    _forkButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    [_forkButton setImage:[UIImage imageNamed:@"fork"] forState:UIControlStateNormal];
-    _forkButton.tintColor = [UIColor blackColor];
-    //[Tools roundCorner:_forkButton];
-    [_forkButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    [_forkButton setTitle:[NSString stringWithFormat:@"%i", _project.forksCount] forState:UIControlStateNormal];
-    [self.view addSubview:_forkButton];
-    
     _projectInfo = [UITableView new];
-    [_projectInfo registerClass:[UITableViewCell class] forCellReuseIdentifier:ProjectDetailsCellId];
+    [_projectInfo registerClass:[UITableViewCell class] forCellReuseIdentifier:ProjectDetailsCellID];
+    //[_projectInfo registerClass:[ProjectDescriptionCell class] forCellReuseIdentifier:ProjcetDescriptionCellID];
     _projectInfo.dataSource = self;
     _projectInfo.delegate = self;
     _projectInfo.bounces = NO;
-    //_projectInfo.scrollEnabled = NO;
+    _projectInfo.scrollEnabled = NO;
     [self.view addSubview:_projectInfo];
 }
 
@@ -364,30 +285,25 @@ static NSString * const ProjectDetailsCellId = @"ProjectDetailsCell";
         [view setTranslatesAutoresizingMaskIntoConstraints:NO];
     }
     
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(8)-[_portrait(36)]-[_timeInterval]-(8)-[_starButton]-(8)-[_projectInfo]-(8)-|"
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(8)-[_portrait(36)]-[_timeInterval][_projectInfo]-(8)-|"
                                                                      options:0
                                                                      metrics:nil
-                                                                       views:NSDictionaryOfVariableBindings(_portrait, _timeInterval, _starButton, _projectInfo)]];
+                                                                       views:NSDictionaryOfVariableBindings(_portrait, _timeInterval, _projectInfo)]];
     
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|-(8)-[_portrait(36)]-[_projectName]-(>=8)-|"
                                                                       options:NSLayoutFormatAlignAllCenterY
                                                                       metrics:nil
                                                                         views:NSDictionaryOfVariableBindings(_portrait, _projectName)]];
     
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|-(8)-[_language]-(15)-[_starButton(_forkButton)]-(15)-[_forkButton(>=30)]"
-                                                                      options:NSLayoutFormatAlignAllCenterY
-                                                                      metrics:nil
-                                                                        views:NSDictionaryOfVariableBindings(_language, _starButton, _forkButton)]];
-    
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|[_projectInfo]|"
                                                                       options:0
                                                                       metrics:nil
                                                                         views:NSDictionaryOfVariableBindings(_projectInfo)]];
     
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[_portrait]-[_timeInterval]-[_language]"
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[_portrait]-[_timeInterval]"
                                                                       options:NSLayoutFormatAlignAllLeft
                                                                       metrics:nil
-                                                                        views:NSDictionaryOfVariableBindings(_portrait, _timeInterval, _language)]];
+                                                                        views:NSDictionaryOfVariableBindings(_portrait, _timeInterval)]];
 }
 
 #pragma mark - recognizer

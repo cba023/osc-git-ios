@@ -28,7 +28,6 @@
 		0002D2E119188B4E001FDED8 /* avatar@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0002D2DE19188B4E001FDED8 /* avatar@2x.jpg */; };
 		0002D2E219188B4E001FDED8 /* three_lines.png in Resources */ = {isa = PBXBuildFile; fileRef = 0002D2DF19188B4E001FDED8 /* three_lines.png */; };
 		0002D2E319188B4E001FDED8 /* three_lines@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0002D2E019188B4E001FDED8 /* three_lines@2x.png */; };
-		0002D2E519188B8A001FDED8 /* Balloon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0002D2E419188B8A001FDED8 /* Balloon@2x.png */; };
 		0021BACC192342BD00626A2C /* GLBaseObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 0021BA82192342BD00626A2C /* GLBaseObject.m */; };
 		0021BACD192342BD00626A2C /* GLBranch.m in Sources */ = {isa = PBXBuildFile; fileRef = 0021BA84192342BD00626A2C /* GLBranch.m */; };
 		0021BACE192342BD00626A2C /* GLCommit.m in Sources */ = {isa = PBXBuildFile; fileRef = 0021BA86192342BD00626A2C /* GLCommit.m */; };
@@ -77,6 +76,9 @@
 		00541C0A196684AB002EC356 /* GLBlob.m in Sources */ = {isa = PBXBuildFile; fileRef = 00541C09196684AB002EC356 /* GLBlob.m */; };
 		0057719919A73D6A00EAA606 /* LanguageSearchView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0057719819A73D6A00EAA606 /* LanguageSearchView.m */; };
 		0057719C19A73F8C00EAA606 /* GLLanguage.m in Sources */ = {isa = PBXBuildFile; fileRef = 0057719B19A73F8C00EAA606 /* GLLanguage.m */; };
+		005841DF19B9BEB100C20E19 /* project_detail_icon_lockpublic.png in Resources */ = {isa = PBXBuildFile; fileRef = 005841DE19B9BEB100C20E19 /* project_detail_icon_lockpublic.png */; };
+		005841E119B9BEDE00C20E19 /* time.png in Resources */ = {isa = PBXBuildFile; fileRef = 005841E019B9BEDE00C20E19 /* time.png */; };
+		005841E319B9BF2B00C20E19 /* project_details_language.png in Resources */ = {isa = PBXBuildFile; fileRef = 005841E219B9BF2B00C20E19 /* project_details_language.png */; };
 		0062237D1963F30D00454CB9 /* back@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0062237C1963F30D00454CB9 /* back@2x.png */; };
 		006391C71988848800689FAD /* ProjectDetailsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 006391C61988848800689FAD /* ProjectDetailsView.m */; };
 		006BF01C19963101000C868D /* MenuApp.png in Resources */ = {isa = PBXBuildFile; fileRef = 006BF00219963101000C868D /* MenuApp.png */; };
@@ -122,6 +124,8 @@
 		0079C03719B56521005EF089 /* UIView+Toast.m in Sources */ = {isa = PBXBuildFile; fileRef = 0079C03619B56521005EF089 /* UIView+Toast.m */; };
 		0087828A19583E7D003F331C /* Project.m in Sources */ = {isa = PBXBuildFile; fileRef = 0087828919583E7D003F331C /* Project.m */; };
 		009018C71921D1B90050197D /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 009018C61921D1B90050197D /* LoginViewController.m */; };
+		009567AC19B8430100E9624E /* ProjectDescriptionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 009567AB19B8430100E9624E /* ProjectDescriptionCell.m */; };
+		009567B319B8746200E9624E /* ProjectBasicInfoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 009567B219B8746200E9624E /* ProjectBasicInfoCell.m */; };
 		009B51EF199B4CB300E7F575 /* highlight.pack.js in Sources */ = {isa = PBXBuildFile; fileRef = 009B51B9199B4CB300E7F575 /* highlight.pack.js */; };
 		009B51F0199B4CB300E7F575 /* arta.css in Resources */ = {isa = PBXBuildFile; fileRef = 009B51BB199B4CB300E7F575 /* arta.css */; };
 		009B51F1199B4CB300E7F575 /* ascetic.css in Resources */ = {isa = PBXBuildFile; fileRef = 009B51BC199B4CB300E7F575 /* ascetic.css */; };
@@ -257,7 +261,6 @@
 		0002D2DE19188B4E001FDED8 /* avatar@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "avatar@2x.jpg"; sourceTree = "<group>"; };
 		0002D2DF19188B4E001FDED8 /* three_lines.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = three_lines.png; sourceTree = "<group>"; };
 		0002D2E019188B4E001FDED8 /* three_lines@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "three_lines@2x.png"; sourceTree = "<group>"; };
-		0002D2E419188B8A001FDED8 /* Balloon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Balloon@2x.png"; sourceTree = "<group>"; };
 		0021BA7F192342BD00626A2C /* GLGitlab.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLGitlab.h; sourceTree = "<group>"; };
 		0021BA81192342BD00626A2C /* GLBaseObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLBaseObject.h; sourceTree = "<group>"; };
 		0021BA82192342BD00626A2C /* GLBaseObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GLBaseObject.m; sourceTree = "<group>"; };
@@ -349,6 +352,9 @@
 		0057719819A73D6A00EAA606 /* LanguageSearchView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LanguageSearchView.m; sourceTree = "<group>"; };
 		0057719A19A73F8C00EAA606 /* GLLanguage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLLanguage.h; sourceTree = "<group>"; };
 		0057719B19A73F8C00EAA606 /* GLLanguage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GLLanguage.m; sourceTree = "<group>"; };
+		005841DE19B9BEB100C20E19 /* project_detail_icon_lockpublic.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = project_detail_icon_lockpublic.png; sourceTree = "<group>"; };
+		005841E019B9BEDE00C20E19 /* time.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = time.png; sourceTree = "<group>"; };
+		005841E219B9BF2B00C20E19 /* project_details_language.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = project_details_language.png; sourceTree = "<group>"; };
 		0062237C1963F30D00454CB9 /* back@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "back@2x.png"; sourceTree = "<group>"; };
 		006391C51988848800689FAD /* ProjectDetailsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProjectDetailsView.h; sourceTree = "<group>"; };
 		006391C61988848800689FAD /* ProjectDetailsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProjectDetailsView.m; sourceTree = "<group>"; };
@@ -416,6 +422,10 @@
 		0087828919583E7D003F331C /* Project.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Project.m; sourceTree = "<group>"; };
 		009018C51921D1B90050197D /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		009018C61921D1B90050197D /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
+		009567AA19B8430100E9624E /* ProjectDescriptionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProjectDescriptionCell.h; sourceTree = "<group>"; };
+		009567AB19B8430100E9624E /* ProjectDescriptionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProjectDescriptionCell.m; sourceTree = "<group>"; };
+		009567B119B8746200E9624E /* ProjectBasicInfoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProjectBasicInfoCell.h; sourceTree = "<group>"; };
+		009567B219B8746200E9624E /* ProjectBasicInfoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProjectBasicInfoCell.m; sourceTree = "<group>"; };
 		009B51B9199B4CB300E7F575 /* highlight.pack.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = highlight.pack.js; sourceTree = "<group>"; };
 		009B51BB199B4CB300E7F575 /* arta.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = arta.css; sourceTree = "<group>"; };
 		009B51BC199B4CB300E7F575 /* ascetic.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = ascetic.css; sourceTree = "<group>"; };
@@ -661,6 +671,9 @@
 		0002D2C519179858001FDED8 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				005841E219B9BF2B00C20E19 /* project_details_language.png */,
+				005841E019B9BEDE00C20E19 /* time.png */,
+				005841DE19B9BEB100C20E19 /* project_detail_icon_lockpublic.png */,
 				0079C00B19B452CF005EF089 /* projectCellLanguage.png */,
 				0079C00C19B452CF005EF089 /* projectCellStar.png */,
 				0079C00919B452A5005EF089 /* projectCellFork.png */,
@@ -670,7 +683,6 @@
 				0062237C1963F30D00454CB9 /* back@2x.png */,
 				00C3A41C1962BD55002A34AB /* file@2x.png */,
 				00C3A41D1962BD55002A34AB /* folder@2x.png */,
-				0002D2E419188B8A001FDED8 /* Balloon@2x.png */,
 				0002D2DE19188B4E001FDED8 /* avatar@2x.jpg */,
 				0002D2DF19188B4E001FDED8 /* three_lines.png */,
 				0002D2E019188B4E001FDED8 /* three_lines@2x.png */,
@@ -924,6 +936,19 @@
 			name = Categories;
 			sourceTree = "<group>";
 		};
+		009567B019B8731000E9624E /* ProjectDetails */ = {
+			isa = PBXGroup;
+			children = (
+				006391C51988848800689FAD /* ProjectDetailsView.h */,
+				006391C61988848800689FAD /* ProjectDetailsView.m */,
+				009567AA19B8430100E9624E /* ProjectDescriptionCell.h */,
+				009567AB19B8430100E9624E /* ProjectDescriptionCell.m */,
+				009567B119B8746200E9624E /* ProjectBasicInfoCell.h */,
+				009567B219B8746200E9624E /* ProjectBasicInfoCell.m */,
+			);
+			name = ProjectDetails;
+			sourceTree = "<group>";
+		};
 		009B51BA199B4CB300E7F575 /* styles */ = {
 			isa = PBXGroup;
 			children = (
@@ -1032,8 +1057,7 @@
 				00C3A4141961538B002A34AB /* ProjectsTableController.m */,
 				00C3A42019639F8D002A34AB /* ProjectCell.h */,
 				00C3A42119639F8D002A34AB /* ProjectCell.m */,
-				006391C51988848800689FAD /* ProjectDetailsView.h */,
-				006391C61988848800689FAD /* ProjectDetailsView.m */,
+				009567B019B8731000E9624E /* ProjectDetails */,
 				009B522C199C572000E7F575 /* ReadmeView.h */,
 				009B522D199C572000E7F575 /* ReadmeView.m */,
 				00A74FD319A59FD7009DACDF /* SearchView.h */,
@@ -1196,6 +1220,7 @@
 				00DB0E0219A7B8EA0021E257 /* email.png in Resources */,
 				009B51F5199B4CB300E7F575 /* atelier-forest.light.css in Resources */,
 				009B51FF199B4CB300E7F575 /* color-brewer.css in Resources */,
+				005841E119B9BEDE00C20E19 /* time.png in Resources */,
 				009B5222199B4CB300E7F575 /* xcode.css in Resources */,
 				009B51F2199B4CB300E7F575 /* atelier-dune.dark.css in Resources */,
 				009B5219199B4CB300E7F575 /* solarized_dark.css in Resources */,
@@ -1206,6 +1231,7 @@
 				009B51FB199B4CB300E7F575 /* atelier-seaside.light.css in Resources */,
 				009B5216199B4CB300E7F575 /* rainbow.css in Resources */,
 				009B5229199B4CFE00E7F575 /* code.html in Resources */,
+				005841E319B9BF2B00C20E19 /* project_details_language.png in Resources */,
 				003232B319A49E72007243CA /* MenuProfile.png in Resources */,
 				0079C00A19B452A5005EF089 /* projectCellFork.png in Resources */,
 				003232BB19A49F71007243CA /* MenuOrgs.png in Resources */,
@@ -1219,7 +1245,6 @@
 				009B521A199B4CB300E7F575 /* solarized_light.css in Resources */,
 				009B521E199B4CB300E7F575 /* tomorrow-night-eighties.css in Resources */,
 				006BF01E19963101000C868D /* MenuGists.png in Resources */,
-				0002D2E519188B8A001FDED8 /* Balloon@2x.png in Resources */,
 				009B5210199B4CB300E7F575 /* obsidian.css in Resources */,
 				006BF03119963101000C868D /* MenuStarredGists@2x.png in Resources */,
 				006BF03319963101000C868D /* MenuStarredRepos@2x.png in Resources */,
@@ -1227,6 +1252,7 @@
 				003232BA19A49F71007243CA /* MenuOrgRepos@2x.png in Resources */,
 				006BF03419963101000C868D /* MenuWatchedRepos.png in Resources */,
 				006BF03219963101000C868D /* MenuStarredRepos.png in Resources */,
+				005841DF19B9BEB100C20E19 /* project_detail_icon_lockpublic.png in Resources */,
 				009B5207199B4CB300E7F575 /* hybrid.css in Resources */,
 				009B5223199B4CB300E7F575 /* zenburn.css in Resources */,
 				009B5204199B4CB300E7F575 /* foundation.css in Resources */,
@@ -1367,6 +1393,7 @@
 				00760B8C19767BDB00C88C6F /* SDImageCache.m in Sources */,
 				0002D2BE19164716001FDED8 /* MenuViewController.m in Sources */,
 				0021BAD9192342BD00626A2C /* GLSnippet.m in Sources */,
+				009567B319B8746200E9624E /* ProjectBasicInfoCell.m in Sources */,
 				00760B9619767BDB00C88C6F /* UIImage+WebP.m in Sources */,
 				00760B9719767BDB00C88C6F /* UIImageView+HighlightedWebCache.m in Sources */,
 				00B7595C196C065E009C9C58 /* Event.m in Sources */,
@@ -1376,6 +1403,7 @@
 				0021BAD4192342BD00626A2C /* GLMergeRequest.m in Sources */,
 				0021BAD1192342BD00626A2C /* GLFile.m in Sources */,
 				0057719919A73D6A00EAA606 /* LanguageSearchView.m in Sources */,
+				009567AC19B8430100E9624E /* ProjectDescriptionCell.m in Sources */,
 				0021BAD3192342BD00626A2C /* GLIssue.m in Sources */,
 				0021BAD7192342BD00626A2C /* GLNote.m in Sources */,
 				00C3A4151961538B002A34AB /* ProjectsTableController.m in Sources */,

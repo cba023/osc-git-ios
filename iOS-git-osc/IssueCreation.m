@@ -103,10 +103,10 @@
     [self.view addGestureRecognizer:gesture];
     
     _submit = [UIButton new];
-    [Tools roundCorner:_submit cornerRadius:5.0];
+    [Tools roundView:_submit cornerRadius:5.0];
     _submit.tintColor = [UIColor whiteColor];
     _submit.backgroundColor = [UIColor redColor];
-    [Tools roundCorner:_submit cornerRadius:5.0];
+    [Tools roundView:_submit cornerRadius:5.0];
     [_submit setTitle:@"创建Issue" forState:UIControlStateNormal];
     [_submit addTarget:self action:@selector(submitIssue) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:_submit];

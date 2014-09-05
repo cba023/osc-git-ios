@@ -32,7 +32,7 @@ static NSString * const kKeyPullRequest = @"pull_request";
 - (instancetype)initWithJSON:(NSDictionary *)json
 {
     if (self = [super init]) {
-        _id = [[self checkForNull:json[kKeyId]] longLongValue];
+        _eventID = [[self checkForNull:json[kKeyId]] longLongValue];
         _targetId = [[self checkForNull:json[kKeyTargetId]] longLongValue];
         _targetType = [self checkForNull:json[kKeyTargetType]];
         _title = [self checkForNull:json[kKeyTitle]];
@@ -113,7 +113,7 @@ static NSString * const kKeyPullRequest = @"pull_request";
     NSString *null = @"";
     
     return @{
-             kKeyId: @(_id),
+             kKeyId: @(_eventID),
              kKeyTargetId: @(_targetId),
              kKeyTargetType: _targetType ?: null,
              kKeyTitle: _title ?: null,

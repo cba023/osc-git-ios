@@ -180,9 +180,8 @@ static NSString * const cellId = @"ProjectCell";
         descriptionLabel.text = project.projectDescription.length > 0? project.projectDescription: @"暂无项目介绍";
         
         CGSize size = [descriptionLabel sizeThatFits:CGSizeMake(tableView.frame.size.width - 60, MAXFLOAT)];
-        CGFloat height = size.height;
         
-        return height + 64;
+        return size.height + 64;
     } else {
         return 60;
     }
@@ -312,7 +311,9 @@ static NSString * const cellId = @"ProjectCell";
             }
             
             _isFinishedLoad = [(NSArray *)responseObject count] < _pageSize;
-            [projects addObjectsFromArray:responseObject];
+            
+            NSUInteger repeatedCount = [Tools numberOfRepeatedProjects:projects project:[responseObject objectAtIndex:0]];
+            [projects addObjectsFromArray:[responseObject subarrayWithRange:NSMakeRange(repeatedCount, 20-repeatedCount)]];
             
             if (refresh || _isFirstRequest) {
                 [Tools savePageCache:projects type:_projectsType];

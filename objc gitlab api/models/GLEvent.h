@@ -14,7 +14,7 @@
 @interface GLEvent : GLBaseObject
 
 // id
-@property (nonatomic, assign) int64_t id;
+@property (nonatomic, assign) int64_t eventID;
 // target_type
 @property (nonatomic, copy) NSString *targetType;
 // target_id

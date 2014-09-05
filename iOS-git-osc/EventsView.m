@@ -304,7 +304,9 @@ static NSString * const EventCellIdentifier = @"EventCell";
             }
             
             _isFinishedLoad = [(NSArray *)responseObject count] < 20;
-            [events addObjectsFromArray:responseObject];
+            
+            NSUInteger repeatedCount = [Tools numberOfRepeatedEvents:events event:[responseObject objectAtIndex:0]];
+            [events addObjectsFromArray:[responseObject subarrayWithRange:NSMakeRange(repeatedCount, 20-repeatedCount)]];
 
             if ((refresh || _isFirstRequest) && related) {
                 [Tools savePageCache:events type:8];

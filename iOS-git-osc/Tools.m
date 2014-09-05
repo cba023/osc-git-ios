@@ -244,7 +244,7 @@
     return grayString;
 }
 
-+ (void)roundCorner:(UIView *)view cornerRadius:(CGFloat)cornerRadius
++ (void)roundView:(UIView *)view cornerRadius:(CGFloat)cornerRadius
 {
     view.layer.cornerRadius = cornerRadius;
     view.layer.masksToBounds = YES;
@@ -257,7 +257,7 @@
     [portraitView sd_setImageWithURL:[NSURL URLWithString:portraitURL]
                     placeholderImage:[UIImage imageNamed:@"avatar"]];
     
-    [self roundCorner:portraitView cornerRadius:cornerRadius];
+    [self roundView:portraitView cornerRadius:cornerRadius];
 }
 
 + (void)toastNotification:(NSString *)text inView:(UIView *)view
@@ -311,6 +311,34 @@
     [cache setObject:jsonCache forKey:key];
     
     [cache synchronize];
+}
+
++ (NSUInteger)numberOfRepeatedProjects:(NSArray *)projects project:(GLProject *)project
+{
+    NSUInteger len = [projects count];
+    GLProject *projectInArray;
+    for (NSUInteger i = 1; i <= len; i++) {
+        projectInArray = [projects objectAtIndex:len-i];
+        if (projectInArray.projectId == project.projectId) {
+            return i;
+        }
+    }
+    
+    return 0;
+}
+
++ (NSUInteger)numberOfRepeatedEvents:(NSArray *)events event:(GLEvent *)event
+{
+    NSUInteger len = [events count];
+    GLEvent *eventInArray;
+    for (NSUInteger i = 1; i <= len; i++) {
+        eventInArray = [events objectAtIndex:len-i];
+        if (eventInArray.eventID == event.eventID) {
+            return i;
+        }
+    }
+    
+    return 0;
 }
 
 

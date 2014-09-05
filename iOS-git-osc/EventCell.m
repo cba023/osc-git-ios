@@ -121,7 +121,7 @@
         [digest appendAttributedString:[[NSAttributedString alloc] initWithString:message attributes:digestAttributes]];
         
         if (++digestsCount == totalCommitsCount || digestsCount >= 2) {break;}
-        [digest appendAttributedString:[[NSAttributedString alloc] initWithString:@"\n"]];
+        [digest appendAttributedString:[[NSAttributedString alloc] initWithString:@"\n\n"]];
     }
     
     [_eventAbstract setAttributedText:digest];
