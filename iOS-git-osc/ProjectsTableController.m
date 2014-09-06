@@ -141,7 +141,7 @@ static NSString * const cellId = @"ProjectCell";
         GLProject *project = [projects objectAtIndex:row];        
         
         if (project) {
-            ProjectDetailsView *projectDetails = [[ProjectDetailsView alloc] initWithProjectId:project.projectId];
+            ProjectDetailsView *projectDetails = [[ProjectDetailsView alloc] initWithProjectID:project.projectId];
             if (_projectsType > 2) {
                 [self.navigationController pushViewController:projectDetails animated:YES];
             } else {

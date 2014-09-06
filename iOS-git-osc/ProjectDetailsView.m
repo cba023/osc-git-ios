@@ -17,11 +17,16 @@
 #import "ReadmeView.h"
 #import "ProjectDescriptionCell.h"
 #import "ProjectBasicInfoCell.h"
+#import "ProjectNameCell.h"
+#import "UIView+Toast.h"
+
 
 static NSString * const ProjectDetailsCellID = @"ProjectDetailsCell";
 //static NSString * const ProjcetDescriptionCellID = @"ProjcetDescriptionCell";
 
 @interface ProjectDetailsView ()
+
+@property int64_t projectID;
 
 @end
 
@@ -41,7 +46,6 @@ static NSString * const ProjectDetailsCellID = @"ProjectDetailsCell";
     [super viewDidLoad];
     
     self.navigationController.navigationBar.translucent = NO;
-    self.title = _project.name;
     
     [self initSubviews];
     [self setAutoLayout];
@@ -49,9 +53,31 @@ static NSString * const ProjectDetailsCellID = @"ProjectDetailsCell";
 
 - (void)viewDidAppear:(BOOL)animated
 {
-    if (_project.parentId) {
-        _parentProject = [Project getASingleProject:_project.parentId];
-    }
+    [super viewDidAppear:animated];
+    
+    [self.view makeToastActivity];
+    NSString *privateToken = [Tools getPrivateToken];
+        
+    [[GLGitlabApi sharedInstance] getProjectWithId:_projectID
+                                      privateToken:privateToken
+                                           success:^(id responseObject) {
+                                               if (responseObject == nil) {
+                                                   [Tools toastNotification:@"网络错误" inView:self.view];
+                                               } else {
+                                                   _project = responseObject;
+                                                   self.title = _project.name;
+                                                   [self.view hideToastActivity];
+                                                   
+                                                   dispatch_async(dispatch_get_main_queue(), ^{
+                                                       [_projectInfo reloadData];
+                                                   });
+                                               }
+                                           }
+
+                                           failure:^(NSError *error) {
+                                               [self.view hideToastActivity];
+                                               [Tools toastNotification:@"网络错误" inView:self.view];
+                                           }];
 }
 
 - (void)didReceiveMemoryWarning
@@ -60,21 +86,13 @@ static NSString * const ProjectDetailsCellID = @"ProjectDetailsCell";
     // Dispose of any resources that can be recreated.
 }
 
-- (id)initWithProject:(GLProject *)project
+- (id)initWithProjectID:(int64_t)projectID;
 {
     self = [super init];
     if (self) {
-        _project = project;
+        _projectID = projectID;
     }
-    return self;
-}
-
-- (id)initWithProjectId:(int64_t)projectId
-{
-    self = [super init];
-    if (self) {
-        _project = [Project getASingleProject:projectId];
-    }
+    
     return self;
 }
 
@@ -82,6 +100,9 @@ static NSString * const ProjectDetailsCellID = @"ProjectDetailsCell";
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
+    if (!_project) {
+        return 0;
+    }
     return 2;
 }
 
@@ -89,7 +110,7 @@ static NSString * const ProjectDetailsCellID = @"ProjectDetailsCell";
 {
     switch (section) {
         case 0:
-            return 3;
+            return 4;
         case 1:
             return 3;       //return 4;
         default:
@@ -99,15 +120,14 @@ static NSString * const ProjectDetailsCellID = @"ProjectDetailsCell";
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-#if 0
-    for (UIView *view in [cell.contentView subviews]) {
-        [view removeFromSuperview];
-    }
-#endif
-    
     if (indexPath.section == 0) {
         switch (indexPath.row) {
             case 0: {
+                ProjectNameCell *cell = [[ProjectNameCell alloc] initWithProject:_project];
+                return cell;
+            }
+                
+            case 1: {
                 ProjectDescriptionCell *cell = [[ProjectDescriptionCell alloc] initWithStarsCount:_project.starsCount
                                                                                      watchesCount:_project.watchesCount
                                                                                         isStarred:NO
@@ -115,7 +135,7 @@ static NSString * const ProjectDetailsCellID = @"ProjectDetailsCell";
                                                                                       description:_project.projectDescription];
                 return cell;
             }
-            case 1: {
+            case 2: {
                 ProjectBasicInfoCell *cell = [[ProjectBasicInfoCell alloc] initWithCreatedTime:_project.createdAt
                                                                                     forksCount:_project.forksCount
                                                                                       isPublic:_project.isPublicProject
@@ -123,7 +143,7 @@ static NSString * const ProjectDetailsCellID = @"ProjectDetailsCell";
                 
                 return cell;
             }
-            case 2: {
+            case 3: {
                 UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ProjectDetailsCellID forIndexPath:indexPath];
                 cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
                 
@@ -143,6 +163,11 @@ static NSString * const ProjectDetailsCellID = @"ProjectDetailsCell";
         }
     } else {
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ProjectDetailsCellID forIndexPath:indexPath];
+        
+        for (UIView *view in [cell.contentView subviews]) {
+            [view removeFromSuperview];
+        }
+        
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         
         NSArray *rowTitle = @[@"Readme", @"代码", @"问题"];             //@"提交"
@@ -169,6 +194,8 @@ static NSString * const ProjectDetailsCellID = @"ProjectDetailsCell";
     NSInteger section = indexPath.section, row = indexPath.row;
     
     if (section == 0 && row == 0) {
+        return 75;
+    } else if (section == 0 && row == 1) {
         UILabel *tmpLabel = [UILabel new];
         tmpLabel.lineBreakMode = NSLineBreakByWordWrapping;
         tmpLabel.numberOfLines = 0;
@@ -177,7 +204,7 @@ static NSString * const ProjectDetailsCellID = @"ProjectDetailsCell";
         
         CGSize size = [tmpLabel sizeThatFits:CGSizeMake(tableView.frame.size.width - 16, MAXFLOAT)];
         return size.height + 59;
-    } else if (section == 0 && row == 1) {
+    } else if (section == 0 && row == 2) {
         return 80;
     }
     return 40;
@@ -186,43 +213,29 @@ static NSString * const ProjectDetailsCellID = @"ProjectDetailsCell";
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+    NSUInteger section = indexPath.section, row = indexPath.row;
 
-    if (indexPath.section == 0) {
+    if (section == 0 && row == 3) {
+        UserDetailsView *userDetails = [[UserDetailsView alloc] initWithUser:_project.owner];
+        [self.navigationController pushViewController:userDetails animated:YES];
+    } else {
         switch (indexPath.row) {
             case 0: {
-                UserDetailsView *userDetails = [[UserDetailsView alloc] initWithUser:_project.owner];
-                [self.navigationController pushViewController:userDetails animated:YES];
+                ReadmeView *readme = [[ReadmeView alloc] initWithProjectID:_project.projectId];
+                [self.navigationController pushViewController:readme animated:YES];
                 break;
             }
             case 1: {
-                if (_parentProject) {
-                    ProjectDetailsView *parentProjectDetails = [[ProjectDetailsView alloc] initWithProject:_parentProject];
-                    [self.navigationController pushViewController:parentProjectDetails animated:YES];
-                }
-                break;
+                FilesTableController *filesTable = [FilesTableController new];
+                filesTable.projectID = _project.projectId;
+                filesTable.currentPath = @"";
+                filesTable.filesArray = [[NSMutableArray alloc] initWithArray:[Project getProjectTreeWithID:_project.projectId
+                                                                                                     Branch:nil
+                                                                                                       Path:nil]];
+                [self.navigationController pushViewController:filesTable animated:YES];
             }
             case 2: {
-                if (_parentProject) {break;}
-                else {
-                    ReadmeView *readme = [[ReadmeView alloc] initWithProjectID:_project.projectId];
-                    [self.navigationController pushViewController:readme animated:NO];
-                }
-                break;
-            }
-            case 3: {
-                ReadmeView *readme = [[ReadmeView alloc] initWithProjectID:_project.projectId];
-                [self.navigationController pushViewController:readme animated:NO];
-                break;
-            }
-            default:
-                break;
-        }
-    } else if (indexPath.section == 1) {
-        switch (indexPath.row) {
-            case 0:
-                
-                break;
-            case 1: {
                 IssuesView *issuesView = [[IssuesView alloc] initWithProjectId:_project.projectId];
                 [self.navigationController pushViewController:issuesView animated:YES];
                 break;
@@ -230,14 +243,6 @@ static NSString * const ProjectDetailsCellID = @"ProjectDetailsCell";
             default:
                 break;
         }
-    } else if (indexPath.section == 2) {
-        FilesTableController *filesTable = [FilesTableController new];
-        filesTable.projectID = _project.projectId;
-        filesTable.currentPath = @"";
-        filesTable.filesArray = [[NSMutableArray alloc] initWithArray:[Project getProjectTreeWithID:_project.projectId
-                                                                                             Branch:nil
-                                                                                               Path:nil]];
-        [self.navigationController pushViewController:filesTable animated:YES];
     }
 }
 
@@ -246,36 +251,13 @@ static NSString * const ProjectDetailsCellID = @"ProjectDetailsCell";
 
 - (void)initSubviews
 {
-    _portrait = [UIImageView new];
-    _portrait.contentMode = UIViewContentModeScaleAspectFit;
-    [Tools setPortraitForUser:_project.owner view:_portrait cornerRadius:5.0];
-    UITapGestureRecognizer *tapPortraitRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self
-                                                                                            action:@selector(tapPortrait:)];
-    _portrait.userInteractionEnabled = YES;
-    [_portrait addGestureRecognizer:tapPortraitRecognizer];
-    [self.view addSubview:_portrait];
-    
-    _projectName = [UILabel new];
-    [_projectName setText:_project.name];
-    [self.view addSubview:_projectName];
-    
-    _timeInterval = [UILabel new];
-    NSDictionary *grayTextAttributes = @{
-                                         NSForegroundColorAttributeName:[UIColor grayColor],
-                                         NSFontAttributeName:[UIFont fontWithName:@"STHeitiSC-Medium" size:15]
-                                         };
-    NSMutableAttributedString *updateTime = [[NSMutableAttributedString alloc] initWithString:@"更新于 " attributes:grayTextAttributes];
-    [updateTime appendAttributedString:[Tools getIntervalAttrStr:_project.lastPushAt]];
-    [_timeInterval setAttributedText:updateTime];
-    [self.view addSubview:_timeInterval];
-    
     _projectInfo = [UITableView new];
     [_projectInfo registerClass:[UITableViewCell class] forCellReuseIdentifier:ProjectDetailsCellID];
-    //[_projectInfo registerClass:[ProjectDescriptionCell class] forCellReuseIdentifier:ProjcetDescriptionCellID];
     _projectInfo.dataSource = self;
     _projectInfo.delegate = self;
-    _projectInfo.bounces = NO;
-    _projectInfo.scrollEnabled = NO;
+    UIView *footer =[[UIView alloc] initWithFrame:CGRectZero];
+    _projectInfo.tableFooterView = footer;
+    
     [self.view addSubview:_projectInfo];
 }
 
@@ -285,34 +267,12 @@ static NSString * const ProjectDetailsCellID = @"ProjectDetailsCell";
         [view setTranslatesAutoresizingMaskIntoConstraints:NO];
     }
     
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(8)-[_portrait(36)]-[_timeInterval][_projectInfo]-(8)-|"
-                                                                     options:0
-                                                                     metrics:nil
-                                                                       views:NSDictionaryOfVariableBindings(_portrait, _timeInterval, _projectInfo)]];
+    NSDictionary *viewDictionary = NSDictionaryOfVariableBindings(_projectInfo);
     
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|-(8)-[_portrait(36)]-[_projectName]-(>=8)-|"
-                                                                      options:NSLayoutFormatAlignAllCenterY
-                                                                      metrics:nil
-                                                                        views:NSDictionaryOfVariableBindings(_portrait, _projectName)]];
-    
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|[_projectInfo]|"
-                                                                      options:0
-                                                                      metrics:nil
-                                                                        views:NSDictionaryOfVariableBindings(_projectInfo)]];
-    
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[_portrait]-[_timeInterval]"
-                                                                      options:NSLayoutFormatAlignAllLeft
-                                                                      metrics:nil
-                                                                        views:NSDictionaryOfVariableBindings(_portrait, _timeInterval)]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|[_projectInfo]|" options:0 metrics:nil views:viewDictionary]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[_projectInfo]|" options:0 metrics:nil views:viewDictionary]];
 }
 
-#pragma mark - recognizer
-- (void)tapPortrait:(UITapGestureRecognizer *)sender
-{
-    UserDetailsView *userDetails = [UserDetailsView new];
-    userDetails.user = _project.owner;
-    [self.navigationController pushViewController:userDetails animated:YES];
-}
 
 
 @end

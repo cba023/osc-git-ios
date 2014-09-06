@@ -15,17 +15,8 @@
 @property GLProject *project;
 @property GLProject *parentProject;
 
-@property UIImageView *portrait;
-@property UILabel *projectName;
-@property UILabel *timeInterval;
-
-@property UILabel *language;
-@property UIButton *starButton;
-@property UIButton *forkButton;
-
 @property UITableView *projectInfo;
 
-- (id)initWithProject:(GLProject *)project;
-- (id)initWithProjectId:(int64_t)projectId;
+- (id)initWithProjectID:(int64_t)projectID;
 
 @end

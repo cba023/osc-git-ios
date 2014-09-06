@@ -122,6 +122,7 @@
 		0079C00D19B452CF005EF089 /* projectCellLanguage.png in Resources */ = {isa = PBXBuildFile; fileRef = 0079C00B19B452CF005EF089 /* projectCellLanguage.png */; };
 		0079C00E19B452CF005EF089 /* projectCellStar.png in Resources */ = {isa = PBXBuildFile; fileRef = 0079C00C19B452CF005EF089 /* projectCellStar.png */; };
 		0079C03719B56521005EF089 /* UIView+Toast.m in Sources */ = {isa = PBXBuildFile; fileRef = 0079C03619B56521005EF089 /* UIView+Toast.m */; };
+		0081D0D919BB090A00BF9FFA /* ProjectNameCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0081D0D819BB090A00BF9FFA /* ProjectNameCell.m */; };
 		0087828A19583E7D003F331C /* Project.m in Sources */ = {isa = PBXBuildFile; fileRef = 0087828919583E7D003F331C /* Project.m */; };
 		009018C71921D1B90050197D /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 009018C61921D1B90050197D /* LoginViewController.m */; };
 		009567AC19B8430100E9624E /* ProjectDescriptionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 009567AB19B8430100E9624E /* ProjectDescriptionCell.m */; };
@@ -418,6 +419,8 @@
 		0079C00C19B452CF005EF089 /* projectCellStar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = projectCellStar.png; sourceTree = "<group>"; };
 		0079C03519B56521005EF089 /* UIView+Toast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Toast.h"; sourceTree = "<group>"; };
 		0079C03619B56521005EF089 /* UIView+Toast.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Toast.m"; sourceTree = "<group>"; };
+		0081D0D719BB090A00BF9FFA /* ProjectNameCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProjectNameCell.h; sourceTree = "<group>"; };
+		0081D0D819BB090A00BF9FFA /* ProjectNameCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProjectNameCell.m; sourceTree = "<group>"; };
 		0087828819583E7D003F331C /* Project.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Project.h; sourceTree = "<group>"; };
 		0087828919583E7D003F331C /* Project.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Project.m; sourceTree = "<group>"; };
 		009018C51921D1B90050197D /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
@@ -941,10 +944,14 @@
 			children = (
 				006391C51988848800689FAD /* ProjectDetailsView.h */,
 				006391C61988848800689FAD /* ProjectDetailsView.m */,
+				0081D0D719BB090A00BF9FFA /* ProjectNameCell.h */,
+				0081D0D819BB090A00BF9FFA /* ProjectNameCell.m */,
 				009567AA19B8430100E9624E /* ProjectDescriptionCell.h */,
 				009567AB19B8430100E9624E /* ProjectDescriptionCell.m */,
 				009567B119B8746200E9624E /* ProjectBasicInfoCell.h */,
 				009567B219B8746200E9624E /* ProjectBasicInfoCell.m */,
+				009B522C199C572000E7F575 /* ReadmeView.h */,
+				009B522D199C572000E7F575 /* ReadmeView.m */,
 			);
 			name = ProjectDetails;
 			sourceTree = "<group>";
@@ -1058,8 +1065,6 @@
 				00C3A42019639F8D002A34AB /* ProjectCell.h */,
 				00C3A42119639F8D002A34AB /* ProjectCell.m */,
 				009567B019B8731000E9624E /* ProjectDetails */,
-				009B522C199C572000E7F575 /* ReadmeView.h */,
-				009B522D199C572000E7F575 /* ReadmeView.m */,
 				00A74FD319A59FD7009DACDF /* SearchView.h */,
 				00A74FD419A59FD7009DACDF /* SearchView.m */,
 				0057719719A73D6A00EAA606 /* LanguageSearchView.h */,
@@ -1380,6 +1385,7 @@
 				00760B8F19767BDB00C88C6F /* SDWebImageDownloader.m in Sources */,
 				0021BAEE192342BD00626A2C /* NSURL+GLAdditions.m in Sources */,
 				0021BAD8192342BD00626A2C /* GLProject.m in Sources */,
+				0081D0D919BB090A00BF9FFA /* ProjectNameCell.m in Sources */,
 				00760B9319767BDB00C88C6F /* UIButton+WebCache.m in Sources */,
 				0021BAE8192342BD00626A2C /* GLGitlabApi+Users.m in Sources */,
 				0021BAD6192342BD00626A2C /* GLNamespace.m in Sources */,

@@ -207,7 +207,7 @@ static NSString * const EventCellIdentifier = @"EventCell";
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     GLEvent *event = [self.events objectAtIndex:indexPath.row];
-    ProjectDetailsView *projectDetails = [[ProjectDetailsView alloc] initWithProjectId:event.projectId];
+    ProjectDetailsView *projectDetails = [[ProjectDetailsView alloc] initWithProjectID:event.projectId];
     [self.navigationController pushViewController:projectDetails animated:YES];
 }
 
