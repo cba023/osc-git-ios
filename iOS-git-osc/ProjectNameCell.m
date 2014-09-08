@@ -28,6 +28,7 @@
         _project = project;
         
         self.contentView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+        self.selectionStyle = UITableViewCellSelectionStyleNone;
         [self initSubviews];
         [self setLayout];
     }

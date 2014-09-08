@@ -207,7 +207,7 @@ static NSString * const ProjectDetailsCellID = @"ProjectDetailsCell";
         tmpLabel.text = _project.projectDescription;
         
         CGSize size = [tmpLabel sizeThatFits:CGSizeMake(tableView.frame.size.width - 16, MAXFLOAT)];
-        return size.height + 59;
+        return size.height + 61;
     } else if (section == 0 && row == 2) {
         return 80;
     }
@@ -223,8 +223,8 @@ static NSString * const ProjectDetailsCellID = @"ProjectDetailsCell";
     if (section == 0 && row == 3) {
         UserDetailsView *userDetails = [[UserDetailsView alloc] initWithUser:_project.owner];
         [self.navigationController pushViewController:userDetails animated:YES];
-    } else {
-        switch (indexPath.row) {
+    } else if (section == 1) {
+        switch (row) {
             case 0: {
                 ReadmeView *readme = [[ReadmeView alloc] initWithProjectID:_project.projectId];
                 [self.navigationController pushViewController:readme animated:YES];
@@ -283,37 +283,49 @@ static NSString * const ProjectDetailsCellID = @"ProjectDetailsCell";
         [Tools toastNotification:@"无网络连接" inView:self.view];
     }
     
-    [[GLGitlabApi sharedInstance] starProject:_project.projectId
-                                 privateToken:[Tools getPrivateToken]
-                                      success:^(id responseObject) {
-                                          _project.starred = !_project.starred;
-                                          _project.starsCount = [responseObject intValue];
-                                          NSIndexPath *path = [NSIndexPath indexPathForRow:1 inSection:0];
-                                          [_projectInfo reloadRowsAtIndexPaths:@[path] withRowAnimation:UITableViewRowAnimationNone];
-                                      }
-                                      failure:^(NSError *error) {
-                                          [Tools toastNotification:@"网络错误" inView:self.view];
-                                      }];
-}
+    NSString *privateToken = [Tools getPrivateToken];
+    
+    GLGitlabSuccessBlock success = ^(id responseObject) {
+        _project.starred = !_project.starred;
+        _project.starsCount = [responseObject intValue];
+        NSIndexPath *path = [NSIndexPath indexPathForRow:1 inSection:0];
+        [_projectInfo reloadRowsAtIndexPaths:@[path] withRowAnimation:UITableViewRowAnimationNone];
+    };
+    
+    GLGitlabFailureBlock failure = ^(NSError *error) {
+        [Tools toastNotification:@"网络错误" inView:self.view];
+    };
+    
+    if (_project.starred) {
+        [[GLGitlabApi sharedInstance] unstarProject:_project.projectId privateToken:privateToken success:success failure:failure];
+    } else {
+        [[GLGitlabApi sharedInstance] starProject:_project.projectId privateToken:privateToken success:success failure:failure];
+    }}
 
 - (void)watchButtonClicked
 {
     if (![Tools isNetworkExist]) {
         [Tools toastNotification:@"无网络连接" inView:self.view];
     }
-    
-    [[GLGitlabApi sharedInstance] starProject:_project.projectId
-                                 privateToken:[Tools getPrivateToken]
-                                      success:^(id responseObject) {
-                                          _project.watched = !_project.watched;
-                                          _project.starsCount = [responseObject intValue];
-                                          NSIndexPath *path = [NSIndexPath indexPathForRow:1 inSection:0];
-                                          [_projectInfo reloadRowsAtIndexPaths:@[path] withRowAnimation:UITableViewRowAnimationNone];
-                                      }
-                                      failure:^(NSError *error) {
-                                          [Tools toastNotification:@"网络错误" inView:self.view];
-                                      }];
 
+    NSString *privateToken = [Tools getPrivateToken];
+    
+    GLGitlabSuccessBlock success = ^(id responseObject) {
+        _project.watched = !_project.watched;
+        _project.watchesCount = [responseObject intValue];
+        NSIndexPath *path = [NSIndexPath indexPathForRow:1 inSection:0];
+        [_projectInfo reloadRowsAtIndexPaths:@[path] withRowAnimation:UITableViewRowAnimationNone];
+    };
+    
+    GLGitlabFailureBlock failure = ^(NSError *error) {
+        [Tools toastNotification:@"网络错误" inView:self.view];
+    };
+    
+    if (_project.watched) {
+        [[GLGitlabApi sharedInstance] unwatchProject:_project.projectId privateToken:privateToken success:success failure:failure];
+    } else {
+        [[GLGitlabApi sharedInstance] watchProject:_project.projectId privateToken:privateToken success:success failure:failure];
+    }
 }
 
 

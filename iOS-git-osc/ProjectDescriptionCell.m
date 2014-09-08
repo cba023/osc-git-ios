@@ -29,13 +29,17 @@
     self = [super init];
     if (self) {
         self.contentView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+        self.selectionStyle = UITableViewCellSelectionStyleNone;
+        self.userInteractionEnabled = YES;
         [self initSubviews];
         [self setLayout];
         
         _isStarred = isStarred;
         _isWatched = isWatched;
-        [_starButton setTitle:[NSString stringWithFormat:@" Star %d ", starsCount] forState:UIControlStateNormal];
-        [_watchButton setTitle:[NSString stringWithFormat:@" Watch %d ", watchesCount] forState:UIControlStateNormal];
+        NSString *starAction = isStarred? @"Unstar" : @"Star";
+        NSString *watchAction = isWatched? @"Unwatch" : @"Watch";
+        [_starButton setTitle:[NSString stringWithFormat:@" %@ %d ",starAction, starsCount] forState:UIControlStateNormal];
+        [_watchButton setTitle:[NSString stringWithFormat:@" %@ %d ",watchAction, watchesCount] forState:UIControlStateNormal];
         _projectDescriptionField.text = projectDescription;
     }
     
@@ -88,7 +92,7 @@
                                                                              metrics:nil
                                                                                views:NSDictionaryOfVariableBindings(_projectDescriptionField)]];
     
-    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-8-[_projectDescriptionField]-8-[_watchButton(25)]-8-|"
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-8-[_projectDescriptionField]-8-[_watchButton(27)]-8-|"
                                                                             options:0
                                                                             metrics:nil
                                                                               views:NSDictionaryOfVariableBindings(_projectDescriptionField, _watchButton)]];
