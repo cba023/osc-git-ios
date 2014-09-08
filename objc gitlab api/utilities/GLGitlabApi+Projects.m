@@ -22,14 +22,18 @@ static NSString * const kProjectEndpointForUser = @"/projects/user/%llu";
 static NSString * const kProjectEventsEndPoint = @"/projects/%llu/events";
 static NSString * const kProjectUsersEndPoint = @"/projects/%llu/members";
 static NSString * const kProjectReadmeEndPoint = @"/projects/%llu/readme";
-static NSString * const kProjectPopularProjectEndPoint = @"/projects/popular";
-static NSString * const kProjectRecommendedProjectEndPoint = @"/projects/featured";
-static NSString * const kProjectLatestProjectEndPoint = @"/projects/latest";
-static NSString * const kProjectStarredProjectEndPoint = @"/user/%llu/stared_projects";
-static NSString * const kProjectWatchedProjectEndPoint = @"/user/%llu/watched_projects";
-static NSString * const kProjectSearchProjectEndPoint = @"/projects/search/%@";
+static NSString * const kProjectPopularProjectsEndPoint = @"/projects/popular";
+static NSString * const kProjectRecommendedProjectsEndPoint = @"/projects/featured";
+static NSString * const kProjectLatestProjectsEndPoint = @"/projects/latest";
+static NSString * const kProjectStarredProjectsEndPoint = @"/user/%llu/stared_projects";
+static NSString * const kProjectWatchedProjectsEndPoint = @"/user/%llu/watched_projects";
+static NSString * const kProjectSearchProjectsEndPoint = @"/projects/search/%@";
 static NSString * const kProjectLanguagesEndPoint = @"/projects/languages";
 static NSString * const kProjectLanguageProjectsEndPoint = @"/projects/languages/%ld";
+static NSString * const kProjectStarAProjectEndPoint = @"/projects/%llu/star";
+static NSString * const kProjectUnstarAProjectEndPoint = @"/projects/%llu/unstar";
+static NSString * const kProjectWatchAProjectEndPoint = @"/projects/%llu/watch";
+static NSString * const kProjectUnwatchAProjectEndPoint = @"/projects/%llu/unwatch";
 
 static NSString * const kKeyPrivate_token = @"private_token";
 static NSString * const kKeyPage = @"page";
@@ -204,11 +208,11 @@ static NSString * const kKeyPage = @"page";
     NSString *endPoint;
     switch (type) {
         case 0:
-            endPoint = kProjectRecommendedProjectEndPoint;break;
+            endPoint = kProjectRecommendedProjectsEndPoint;break;
         case 1:
-            endPoint = kProjectPopularProjectEndPoint;break;
+            endPoint = kProjectPopularProjectsEndPoint;break;
         default:
-            endPoint = kProjectLatestProjectEndPoint;break;
+            endPoint = kProjectLatestProjectsEndPoint;break;
     }
     NSMutableURLRequest *request = [self requestForEndPoint:endPoint
                                                      params:@{@"page": @(page)}
@@ -245,7 +249,7 @@ static NSString * const kKeyPage = @"page";
                                           success:(GLGitlabSuccessBlock)successBlock
                                           failure:(GLGitlabFailureBlock)failureBlock
 {
-    NSMutableURLRequest *request = [self requestForEndPoint:[NSString stringWithFormat:kProjectStarredProjectEndPoint, userID]
+    NSMutableURLRequest *request = [self requestForEndPoint:[NSString stringWithFormat:kProjectStarredProjectsEndPoint, userID]
                                                      method:GLNetworkOperationGetMethod];
     
     GLNetworkOperationSuccessBlock localSuccessBlock = [self multipleObjectSuccessBlockForClass:[GLProject class] successBlock:successBlock];
@@ -262,7 +266,7 @@ static NSString * const kKeyPage = @"page";
                                           success:(GLGitlabSuccessBlock)successBlock
                                           failure:(GLGitlabFailureBlock)failureBlock
 {
-    NSMutableURLRequest *request = [self requestForEndPoint:[NSString stringWithFormat:kProjectWatchedProjectEndPoint, userID]
+    NSMutableURLRequest *request = [self requestForEndPoint:[NSString stringWithFormat:kProjectWatchedProjectsEndPoint, userID]
                                                      method:GLNetworkOperationGetMethod];
     
     GLNetworkOperationSuccessBlock localSuccessBlock = [self multipleObjectSuccessBlockForClass:[GLProject class] successBlock:successBlock];
@@ -281,7 +285,7 @@ static NSString * const kKeyPage = @"page";
                                       success:(GLGitlabSuccessBlock)successBlock
                                       failure:(GLGitlabFailureBlock)failureBlock
 {
-    NSMutableURLRequest *request = [self requestForEndPoint:[NSString stringWithFormat:kProjectSearchProjectEndPoint, query]
+    NSMutableURLRequest *request = [self requestForEndPoint:[NSString stringWithFormat:kProjectSearchProjectsEndPoint, query]
                                                      params:@{kKeyPage: @(page)}
                                                      method:GLNetworkOperationGetMethod];
     
@@ -326,6 +330,93 @@ static NSString * const kKeyPage = @"page";
                                    success:localSuccessBlock
                                    failure:localFailureBlock];
 }
+
+- (GLNetworkOperation *)starProject:(int64_t)projectID
+                       privateToken:(NSString *)privateToken
+                            success:(GLGitlabSuccessBlock)successBlock
+                            failure:(GLGitlabFailureBlock)failureBlock
+{
+    NSMutableURLRequest *request = [self requestForEndPoint:[NSString stringWithFormat:kProjectStarAProjectEndPoint, projectID]
+                                                     params:@{kKeyPrivate_token: privateToken}
+                                                     method:GLNetworkOperationPostMethod];
+    
+    GLNetworkOperationSuccessBlock localSuccessBlock = ^(NSDictionary *resonseObject) {
+        id object = [resonseObject objectForKey:@"count"];
+        successBlock(object);
+    };
+    GLNetworkOperationFailureBlock localFailureBlock = [self defaultFailureBlock:failureBlock];
+    
+    return [self queueOperationWithRequest:request
+                                      type:GLNetworkOperationTypeJson
+                                   success:localSuccessBlock
+                                   failure:localFailureBlock];
+}
+
+- (GLNetworkOperation *)watchProject:(int64_t)projectID
+                        privateToken:(NSString *)privateToken
+                             success:(GLGitlabSuccessBlock)successBlock
+                             failure:(GLGitlabFailureBlock)failureBlock
+{
+    NSMutableURLRequest *request = [self requestForEndPoint:[NSString stringWithFormat:kProjectWatchAProjectEndPoint, projectID]
+                                                     params:@{kKeyPrivate_token: privateToken}
+                                                     method:GLNetworkOperationPostMethod];
+    
+    GLNetworkOperationSuccessBlock localSuccessBlock = ^(NSDictionary *resonseObject) {
+        id object = [resonseObject objectForKey:@"count"];
+        successBlock(object);
+    };
+    GLNetworkOperationFailureBlock localFailureBlock = [self defaultFailureBlock:failureBlock];
+    
+    return [self queueOperationWithRequest:request
+                                      type:GLNetworkOperationTypeJson
+                                   success:localSuccessBlock
+                                   failure:localFailureBlock];
+}
+
+- (GLNetworkOperation *)unstarProject:(int64_t)projectID
+                         privateToken:(NSString *)privateToken
+                              success:(GLGitlabSuccessBlock)successBlock
+                              failure:(GLGitlabFailureBlock)failureBlock
+{
+    NSMutableURLRequest *request = [self requestForEndPoint:[NSString stringWithFormat:kProjectUnstarAProjectEndPoint, projectID]
+                                                     params:@{kKeyPrivate_token: privateToken}
+                                                     method:GLNetworkOperationPostMethod];
+    
+    GLNetworkOperationSuccessBlock localSuccessBlock = ^(NSDictionary *resonseObject) {
+        id object = [resonseObject objectForKey:@"count"];
+        successBlock(object);
+    };
+    GLNetworkOperationFailureBlock localFailureBlock = [self defaultFailureBlock:failureBlock];
+    
+    return [self queueOperationWithRequest:request
+                                      type:GLNetworkOperationTypeJson
+                                   success:localSuccessBlock
+                                   failure:localFailureBlock];
+}
+
+- (GLNetworkOperation *)unwatchProject:(int64_t)projectID
+                          privateToken:(NSString *)privateToken
+                               success:(GLGitlabSuccessBlock)successBlock
+                               failure:(GLGitlabFailureBlock)failureBlock
+{
+    NSMutableURLRequest *request = [self requestForEndPoint:[NSString stringWithFormat:kProjectUnwatchAProjectEndPoint, projectID]
+                                                     params:@{kKeyPrivate_token: privateToken}
+                                                     method:GLNetworkOperationPostMethod];
+    
+    GLNetworkOperationSuccessBlock localSuccessBlock = ^(NSDictionary *resonseObject) {
+        id object = [resonseObject objectForKey:@"count"];
+        successBlock(object);
+    };
+    GLNetworkOperationFailureBlock localFailureBlock = [self defaultFailureBlock:failureBlock];
+    
+    return [self queueOperationWithRequest:request
+                                      type:GLNetworkOperationTypeJson
+                                   success:localSuccessBlock
+                                   failure:localFailureBlock];
+}
+
+
+
 
 
 @end

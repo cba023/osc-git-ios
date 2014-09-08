@@ -313,7 +313,8 @@ static NSString * const cellId = @"ProjectCell";
             _isFinishedLoad = [(NSArray *)responseObject count] < _pageSize;
             
             NSUInteger repeatedCount = [Tools numberOfRepeatedProjects:projects project:[responseObject objectAtIndex:0]];
-            [projects addObjectsFromArray:[responseObject subarrayWithRange:NSMakeRange(repeatedCount, 20-repeatedCount)]];
+            NSUInteger length = _pageSize-1-repeatedCount < [(NSArray *)responseObject count]? _pageSize-1-repeatedCount: [(NSArray *)responseObject count];
+            [projects addObjectsFromArray:[responseObject subarrayWithRange:NSMakeRange(repeatedCount, length)]];
             
             if (refresh || _isFirstRequest) {
                 [Tools savePageCache:projects type:_projectsType];

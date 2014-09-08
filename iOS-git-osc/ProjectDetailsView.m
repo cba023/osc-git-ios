@@ -130,9 +130,13 @@ static NSString * const ProjectDetailsCellID = @"ProjectDetailsCell";
             case 1: {
                 ProjectDescriptionCell *cell = [[ProjectDescriptionCell alloc] initWithStarsCount:_project.starsCount
                                                                                      watchesCount:_project.watchesCount
-                                                                                        isStarred:NO
-                                                                                        isWatched:NO
+                                                                                        isStarred:_project.isStarred
+                                                                                        isWatched:_project.isWatched
                                                                                       description:_project.projectDescription];
+                
+                [cell.starButton addTarget:self action:@selector(starButtonClicked) forControlEvents:UIControlEventTouchUpInside];
+                [cell.watchButton addTarget:self action:@selector(watchButtonClicked) forControlEvents:UIControlEventTouchUpInside];
+                
                 return cell;
             }
             case 2: {
@@ -273,6 +277,44 @@ static NSString * const ProjectDetailsCellID = @"ProjectDetailsCell";
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[_projectInfo]|" options:0 metrics:nil views:viewDictionary]];
 }
 
+- (void)starButtonClicked
+{
+    if (![Tools isNetworkExist]) {
+        [Tools toastNotification:@"无网络连接" inView:self.view];
+    }
+    
+    [[GLGitlabApi sharedInstance] starProject:_project.projectId
+                                 privateToken:[Tools getPrivateToken]
+                                      success:^(id responseObject) {
+                                          _project.starred = !_project.starred;
+                                          _project.starsCount = [responseObject intValue];
+                                          NSIndexPath *path = [NSIndexPath indexPathForRow:1 inSection:0];
+                                          [_projectInfo reloadRowsAtIndexPaths:@[path] withRowAnimation:UITableViewRowAnimationNone];
+                                      }
+                                      failure:^(NSError *error) {
+                                          [Tools toastNotification:@"网络错误" inView:self.view];
+                                      }];
+}
+
+- (void)watchButtonClicked
+{
+    if (![Tools isNetworkExist]) {
+        [Tools toastNotification:@"无网络连接" inView:self.view];
+    }
+    
+    [[GLGitlabApi sharedInstance] starProject:_project.projectId
+                                 privateToken:[Tools getPrivateToken]
+                                      success:^(id responseObject) {
+                                          _project.watched = !_project.watched;
+                                          _project.starsCount = [responseObject intValue];
+                                          NSIndexPath *path = [NSIndexPath indexPathForRow:1 inSection:0];
+                                          [_projectInfo reloadRowsAtIndexPaths:@[path] withRowAnimation:UITableViewRowAnimationNone];
+                                      }
+                                      failure:^(NSError *error) {
+                                          [Tools toastNotification:@"网络错误" inView:self.view];
+                                      }];
+
+}
 
 
 @end

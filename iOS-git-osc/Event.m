@@ -99,8 +99,10 @@ enum action {
     NSDictionary *actionAttributes = @{NSFontAttributeName: actionFont,
                                        NSForegroundColorAttributeName: actionFontColor};
     
+    UIFont *projectFont = [UIFont systemFontOfSize:15];
     UIColor *projectFontColor = [UIColor colorWithRed:13/255.0 green:109/255.0 blue:168/255.0 alpha:1];
-    NSDictionary *projectAttributes = @{NSForegroundColorAttributeName: projectFontColor};
+    NSDictionary *projectAttributes = @{NSForegroundColorAttributeName: projectFontColor,
+                                        NSFontAttributeName: projectFont};
     NSAttributedString *project = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@ / %@", event.project.owner.name, event.project.name]
                                                                      attributes:projectAttributes];
     

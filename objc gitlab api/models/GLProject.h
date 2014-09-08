@@ -65,6 +65,10 @@
 @property (nonatomic, assign) int32_t starsCount;
 // watches_count
 @property (nonatomic, assign) int32_t watchesCount;
+// starred
+@property (nonatomic, assign, getter = isStarred) BOOL starred;
+// watched
+@property (nonatomic, assign, getter = isWatched) BOOL watched;
 
 //- (BOOL)isEqualToProject:(GLProject *)project;
 

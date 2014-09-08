@@ -196,4 +196,25 @@
                                        success:(GLGitlabSuccessBlock)successBlock
                                        failure:(GLGitlabFailureBlock)failureBlock;
 
+- (GLNetworkOperation *)starProject:(int64_t)projectID
+                       privateToken:(NSString *)privateToken
+                            success:(GLGitlabSuccessBlock)successBlock
+                            failure:(GLGitlabFailureBlock)failureBlock;
+
+- (GLNetworkOperation *)unstarProject:(int64_t)projectID
+                         privateToken:(NSString *)privateToken
+                              success:(GLGitlabSuccessBlock)successBlock
+                              failure:(GLGitlabFailureBlock)failureBlock;
+
+- (GLNetworkOperation *)watchProject:(int64_t)projectID
+                        privateToken:(NSString *)privateToken
+                             success:(GLGitlabSuccessBlock)successBlock
+                             failure:(GLGitlabFailureBlock)failureBlock;
+
+- (GLNetworkOperation *)unwatchProject:(int64_t)projectID
+                          privateToken:(NSString *)privateToken
+                               success:(GLGitlabSuccessBlock)successBlock
+                               failure:(GLGitlabFailureBlock)failureBlock;
+
+
 @end

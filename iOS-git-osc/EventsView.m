@@ -133,7 +133,11 @@ static NSString * const EventCellIdentifier = @"EventCell";
         timeHeight = _prototypeCell.time.frame.size.height,
         totalHeight = descriptionHeight + timeHeight + 15;
         
-        int totalCommitsCount = [[event.data objectForKey:@"total_commits_count"] intValue];
+        int totalCommitsCount = 0;
+        if (![event.data isEqual:@""]) {
+            totalCommitsCount = [[event.data objectForKey:@"total_commits_count"] intValue];
+        }
+
         if (event.data && totalCommitsCount > 0) {
             totalHeight += _prototypeCell.eventAbstract.frame.size.height + 5;
         }
@@ -185,7 +189,11 @@ static NSString * const EventCellIdentifier = @"EventCell";
     [cell generateEventDescriptionView:event];
     [cell.contentView addSubview:cell.eventDescription];
     GLfloat descriptionHeight = cell.eventDescription.frame.size.height;
-    int totalCommitsCount = [[event.data objectForKey:@"total_commits_count"] intValue];
+    
+    int totalCommitsCount = 0;
+    if (![event.data isEqual:@""]) {
+        totalCommitsCount = [[event.data objectForKey:@"total_commits_count"] intValue];
+    }
 
     if (event.data && totalCommitsCount > 0) {
         cell.eventAbstract = [UITextView new];

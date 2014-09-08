@@ -39,6 +39,8 @@ static NSString * const kKeyForksCount = @"forks_count";
 static NSString * const kKeyStarsCount = @"stars_count";
 static NSString * const kKeyWatchesCount = @"watches_count";
 static NSString * const kKeyLanguage = @"language";
+static NSString * const kKeyStarred = @"stared";
+static NSString * const kKeyWatched = @"watched";
 
 @implementation GLProject
 
@@ -75,6 +77,8 @@ static NSString * const kKeyLanguage = @"language";
         _forksCount = [json[kKeyForksCount] intValue];
         _starsCount = [json[kKeyStarsCount] intValue];
         _watchesCount = [json[kKeyWatchesCount] intValue];
+        _starred = [[self checkForNull:json[kKeyStarred]] boolValue];
+        _watched = [[self checkForNull:json[kKeyWatched]] boolValue];
     }
     return self;
 }
@@ -236,7 +240,9 @@ static NSString * const kKeyLanguage = @"language";
              kKeyForksCount: @(_forksCount),
              kKeyStarsCount: @(_starsCount),
              kKeyWatchesCount: @(_watchesCount),
-             kKeyLanguage: _language ?: null
+             kKeyLanguage: _language ?: null,
+             kKeyStarred: @(_starred),
+             kKeyWatched: @(_watched)
              };
 }
 
