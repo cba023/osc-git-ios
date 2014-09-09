@@ -134,9 +134,7 @@ static NSString * const cellId = @"ProjectCell";
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     NSInteger row = indexPath.row;
-    if (_isFinishedLoad && projects.count == 0) {
-        return;
-    }
+    
     if (row < self.projects.count) {
         GLProject *project = [projects objectAtIndex:row];        
         

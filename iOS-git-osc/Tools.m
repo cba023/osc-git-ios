@@ -46,7 +46,7 @@
     [[SDWebImageDownloader sharedDownloader] downloadImageWithURL:imageURL
                                                           options:0
                                                          progress:^(NSInteger receivedSize, NSInteger expectedSize) {
-                                                             NSLog(@"%ld, %ld", (long)receivedSize, (long)expectedSize);
+                                                             
                                                          }
                                                         completed:^(UIImage *image, NSData *data, NSError *error, BOOL finished) {
                                                             if (image && finished) {

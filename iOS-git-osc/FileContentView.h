@@ -10,8 +10,14 @@
 
 @interface FileContentView : UIViewController
 
-@property (strong, nonatomic) NSString *content;
+@property int64_t projectID;
+@property NSString *path;
 @property (strong, nonatomic) NSString *fileName;
+
+@property (strong, nonatomic) NSString *content;
+
 @property (strong, nonatomic) UIWebView *webView;
+
+- (id)initWithProjectID:(int64_t)projectID path:(NSString *)path fileName:(NSString *)fileName;
 
 @end

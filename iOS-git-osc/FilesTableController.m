@@ -12,6 +12,9 @@
 #import "Project.h"
 #import "FileCell.h"
 #import "FileContentView.h"
+#import "File.h"
+#import "ImageView.h"
+#import "Tools.h"
 
 @interface FilesTableController ()
 
@@ -30,6 +33,18 @@ static NSString * const cellId = @"FileCell";
     return self;
 }
 
+- (id)initWithProjectID:(int64_t)projectID projectName:(NSString *)projectName ownerName:(NSString *)ownerName
+{
+    self = [super init];
+    if (self) {
+        _projectID = projectID;
+        _projectName = projectName;
+        _ownerName = ownerName;
+    }
+    
+    return self;
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -42,6 +57,9 @@ static NSString * const cellId = @"FileCell";
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     [self.tableView registerClass:[FileCell class] forCellReuseIdentifier:cellId];
+    self.tableView.backgroundColor = [UIColor colorWithRed:235.0/255 green:235.0/255 blue:243.0/255 alpha:1.0];
+    UIView *footer =[[UIView alloc] initWithFrame:CGRectZero];
+    self.tableView.tableFooterView = footer;
     
 #if 0
     self.refreshControl = [[UIRefreshControl alloc] init];
@@ -66,7 +84,7 @@ static NSString * const cellId = @"FileCell";
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 30;
+    return 50;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -99,8 +117,9 @@ static NSString * const cellId = @"FileCell";
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     GLFile *file = [self.filesArray objectAtIndex:indexPath.row];
     if (file.type == GLFileTypeTree) {
-        FilesTableController *innerFilesTable = [[FilesTableController alloc] init];
-        innerFilesTable.projectID = self.projectID;
+        FilesTableController *innerFilesTable = [[FilesTableController alloc] initWithProjectID:_projectID
+                                                                                    projectName:_projectName
+                                                                                      ownerName:_ownerName];
         innerFilesTable.currentPath = [NSString stringWithFormat:@"%@%@/", self.currentPath, file.name];
         innerFilesTable.filesArray = [[NSMutableArray alloc] initWithCapacity:20];
         [innerFilesTable.filesArray addObjectsFromArray:[Project getProjectTreeWithID:innerFilesTable.projectID
@@ -109,14 +128,29 @@ static NSString * const cellId = @"FileCell";
         
         [self.navigationController pushViewController:innerFilesTable animated:YES];
     } else {
-        FileContentView *fileContentView = [[FileContentView alloc] init];
-        fileContentView.content = [Project getFileContent:self.projectID
-                                                     Path:[NSString stringWithFormat:@"%@%@", self.currentPath, file.name]
-                                                   Branch:@"master"];
-        fileContentView.fileName = file.name;
-        
-        [self.navigationController pushViewController:fileContentView animated:YES];
+        [self openFile:file];
     }
 }
+
+- (void)openFile:(GLFile *)file
+{
+    if ([File isCodeFile:file.name]) {
+        FileContentView *fileContentView = [[FileContentView alloc] initWithProjectID:_projectID path:_currentPath fileName:file.name];
+        
+        [self.navigationController pushViewController:fileContentView animated:YES];
+    } else if ([File isImage:file.name]) {
+        NSString *imageURL = [NSString stringWithFormat:@"https://git.oschina.net/%@/%@/raw/master/%@/%@?private_token=%@", _ownerName, _projectName, _currentPath, file.name, [Tools getPrivateToken]];
+        ImageView *imageView = [[ImageView alloc] initWithImageURL:imageURL];
+        imageView.title = file.name;
+        
+        [self.navigationController pushViewController:imageView animated:YES];
+    } else {
+        NSString *urlString = [NSString stringWithFormat:@"https://git.oschina.net/%@/%@/blob/master/%@/%@?private_token=%@", _ownerName, _projectName, _currentPath, file.name, [Tools getPrivateToken]];
+        NSURL *url = [NSURL URLWithString:urlString];
+        [[UIApplication sharedApplication] openURL:url];
+    }
+}
+
+
 
 @end

@@ -204,7 +204,7 @@ static NSString * const ProjectDetailsCellID = @"ProjectDetailsCell";
         tmpLabel.lineBreakMode = NSLineBreakByWordWrapping;
         tmpLabel.numberOfLines = 0;
         tmpLabel.font = [UIFont systemFontOfSize:15];
-        tmpLabel.text = _project.projectDescription;
+        tmpLabel.text = _project.projectDescription.length > 0? _project.projectDescription : @"暂无项目介绍";
         
         CGSize size = [tmpLabel sizeThatFits:CGSizeMake(tableView.frame.size.width - 16, MAXFLOAT)];
         return size.height + 61;
@@ -231,13 +231,15 @@ static NSString * const ProjectDetailsCellID = @"ProjectDetailsCell";
                 break;
             }
             case 1: {
-                FilesTableController *filesTable = [FilesTableController new];
-                filesTable.projectID = _project.projectId;
+                FilesTableController *filesTable = [[FilesTableController alloc] initWithProjectID:_project.projectId
+                                                                                       projectName:_project.name
+                                                                                         ownerName:_project.owner.username];
                 filesTable.currentPath = @"";
                 filesTable.filesArray = [[NSMutableArray alloc] initWithArray:[Project getProjectTreeWithID:_project.projectId
                                                                                                      Branch:nil
                                                                                                        Path:nil]];
                 [self.navigationController pushViewController:filesTable animated:YES];
+                break;
             }
             case 2: {
                 IssuesView *issuesView = [[IssuesView alloc] initWithProjectId:_project.projectId];

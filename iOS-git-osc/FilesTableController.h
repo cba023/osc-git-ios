@@ -11,7 +11,12 @@
 @interface FilesTableController : UITableViewController
 
 @property int64_t projectID;
+@property NSString *projectName;
+@property NSString *ownerName;
+
 @property NSMutableArray *filesArray;
 @property (strong, nonatomic) NSString *currentPath;
+
+- (id)initWithProjectID:(int64_t)projectID projectName:(NSString *)projectName ownerName:(NSString *)ownerName;
 
 @end

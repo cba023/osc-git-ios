@@ -40,7 +40,7 @@
         NSString *watchAction = isWatched? @"Unwatch" : @"Watch";
         [_starButton setTitle:[NSString stringWithFormat:@" %@ %d ",starAction, starsCount] forState:UIControlStateNormal];
         [_watchButton setTitle:[NSString stringWithFormat:@" %@ %d ",watchAction, watchesCount] forState:UIControlStateNormal];
-        _projectDescriptionField.text = projectDescription;
+        _projectDescriptionField.text = projectDescription.length > 0? projectDescription : @"暂无项目介绍";
     }
     
     return self;

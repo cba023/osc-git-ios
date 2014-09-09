@@ -14,17 +14,11 @@
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
-        UIColor *bgColor = [UIColor colorWithRed:235.0/255 green:235.0/255 blue:243.0/255 alpha:1.0];
-        self.contentView.backgroundColor = bgColor;
-        // 适配屏幕
-        self.fileType = [[UIImageView alloc] initWithFrame:CGRectMake(10, 7, 15, 15)];
-        self.fileType.contentMode = UIViewContentModeScaleAspectFit;
-        [self.contentView addSubview:self.fileType];
+        self.backgroundColor = [UIColor clearColor];
+        self.contentView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+
+        [self setLayout];
         
-        self.fileName = [[UILabel alloc] initWithFrame:CGRectMake(33, 4, 310, 21)];
-        self.fileName.textAlignment = NSTextAlignmentLeft;
-        self.fileName.font = [UIFont boldSystemFontOfSize:12];
-        [self.contentView addSubview:self.fileName];
     }
     return self;
 }
@@ -39,6 +33,29 @@
     [super setSelected:selected animated:animated];
 
     // Configure the view for the selected state
+}
+
+- (void)setLayout
+{
+    _fileType = [UIImageView new];
+    _fileType.contentMode = UIViewContentModeScaleAspectFill;
+    _fileType.translatesAutoresizingMaskIntoConstraints = NO;
+    [self.contentView addSubview:_fileType];
+    
+    _fileName = [UILabel new];
+    _fileName.translatesAutoresizingMaskIntoConstraints = NO;
+    [self.contentView addSubview:_fileName];
+    
+    NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(_fileType, _fileName);
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-15-[_fileType]-15-|"
+                                                                             options:0
+                                                                             metrics:nil
+                                                                               views:viewsDictionary]];
+    
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|-10-[_fileType]-[_fileName]"
+                                                                             options:NSLayoutFormatAlignAllCenterY
+                                                                             metrics:nil
+                                                                               views:viewsDictionary]];
 }
 
 @end

@@ -124,6 +124,7 @@
 		0079C03719B56521005EF089 /* UIView+Toast.m in Sources */ = {isa = PBXBuildFile; fileRef = 0079C03619B56521005EF089 /* UIView+Toast.m */; };
 		0081D0D919BB090A00BF9FFA /* ProjectNameCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0081D0D819BB090A00BF9FFA /* ProjectNameCell.m */; };
 		0087828A19583E7D003F331C /* Project.m in Sources */ = {isa = PBXBuildFile; fileRef = 0087828919583E7D003F331C /* Project.m */; };
+		008AB6D119BDD5BC00DF31B0 /* File.m in Sources */ = {isa = PBXBuildFile; fileRef = 008AB6D019BDD5BC00DF31B0 /* File.m */; };
 		009018C71921D1B90050197D /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 009018C61921D1B90050197D /* LoginViewController.m */; };
 		009567AC19B8430100E9624E /* ProjectDescriptionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 009567AB19B8430100E9624E /* ProjectDescriptionCell.m */; };
 		009567B319B8746200E9624E /* ProjectBasicInfoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 009567B219B8746200E9624E /* ProjectBasicInfoCell.m */; };
@@ -186,6 +187,7 @@
 		009B522B199B65E700E7F575 /* highlight.pack.js in Resources */ = {isa = PBXBuildFile; fileRef = 009B51B9199B4CB300E7F575 /* highlight.pack.js */; };
 		009B522E199C572000E7F575 /* ReadmeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 009B522D199C572000E7F575 /* ReadmeView.m */; };
 		009B5231199CAA4100E7F575 /* AccountManagement.m in Sources */ = {isa = PBXBuildFile; fileRef = 009B5230199CAA4100E7F575 /* AccountManagement.m */; };
+		00A502D019BE970200EF057B /* ImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 00A502CF19BE970200EF057B /* ImageView.m */; };
 		00A74FD519A59FD7009DACDF /* SearchView.m in Sources */ = {isa = PBXBuildFile; fileRef = 00A74FD419A59FD7009DACDF /* SearchView.m */; };
 		00B01FE919221EB40095D488 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 00B01FE819221EB40095D488 /* User.m */; };
 		00B481B819AED592001F3B2D /* LastCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 00B481B719AED592001F3B2D /* LastCell.m */; };
@@ -423,6 +425,8 @@
 		0081D0D819BB090A00BF9FFA /* ProjectNameCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProjectNameCell.m; sourceTree = "<group>"; };
 		0087828819583E7D003F331C /* Project.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Project.h; sourceTree = "<group>"; };
 		0087828919583E7D003F331C /* Project.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Project.m; sourceTree = "<group>"; };
+		008AB6CF19BDD5BC00DF31B0 /* File.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = File.h; sourceTree = "<group>"; };
+		008AB6D019BDD5BC00DF31B0 /* File.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = File.m; sourceTree = "<group>"; };
 		009018C51921D1B90050197D /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		009018C61921D1B90050197D /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		009567AA19B8430100E9624E /* ProjectDescriptionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProjectDescriptionCell.h; sourceTree = "<group>"; };
@@ -489,6 +493,8 @@
 		009B522D199C572000E7F575 /* ReadmeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReadmeView.m; sourceTree = "<group>"; };
 		009B522F199CAA4100E7F575 /* AccountManagement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccountManagement.h; sourceTree = "<group>"; };
 		009B5230199CAA4100E7F575 /* AccountManagement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccountManagement.m; sourceTree = "<group>"; };
+		00A502CE19BE970200EF057B /* ImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageView.h; sourceTree = "<group>"; };
+		00A502CF19BE970200EF057B /* ImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageView.m; sourceTree = "<group>"; };
 		00A74FD319A59FD7009DACDF /* SearchView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchView.h; sourceTree = "<group>"; };
 		00A74FD419A59FD7009DACDF /* SearchView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchView.m; sourceTree = "<group>"; };
 		00B01FE719221EB40095D488 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
@@ -1043,12 +1049,16 @@
 		00B7595F196CE5DA009C9C58 /* Files */ = {
 			isa = PBXGroup;
 			children = (
+				008AB6CF19BDD5BC00DF31B0 /* File.h */,
+				008AB6D019BDD5BC00DF31B0 /* File.m */,
 				00C3A4161962AABB002A34AB /* FilesTableController.h */,
 				00C3A4171962AABC002A34AB /* FilesTableController.m */,
 				00C3A4191962BC5C002A34AB /* FileCell.h */,
 				00C3A41A1962BC5D002A34AB /* FileCell.m */,
 				00C7C677196A85B70006B2E4 /* FileContentView.h */,
 				00C7C678196A85B70006B2E4 /* FileContentView.m */,
+				00A502CE19BE970200EF057B /* ImageView.h */,
+				00A502CF19BE970200EF057B /* ImageView.m */,
 			);
 			name = Files;
 			sourceTree = "<group>";
@@ -1349,6 +1359,7 @@
 				00760B8A19767BDA00C88C6F /* MKAnnotationView+WebCache.m in Sources */,
 				0002D2B319163DF6001FDED8 /* REFrostedContainerViewController.m in Sources */,
 				0079C03719B56521005EF089 /* UIView+Toast.m in Sources */,
+				00A502D019BE970200EF057B /* ImageView.m in Sources */,
 				0021BADA192342BD00626A2C /* GLTag.m in Sources */,
 				00760B9819767BDB00C88C6F /* UIImageView+WebCache.m in Sources */,
 				0021BADF192342BD00626A2C /* GLGitlabApi+Groups.m in Sources */,
@@ -1356,6 +1367,7 @@
 				0021BAF7192360A100626A2C /* SSKeychain.m in Sources */,
 				0002D2B519163DF6001FDED8 /* UIImage+REFrostedViewController.m in Sources */,
 				00F017771994BB040076BE43 /* CreationInfoCell.m in Sources */,
+				008AB6D119BDD5BC00DF31B0 /* File.m in Sources */,
 				0021BAE2192342BD00626A2C /* GLGitlabApi+Milestones.m in Sources */,
 				0021BADE192342BD00626A2C /* GLGitlabApi+Files.m in Sources */,
 				0002D25A1916324B001FDED8 /* AppDelegate.m in Sources */,

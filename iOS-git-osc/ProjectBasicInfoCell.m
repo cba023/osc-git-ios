@@ -31,7 +31,7 @@
     if (self) {
         _info = @[
                   @[[Tools intervalSinceNow:createdTime], [NSString stringWithFormat:@"%ld", (long)forksCount]],
-                  @[isPublic ? @"Public" : @"Private", language]
+                  @[isPublic ? @"Public" : @"Private", language ?: @"Unknown"]
                   ];
         
         [self setLayout];
