@@ -11,12 +11,13 @@
 @interface ProjectsTableController : UITableViewController <UIScrollViewDelegate>
 
 @property NSMutableArray *projects;
-@property int64_t userID;
 @property NSInteger languageID;
 @property NSString *query;
 
-- (id)initWithProjectsType:(NSInteger)projectsType;
-- (void)reloadType:(NSInteger)newArrangeType;
+- (id)initWithProjectsType:(NSUInteger)projectsType;
+- (id)initWithUserID:(int64_t)userID andProjectsType:(NSUInteger)projectsType;
+- (id)initWithPrivateToken:(NSString *)privateToken andProjectsType:(NSUInteger)projectsType;
+
 - (void)reload;
 
 @end

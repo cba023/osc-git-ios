@@ -11,30 +11,14 @@
 
 @interface ProjectsViewController ()
 
+@property UISegmentedControl *segmentTitle;
+@property ProjectsTableController *recommendedProjects;
+@property ProjectsTableController *hotProjects;
+@property ProjectsTableController *recentUpdatedProjects;
+
 @end
 
 @implementation ProjectsViewController
-
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        self.segmentTitle = [[UISegmentedControl alloc] initWithItems:@[@"推荐", @"热门", @"最近更新"]];
-        self.segmentTitle.selectedSegmentIndex = 0;
-        self.segmentTitle.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-        self.segmentTitle.segmentedControlStyle = UISegmentedControlStyleBar;
-        self.segmentTitle.frame = CGRectMake(0, 0, 200, 30);
-        [self.segmentTitle addTarget:self action:@selector(switchView) forControlEvents:UIControlEventValueChanged];
-        self.navigationItem.titleView = self.segmentTitle;
-        
-        self.projectsTable = [[ProjectsTableController alloc] initWithProjectsType:0];
-        [self addChildViewController:self.projectsTable];
-        [self.view addSubview:self.projectsTable.view];
-        self.projectsTable.view.frame = self.view.bounds;
-        self.projectsTable.view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-    }
-    return self;
-}
 
 - (void)viewDidLoad
 {
@@ -43,6 +27,26 @@
                                                                              style:UIBarButtonItemStylePlain
                                                                             target:(NavigationController *)self.navigationController
                                                                             action:@selector(showMenu)];
+    
+    self.segmentTitle = [[UISegmentedControl alloc] initWithItems:@[@"推荐", @"热门", @"最近更新"]];
+    self.segmentTitle.selectedSegmentIndex = 0;
+    self.segmentTitle.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+    self.segmentTitle.segmentedControlStyle = UISegmentedControlStyleBar;
+    self.segmentTitle.frame = CGRectMake(0, 0, 200, 30);
+    [self.segmentTitle addTarget:self action:@selector(switchView) forControlEvents:UIControlEventValueChanged];
+    self.navigationItem.titleView = self.segmentTitle;
+    
+    _recommendedProjects = [[ProjectsTableController alloc] initWithProjectsType:0];
+    _hotProjects = [[ProjectsTableController alloc] initWithProjectsType:1];
+    _recentUpdatedProjects = [[ProjectsTableController alloc] initWithProjectsType:2];
+    
+    [self addChildViewController:_recommendedProjects];
+    [self addChildViewController:_hotProjects];
+    [self addChildViewController:_recentUpdatedProjects];
+    
+    [self.view addSubview:_recommendedProjects.view];
+    _recommendedProjects.view.frame = self.view.bounds;
+    _recommendedProjects.view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
 }
 
 - (void)didReceiveMemoryWarning
@@ -53,7 +57,32 @@
 
 - (void)switchView
 {
-    [self.projectsTable reloadType:self.segmentTitle.selectedSegmentIndex];
+    for (UIView *subview in [self.view subviews]) {
+        [subview removeFromSuperview];
+    }
+    
+    switch (_segmentTitle.selectedSegmentIndex) {
+        case 0: {
+            [self.view addSubview:_recommendedProjects.view];
+            _recommendedProjects.view.frame = self.view.bounds;
+            _recommendedProjects.view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+            break;
+        }
+        case 1: {
+            [self.view addSubview:_hotProjects.view];
+            _hotProjects.view.frame = self.view.bounds;
+            _hotProjects.view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+            break;
+        }
+        case 2: {
+            [self.view addSubview:_recentUpdatedProjects.view];
+            _recentUpdatedProjects.view.frame = self.view.bounds;
+            _recentUpdatedProjects.view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+            break;
+        }
+        default:
+            break;
+    }
 }
 
 @end

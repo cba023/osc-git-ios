@@ -11,9 +11,6 @@
 
 @interface ProjectsViewController : UIViewController
 
-@property (strong, nonatomic) UISegmentedControl *segmentTitle;
-@property (strong, nonatomic) ProjectsTableController *projectsTable;
-
 - (void)switchView;
 
 @end

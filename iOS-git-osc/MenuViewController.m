@@ -175,8 +175,7 @@ static NSString * const kKeyPortrait = @"new_portrait";
     
     NavigationController *navigationController;
     if (indexPath.section == 0) {
-        NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-        NSString *privateToken = [userDefaults objectForKey:@"private_token"];
+        NSString *privateToken = [self.user objectForKey:@"private_token"];
         if (privateToken == nil) {
             LoginViewController *loginViewController = [LoginViewController new];
             navigationController = [[NavigationController alloc] initWithRootViewController:loginViewController];
@@ -190,32 +189,30 @@ static NSString * const kKeyPortrait = @"new_portrait";
                     break;
                 }
                 case 1: {
-                    ProjectsTableController *ownProjectsView = [[ProjectsTableController alloc] initWithProjectsType:3];
+                    ProjectsTableController *ownProjectsView = [[ProjectsTableController alloc] initWithPrivateToken:privateToken andProjectsType:3];
                     ownProjectsView.title = @"我的项目";
                     navigationController = [[NavigationController alloc] initWithRootViewController:ownProjectsView];
                     self.frostedViewController.contentViewController = navigationController;
                     break;
                 }
                 case 2: {
-                    ProjectsTableController *starredProjectsView = [[ProjectsTableController alloc] initWithProjectsType:4];
-                    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+                    int64_t userID = [[self.user objectForKey:kKeyUserId] intValue];
+                    ProjectsTableController *starredProjectsView = [[ProjectsTableController alloc] initWithUserID:userID andProjectsType:4];
                     starredProjectsView.title = @"收藏项目";
-                    starredProjectsView.userID = [[userDefaults objectForKey:kKeyUserId] intValue];
                     navigationController = [[NavigationController alloc] initWithRootViewController:starredProjectsView];
                     self.frostedViewController.contentViewController = navigationController;
                     break;
                 }
                 case 3: {
-                    ProjectsTableController *watchedProjectsView = [[ProjectsTableController alloc] initWithProjectsType:5];
-                    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+                    int64_t userID = [[self.user objectForKey:kKeyUserId] intValue];
+                    ProjectsTableController *watchedProjectsView = [[ProjectsTableController alloc] initWithUserID:userID andProjectsType:5];
                     watchedProjectsView.title = @"关注项目";
-                    watchedProjectsView.userID = [[userDefaults objectForKey:kKeyUserId] intValue];
                     navigationController = [[NavigationController alloc] initWithRootViewController:watchedProjectsView];
                     self.frostedViewController.contentViewController = navigationController;
                     break;
                 }
                 case 4: {
-                    MineView *mineView = [[MineView alloc] initWithPrivateToken:privateToken userID:(int64_t)[userDefaults objectForKey:@"id"]];
+                    MineView *mineView = [[MineView alloc] initWithPrivateToken:privateToken userID:(int64_t)[self.user objectForKey:@"id"]];
                     navigationController = [[NavigationController alloc] initWithRootViewController:mineView];
                     self.frostedViewController.contentViewController = navigationController;
                     break;

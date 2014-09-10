@@ -18,8 +18,11 @@
 
 @interface ProjectsTableController ()
 
-@property NSInteger projectsType;
+@property NSString *privateToken;
+@property int64_t userID;
+@property NSUInteger projectsType;
 @property NSUInteger pageSize;
+
 @property BOOL isFinishedLoad;
 @property BOOL isLoading;
 @property BOOL isFirstRequest;
@@ -33,7 +36,7 @@
 
 static NSString * const cellId = @"ProjectCell";
 
-- (id)initWithProjectsType:(NSInteger)projectsType
+- (id)initWithProjectsType:(NSUInteger)projectsType
 {
     self = [super init];
     if (self) {
@@ -42,16 +45,23 @@ static NSString * const cellId = @"ProjectCell";
     }
     
     return self;
+
 }
 
-- (id)initWithStyle:(UITableViewStyle)style
+- (id)initWithUserID:(int64_t)userID andProjectsType:(NSUInteger)projectsType
 {
-    self = [super initWithStyle:style];
-    if (self) {
-        
-    }
+    self = [self initWithProjectsType:projectsType];
+    _userID = userID;
+    
     return self;
 }
+
+- (id)initWithPrivateToken:(NSString *)privateToken andProjectsType:(NSUInteger)projectsType
+{
+    self = [self initWithProjectsType:projectsType];
+    _privateToken = privateToken;
+    
+    return self;}
 
 - (void)viewDidLoad
 {
@@ -242,18 +252,6 @@ static NSString * const cellId = @"ProjectCell";
     [self loadMore];
 }
 
-- (void)reloadType:(NSInteger)NewProjectsType
-{
-    _projectsType = NewProjectsType;
-    _isFirstRequest = YES;
-    
-    if ([Tools isPageCacheExist:NewProjectsType]) {
-        [self loadFromCache];
-    } else {
-        [self reload];
-    }
-}
-
 - (void)loadMore
 {
     if (_isFinishedLoad || _isLoading) {return;}
@@ -282,8 +280,7 @@ static NSString * const cellId = @"ProjectCell";
     if (_projectsType < 3) {
         [[GLGitlabApi sharedInstance] getExtraProjectsType:_projectsType page:page success:success failure:failure];
     } else if (_projectsType == 3) {
-        NSString *privateToken = [Tools getPrivateToken];
-        [[GLGitlabApi sharedInstance] getUsersProjectsWithPrivateToken:privateToken onPage:page success:success failure:failure];
+        [[GLGitlabApi sharedInstance] getUsersProjectsWithPrivateToken:_privateToken onPage:page success:success failure:failure];
     } else if (_projectsType == 4) {
         [[GLGitlabApi sharedInstance] getStarredProjectsForUser:_userID success:success failure:failure];
     } else if (_projectsType == 5) {

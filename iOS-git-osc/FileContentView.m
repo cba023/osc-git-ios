@@ -17,15 +17,6 @@
 
 @implementation FileContentView
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
 - (id)initWithProjectID:(int64_t)projectID path:(NSString *)path fileName:(NSString *)fileName
 {
     self = [super init];
