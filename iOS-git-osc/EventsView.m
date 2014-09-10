@@ -314,7 +314,8 @@ static NSString * const EventCellIdentifier = @"EventCell";
             _isFinishedLoad = [(NSArray *)responseObject count] < 20;
             
             NSUInteger repeatedCount = [Tools numberOfRepeatedEvents:events event:[responseObject objectAtIndex:0]];
-            [events addObjectsFromArray:[responseObject subarrayWithRange:NSMakeRange(repeatedCount, 20-repeatedCount)]];
+            NSUInteger length = 20-repeatedCount < [(NSArray *)responseObject count]? 20-repeatedCount: [(NSArray *)responseObject count];
+            [events addObjectsFromArray:[responseObject subarrayWithRange:NSMakeRange(repeatedCount, length)]];
 
             if ((refresh || _isFirstRequest) && related) {
                 [Tools savePageCache:events type:8];

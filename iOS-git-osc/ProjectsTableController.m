@@ -311,7 +311,7 @@ static NSString * const cellId = @"ProjectCell";
             _isFinishedLoad = [(NSArray *)responseObject count] < _pageSize;
             
             NSUInteger repeatedCount = [Tools numberOfRepeatedProjects:projects project:[responseObject objectAtIndex:0]];
-            NSUInteger length = _pageSize-1-repeatedCount < [(NSArray *)responseObject count]? _pageSize-1-repeatedCount: [(NSArray *)responseObject count];
+            NSUInteger length = _pageSize-repeatedCount < [(NSArray *)responseObject count]? _pageSize-repeatedCount: [(NSArray *)responseObject count];
             [projects addObjectsFromArray:[responseObject subarrayWithRange:NSMakeRange(repeatedCount, length)]];
             
             if (refresh || _isFirstRequest) {
