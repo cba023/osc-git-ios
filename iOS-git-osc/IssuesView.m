@@ -44,6 +44,8 @@ static NSString * const cellId = @"IssueCell";
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     [self.tableView registerClass:[IssueCell class] forCellReuseIdentifier:cellId];
+    UIView *footer = [[UIView alloc] initWithFrame:CGRectZero];
+    self.tableView.tableFooterView = footer;
     
     _issues = [[NSMutableArray alloc] initWithArray:[Issue getIssuesWithProjectId:_projectId page:1]];
 }

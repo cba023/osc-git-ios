@@ -22,6 +22,7 @@
 #import "SearchView.h"
 #import "LanguageSearchView.h"
 #import "UIImageView+WebCache.h"
+#import "MineView.h"
 
 @interface MenuViewController ()
 
@@ -182,8 +183,7 @@ static NSString * const kKeyPortrait = @"new_portrait";
         } else {
             switch (indexPath.row) {
                 case 0: {
-                    EventsView *eventsView = [EventsView new];
-                    eventsView.privateToken = privateToken;
+                    EventsView *eventsView = [[EventsView alloc] initWithPrivateToken:privateToken];
                     navigationController = [[NavigationController alloc] initWithRootViewController:eventsView];
                     
                     self.frostedViewController.contentViewController = navigationController;
@@ -211,6 +211,12 @@ static NSString * const kKeyPortrait = @"new_portrait";
                     watchedProjectsView.title = @"关注项目";
                     watchedProjectsView.userID = [[userDefaults objectForKey:kKeyUserId] intValue];
                     navigationController = [[NavigationController alloc] initWithRootViewController:watchedProjectsView];
+                    self.frostedViewController.contentViewController = navigationController;
+                    break;
+                }
+                case 4: {
+                    MineView *mineView = [[MineView alloc] initWithPrivateToken:privateToken userID:(int64_t)[userDefaults objectForKey:@"id"]];
+                    navigationController = [[NavigationController alloc] initWithRootViewController:mineView];
                     self.frostedViewController.contentViewController = navigationController;
                     break;
                 }

@@ -172,10 +172,9 @@
 
 - (void)login {
     [User loginWithAccount:self.accountTextField.text andPassword:self.passwordTextField.text];
-    EventsView *eventsView = [EventsView new];
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     NSString *privateToken = [userDefaults objectForKey:@"private_token"];
-    eventsView.privateToken = privateToken;
+    EventsView *eventsView = [[EventsView alloc] initWithPrivateToken:privateToken];
     NavigationController *navigationController = [[NavigationController alloc] initWithRootViewController:eventsView];
     self.frostedViewController.contentViewController = navigationController;
 }

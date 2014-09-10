@@ -47,6 +47,8 @@ static NSString * const IssueDescriptionCellId = @"IssueDescriptionCell";
     [self.tableView registerClass:[NoteCell class] forCellReuseIdentifier:NoteCellId];
     [self.tableView registerClass:[CreationInfoCell class] forCellReuseIdentifier:CreationInfoCellId];
     [self.tableView registerClass:[IssueDescriptionCell class] forCellReuseIdentifier:IssueDescriptionCellId];
+    UIView *footer = [[UIView alloc] initWithFrame:CGRectZero];
+    self.tableView.tableFooterView = footer;
     
     _notes = [Note getNotesForIssue:_issue page:1];
     _issueContentHTML = _issue.issueDescription;

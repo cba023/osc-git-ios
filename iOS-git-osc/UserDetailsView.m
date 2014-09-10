@@ -86,8 +86,7 @@ static NSString * const EventCellId = @"EventCellId";
     [_watchedCount setText:[NSString stringWithFormat:@"Watches: %@", [_user.follow objectForKey:@"watched"]]];
     [self.view addSubview:_watchedCount];
     
-    _eventsView = [EventsView new];
-    _eventsView.userId = _user.userId;
+    _eventsView = [[EventsView alloc] initWithUserID:_user.userId];
     _eventsTable = _eventsView.tableView;
     [self.view addSubview:_eventsTable];
 }

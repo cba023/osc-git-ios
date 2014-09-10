@@ -106,8 +106,14 @@
 
 - (void)generateEventAbstractView:(GLEvent *)event
 {
-    NSDictionary *idStrAttributes = @{NSForegroundColorAttributeName:UIColorFromRGB(0x0d6da8)};
-    NSDictionary *digestAttributes = @{NSForegroundColorAttributeName:UIColorFromRGB(0x999999)};
+    NSDictionary *idStrAttributes = @{
+                                      NSForegroundColorAttributeName:UIColorFromRGB(0x0d6da8),
+                                      NSFontAttributeName:[UIFont systemFontOfSize:14]
+                                      };
+    NSDictionary *digestAttributes = @{
+                                       NSForegroundColorAttributeName:UIColorFromRGB(0x999999),
+                                       NSFontAttributeName:[UIFont systemFontOfSize:14]
+                                       };
     NSMutableAttributedString *digest = [NSMutableAttributedString new];
     int totalCommitsCount = [[event.data objectForKey:@"total_commits_count"] intValue];
     
@@ -116,7 +122,7 @@
         NSString *commitId = [[[[[event data] objectForKey:@"commits"] objectAtIndex:digestsCount] objectForKey:@"id"] substringToIndex:9];
         NSString *message = [[[[event data] objectForKey:@"commits"] objectAtIndex:digestsCount] objectForKey:@"message"];
     
-        message = [NSString stringWithFormat:@" %@ - %@", event.author.name, message];
+        message = [NSString stringWithFormat:@" %@ - %@", event.author.username, message];
         [digest appendAttributedString:[[NSAttributedString alloc] initWithString:commitId attributes:idStrAttributes]];
         [digest appendAttributedString:[[NSAttributedString alloc] initWithString:message attributes:digestAttributes]];
         

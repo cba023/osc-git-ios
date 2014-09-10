@@ -72,6 +72,7 @@
 		003232BA19A49F71007243CA /* MenuOrgRepos@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 003232B619A49F71007243CA /* MenuOrgRepos@2x.png */; };
 		003232BB19A49F71007243CA /* MenuOrgs.png in Resources */ = {isa = PBXBuildFile; fileRef = 003232B719A49F71007243CA /* MenuOrgs.png */; };
 		003232BC19A49F71007243CA /* MenuOrgs@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 003232B819A49F71007243CA /* MenuOrgs@2x.png */; };
+		0039C35919C02BB500B302F3 /* MineView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0039C35819C02BB500B302F3 /* MineView.m */; };
 		0041FA9B191C87AF00E1F237 /* Tools.m in Sources */ = {isa = PBXBuildFile; fileRef = 0041FA9A191C87AF00E1F237 /* Tools.m */; };
 		00541C0A196684AB002EC356 /* GLBlob.m in Sources */ = {isa = PBXBuildFile; fileRef = 00541C09196684AB002EC356 /* GLBlob.m */; };
 		0057719919A73D6A00EAA606 /* LanguageSearchView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0057719819A73D6A00EAA606 /* LanguageSearchView.m */; };
@@ -347,6 +348,8 @@
 		003232B619A49F71007243CA /* MenuOrgRepos@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MenuOrgRepos@2x.png"; sourceTree = "<group>"; };
 		003232B719A49F71007243CA /* MenuOrgs.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MenuOrgs.png; sourceTree = "<group>"; };
 		003232B819A49F71007243CA /* MenuOrgs@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MenuOrgs@2x.png"; sourceTree = "<group>"; };
+		0039C35719C02BB500B302F3 /* MineView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MineView.h; sourceTree = "<group>"; };
+		0039C35819C02BB500B302F3 /* MineView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MineView.m; sourceTree = "<group>"; };
 		0041FA99191C87AF00E1F237 /* Tools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tools.h; sourceTree = "<group>"; };
 		0041FA9A191C87AF00E1F237 /* Tools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Tools.m; sourceTree = "<group>"; };
 		00541C08196684AB002EC356 /* GLBlob.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLBlob.h; sourceTree = "<group>"; };
@@ -618,6 +621,8 @@
 		0002D24F1916324B001FDED8 /* iOS-git-osc */ = {
 			isa = PBXGroup;
 			children = (
+				0039C35719C02BB500B302F3 /* MineView.h */,
+				0039C35819C02BB500B302F3 /* MineView.m */,
 				0057719619A6299500EAA606 /* Helpers */,
 				0002D2B81916407B001FDED8 /* Controller */,
 				0002D2581916324B001FDED8 /* AppDelegate.h */,
@@ -1429,6 +1434,7 @@
 				0021BAE1192342BD00626A2C /* GLGitlabApi+MergeRequest.m in Sources */,
 				0021BAED192342BD00626A2C /* GLVoidNetworkOperation.m in Sources */,
 				0002D2B419163DF6001FDED8 /* REFrostedViewController.m in Sources */,
+				0039C35919C02BB500B302F3 /* MineView.m in Sources */,
 				0021BAEC192342BD00626A2C /* GLRawNetworkOperation.m in Sources */,
 				00541C0A196684AB002EC356 /* GLBlob.m in Sources */,
 				00760B9919767BDB00C88C6F /* UIView+WebCacheOperation.m in Sources */,

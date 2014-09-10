@@ -22,6 +22,9 @@ static NSString * const EventCellIdentifier = @"EventCell";
 
 @interface EventsView ()
 
+@property int64_t userID;
+@property NSString *privateToken;
+
 @property (nonatomic, strong) EventCell *prototypeCell;
 @property BOOL isFinishedLoad;
 @property BOOL isLoading;
@@ -52,6 +55,27 @@ static NSString * const EventCellIdentifier = @"EventCell";
     }
     return self;
 }
+
+- (id)initWithPrivateToken:(NSString *)privateToken
+{
+    self = [super init];
+    if (self) {
+        _privateToken = privateToken;
+    }
+    
+    return self;
+}
+
+- (id)initWithUserID:(int64_t)userID
+{
+    self = [super init];
+    if (self) {
+        _userID = userID;
+    }
+    
+    return self;
+}
+
 
 #pragma mark - view life circle
 
@@ -345,7 +369,7 @@ static NSString * const EventCellIdentifier = @"EventCell";
     if (related) {
         [[GLGitlabApi sharedInstance] getEventsWithPrivateToken:_privateToken page:page success:success failure:failure];
     } else {
-        [[GLGitlabApi sharedInstance] getUserEvents:_userId page:page success:success failure:failure];
+        [[GLGitlabApi sharedInstance] getUserEvents:_userID page:page success:success failure:failure];
     }
 }
 
