@@ -19,6 +19,7 @@
 #import "ProjectBasicInfoCell.h"
 #import "ProjectNameCell.h"
 #import "UIView+Toast.h"
+#import "LoginViewController.h"
 
 
 static NSString * const ProjectDetailsCellID = @"ProjectDetailsCell";
@@ -286,6 +287,11 @@ static NSString * const ProjectDetailsCellID = @"ProjectDetailsCell";
     }
     
     NSString *privateToken = [Tools getPrivateToken];
+    if (privateToken.length == 0) {
+        LoginViewController *loginViewController = [LoginViewController new];
+        [self.navigationController pushViewController:loginViewController animated:YES];
+        return;
+    }
     
     GLGitlabSuccessBlock success = ^(id responseObject) {
         _project.starred = !_project.starred;
@@ -311,6 +317,11 @@ static NSString * const ProjectDetailsCellID = @"ProjectDetailsCell";
     }
 
     NSString *privateToken = [Tools getPrivateToken];
+    if (privateToken.length == 0) {
+        LoginViewController *loginViewController = [LoginViewController new];
+        [self.navigationController pushViewController:loginViewController animated:YES];
+        return;
+    }
     
     GLGitlabSuccessBlock success = ^(id responseObject) {
         _project.watched = !_project.watched;

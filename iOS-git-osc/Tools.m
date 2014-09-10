@@ -309,8 +309,6 @@
     NSUserDefaults *cache = [NSUserDefaults standardUserDefaults];
     if ([cache objectForKey:key]) {[cache removeObjectForKey:key];}
     [cache setObject:jsonCache forKey:key];
-    
-    [cache synchronize];
 }
 
 + (NSUInteger)numberOfRepeatedProjects:(NSArray *)projects project:(GLProject *)project

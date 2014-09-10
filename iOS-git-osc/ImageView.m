@@ -57,8 +57,8 @@
                                                           options:0
                                                          progress:nil
                                                         completed:^(UIImage *image, NSData *data, NSError *error, BOOL finished) {
+                                                            [self.view hideToastActivity];
                                                             if (image && finished) {
-                                                                [self.view hideToastActivity];
                                                                 [_imageView setImage:image];
                                                             } else {
                                                                 [Tools toastNotification:@"抱歉，图片加载出错" inView:self.view];
@@ -75,6 +75,7 @@
 
 - (void)setLayout
 {
+    //_scrollView = [[UIScrollView alloc] initWithFrame:self.view.bounds];
     _scrollView = [UIScrollView new];
     _scrollView.translatesAutoresizingMaskIntoConstraints = NO;
     _scrollView.contentMode = UIViewContentModeScaleAspectFill;
@@ -85,18 +86,23 @@
     [self.view addSubview:_scrollView];
     
     _imageView = [UIImageView new];
-    //_imageView.contentMode = UIViewContentModeScaleAspectFill;
+    _imageView.contentMode = UIViewContentModeScaleAspectFit;
     _imageView.translatesAutoresizingMaskIntoConstraints = NO;
     //_imageView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-    [_scrollView addSubview:_imageView];
+    [self.view addSubview:_imageView];
     
+    //CGFloat screenWidth = [[UIScreen mainScreen] bounds].size.width;
+    //CGFloat imageHeight = _imageView.image.size.height / _imageView.image.size.width * screenWidth;
+    
+#if 1
     NSDictionary *viewDictionary = NSDictionaryOfVariableBindings(_imageView, _scrollView);
     
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[_scrollView]|" options:0 metrics:nil views:viewDictionary]];
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|[_scrollView]|" options:0 metrics:nil views:viewDictionary]];
+    //[self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[_scrollView]|" options:0 metrics:nil views:viewDictionary]];
+    //[self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|[_scrollView]|" options:0 metrics:nil views:viewDictionary]];
 
-    [_scrollView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[_imageView]|" options:0 metrics:nil views:viewDictionary]];
-    [_scrollView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|[_imageView]|" options:0 metrics:nil views:viewDictionary]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[_imageView]|" options:0 metrics:nil views:viewDictionary]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|[_imageView]|" options:0 metrics:nil views:viewDictionary]];
+#endif
 }
 
 

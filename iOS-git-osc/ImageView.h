@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ImageView : UIViewController
+@interface ImageView : UIViewController <UIScrollViewDelegate>
 
 @property UIImageView *imageView;
 
