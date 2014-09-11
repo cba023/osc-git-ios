@@ -40,6 +40,8 @@ static NSString * const LanguageCellID = @"LanguageCell";
     self.title = @"编程语言";
     
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:LanguageCellID];
+    UIView *footer = [[UIView alloc] initWithFrame:CGRectZero];
+    self.tableView.tableFooterView = footer;
     self.tableView.bounces = NO;
 }
 
@@ -118,7 +120,7 @@ static NSString * const LanguageCellID = @"LanguageCell";
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 36;
+    return 40;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath

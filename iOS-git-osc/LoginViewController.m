@@ -101,6 +101,7 @@
     [Tools roundView:submit cornerRadius:5.0];
     submit.backgroundColor = [UIColor redColor];
     [submit setTitle:@"登录" forState:UIControlStateNormal];
+    submit.titleLabel.font = [UIFont systemFontOfSize:17];
     [submit addTarget:self action:@selector(login) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview: submit];
     
@@ -154,7 +155,7 @@
                                                                         views:NSDictionaryOfVariableBindings(_passwordTextField, submit)]];
 
 #if 0
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[submit]-10-[tips]"
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[submit(40)]-10-[tips]"
                                                                       options:0
                                                                       metrics:nil
                                                                         views:NSDictionaryOfVariableBindings(submit, tips)]];

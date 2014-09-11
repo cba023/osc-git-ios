@@ -139,28 +139,6 @@ static NSString * const kKeyPortrait = @"new_portrait";
     cell.textLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:17];
 }
 
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)sectionIndex
-{
-    if (sectionIndex == 0)
-        return nil;
-    
-    NSArray *headerNames = [NSArray arrayWithObjects:
-                            @"", @"发现", @"设置", nil];
-    
-    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, 34)];
-    view.backgroundColor = [UIColor colorWithRed:167/255.0f green:167/255.0f blue:167/255.0f alpha:0.6f];
-    
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(62, 8, 0, 0)];
-    label.text = headerNames[sectionIndex];
-    label.font = [UIFont systemFontOfSize:15];
-    label.textColor = [UIColor whiteColor];
-    label.backgroundColor = [UIColor clearColor];
-    [label sizeToFit];
-    [view addSubview:label];
-    
-    return view;
-}
-
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)sectionIndex
 {
     if (sectionIndex == 0)
@@ -174,7 +152,7 @@ static NSString * const kKeyPortrait = @"new_portrait";
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     NavigationController *navigationController;
-    if (indexPath.section == 0) {
+    if (indexPath.row < 2) {
         NSString *privateToken = [self.user objectForKey:@"private_token"];
         if (privateToken == nil) {
             LoginViewController *loginViewController = [LoginViewController new];
@@ -190,27 +168,6 @@ static NSString * const kKeyPortrait = @"new_portrait";
                     break;
                 }
                 case 1: {
-                    ProjectsTableController *ownProjectsView = [[ProjectsTableController alloc] initWithPrivateToken:privateToken];
-                    ownProjectsView.title = @"我的项目";
-                    navigationController = [[NavigationController alloc] initWithRootViewController:ownProjectsView];
-                    self.frostedViewController.contentViewController = navigationController;
-                    break;
-                }
-                case 2: {
-                    ProjectsTableController *starredProjectsView = [[ProjectsTableController alloc] initWithUserID:userID andProjectsType:4];
-                    starredProjectsView.title = @"收藏项目";
-                    navigationController = [[NavigationController alloc] initWithRootViewController:starredProjectsView];
-                    self.frostedViewController.contentViewController = navigationController;
-                    break;
-                }
-                case 3: {
-                    ProjectsTableController *watchedProjectsView = [[ProjectsTableController alloc] initWithUserID:userID andProjectsType:5];
-                    watchedProjectsView.title = @"关注项目";
-                    navigationController = [[NavigationController alloc] initWithRootViewController:watchedProjectsView];
-                    self.frostedViewController.contentViewController = navigationController;
-                    break;
-                }
-                case 4: {
                     UserDetailsView *ownDetailsView = [[UserDetailsView alloc] initWithPrivateToken:privateToken userID:userID];
                     navigationController = [[NavigationController alloc] initWithRootViewController:ownDetailsView];
                     self.frostedViewController.contentViewController = navigationController;
@@ -220,12 +177,12 @@ static NSString * const kKeyPortrait = @"new_portrait";
                     break;
             }
         }
-    } else if (indexPath.section == 1) {
-        if (indexPath.row == 0) {
+    } else {
+        if (indexPath.row == 2) {
             ProjectsViewController *projectViewController = [[ProjectsViewController alloc] init];
             navigationController = [[NavigationController alloc] initWithRootViewController:projectViewController];
             self.frostedViewController.contentViewController = navigationController;
-        } else if (indexPath.row == 1) {
+        } else if (indexPath.row == 3) {
             SearchView *searchView = [SearchView new];
             navigationController = [[NavigationController alloc] initWithRootViewController:searchView];
             self.frostedViewController.contentViewController = navigationController;
@@ -234,11 +191,6 @@ static NSString * const kKeyPortrait = @"new_portrait";
             navigationController = [[NavigationController alloc] initWithRootViewController:languageSearchView];
             self.frostedViewController.contentViewController = navigationController;
         }
-    } else {
-        IssuesView *issuesView = [[IssuesView alloc] init];
-        issuesView.projectId = 82;
-        navigationController = [[NavigationController alloc] initWithRootViewController:issuesView];
-        self.frostedViewController.contentViewController = navigationController;
     }
     
     [self.frostedViewController hideMenuViewController];
@@ -251,22 +203,12 @@ static NSString * const kKeyPortrait = @"new_portrait";
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 3;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)sectionIndex
 {
-    switch (sectionIndex) {
-        case 0:
-            return 5;
-        case 1:
-            return 3;
-        case 2:
-            return 1;
-            
-        default:
-            return 0;
-    }
+    return 5;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -280,29 +222,11 @@ static NSString * const kKeyPortrait = @"new_portrait";
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
     }
     
-    switch (indexPath.section) {
-        case 0:
-            titles = @[@"动态", @"项目", @"收藏", @"关注", @"我的"];
-            images = @[@"MenuProfile", @"MenuRepositories", @"MenuStarredRepos", @"MenuWatchedRepos", @"MenuIssues"];
-            cell.imageView.image = [UIImage imageNamed:images[indexPath.row]];
-            break;
-        
-        case 1:
-            titles = @[@"广场", @"搜索", @"语言"];
-            if (indexPath.row == 0) {
-                cell.imageView.image = [UIImage imageNamed:@"MenuOrgRepos"];
-            }
-            break;
-        
-        case 2:
-            titles = @[@"偏好设置"];
-            break;
-        
-        default:
-            break;
-    }
-    
+    titles = @[@"动态", @"我的", @"发现", @"搜索", @"语言"];
+    images = @[@"MenuProfile", @"MenuProfile", @"MenuOrgRepos", @"MenuOrgRepos", @"MenuOrgRepos", @"MenuOrgRepos"];
+    cell.imageView.image = [UIImage imageNamed:images[indexPath.row]];
     cell.textLabel.text = titles[indexPath.row];
+    
     return cell;
 }
 

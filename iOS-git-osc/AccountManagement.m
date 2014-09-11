@@ -83,7 +83,8 @@ static NSString * const kKeyFollow = @"follow";
     [_follow registerClass:[UITableViewCell class] forCellReuseIdentifier:FollowCellId];
     _follow.dataSource = self;
     _follow.delegate = self;
-    _follow.separatorStyle = NO;
+    _follow.separatorStyle = UITableViewCellSeparatorStyleNone;
+    _follow.scrollEnabled = NO;
     [Tools roundView:_follow cornerRadius:5.0];
     [self.view addSubview:_follow];
     
@@ -91,7 +92,8 @@ static NSString * const kKeyFollow = @"follow";
     [_social registerClass:[UITableViewCell class] forCellReuseIdentifier:SocialCellId];
     _social.dataSource = self;
     _social.delegate = self;
-    _social.separatorStyle = NO;
+    _social.separatorStyle = UITableViewCellSeparatorStyleNone;
+    _social.scrollEnabled = NO;
     [Tools roundView:_social cornerRadius:5.0];
     [self.view addSubview:_social];
     
@@ -101,6 +103,7 @@ static NSString * const kKeyFollow = @"follow";
     _logoutButton.backgroundColor = [UIColor redColor];
     [Tools roundView:_logoutButton cornerRadius:5.0];
     [_logoutButton setTitle:@"注销登录" forState:UIControlStateNormal];
+    _logoutButton.titleLabel.font = [UIFont systemFontOfSize:17];
     [_logoutButton addTarget:self action:@selector(logout) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:_logoutButton];
 }
@@ -121,7 +124,7 @@ static NSString * const kKeyFollow = @"follow";
                                                                       metrics:nil
                                                                         views:NSDictionaryOfVariableBindings(_portrait, _name)]];
     
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[_follow(130)]-15-[_social(100)]-30-[_logoutButton(30)]"
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[_follow(130)]-15-[_social(100)]-30-[_logoutButton(40)]"
                                                                       options:NSLayoutFormatAlignAllLeft | NSLayoutFormatAlignAllRight
                                                                       metrics:nil
                                                                         views:NSDictionaryOfVariableBindings(_follow, _social, _logoutButton)]];
