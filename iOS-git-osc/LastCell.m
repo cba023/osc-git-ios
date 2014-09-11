@@ -32,7 +32,8 @@
 }
 
 - (id)initCell {
-    self = [super initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"StatusCell"];
+    //self = [super initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"StatusCell"];
+    self = [super init];
     if (self) {
         self.backgroundColor = [UIColor clearColor];
         [self setLayout];

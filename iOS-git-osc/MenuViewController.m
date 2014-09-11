@@ -22,7 +22,7 @@
 #import "SearchView.h"
 #import "LanguageSearchView.h"
 #import "UIImageView+WebCache.h"
-#import "MineView.h"
+#import "UserDetailsView.h"
 
 @interface MenuViewController ()
 
@@ -180,6 +180,7 @@ static NSString * const kKeyPortrait = @"new_portrait";
             LoginViewController *loginViewController = [LoginViewController new];
             navigationController = [[NavigationController alloc] initWithRootViewController:loginViewController];
         } else {
+            int64_t userID = [[self.user objectForKey:kKeyUserId] intValue];
             switch (indexPath.row) {
                 case 0: {
                     EventsView *eventsView = [[EventsView alloc] initWithPrivateToken:privateToken];
@@ -189,14 +190,13 @@ static NSString * const kKeyPortrait = @"new_portrait";
                     break;
                 }
                 case 1: {
-                    ProjectsTableController *ownProjectsView = [[ProjectsTableController alloc] initWithPrivateToken:privateToken andProjectsType:3];
+                    ProjectsTableController *ownProjectsView = [[ProjectsTableController alloc] initWithPrivateToken:privateToken];
                     ownProjectsView.title = @"我的项目";
                     navigationController = [[NavigationController alloc] initWithRootViewController:ownProjectsView];
                     self.frostedViewController.contentViewController = navigationController;
                     break;
                 }
                 case 2: {
-                    int64_t userID = [[self.user objectForKey:kKeyUserId] intValue];
                     ProjectsTableController *starredProjectsView = [[ProjectsTableController alloc] initWithUserID:userID andProjectsType:4];
                     starredProjectsView.title = @"收藏项目";
                     navigationController = [[NavigationController alloc] initWithRootViewController:starredProjectsView];
@@ -204,7 +204,6 @@ static NSString * const kKeyPortrait = @"new_portrait";
                     break;
                 }
                 case 3: {
-                    int64_t userID = [[self.user objectForKey:kKeyUserId] intValue];
                     ProjectsTableController *watchedProjectsView = [[ProjectsTableController alloc] initWithUserID:userID andProjectsType:5];
                     watchedProjectsView.title = @"关注项目";
                     navigationController = [[NavigationController alloc] initWithRootViewController:watchedProjectsView];
@@ -212,8 +211,8 @@ static NSString * const kKeyPortrait = @"new_portrait";
                     break;
                 }
                 case 4: {
-                    MineView *mineView = [[MineView alloc] initWithPrivateToken:privateToken userID:(int64_t)[self.user objectForKey:@"id"]];
-                    navigationController = [[NavigationController alloc] initWithRootViewController:mineView];
+                    UserDetailsView *ownDetailsView = [[UserDetailsView alloc] initWithPrivateToken:privateToken userID:userID];
+                    navigationController = [[NavigationController alloc] initWithRootViewController:ownDetailsView];
                     self.frostedViewController.contentViewController = navigationController;
                     break;
                 }
@@ -283,7 +282,7 @@ static NSString * const kKeyPortrait = @"new_portrait";
     
     switch (indexPath.section) {
         case 0:
-            titles = @[@"动态", @"项目", @"收藏", @"关注", @"通知"];
+            titles = @[@"动态", @"项目", @"收藏", @"关注", @"我的"];
             images = @[@"MenuProfile", @"MenuRepositories", @"MenuStarredRepos", @"MenuWatchedRepos", @"MenuIssues"];
             cell.imageView.image = [UIImage imageNamed:images[indexPath.row]];
             break;

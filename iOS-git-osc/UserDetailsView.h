@@ -8,26 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@class GLUser;
-@class EventsView;
-
 @interface UserDetailsView : UIViewController
 
-@property EventsView *eventsView;
-
-@property GLUser *user;
-
-@property UIImageView *portrait;
-@property UILabel *name;
-
-@property UILabel *followersCount;
-@property UILabel *followingsCount;
-@property UILabel *projects;
-@property UILabel *starredCount;
-@property UILabel *watchedCount;
-
-@property UITableView *eventsTable;
-
-- (id)initWithUser:(GLUser *)user;
+- (id)initWithPrivateToken:(NSString *)privateToken userID:(int64_t)userID;
 
 @end

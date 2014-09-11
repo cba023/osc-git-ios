@@ -290,7 +290,7 @@
     //NSArray *cachePage = [cache arrayForKey:[NSString stringWithFormat:@"type-%ld", (long)type]];
     NSArray *cachePage = [cache objectForKey:[NSString stringWithFormat:@"type-%ld", (long)type]];
     
-    Class class = type < 8? [GLProject class]: [GLEvent class];
+    Class class = type < 9? [GLProject class]: [GLEvent class];
     
     NSArray *page = [[GLGitlabApi sharedInstance] processJsonArray:cachePage class:class];
     

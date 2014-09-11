@@ -25,6 +25,7 @@ static NSString * const kProjectReadmeEndPoint = @"/projects/%llu/readme";
 static NSString * const kProjectPopularProjectsEndPoint = @"/projects/popular";
 static NSString * const kProjectRecommendedProjectsEndPoint = @"/projects/featured";
 static NSString * const kProjectLatestProjectsEndPoint = @"/projects/latest";
+static NSString * const kProjectProjectsOfUser = @"/user/%llu/projects";
 static NSString * const kProjectStarredProjectsEndPoint = @"/user/%llu/stared_projects";
 static NSString * const kProjectWatchedProjectsEndPoint = @"/user/%llu/watched_projects";
 static NSString * const kProjectSearchProjectsEndPoint = @"/projects/search/%@";
@@ -245,6 +246,24 @@ static NSString * const kKeyPage = @"page";
                                    failure:localFailureBlock];
 }
 
+
+- (GLNetworkOperation *)projectsOfUser:(int64_t)userID
+                               success:(GLGitlabSuccessBlock)successBlock
+                               failure:(GLGitlabFailureBlock)failureBlock
+{
+    NSMutableURLRequest *request = [self requestForEndPoint:[NSString stringWithFormat:kProjectProjectsOfUser, userID]
+                                                     method:GLNetworkOperationGetMethod];
+    
+    GLNetworkOperationSuccessBlock localSuccessBlock = [self multipleObjectSuccessBlockForClass:[GLProject class] successBlock:successBlock];
+    GLNetworkOperationFailureBlock localFailureBlock = [self defaultFailureBlock:failureBlock];
+    
+    return [self queueOperationWithRequest:request
+                                      type:GLNetworkOperationTypeJson
+                                   success:localSuccessBlock
+                                   failure:localFailureBlock];
+}
+
+
 - (GLNetworkOperation *)getStarredProjectsForUser:(int64_t)userID
                                           success:(GLGitlabSuccessBlock)successBlock
                                           failure:(GLGitlabFailureBlock)failureBlock
@@ -259,8 +278,8 @@ static NSString * const kKeyPage = @"page";
                                       type:GLNetworkOperationTypeJson
                                    success:localSuccessBlock
                                    failure:localFailureBlock];
-
 }
+
 
 - (GLNetworkOperation *)getWatchedProjectsForUser:(int64_t)userID
                                           success:(GLGitlabSuccessBlock)successBlock

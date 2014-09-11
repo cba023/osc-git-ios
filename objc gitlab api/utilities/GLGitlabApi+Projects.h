@@ -173,6 +173,11 @@
                                        failure:(GLGitlabFailureBlock)failureBlock;
 
 
+- (GLNetworkOperation *)projectsOfUser:(int64_t)userID
+                               success:(GLGitlabSuccessBlock)successBlock
+                               failure:(GLGitlabFailureBlock)failureBlock;
+
+
 - (GLNetworkOperation *)getStarredProjectsForUser:(int64_t)userID
                                           success:(GLGitlabSuccessBlock)successBlock
                                           failure:(GLGitlabFailureBlock)failureBlock;

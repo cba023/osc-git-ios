@@ -7,28 +7,73 @@
 //
 
 #import "UserDetailsView.h"
-#import "GLGitlab.h"
-#import "Tools.h"
-#import "Event.h"
 #import "EventsView.h"
-
-static NSString * const EventCellId = @"EventCellId";
+#import "ProjectsTableController.h"
+#import "NavigationController.h"
 
 @interface UserDetailsView ()
+
+@property NSString *privateToken;
+@property int64_t userID;
+
+@property UISegmentedControl *segmentTitle;
+@property EventsView *eventsView;
+@property ProjectsTableController *ownProjects;
+@property ProjectsTableController *starredProjects;
+@property ProjectsTableController *watchedProjects;
 
 @end
 
 @implementation UserDetailsView
 
+- (id)initWithPrivateToken:(NSString *)privateToken userID:(int64_t)userID
+{
+    self = [super init];
+    if (self) {
+        _privateToken = privateToken;
+        _userID = userID;
+        
+        if (privateToken) {
+            _eventsView = [[EventsView alloc] initWithPrivateToken:privateToken];
+            _ownProjects = [[ProjectsTableController alloc] initWithPrivateToken:privateToken];
+        } else {
+            _eventsView = [[EventsView alloc] initWithUserID:userID];
+            _ownProjects = [[ProjectsTableController alloc] initWithUserID:userID andProjectsType:8];
+        }
+    }
+    
+    return self;
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"three_lines"]
+                                                                             style:UIBarButtonItemStylePlain
+                                                                            target:(NavigationController *)self.navigationController
+                                                                            action:@selector(showMenu)];
     self.navigationController.navigationBar.translucent = NO;
-    self.title = _user.name;
-
-    [self initSubviews];
-    [self setAutoLayout];
+    
+    _segmentTitle = [[UISegmentedControl alloc] initWithItems:@[@"动态", @"项目", @"Star", @"Watch"]];
+    _segmentTitle.selectedSegmentIndex = 0;
+    _segmentTitle.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+    _segmentTitle.segmentedControlStyle = UISegmentedControlStyleBar;
+    _segmentTitle.frame = CGRectMake(0, 0, 210, 30);
+    [_segmentTitle addTarget:self action:@selector(switchView) forControlEvents:UIControlEventValueChanged];
+    self.navigationItem.titleView = _segmentTitle;
+    
+    _starredProjects = [[ProjectsTableController alloc] initWithUserID:_userID andProjectsType:4];
+    _watchedProjects = [[ProjectsTableController alloc] initWithUserID:_userID andProjectsType:5];
+    
+    [self addChildViewController:_eventsView];
+    [self addChildViewController:_ownProjects];
+    [self addChildViewController:_starredProjects];
+    [self addChildViewController:_watchedProjects];
+    
+    [self.view addSubview:_eventsView.view];
+    _eventsView.view.frame = self.view.bounds;
+    _eventsView.view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
 }
 
 - (void)didReceiveMemoryWarning
@@ -37,88 +82,43 @@ static NSString * const EventCellId = @"EventCellId";
     // Dispose of any resources that can be recreated.
 }
 
-- (id)initWithUser:(GLUser *)user
-{
-    self = [super init];
-    if (self) {
-        _user = user;
-    }
-    return self;
-}
 
-- (void)initSubviews
+- (void)switchView
 {
-    _portrait = [UIImageView new];
-    _portrait.contentMode = UIViewContentModeScaleAspectFit;
-    [Tools setPortraitForUser:_user view:_portrait cornerRadius:25.0];
-    [self.view addSubview:_portrait];
-    
-    _name = [UILabel new];
-    [_name setText:_user.name];
-    [self.view addSubview:_name];
-    
-    _followingsCount = [UILabel new];
-    [_followingsCount setText:[NSString stringWithFormat:@"Followings: %@", [_user.follow objectForKey:@"following"]]];
-    [self.view addSubview:_followingsCount];
-    
-    _followersCount = [UILabel new];
-    [_followersCount setText:[NSString stringWithFormat:@"Followers: %@", [_user.follow objectForKey:@"followers"]]];
-    [self.view addSubview:_followersCount];
-    
-    _projects = [UILabel new];
-    [_projects setText:@"Projects"];
-    [self.view addSubview:_projects];
-    
-    _starredCount = [UILabel new];
-    [_starredCount setText:[NSString stringWithFormat:@"Starred: %@", [_user.follow objectForKey:@"starred"]]];
-    [self.view addSubview:_starredCount];
-    
-    _watchedCount = [UILabel new];
-    [_watchedCount setText:[NSString stringWithFormat:@"Watches: %@", [_user.follow objectForKey:@"watched"]]];
-    [self.view addSubview:_watchedCount];
-    
-    _eventsView = [[EventsView alloc] initWithUserID:_user.userId];
-    _eventsTable = _eventsView.tableView;
-    [self.view addSubview:_eventsTable];
-}
-
-- (void)setAutoLayout
-{
-    for (UIView *view in [self.view subviews]) {
-        [view setTranslatesAutoresizingMaskIntoConstraints:NO];
+    for (UIView *subview in [self.view subviews]) {
+        [subview removeFromSuperview];
     }
     
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(8)-[_portrait(50)]-[_name]-(8)-[_followingsCount]-(8)-[_eventsTable]-(8)-|"
-                                                                      options:0
-                                                                      metrics:nil
-                                                                        views:NSDictionaryOfVariableBindings(_portrait, _name, _followingsCount, _eventsTable)]];
-    
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|-(8)-[_portrait(50)]-[_starredCount]-(>=8)-|"
-                                                                      options:NSLayoutFormatAlignAllCenterY
-                                                                      metrics:nil
-                                                                        views:NSDictionaryOfVariableBindings(_portrait, _starredCount)]];
-    
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|-(8)-[_followingsCount]-[_followersCount]-[_projects]-(8)-|"
-                                                                      options:NSLayoutFormatAlignAllCenterY
-                                                                      metrics:nil
-                                                                        views:NSDictionaryOfVariableBindings(_followingsCount, _followersCount, _projects)]];
-    
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[_starredCount]-(8)-[_watchedCount]"
-                                                                      options:NSLayoutFormatAlignAllLeft
-                                                                      metrics:nil
-                                                                        views:NSDictionaryOfVariableBindings(_starredCount, _watchedCount)]];
-    
-    
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|[_eventsTable]|"
-                                                                      options:0
-                                                                      metrics:nil
-                                                                        views:NSDictionaryOfVariableBindings(_eventsTable)]];
-    
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[_portrait]-[_name]-[_followingsCount]"
-                                                                      options:NSLayoutFormatAlignAllLeft
-                                                                      metrics:nil
-                                                                        views:NSDictionaryOfVariableBindings(_portrait, _name, _followingsCount)]];
+    switch (_segmentTitle.selectedSegmentIndex) {
+        case 0: {
+            [self.view addSubview:_eventsView.view];
+            _eventsView.view.frame = self.view.bounds;
+            _eventsView.view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+            break;
+        }
+        case 1: {
+            [self.view addSubview:_ownProjects.view];
+            _ownProjects.view.frame = self.view.bounds;
+            _ownProjects.view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+            break;
+        }
+        case 2: {
+            [self.view addSubview:_starredProjects.view];
+            _starredProjects.view.frame = self.view.bounds;
+            _starredProjects.view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+            break;
+        }
+        case 3: {
+            [self.view addSubview:_watchedProjects.view];
+            _watchedProjects.view.frame = self.view.bounds;
+            _watchedProjects.view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+            break;
+        }
+        default:
+            break;
+    }
 }
+
 
 
 

@@ -16,7 +16,7 @@
 
 - (id)initWithProjectsType:(NSUInteger)projectsType;
 - (id)initWithUserID:(int64_t)userID andProjectsType:(NSUInteger)projectsType;
-- (id)initWithPrivateToken:(NSString *)privateToken andProjectsType:(NSUInteger)projectsType;
+- (id)initWithPrivateToken:(NSString *)privateToken;
 
 - (void)reload;
 

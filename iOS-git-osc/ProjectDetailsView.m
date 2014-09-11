@@ -213,7 +213,7 @@ static NSString * const ProjectDetailsCellID = @"ProjectDetailsCell";
     NSUInteger section = indexPath.section, row = indexPath.row;
 
     if (section == 0 && row == 3) {
-        UserDetailsView *userDetails = [[UserDetailsView alloc] initWithUser:_project.owner];
+        UserDetailsView *userDetails = [[UserDetailsView alloc] initWithPrivateToken:nil userID:_project.owner.userId];
         [self.navigationController pushViewController:userDetails animated:YES];
     } else if (section == 1) {
         switch (row) {

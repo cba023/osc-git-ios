@@ -123,12 +123,12 @@ static NSString * const EventCellIdentifier = @"EventCell";
 {
     [super viewDidAppear:animated];
     
-    _isFirstRequest = YES;
     if (_privateToken && [Tools isPageCacheExist:8]) {
         [self loadFromCache];
         return;
     }
     
+    _isFirstRequest = YES;
     [_lastCell loading];
     [self loadMore];
 }
@@ -246,8 +246,8 @@ static NSString * const EventCellIdentifier = @"EventCell";
 #pragma mark - recognizer
 - (void)tapPortrait:(UITapGestureRecognizer *)sender
 {
-    UserDetailsView *userDetails = [UserDetailsView new];
-    userDetails.user = [events objectAtIndex:((UIImageView *)sender.view).tag];
+    GLUser *user = [events objectAtIndex:((UIImageView *)sender.view).tag];
+    UserDetailsView *userDetails = [[UserDetailsView alloc] initWithPrivateToken:nil userID:user.userId];
     [self.navigationController pushViewController:userDetails animated:YES];
 }
 
@@ -292,8 +292,7 @@ static NSString * const EventCellIdentifier = @"EventCell";
         refreshInProgress = YES;
         
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-            BOOL related = _privateToken? YES: NO;
-            [self loadEventsOnPage:1 related:related refresh:YES];
+            [self loadEventsOnPage:1 refresh:YES];
             refreshInProgress = NO;
         });
     }
@@ -306,15 +305,13 @@ static NSString * const EventCellIdentifier = @"EventCell";
     _isLoading = YES;
     [_lastCell loading];
     
-    BOOL related = _privateToken? YES: NO;
-    
-    [self loadEventsOnPage:events.count/20 + 1 related:related refresh:NO];
+    [self loadEventsOnPage:events.count/20 + 1 refresh:NO];
 }
 
 
 
 
-- (void)loadEventsOnPage:(NSUInteger)page related:(BOOL)related refresh:(BOOL)refresh
+- (void)loadEventsOnPage:(NSUInteger)page refresh:(BOOL)refresh
 {
     if (![Tools isNetworkExist]) {
         if (refresh) {
@@ -341,8 +338,8 @@ static NSString * const EventCellIdentifier = @"EventCell";
             NSUInteger length = 20-repeatedCount < [(NSArray *)responseObject count]? 20-repeatedCount: [(NSArray *)responseObject count];
             [events addObjectsFromArray:[responseObject subarrayWithRange:NSMakeRange(repeatedCount, length)]];
 
-            if ((refresh || _isFirstRequest) && related) {
-                [Tools savePageCache:events type:8];
+            if (_privateToken && (refresh || _isFirstRequest)) {
+                [Tools savePageCache:responseObject type:9];
                 _isFirstRequest = NO;
             }
             
@@ -366,7 +363,7 @@ static NSString * const EventCellIdentifier = @"EventCell";
         _isLoading = NO;
     };
     
-    if (related) {
+    if (_privateToken) {
         [[GLGitlabApi sharedInstance] getEventsWithPrivateToken:_privateToken page:page success:success failure:failure];
     } else {
         [[GLGitlabApi sharedInstance] getUserEvents:_userID page:page success:success failure:failure];

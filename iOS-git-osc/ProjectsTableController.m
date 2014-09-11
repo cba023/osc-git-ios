@@ -56,9 +56,9 @@ static NSString * const cellId = @"ProjectCell";
     return self;
 }
 
-- (id)initWithPrivateToken:(NSString *)privateToken andProjectsType:(NSUInteger)projectsType
+- (id)initWithPrivateToken:(NSString *)privateToken
 {
-    self = [self initWithProjectsType:projectsType];
+    self = [self initWithProjectsType:3];
     _privateToken = privateToken;
     
     return self;}
@@ -73,7 +73,15 @@ static NSString * const cellId = @"ProjectCell";
                                                                                 target:(NavigationController *)self.navigationController
                                                                                 action:@selector(showMenu)];
     }
+#if 1
     self.navigationController.navigationBar.translucent = NO;
+#else
+    if([[[UIDevice currentDevice]systemVersion]floatValue]>=7.0)
+    {
+        self.parentViewController.edgesForExtendedLayout = UIRectEdgeNone;
+        self.parentViewController.automaticallyAdjustsScrollViewInsets = YES;
+    }
+#endif
     
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
@@ -104,14 +112,13 @@ static NSString * const cellId = @"ProjectCell";
         
     //}
     
-    _isFirstRequest = YES;
-    
     if ([Tools isPageCacheExist:_projectsType]) {
         [self loadFromCache];
         return;
     }
     
     if (_projectsType < 7) {
+        _isFirstRequest = YES;
         [_lastCell loading];
         [self loadMore];
     }
@@ -287,8 +294,10 @@ static NSString * const cellId = @"ProjectCell";
         [[GLGitlabApi sharedInstance] getWatchedProjectsForUser:_userID success:success failure:failure];
     } else if (_projectsType == 6) {
         [[GLGitlabApi sharedInstance] getProjectsForLanguage:_languageID page:page success:success failure:failure];
-    } else {
+    } else if (_projectsType == 7) {
         [[GLGitlabApi sharedInstance] searchProjectsByQuery:_query page:page success:success failure:failure];
+    } else {
+        [[GLGitlabApi sharedInstance] projectsOfUser:_userID success:success failure:failure];
     }
 }
 
@@ -312,7 +321,7 @@ static NSString * const cellId = @"ProjectCell";
             [projects addObjectsFromArray:[responseObject subarrayWithRange:NSMakeRange(repeatedCount, length)]];
             
             if (refresh || _isFirstRequest) {
-                [Tools savePageCache:projects type:_projectsType];
+                [Tools savePageCache:responseObject type:_projectsType];
                 _isFirstRequest = NO;
             }
             
