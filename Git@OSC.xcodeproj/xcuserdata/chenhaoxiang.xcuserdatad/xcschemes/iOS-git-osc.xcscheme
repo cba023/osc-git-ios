@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "0002D2451916324B001FDED8"
-               BuildableName = "iOS-git-osc.app"
-               BlueprintName = "iOS-git-osc"
-               ReferencedContainer = "container:iOS-git-osc.xcodeproj">
+               BuildableName = "Git@OSC.app"
+               BlueprintName = "Git@OSC"
+               ReferencedContainer = "container:Git@OSC.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,9 +33,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "0002D2661916324B001FDED8"
-               BuildableName = "iOS-git-oscTests.xctest"
-               BlueprintName = "iOS-git-oscTests"
-               ReferencedContainer = "container:iOS-git-osc.xcodeproj">
+               BuildableName = "Git@OSC Tests.xctest"
+               BlueprintName = "Git@OSC Tests"
+               ReferencedContainer = "container:Git@OSC.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -43,9 +43,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "0002D2451916324B001FDED8"
-            BuildableName = "iOS-git-osc.app"
-            BlueprintName = "iOS-git-osc"
-            ReferencedContainer = "container:iOS-git-osc.xcodeproj">
+            BuildableName = "Git@OSC.app"
+            BlueprintName = "Git@OSC"
+            ReferencedContainer = "container:Git@OSC.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </TestAction>
@@ -62,9 +62,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "0002D2451916324B001FDED8"
-            BuildableName = "iOS-git-osc.app"
-            BlueprintName = "iOS-git-osc"
-            ReferencedContainer = "container:iOS-git-osc.xcodeproj">
+            BuildableName = "Git@OSC.app"
+            BlueprintName = "Git@OSC"
+            ReferencedContainer = "container:Git@OSC.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -80,9 +80,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "0002D2451916324B001FDED8"
-            BuildableName = "iOS-git-osc.app"
-            BlueprintName = "iOS-git-osc"
-            ReferencedContainer = "container:iOS-git-osc.xcodeproj">
+            BuildableName = "Git@OSC.app"
+            BlueprintName = "Git@OSC"
+            ReferencedContainer = "container:Git@OSC.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

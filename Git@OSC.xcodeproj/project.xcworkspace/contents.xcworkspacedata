@@ -2,6 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:iOS-git-osc.xcodeproj">
+      location = "self:Git@OSC.xcodeproj">
    </FileRef>
 </Workspace>

@@ -236,13 +236,13 @@
 		0002D2491916324B001FDED8 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		0002D24B1916324B001FDED8 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		0002D24D1916324B001FDED8 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
-		0002D2511916324B001FDED8 /* iOS-git-osc-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "iOS-git-osc-Info.plist"; sourceTree = "<group>"; };
+		0002D2511916324B001FDED8 /* Git@OSC-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Git@OSC-Info.plist"; sourceTree = "<group>"; };
 		0002D2531916324B001FDED8 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		0002D2551916324B001FDED8 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		0002D2571916324B001FDED8 /* iOS-git-osc-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "iOS-git-osc-Prefix.pch"; sourceTree = "<group>"; };
+		0002D2571916324B001FDED8 /* Git@OSC-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Git@OSC-Prefix.pch"; sourceTree = "<group>"; };
 		0002D2581916324B001FDED8 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		0002D2591916324B001FDED8 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		0002D2671916324B001FDED8 /* iOS-git-oscTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "iOS-git-oscTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		0002D2671916324B001FDED8 /* Git@OSC Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Git@OSC Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0002D2681916324B001FDED8 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		0002D2A619163DF6001FDED8 /* RECommonFunctions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RECommonFunctions.h; sourceTree = "<group>"; };
 		0002D2A719163DF6001FDED8 /* RECommonFunctions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RECommonFunctions.m; sourceTree = "<group>"; };
@@ -596,7 +596,7 @@
 			isa = PBXGroup;
 			children = (
 				0002D2461916324B001FDED8 /* Git@OSC.app */,
-				0002D2671916324B001FDED8 /* iOS-git-oscTests.xctest */,
+				0002D2671916324B001FDED8 /* Git@OSC Tests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -631,10 +631,10 @@
 		0002D2501916324B001FDED8 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				0002D2511916324B001FDED8 /* iOS-git-osc-Info.plist */,
+				0002D2511916324B001FDED8 /* Git@OSC-Info.plist */,
 				0002D2521916324B001FDED8 /* InfoPlist.strings */,
 				0002D2551916324B001FDED8 /* main.m */,
-				0002D2571916324B001FDED8 /* iOS-git-osc-Prefix.pch */,
+				0002D2571916324B001FDED8 /* Git@OSC-Prefix.pch */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -1139,9 +1139,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		0002D2451916324B001FDED8 /* iOS-git-osc */ = {
+		0002D2451916324B001FDED8 /* Git@OSC */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 0002D2781916324B001FDED8 /* Build configuration list for PBXNativeTarget "iOS-git-osc" */;
+			buildConfigurationList = 0002D2781916324B001FDED8 /* Build configuration list for PBXNativeTarget "Git@OSC" */;
 			buildPhases = (
 				0002D2421916324B001FDED8 /* Sources */,
 				0002D2431916324B001FDED8 /* Frameworks */,
@@ -1151,14 +1151,14 @@
 			);
 			dependencies = (
 			);
-			name = "iOS-git-osc";
+			name = "Git@OSC";
 			productName = "iOS-git-osc";
 			productReference = 0002D2461916324B001FDED8 /* Git@OSC.app */;
 			productType = "com.apple.product-type.application";
 		};
-		0002D2661916324B001FDED8 /* iOS-git-oscTests */ = {
+		0002D2661916324B001FDED8 /* Git@OSC Tests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 0002D27B1916324B001FDED8 /* Build configuration list for PBXNativeTarget "iOS-git-oscTests" */;
+			buildConfigurationList = 0002D27B1916324B001FDED8 /* Build configuration list for PBXNativeTarget "Git@OSC Tests" */;
 			buildPhases = (
 				0002D2631916324B001FDED8 /* Sources */,
 				0002D2641916324B001FDED8 /* Frameworks */,
@@ -1169,9 +1169,9 @@
 			dependencies = (
 				0002D26D1916324B001FDED8 /* PBXTargetDependency */,
 			);
-			name = "iOS-git-oscTests";
+			name = "Git@OSC Tests";
 			productName = "iOS-git-oscTests";
-			productReference = 0002D2671916324B001FDED8 /* iOS-git-oscTests.xctest */;
+			productReference = 0002D2671916324B001FDED8 /* Git@OSC Tests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -1191,7 +1191,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 0002D2411916324B001FDED8 /* Build configuration list for PBXProject "iOS-git-osc" */;
+			buildConfigurationList = 0002D2411916324B001FDED8 /* Build configuration list for PBXProject "Git@OSC" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -1204,8 +1204,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				0002D2451916324B001FDED8 /* iOS-git-osc */,
-				0002D2661916324B001FDED8 /* iOS-git-oscTests */,
+				0002D2451916324B001FDED8 /* Git@OSC */,
+				0002D2661916324B001FDED8 /* Git@OSC Tests */,
 			);
 		};
 /* End PBXProject section */
@@ -1450,7 +1450,7 @@
 /* Begin PBXTargetDependency section */
 		0002D26D1916324B001FDED8 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 0002D2451916324B001FDED8 /* iOS-git-osc */;
+			target = 0002D2451916324B001FDED8 /* Git@OSC */;
 			targetProxy = 0002D26C1916324B001FDED8 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -1501,6 +1501,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "Git@OSC";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -1532,6 +1533,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				PRODUCT_NAME = "Git@OSC";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -1549,12 +1551,12 @@
 					"/Users/chenhaoxiang/Desktop/Objective-C",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "iOS-git-osc/iOS-git-osc-Prefix.pch";
+				GCC_PREFIX_HEADER = "iOS-git-osc/Git@OSC-Prefix.pch";
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 				);
-				INFOPLIST_FILE = "iOS-git-osc/iOS-git-osc-Info.plist";
+				INFOPLIST_FILE = "iOS-git-osc/Git@OSC-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "Git@OSC";
@@ -1575,12 +1577,12 @@
 					"/Users/chenhaoxiang/Desktop/Objective-C",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "iOS-git-osc/iOS-git-osc-Prefix.pch";
+				GCC_PREFIX_HEADER = "iOS-git-osc/Git@OSC-Prefix.pch";
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 				);
-				INFOPLIST_FILE = "iOS-git-osc/iOS-git-osc-Info.plist";
+				INFOPLIST_FILE = "iOS-git-osc/Git@OSC-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "Git@OSC";
@@ -1605,7 +1607,7 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = "iOS-git-oscTests/iOS-git-oscTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Git@OSC Tests";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
 			};
@@ -1623,7 +1625,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "iOS-git-osc/iOS-git-osc-Prefix.pch";
 				INFOPLIST_FILE = "iOS-git-oscTests/iOS-git-oscTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Git@OSC Tests";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
 			};
@@ -1632,7 +1634,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		0002D2411916324B001FDED8 /* Build configuration list for PBXProject "iOS-git-osc" */ = {
+		0002D2411916324B001FDED8 /* Build configuration list for PBXProject "Git@OSC" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				0002D2761916324B001FDED8 /* Debug */,
@@ -1641,7 +1643,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		0002D2781916324B001FDED8 /* Build configuration list for PBXNativeTarget "iOS-git-osc" */ = {
+		0002D2781916324B001FDED8 /* Build configuration list for PBXNativeTarget "Git@OSC" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				0002D2791916324B001FDED8 /* Debug */,
@@ -1650,7 +1652,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		0002D27B1916324B001FDED8 /* Build configuration list for PBXNativeTarget "iOS-git-oscTests" */ = {
+		0002D27B1916324B001FDED8 /* Build configuration list for PBXNativeTarget "Git@OSC Tests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				0002D27C1916324B001FDED8 /* Debug */,

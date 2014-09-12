@@ -13,11 +13,10 @@
 @interface EventCell : UITableViewCell
 
 @property UIImageView *userPortrait;
-@property UITextView *eventDescription;
+@property UILabel *eventDescription;
 @property UITextView *eventAbstract;
 @property UILabel *time;
 
-- (void)generateEventAbstractView:(GLEvent *)event;
 - (void)generateEventDescriptionView:(GLEvent *)event;
 
 @end

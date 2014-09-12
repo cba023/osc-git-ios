@@ -14,5 +14,6 @@
 + (NSArray *)getEventsWithPrivateToekn:(NSString *)private_token page:(NSInteger)page;
 + (NSAttributedString *)getEventDescriptionForEvent:(GLEvent *)event;
 + (NSArray *)getUserEvents:(int64_t)userId page:(NSInteger)page;
++ (NSAttributedString *)generateEventAbstract:(GLEvent *)event;
 
 @end

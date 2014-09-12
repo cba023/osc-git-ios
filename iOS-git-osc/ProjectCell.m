@@ -96,46 +96,48 @@
         view.translatesAutoresizingMaskIntoConstraints = NO;
     }
     
+    NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(_portrait, _projectNameField, _projectDescriptionField, languageImage, forkImage, starImage, _languageField, _forksCount, _starsCount);
+    
     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|-8-[_portrait(36)]-8-[_projectNameField]"
                                                                              options:0
                                                                              metrics:nil
-                                                                               views:NSDictionaryOfVariableBindings(_portrait, _projectNameField)]];
+                                                                               views:viewsDictionary]];
     
     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-8-[_projectNameField(15)]-8-[_projectDescriptionField]-8-[languageImage]-8-|"
                                                                              options:NSLayoutFormatAlignAllLeft
                                                                              metrics:nil
-                                                                               views:NSDictionaryOfVariableBindings(_projectNameField, _projectDescriptionField, languageImage)]];
+                                                                               views:viewsDictionary]];
     
     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"[languageImage(15)][_languageField]-10-[forkImage(15)][_forksCount]-10-[starImage(15)][_starsCount]"
                                                                              options:NSLayoutFormatAlignAllCenterY
                                                                              metrics:nil
-                                                                               views:NSDictionaryOfVariableBindings(languageImage, _languageField, forkImage, _forksCount, starImage, _starsCount)]];
+                                                                               views:viewsDictionary]];
     
     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"[_projectDescriptionField]-8-|"
                                                                              options:0
                                                                              metrics:nil
-                                                                               views:NSDictionaryOfVariableBindings(_projectDescriptionField)]];
+                                                                               views:viewsDictionary]];
     
     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-8-[_portrait(36)]"
                                                                              options:0
                                                                              metrics:nil
-                                                                               views:NSDictionaryOfVariableBindings(_portrait)]];
+                                                                               views:viewsDictionary]];
 
     
     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[languageImage(15)]"
                                                                              options:0
                                                                              metrics:nil
-                                                                               views:NSDictionaryOfVariableBindings(languageImage, forkImage, starImage)]];
+                                                                               views:viewsDictionary]];
     
     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[forkImage(==languageImage)]"
                                                                              options:0
                                                                              metrics:nil
-                                                                               views:NSDictionaryOfVariableBindings(languageImage, forkImage, starImage)]];
+                                                                               views:viewsDictionary]];
     
     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[starImage(==languageImage)]"
                                                                              options:0
                                                                              metrics:nil
-                                                                               views:NSDictionaryOfVariableBindings(languageImage, forkImage, starImage)]];
+                                                                               views:viewsDictionary]];
 }
 
 

@@ -25,7 +25,6 @@ static NSString * const EventCellIdentifier = @"EventCell";
 @property int64_t userID;
 @property NSString *privateToken;
 
-@property (nonatomic, strong) EventCell *prototypeCell;
 @property BOOL isFinishedLoad;
 @property BOOL isLoading;
 @property BOOL isFirstRequest;
@@ -36,15 +35,6 @@ static NSString * const EventCellIdentifier = @"EventCell";
 @implementation EventsView
 
 @synthesize events;
-
-- (EventCell *)prototypeCell
-{
-    if (!_prototypeCell)
-    {
-        _prototypeCell = [self.tableView dequeueReusableCellWithIdentifier:EventCellIdentifier];
-    }
-    return _prototypeCell;
-}
 
 - (id)initWithPrivateToken:(NSString *)privateToken
 {
@@ -145,22 +135,30 @@ static NSString * const EventCellIdentifier = @"EventCell";
 {
     if (indexPath.row < events.count) {
         GLEvent *event = [self.events objectAtIndex:indexPath.row];
-        [self configureCell:self.prototypeCell atIndexPath:indexPath];
         
-        GLfloat descriptionHeight = _prototypeCell.eventDescription.frame.size.height,
-        timeHeight = _prototypeCell.time.frame.size.height,
-        totalHeight = descriptionHeight + timeHeight + 15;
+        UILabel *label = [UILabel new];
+        label.numberOfLines = 0;
+        label.lineBreakMode = NSLineBreakByWordWrapping;
         
+        [label setAttributedText:[Event getEventDescriptionForEvent:event]];
+        CGFloat descriptionHeight = [label sizeThatFits:CGSizeMake(self.tableView.frame.size.width - 60, MAXFLOAT)].height;
+        
+        CGFloat abstractHeight = 0;
+        UITextView *textView = [UITextView new];
+        textView.editable = NO;
+        textView.scrollEnabled = NO;
         int totalCommitsCount = 0;
         if (![event.data isEqual:@""]) {
             totalCommitsCount = [[event.data objectForKey:@"total_commits_count"] intValue];
         }
-
-        if (event.data && totalCommitsCount > 0) {
-            totalHeight += _prototypeCell.eventAbstract.frame.size.height + 5;
+        if (totalCommitsCount > 0) {
+            [textView setAttributedText:[Event generateEventAbstract:event]];
+            abstractHeight = [textView sizeThatFits:CGSizeMake(self.tableView.frame.size.width - 60, MAXFLOAT)].height;
         }
         
-        return totalHeight;
+        CGFloat staticHeight = totalCommitsCount > 0? 47: 39;
+        
+        return descriptionHeight + abstractHeight + staticHeight;
     } else {
         return 60;
     }
@@ -182,52 +180,30 @@ static NSString * const EventCellIdentifier = @"EventCell";
     if (indexPath.row < events.count) {
         EventCell *cell = [tableView dequeueReusableCellWithIdentifier:EventCellIdentifier forIndexPath:indexPath];
         
-        [self configureCell:cell atIndexPath:indexPath];
+        GLEvent *event = [self.events objectAtIndex:indexPath.row];
+        
+        [Tools setPortraitForUser:event.author view:cell.userPortrait cornerRadius:5.0];
+        UITapGestureRecognizer *tapPortraitRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self
+                                                                                                action:@selector(tapPortrait:)];
+        cell.userPortrait.tag = indexPath.row;
+        [cell.userPortrait addGestureRecognizer:tapPortraitRecognizer];
+        
+        [cell generateEventDescriptionView:event];
+        
+        [cell.time setAttributedText:[Tools getIntervalAttrStr:event.createdAt]];
+        
+        int totalCommitsCount = 0;
+        if (![event.data isEqual:@""]) {
+            totalCommitsCount = [[event.data objectForKey:@"total_commits_count"] intValue];
+        }
+        if (totalCommitsCount > 0) {
+            [cell.eventAbstract setAttributedText:[Event generateEventAbstract:event]];
+        }
         
         return cell;        
     } else {
         return _lastCell;
     }
-}
-
-- (void)configureCell:(EventCell *)cell atIndexPath:(NSIndexPath *)indexPath
-{
-    GLEvent *event = [self.events objectAtIndex:indexPath.row];
-
-    // 删除动态添加的子视图，避免重用出错
-    [cell.eventAbstract removeFromSuperview];
-    
-    
-    [Tools setPortraitForUser:event.author view:cell.userPortrait cornerRadius:5.0];
-    UITapGestureRecognizer *tapPortraitRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self
-                                                                                            action:@selector(tapPortrait:)];
-    cell.userPortrait.tag = indexPath.row;
-    [cell.userPortrait addGestureRecognizer:tapPortraitRecognizer];
-    
-    [cell generateEventDescriptionView:event];
-    [cell.contentView addSubview:cell.eventDescription];
-    GLfloat descriptionHeight = cell.eventDescription.frame.size.height;
-    
-    int totalCommitsCount = 0;
-    if (![event.data isEqual:@""]) {
-        totalCommitsCount = [[event.data objectForKey:@"total_commits_count"] intValue];
-    }
-
-    if (event.data && totalCommitsCount > 0) {
-        cell.eventAbstract = [UITextView new];
-        [cell generateEventAbstractView:event];
-        [cell.contentView addSubview:cell.eventAbstract];
-        CGFloat width = 260;
-        CGSize size = [cell.eventAbstract sizeThatFits:CGSizeMake(width, MAXFLOAT)];
-        cell.eventAbstract.frame = CGRectMake(49, 6+descriptionHeight, fmaxf(size.width, width), size.height);
-        
-        cell.time.frame = CGRectMake(53, descriptionHeight+size.height+9, 158, 20);
-    } else {
-        cell.time.frame = CGRectMake(53, descriptionHeight+6, 158, 20);
-    }
-    
-    [cell.time setAttributedText:[Tools getIntervalAttrStr:event.createdAt]];
-    [cell.contentView addSubview:cell.time];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
