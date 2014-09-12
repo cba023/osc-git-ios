@@ -86,7 +86,7 @@ static NSString * const cellId = @"ProjectCell";
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     [self.tableView registerClass:[ProjectCell class] forCellReuseIdentifier:cellId];
-    self.tableView.backgroundColor = [UIColor colorWithRed:235.0/255 green:235.0/255 blue:243.0/255 alpha:1.0];
+    self.tableView.backgroundColor = [Tools uniformColor];
     UIView *footer =[[UIView alloc] initWithFrame:CGRectZero];
     self.tableView.tableFooterView = footer;
     
@@ -117,8 +117,8 @@ static NSString * const cellId = @"ProjectCell";
         return;
     }
     
+    _isFirstRequest = YES;
     if (_projectsType < 7) {
-        _isFirstRequest = YES;
         [_lastCell loading];
         [self loadMore];
     }
@@ -316,9 +316,16 @@ static NSString * const cellId = @"ProjectCell";
             
             _isFinishedLoad = [(NSArray *)responseObject count] < _pageSize;
             
-            NSUInteger repeatedCount = [Tools numberOfRepeatedProjects:projects project:[responseObject objectAtIndex:0]];
-            NSUInteger length = _pageSize-repeatedCount < [(NSArray *)responseObject count]? _pageSize-repeatedCount: [(NSArray *)responseObject count];
-            [projects addObjectsFromArray:[responseObject subarrayWithRange:NSMakeRange(repeatedCount, length)]];
+            NSMutableArray *newProjects = [NSMutableArray new];
+            for (GLProject *newProject in responseObject) {
+                for (GLProject *project in projects) {
+                    if (newProject.projectId == project.projectId) {
+                        break;
+                    }
+                }
+                [newProjects addObject:newProject];
+            }
+            [projects addObjectsFromArray:newProjects];
             
             if (refresh || _isFirstRequest) {
                 [Tools savePageCache:responseObject type:_projectsType];

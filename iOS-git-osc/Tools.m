@@ -260,6 +260,13 @@
     [self roundView:portraitView cornerRadius:cornerRadius];
 }
 
++ (UIColor *)uniformColor
+{
+    return [UIColor colorWithRed:235.0/255 green:235.0/255 blue:243.0/255 alpha:1.0];
+}
+
+
+#pragma mark - about notifications
 + (void)toastNotification:(NSString *)text inView:(UIView *)view
 {
     [view makeToast:text duration:2.0 position:@"center"];

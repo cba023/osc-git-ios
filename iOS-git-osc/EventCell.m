@@ -9,6 +9,7 @@
 #import "EventCell.h"
 #import "GLEvent.h"
 #import "Event.h"
+#import "Tools.h"
 
 @implementation EventCell
 
@@ -16,6 +17,7 @@
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
+        self.backgroundColor = [Tools uniformColor];
         [self initSubview];
         //[self setAutoLayout];
     }

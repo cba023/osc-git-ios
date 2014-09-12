@@ -46,16 +46,6 @@ static NSString * const EventCellIdentifier = @"EventCell";
     return _prototypeCell;
 }
 
-
-- (id)initWithStyle:(UITableViewStyle)style
-{
-    self = [super initWithStyle:style];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
 - (id)initWithPrivateToken:(NSString *)privateToken
 {
     self = [super init];
@@ -105,7 +95,7 @@ static NSString * const EventCellIdentifier = @"EventCell";
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     [self.tableView registerClass:[EventCell class] forCellReuseIdentifier:EventCellIdentifier];
-    self.tableView.backgroundColor = [UIColor colorWithRed:235.0/255 green:235.0/255 blue:243.0/255 alpha:1.0];
+    self.tableView.backgroundColor = [Tools uniformColor];
     UIView *footer =[[UIView alloc] initWithFrame:CGRectZero];
     self.tableView.tableFooterView = footer;
     
@@ -334,9 +324,16 @@ static NSString * const EventCellIdentifier = @"EventCell";
             
             _isFinishedLoad = [(NSArray *)responseObject count] < 20;
             
-            NSUInteger repeatedCount = [Tools numberOfRepeatedEvents:events event:[responseObject objectAtIndex:0]];
-            NSUInteger length = 20-repeatedCount < [(NSArray *)responseObject count]? 20-repeatedCount: [(NSArray *)responseObject count];
-            [events addObjectsFromArray:[responseObject subarrayWithRange:NSMakeRange(repeatedCount, length)]];
+            NSMutableArray *newEvents = [NSMutableArray new];
+            for (GLEvent *newEvent in responseObject) {
+                for (GLEvent *event in events) {
+                    if (newEvent.eventID == event.eventID) {
+                        break;
+                    }
+                }
+                [newEvents addObject:newEvent];
+            }
+            [events addObjectsFromArray:newEvents];
 
             if (_privateToken && (refresh || _isFirstRequest)) {
                 [Tools savePageCache:responseObject type:9];
