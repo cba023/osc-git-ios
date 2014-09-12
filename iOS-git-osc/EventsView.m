@@ -113,7 +113,11 @@ static NSString * const EventCellIdentifier = @"EventCell";
 {
     [super viewDidAppear:animated];
     
-    if (_privateToken && [Tools isPageCacheExist:8]) {
+    if (events.count > 0) {
+        return;
+    }
+    
+    if (_privateToken && [Tools isPageCacheExist:9]) {
         [self loadFromCache];
         return;
     }
@@ -261,7 +265,7 @@ static NSString * const EventCellIdentifier = @"EventCell";
     [events removeAllObjects];
     _isFinishedLoad = NO;
     
-    [events addObjectsFromArray:[Tools getPageCache:8]];
+    [events addObjectsFromArray:[Tools getPageCache:9]];
     _isFinishedLoad = events.count < 20;
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.tableView reloadData];

@@ -108,9 +108,9 @@ static NSString * const cellId = @"ProjectCell";
 {
     [super viewDidAppear:animated];
     
-    //if (_projectsType != 7) {
-        
-    //}
+    if (projects.count > 0) {
+        return;
+    }
     
     if ([Tools isPageCacheExist:_projectsType]) {
         [self loadFromCache];
@@ -118,7 +118,7 @@ static NSString * const cellId = @"ProjectCell";
     }
     
     _isFirstRequest = YES;
-    if (_projectsType < 7) {
+    if (_projectsType != 7) {
         [_lastCell loading];
         [self loadMore];
     }

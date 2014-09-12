@@ -113,7 +113,8 @@
                                       NSFontAttributeName:[UIFont systemFontOfSize:14]
                                       };
     NSDictionary *digestAttributes = @{
-                                       NSForegroundColorAttributeName:UIColorFromRGB(0x999999),
+                                       NSForegroundColorAttributeName:UIColorFromRGB(0x303030),
+                                       //NSForegroundColorAttributeName:UIColorFromRGB(0x999999),
                                        NSFontAttributeName:[UIFont systemFontOfSize:14]
                                        };
     NSMutableAttributedString *digest = [NSMutableAttributedString new];
@@ -124,7 +125,8 @@
         NSString *commitId = [[[[[event data] objectForKey:@"commits"] objectAtIndex:digestsCount] objectForKey:@"id"] substringToIndex:9];
         NSString *message = [[[[event data] objectForKey:@"commits"] objectAtIndex:digestsCount] objectForKey:@"message"];
     
-        message = [NSString stringWithFormat:@" %@ - %@", event.author.username, message];
+        NSString *commitAuthorName = [[[[event.data objectForKey:@"commits"] objectAtIndex:digestsCount] objectForKey:@"author"] objectForKey:@"name"];
+        message = [NSString stringWithFormat:@" %@ - %@", commitAuthorName, message];
         [digest appendAttributedString:[[NSAttributedString alloc] initWithString:commitId attributes:idStrAttributes]];
         [digest appendAttributedString:[[NSAttributedString alloc] initWithString:message attributes:digestAttributes]];
         

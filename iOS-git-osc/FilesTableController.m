@@ -57,7 +57,7 @@ static NSString * const cellId = @"FileCell";
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     [self.tableView registerClass:[FileCell class] forCellReuseIdentifier:cellId];
-    self.tableView.backgroundColor = [UIColor colorWithRed:235.0/255 green:235.0/255 blue:243.0/255 alpha:1.0];
+    self.tableView.backgroundColor = [Tools uniformColor];
     UIView *footer =[[UIView alloc] initWithFrame:CGRectZero];
     self.tableView.tableFooterView = footer;
     

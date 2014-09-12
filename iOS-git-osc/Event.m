@@ -110,54 +110,54 @@ enum action {
     NSMutableAttributedString *action = [NSMutableAttributedString alloc];
     switch (actionType) {
         case CREATED: 
-            action = [action initWithString:@"在项目创建了" attributes:actionAttributes];
-            [action insertAttributedString:project atIndex:3];
+            action = [action initWithString:@" 在项目 创建了 " attributes:actionAttributes];
+            [action insertAttributedString:project atIndex:5];
             [action appendAttributedString:[[NSAttributedString alloc] initWithString:event.targetType
                                                                            attributes:projectAttributes]];
             break;
         
         case UPDATED:
-             action = [action initWithString:@"更新了项目" attributes:actionAttributes];
+             action = [action initWithString:@" 更新了项目 " attributes:actionAttributes];
             [action appendAttributedString:project];
             break;
         
         case CLOSED:
-            action = [action initWithString:@"关闭了项目" attributes:actionAttributes];
+            action = [action initWithString:@" 关闭了项目 " attributes:actionAttributes];
             [action appendAttributedString:project];
             break;
         case REOPENED:
-            action = [action initWithString:@"重新打开了项目" attributes:actionAttributes];
+            action = [action initWithString:@" 重新打开了项目 " attributes:actionAttributes];
             [action appendAttributedString:project];
             break;
         case PUSHED:
-            action = [action initWithString:@"推送到了项目的分支" attributes:actionAttributes];
-            [action insertAttributedString:project atIndex:6];
+            action = [action initWithString:@" 推送到了项目 的分支" attributes:actionAttributes];
+            [action insertAttributedString:project atIndex:8];
             [action insertAttributedString:[[NSAttributedString alloc] initWithString:[[event.data objectForKey:@"ref"] lastPathComponent]
-                                                                           attributes:actionAttributes]
+                                                                           attributes:projectAttributes]
                                    atIndex:action.length-2];
             break;
         case COMMENTED:
-            action = [action initWithString:@"评论了项目的" attributes:actionAttributes];
-            [action insertAttributedString:project atIndex:5];
+            action = [action initWithString:@" 评论了项目 的 " attributes:actionAttributes];
+            [action insertAttributedString:project atIndex:7];
             [action appendAttributedString:[[NSAttributedString alloc]initWithString:event.targetType
                                                                           attributes:projectAttributes]];
             break;
         case MERGED:
-            action = [action initWithString:@"接受了项目的" attributes:actionAttributes];
-            [action insertAttributedString:project atIndex:5];
+            action = [action initWithString:@" 接受了项目 的 " attributes:actionAttributes];
+            [action insertAttributedString:project atIndex:7];
             [action appendAttributedString:[[NSAttributedString alloc]initWithString:event.targetType
                                                                           attributes:projectAttributes]];
             break;
         case JOINED:
-            action = [action initWithString:@"加入了项目" attributes:actionAttributes];
+            action = [action initWithString:@" 加入了项目 " attributes:actionAttributes];
             [action appendAttributedString:project];
             break;
         case LEFT:
-            action = [action initWithString:@"离开了项目" attributes:actionAttributes];
+            action = [action initWithString:@" 离开了项目 " attributes:actionAttributes];
             [action appendAttributedString:project];
             break;
         case FORKED:
-            action = [action initWithString:@"FORK了项目" attributes:actionAttributes];
+            action = [action initWithString:@" FORK了项目 " attributes:actionAttributes];
             [action appendAttributedString:project];
             break;
         default:

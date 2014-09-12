@@ -189,9 +189,40 @@
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ssZZZZZ"];
     NSDate *date = [dateFormatter dateFromString:dateStr];
-    NSString *timeString=@"";
     NSTimeInterval interval = [date timeIntervalSinceNow] * (-1);
     
+    int days = interval / 86400;
+    
+    if (days == 0) {
+        NSString *timeString = [NSString new];
+        if (interval/3600 < 1) {
+            if (interval/60 < 1) {
+                timeString = @"1";
+            } else {
+                timeString = [NSString stringWithFormat:@"%f", interval/60];
+                timeString = [timeString substringToIndex:timeString.length-7];
+            }
+            
+            return [NSString stringWithFormat:@"%@ 分钟前", timeString];
+        } else {
+            timeString = [NSString stringWithFormat:@"%f", interval/3600];
+            timeString = [timeString substringToIndex:timeString.length-7];
+            return [NSString stringWithFormat:@"%@ 小时前", timeString];
+        }
+    } else if (days == 1) {
+        return @"一天前";
+    } else if (days < 31) {
+        return [NSString stringWithFormat:@"%i天前", days];
+    } else if (days >= 31 && days < 62) {
+        return @"一个月前";
+    } else if (days % 31 < 12) {
+        return [NSString stringWithFormat:@"%i个月前", days % 31];
+    } else {
+        NSArray *arr = [dateStr componentsSeparatedByString:@"T"];
+        return [arr objectAtIndex:0];
+    }
+    
+#if 0
     if (interval/3600 < 1) {
         if (interval/60<1) {
             timeString = @"1";
@@ -214,6 +245,7 @@
         timeString = [arr objectAtIndex:0];
     }
     return timeString;
+#endif
 }
 
 + (NSAttributedString *)getIntervalAttrStr:(NSString *)dateStr

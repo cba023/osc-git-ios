@@ -232,7 +232,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		0002D2461916324B001FDED8 /* iOS-git-osc.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "iOS-git-osc.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		0002D2461916324B001FDED8 /* Git@OSC.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Git@OSC.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0002D2491916324B001FDED8 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		0002D24B1916324B001FDED8 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		0002D24D1916324B001FDED8 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -595,7 +595,7 @@
 		0002D2471916324B001FDED8 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				0002D2461916324B001FDED8 /* iOS-git-osc.app */,
+				0002D2461916324B001FDED8 /* Git@OSC.app */,
 				0002D2671916324B001FDED8 /* iOS-git-oscTests.xctest */,
 			);
 			name = Products;
@@ -1153,7 +1153,7 @@
 			);
 			name = "iOS-git-osc";
 			productName = "iOS-git-osc";
-			productReference = 0002D2461916324B001FDED8 /* iOS-git-osc.app */;
+			productReference = 0002D2461916324B001FDED8 /* Git@OSC.app */;
 			productType = "com.apple.product-type.application";
 		};
 		0002D2661916324B001FDED8 /* iOS-git-oscTests */ = {
@@ -1557,7 +1557,7 @@
 				INFOPLIST_FILE = "iOS-git-osc/iOS-git-osc-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Git@OSC";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
@@ -1583,7 +1583,7 @@
 				INFOPLIST_FILE = "iOS-git-osc/iOS-git-osc-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Git@OSC";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
