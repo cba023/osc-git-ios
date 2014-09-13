@@ -40,7 +40,6 @@
 + (NSArray *)getPageCache:(NSInteger)type;
 + (void)savePageCache:(NSArray *)page type:(NSInteger)type;
 
-+ (NSUInteger)numberOfRepeatedProjects:(NSArray *)projects project:(GLProject *)project;
 + (NSUInteger)numberOfRepeatedEvents:(NSArray *)events event:(GLEvent *)event;
 
 @end

@@ -112,7 +112,7 @@ enum action {
         case CREATED: 
             action = [action initWithString:@" 在项目 创建了 " attributes:actionAttributes];
             [action insertAttributedString:project atIndex:5];
-            [action appendAttributedString:[[NSAttributedString alloc] initWithString:event.targetType
+            [action appendAttributedString:[[NSAttributedString alloc] initWithString:[self eventTitle:event.events]
                                                                            attributes:projectAttributes]];
             break;
         
@@ -130,22 +130,23 @@ enum action {
             [action appendAttributedString:project];
             break;
         case PUSHED:
-            action = [action initWithString:@" 推送到了项目 的分支" attributes:actionAttributes];
+            action = [action initWithString:@" 推送到了项目  的分支" attributes:actionAttributes];
             [action insertAttributedString:project atIndex:8];
             [action insertAttributedString:[[NSAttributedString alloc] initWithString:[[event.data objectForKey:@"ref"] lastPathComponent]
                                                                            attributes:projectAttributes]
                                    atIndex:action.length-2];
             break;
-        case COMMENTED:
-            action = [action initWithString:@" 评论了项目 的 " attributes:actionAttributes];
+        case COMMENTED: {
+            action = [action initWithString:@" 评论了项目  的 " attributes:actionAttributes];
             [action insertAttributedString:project atIndex:7];
-            [action appendAttributedString:[[NSAttributedString alloc]initWithString:event.targetType
+            [action appendAttributedString:[[NSAttributedString alloc]initWithString:[self eventTitle:event.events]
                                                                           attributes:projectAttributes]];
             break;
+        }
         case MERGED:
-            action = [action initWithString:@" 接受了项目 的 " attributes:actionAttributes];
+            action = [action initWithString:@" 接受了项目  的 " attributes:actionAttributes];
             [action insertAttributedString:project atIndex:7];
-            [action appendAttributedString:[[NSAttributedString alloc]initWithString:event.targetType
+            [action appendAttributedString:[[NSAttributedString alloc]initWithString:[self eventTitle:event.events]
                                                                           attributes:projectAttributes]];
             break;
         case JOINED:
@@ -172,6 +173,20 @@ enum action {
     }
     
     return eventDescription;
+}
+
++ (NSString *)eventTitle:(NSDictionary *)events
+{
+    NSString *eventTitle;
+    if ([[events objectForKey:@"pull_request"] count] > 0) {
+        NSString *iid = [[events objectForKey:@"pull_request"] objectForKey:@"iid"];
+        eventTitle = [NSString stringWithFormat:@"Pull Request #%@", iid];
+    } else if ([[events objectForKey:@"issue"] count] > 0) {
+        NSString *iid = [[events objectForKey:@"issue"] objectForKey:@"iid"];
+        eventTitle = [NSString stringWithFormat:@"Issue #%@", iid];
+    }
+
+    return eventTitle;
 }
 
 

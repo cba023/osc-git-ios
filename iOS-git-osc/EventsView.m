@@ -153,12 +153,12 @@ static NSString * const EventCellIdentifier = @"EventCell";
         }
         if (totalCommitsCount > 0) {
             [textView setAttributedText:[Event generateEventAbstract:event]];
-            abstractHeight = [textView sizeThatFits:CGSizeMake(self.tableView.frame.size.width - 60, MAXFLOAT)].height;
         }
+        abstractHeight = [textView sizeThatFits:CGSizeMake(self.tableView.frame.size.width - 60, MAXFLOAT)].height;
         
-        CGFloat staticHeight = totalCommitsCount > 0? 47: 39;
+        //CGFloat staticHeight = totalCommitsCount > 0? 47: 39;
         
-        return descriptionHeight + abstractHeight + staticHeight;
+        return descriptionHeight + abstractHeight + 47;
     } else {
         return 60;
     }
@@ -198,6 +198,8 @@ static NSString * const EventCellIdentifier = @"EventCell";
         }
         if (totalCommitsCount > 0) {
             [cell.eventAbstract setAttributedText:[Event generateEventAbstract:event]];
+        } else {
+            [cell.eventAbstract setText:@""];
         }
         
         return cell;        
@@ -304,16 +306,8 @@ static NSString * const EventCellIdentifier = @"EventCell";
             
             _isFinishedLoad = [(NSArray *)responseObject count] < 20;
             
-            NSMutableArray *newEvents = [NSMutableArray new];
-            for (GLEvent *newEvent in responseObject) {
-                for (GLEvent *event in events) {
-                    if (newEvent.eventID == event.eventID) {
-                        break;
-                    }
-                }
-                [newEvents addObject:newEvent];
-            }
-            [events addObjectsFromArray:newEvents];
+            NSUInteger repeatedCount = [Tools numberOfRepeatedEvents:events event:[responseObject objectAtIndex:0]];
+            [events addObjectsFromArray:[responseObject subarrayWithRange:NSMakeRange(repeatedCount, 20-repeatedCount)]];
 
             if (_privateToken && (refresh || _isFirstRequest)) {
                 [Tools savePageCache:responseObject type:9];

@@ -350,20 +350,6 @@
     [cache setObject:jsonCache forKey:key];
 }
 
-+ (NSUInteger)numberOfRepeatedProjects:(NSArray *)projects project:(GLProject *)project
-{
-    NSUInteger len = [projects count];
-    GLProject *projectInArray;
-    for (NSUInteger i = 1; i <= len; i++) {
-        projectInArray = [projects objectAtIndex:len-i];
-        if (projectInArray.projectId == project.projectId) {
-            return i;
-        }
-    }
-    
-    return 0;
-}
-
 + (NSUInteger)numberOfRepeatedEvents:(NSArray *)events event:(GLEvent *)event
 {
     NSUInteger len = [events count];

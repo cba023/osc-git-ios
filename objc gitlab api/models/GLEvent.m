@@ -59,25 +59,23 @@ static NSString * const kKeyPullRequest = @"pull_request";
 - (NSDictionary *)eventsInitWithJson:(NSDictionary *)json
 {
     NSDictionary *note = [self checkForNull:json[kKeyNote]];
-    NSDictionary *issue = [self checkForNull:json[kKeyIssue]] ?: @"";
-    NSDictionary *pullRequest = [self checkForNull:json[kKeyPullRequest]] ?: @"";
+    NSDictionary *issue = [self checkForNull:json[kKeyIssue]];
+    NSDictionary *pullRequest = [self checkForNull:json[kKeyPullRequest]];
     
     return @{
-             kKeyNote: note ?@"": @{
-                                    kKeyId: [self checkForNull:note[kKeyId]] ?: @"",
-                                    kKeyNote: [self checkForNull:note[kKeyNote]] ?: @""
-                                    },
-             kKeyIssue: issue ?@"": @{
-                                      kKeyId: [self checkForNull:issue[kKeyId]] ?: @"",
-                                      kKeyIId: [self checkForNull:issue[kKeyIId]] ?: @"",
-                                      kKeyTitle: [self checkForNull:issue[kKeyTitle]] ?: @""
-                                     },
-             kKeyPullRequest: pullRequest ?@"": @{
-                                                  kKeyId: [self checkForNull:pullRequest[kKeyId]] ?: @"",
-                                                  kKeyIId: [self checkForNull:pullRequest[kKeyIId]] ?: @"",
-                                                  kKeyTitle: [self checkForNull:pullRequest[kKeyTitle]] ?: @""
-                                                  }
+             kKeyNote: note ?: @{},
+             kKeyIssue: issue ?: @{},
+             kKeyPullRequest: pullRequest ?: @{}
              };
+}
+
+- (id)ifEmptyThanNull:(NSDictionary *)json
+{
+    if ([json count] == 0) {
+        return [NSNull null];
+    }
+    
+    return json;
 }
 
 - (NSString *)description
@@ -110,7 +108,7 @@ static NSString * const kKeyPullRequest = @"pull_request";
 - (NSDictionary *)jsonRepresentation
 {
     //id null = (id)[NSNull null];
-    NSString *null = @"";
+    NSDictionary *null = @{};
     
     return @{
              kKeyId: @(_eventID),
@@ -125,7 +123,7 @@ static NSString * const kKeyPullRequest = @"pull_request";
              kKeyPublic: @(_isPublic),
              kKeyProject: [_project jsonRepresentation],
              kKeyAuthor: [_author jsonRepresentation],
-             kKeyEvents: _events ?: null,
+             kKeyEvents: _events ?: nil,
              };
 }
 
