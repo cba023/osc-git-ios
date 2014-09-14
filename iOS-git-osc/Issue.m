@@ -12,40 +12,6 @@
 
 @implementation Issue
 
-+ (NSMutableArray *)getIssuesWithProjectId:(int64_t)projectId page:(int)page {
-    __block BOOL done = NO;
-    __block NSMutableArray *issues;
-    NSString *privateToken = [Tools getPrivateToken];
-    
-    GLGitlabSuccessBlock success = ^(id responseObject) {
-        if (responseObject == nil) {
-            NSLog(@"Request failed");
-        } else {
-            issues = responseObject;
-        }
-        done = YES;
-    };
-    
-    GLGitlabFailureBlock failure = ^(NSError *error) {
-        if (error != nil) {
-            NSLog(@"%@, Request failed", error);
-        }
-        done = YES;
-    };
-    
-    GLNetworkOperation *op = [[GLGitlabApi sharedInstance] getAllIssuesForProjectId:projectId
-                                                                       privateToken:privateToken
-                                                                               page:page
-                                                                   withSuccessBlock:success
-                                                                    andFailureBlock:failure];
-    
-    while (!done) {
-        [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate distantFuture]];
-    }
-    
-    return issues;
-}
-
 + (NSAttributedString *)generateIssueInfo:(GLIssue *)issue
 {
     NSString *timeInterval = [Tools intervalSinceNow:issue.createdAt];

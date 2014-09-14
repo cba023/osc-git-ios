@@ -307,7 +307,8 @@ static NSString * const EventCellIdentifier = @"EventCell";
             _isFinishedLoad = [(NSArray *)responseObject count] < 20;
             
             NSUInteger repeatedCount = [Tools numberOfRepeatedEvents:events event:[responseObject objectAtIndex:0]];
-            [events addObjectsFromArray:[responseObject subarrayWithRange:NSMakeRange(repeatedCount, 20-repeatedCount)]];
+            NSUInteger length = [responseObject count] < 20 - repeatedCount? [responseObject count]: 20 - repeatedCount;
+            [events addObjectsFromArray:[responseObject subarrayWithRange:NSMakeRange(repeatedCount, length)]];
 
             if (_privateToken && (refresh || _isFirstRequest)) {
                 [Tools savePageCache:responseObject type:9];
@@ -323,14 +324,16 @@ static NSString * const EventCellIdentifier = @"EventCell";
     };
     
     GLGitlabFailureBlock failure = ^(NSError *error) {
-        if (error != nil) {
-            NSLog(@"%@, Request failed", error);
-        } else {
-            NSLog(@"error == nil");
-        }
         if (refresh) {
             [self.refreshControl endRefreshing];
         }
+        
+        if (_isFinishedLoad) {
+            [_lastCell finishedLoad];
+        } else {
+            [_lastCell normal];
+        }
+        
         _isLoading = NO;
     };
     

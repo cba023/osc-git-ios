@@ -9,8 +9,8 @@
 #import <Foundation/Foundation.h>
 
 @class GLUser;
-@class GLProject;
 @class GLEvent;
+@class GLIssue;
 
 @interface Tools : NSObject
 
@@ -41,5 +41,6 @@
 + (void)savePageCache:(NSArray *)page type:(NSInteger)type;
 
 + (NSUInteger)numberOfRepeatedEvents:(NSArray *)events event:(GLEvent *)event;
++ (NSUInteger)numberOfRepeatedIssueds:(NSArray *)issues issue:(GLIssue *)issue;
 
 @end

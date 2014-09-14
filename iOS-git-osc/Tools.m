@@ -189,63 +189,36 @@
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ssZZZZZ"];
     NSDate *date = [dateFormatter dateFromString:dateStr];
-    NSTimeInterval interval = [date timeIntervalSinceNow] * (-1);
     
-    int days = interval / 86400;
+    NSUInteger unitFlags = NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit | NSHourCalendarUnit | NSMinuteCalendarUnit;
+    NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+    NSDateComponents *compsPast = [calendar components:unitFlags fromDate:date];
+    NSDateComponents *compsNow = [calendar components:unitFlags fromDate:[NSDate date]];
     
-    if (days == 0) {
-        NSString *timeString = [NSString new];
-        if (interval/3600 < 1) {
-            if (interval/60 < 1) {
-                timeString = @"1";
-            } else {
-                timeString = [NSString stringWithFormat:@"%f", interval/60];
-                timeString = [timeString substringToIndex:timeString.length-7];
-            }
-            
-            return [NSString stringWithFormat:@"%@ 分钟前", timeString];
-        } else {
-            timeString = [NSString stringWithFormat:@"%f", interval/3600];
-            timeString = [timeString substringToIndex:timeString.length-7];
-            return [NSString stringWithFormat:@"%@ 小时前", timeString];
-        }
-    } else if (days == 1) {
-        return @"一天前";
-    } else if (days < 31) {
-        return [NSString stringWithFormat:@"%i天前", days];
-    } else if (days >= 31 && days < 62) {
-        return @"一个月前";
-    } else if (days % 31 < 12) {
-        return [NSString stringWithFormat:@"%i个月前", days % 31];
-    } else {
+    NSInteger years = [compsNow year] - [compsPast year];
+    NSInteger months = [compsNow month] - [compsPast month];
+    NSInteger days = [compsNow day] - [compsPast day];
+    NSInteger hours = [compsNow hour] - [compsPast hour];
+    NSInteger minutes = [compsNow minute] - [compsPast minute];
+    
+    if (years > 1) {
         NSArray *arr = [dateStr componentsSeparatedByString:@"T"];
         return [arr objectAtIndex:0];
-    }
-    
-#if 0
-    if (interval/3600 < 1) {
-        if (interval/60<1) {
-            timeString = @"1";
-        } else {
-            timeString = [NSString stringWithFormat:@"%f", interval/60];
-            timeString = [timeString substringToIndex:timeString.length-7];
-        }
-        
-        timeString=[NSString stringWithFormat:@"%@ 分钟前", timeString];
-    } else if (interval/3600 > 1 && interval/86400 < 1) {
-        timeString = [NSString stringWithFormat:@"%f", interval/3600];
-        timeString = [timeString substringToIndex:timeString.length-7];
-        timeString=[NSString stringWithFormat:@"%@ 小时前", timeString];
-    } else if (interval/86400 > 1 && interval/864000 < 1) {
-        timeString = [NSString stringWithFormat:@"%f", interval/86400];
-        timeString = [timeString substringToIndex:timeString.length-7];
-        timeString = [NSString stringWithFormat:@"%@ 天前", timeString];
+    } else if (months > 1) {
+        return [NSString stringWithFormat:@"%i个月前", months];
+    } else if (months == 1) {
+        return @"一个月前";
+    } else if (days > 1) {
+        return [NSString stringWithFormat:@"%i天前", days];
+    } else if (days == 1) {
+        return @"一天前";
+    } else if (hours >= 1) {
+        return [NSString stringWithFormat:@"%i 小时前", hours];
+    } else if (minutes >= 1) {
+        return [NSString stringWithFormat:@"%i 分钟前", minutes];
     } else {
-        NSArray *arr = [dateStr componentsSeparatedByString:@"T"];
-        timeString = [arr objectAtIndex:0];
+        return @"刚刚";
     }
-    return timeString;
-#endif
 }
 
 + (NSAttributedString *)getIntervalAttrStr:(NSString *)dateStr
@@ -357,6 +330,20 @@
     for (NSUInteger i = 1; i <= len; i++) {
         eventInArray = [events objectAtIndex:len-i];
         if (eventInArray.eventID == event.eventID) {
+            return i;
+        }
+    }
+    
+    return 0;
+}
+
++ (NSUInteger)numberOfRepeatedIssueds:(NSArray *)issues issue:(GLIssue *)issue
+{
+    NSUInteger len = [issues count];
+    GLIssue *issueInArray;
+    for (NSUInteger i = 1; i <= len; i++) {
+        issueInArray = [issues objectAtIndex:len-i];
+        if (issueInArray.issueId == issue.issueId) {
             return i;
         }
     }
