@@ -123,7 +123,7 @@ static NSString * const kKeyPullRequest = @"pull_request";
              kKeyPublic: @(_isPublic),
              kKeyProject: [_project jsonRepresentation],
              kKeyAuthor: [_author jsonRepresentation],
-             kKeyEvents: _events ?: nil,
+             kKeyEvents: _events ?: null,
              };
 }
 

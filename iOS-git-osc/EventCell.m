@@ -49,7 +49,8 @@
     [self.contentView addSubview:_eventDescription];
     
     _eventAbstract = [UITextView new];
-    _eventAbstract.backgroundColor = [UIColor whiteColor];
+    _eventAbstract.backgroundColor = [Tools uniformColor];
+    //_eventAbstract.backgroundColor = [UIColor whiteColor];
     _eventAbstract.editable = NO;
     _eventAbstract.scrollEnabled = NO;
     [self.contentView addSubview:_eventAbstract];

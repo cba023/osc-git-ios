@@ -192,8 +192,9 @@ static NSString * const EventCellIdentifier = @"EventCell";
         
         [cell.time setAttributedText:[Tools getIntervalAttrStr:event.createdAt]];
         
+#if 0
         int totalCommitsCount = 0;
-        if (![event.data isEqual:@""]) {
+        if (event.data.count > 0) {
             totalCommitsCount = [[event.data objectForKey:@"total_commits_count"] intValue];
         }
         if (totalCommitsCount > 0) {
@@ -201,6 +202,8 @@ static NSString * const EventCellIdentifier = @"EventCell";
         } else {
             [cell.eventAbstract setText:@""];
         }
+#endif
+        [Event setAbstractContent:cell.eventAbstract forEvent:event];
         
         return cell;        
     } else {

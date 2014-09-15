@@ -217,8 +217,48 @@ enum action {
         if (++digestsCount == totalCommitsCount || digestsCount >= 2) {break;}
         [digest appendAttributedString:[[NSAttributedString alloc] initWithString:@"\n\n"]];
     }
+    if (totalCommitsCount > 2) {
+        NSString *moreCommitsNotice = [NSString stringWithFormat:@"\n\n... and %i more commits", totalCommitsCount - 2];
+        [digest appendAttributedString:[[NSAttributedString alloc] initWithString:moreCommitsNotice
+                                                                       attributes:digestAttributes]];
+    }
     
     return digest;
+}
+
++ (void)setAbstractContent:(UITextView *)textView forEvent:(GLEvent *)event
+{
+    enum action actionType = event.action;
+    
+    NSDictionary *digestAttributes = @{
+                                       NSForegroundColorAttributeName:UIColorFromRGB(0x303030),
+                                       NSFontAttributeName:[UIFont systemFontOfSize:14]
+                                       };
+
+    int totalCommitsCount = 0;
+    if (event.data.count > 0) {
+        totalCommitsCount = [[event.data objectForKey:@"total_commits_count"] intValue];
+    }
+    if (totalCommitsCount > 0) {
+        textView.backgroundColor = [UIColor whiteColor];
+        [textView setAttributedText:[self generateEventAbstract:event]];
+    } else if (actionType == COMMENTED) {
+        textView.backgroundColor = [Tools uniformColor];
+        NSString *comment = [Tools flattenHTML:[[event.events objectForKey:@"note"] objectForKey:@"note"]];
+        [textView setAttributedText:[[NSAttributedString alloc] initWithString:comment attributes:digestAttributes]];
+    } else if (actionType == CREATED) {
+        textView.backgroundColor = [Tools uniformColor];
+        NSString *title = [NSString new];
+        if ([event.targetType isEqualToString:@"PullRequest"]) {
+            title = [[event.events objectForKey:@"pull_request"] objectForKey:@"title"];
+        } else if ([event.targetType isEqualToString:@"Issue"]) {
+            title = [[event.events objectForKey:@"issue"] objectForKey:@"title"];
+        }
+        [textView setAttributedText:[[NSAttributedString alloc] initWithString:title attributes:digestAttributes]];
+    } else {
+        textView.backgroundColor = [Tools uniformColor];
+        textView.text = @"";
+    }
 }
 
 

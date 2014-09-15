@@ -196,12 +196,12 @@
     NSDateComponents *compsNow = [calendar components:unitFlags fromDate:[NSDate date]];
     
     NSInteger years = [compsNow year] - [compsPast year];
-    NSInteger months = [compsNow month] - [compsPast month];
+    NSInteger months = [compsNow month] - [compsPast month] + years * 12;
     NSInteger days = [compsNow day] - [compsPast day];
     NSInteger hours = [compsNow hour] - [compsPast hour];
     NSInteger minutes = [compsNow minute] - [compsPast minute];
     
-    if (years > 1) {
+    if (months >= 12) {
         NSArray *arr = [dateStr componentsSeparatedByString:@"T"];
         return [arr objectAtIndex:0];
     } else if (months > 1) {
