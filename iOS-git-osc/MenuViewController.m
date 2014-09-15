@@ -141,10 +141,7 @@ static NSString * const kKeyPortrait = @"new_portrait";
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)sectionIndex
 {
-    if (sectionIndex == 0)
-        return 0;
-    
-    return 34;
+    return 0;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -152,37 +149,23 @@ static NSString * const kKeyPortrait = @"new_portrait";
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     NavigationController *navigationController;
-    if (indexPath.row < 2) {
+    if (indexPath.row == 0) {
         NSString *privateToken = [self.user objectForKey:@"private_token"];
         if (privateToken == nil) {
             LoginViewController *loginViewController = [LoginViewController new];
             navigationController = [[NavigationController alloc] initWithRootViewController:loginViewController];
         } else {
             int64_t userID = [[self.user objectForKey:kKeyUserId] intValue];
-            switch (indexPath.row) {
-                case 0: {
-                    EventsView *eventsView = [[EventsView alloc] initWithPrivateToken:privateToken];
-                    navigationController = [[NavigationController alloc] initWithRootViewController:eventsView];
-                    
-                    self.frostedViewController.contentViewController = navigationController;
-                    break;
-                }
-                case 1: {
-                    UserDetailsView *ownDetailsView = [[UserDetailsView alloc] initWithPrivateToken:privateToken userID:userID];
-                    navigationController = [[NavigationController alloc] initWithRootViewController:ownDetailsView];
-                    self.frostedViewController.contentViewController = navigationController;
-                    break;
-                }
-                default:
-                    break;
-            }
+            UserDetailsView *ownDetailsView = [[UserDetailsView alloc] initWithPrivateToken:privateToken userID:userID];
+            navigationController = [[NavigationController alloc] initWithRootViewController:ownDetailsView];
+            self.frostedViewController.contentViewController = navigationController;
         }
     } else {
-        if (indexPath.row == 2) {
+        if (indexPath.row == 1) {
             ProjectsViewController *projectViewController = [[ProjectsViewController alloc] init];
             navigationController = [[NavigationController alloc] initWithRootViewController:projectViewController];
             self.frostedViewController.contentViewController = navigationController;
-        } else if (indexPath.row == 3) {
+        } else if (indexPath.row == 2) {
             SearchView *searchView = [SearchView new];
             navigationController = [[NavigationController alloc] initWithRootViewController:searchView];
             self.frostedViewController.contentViewController = navigationController;
@@ -208,7 +191,7 @@ static NSString * const kKeyPortrait = @"new_portrait";
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)sectionIndex
 {
-    return 5;
+    return 4;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -222,7 +205,7 @@ static NSString * const kKeyPortrait = @"new_portrait";
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
     }
     
-    titles = @[@"动态", @"我的", @"发现", @"搜索", @"语言"];
+    titles = @[@"我的", @"发现", @"搜索", @"语言"];
     images = @[@"MenuProfile", @"MenuProfile", @"MenuOrgRepos", @"MenuOrgRepos", @"MenuOrgRepos", @"MenuOrgRepos"];
     cell.imageView.image = [UIImage imageNamed:images[indexPath.row]];
     cell.textLabel.text = titles[indexPath.row];

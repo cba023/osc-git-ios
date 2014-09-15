@@ -75,10 +75,6 @@ static NSString * const EventCellIdentifier = @"EventCell";
     } else {
         [self.navigationController.navigationBar setTintColor:UIColorFromRGB(0x3A5FCD)];
     }
-
-    NSDictionary *navbarTitleTextAttributes = @{NSForegroundColorAttributeName:[UIColor whiteColor]};
-    [self.navigationController.navigationBar setTitleTextAttributes:navbarTitleTextAttributes];
-    self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
 #endif
     self.title = @"动态";
     
@@ -107,13 +103,13 @@ static NSString * const EventCellIdentifier = @"EventCell";
         return;
     }
     
+    [_lastCell loading];
     if (_privateToken && [Tools isPageCacheExist:9]) {
         [self loadFromCache];
         return;
     }
     
     _isFirstRequest = YES;
-    [_lastCell loading];
     [self loadMore];
 }
 
@@ -280,7 +276,8 @@ static NSString * const EventCellIdentifier = @"EventCell";
     _isLoading = YES;
     [_lastCell loading];
     
-    [self loadEventsOnPage:events.count/20 + 1 refresh:NO];
+    // (events.count + 19) / 20 -- events.count / 20 向上取整
+    [self loadEventsOnPage:(events.count + 19) / 20 + 1 refresh:NO];
 }
 
 

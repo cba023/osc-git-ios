@@ -113,6 +113,7 @@ static NSString * const cellId = @"ProjectCell";
     }
     
     if ([Tools isPageCacheExist:_projectsType]) {
+        [_lastCell loading];
         [self loadFromCache];
         return;
     }
