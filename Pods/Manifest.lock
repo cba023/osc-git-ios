@@ -1,0 +1,15 @@
+PODS:
+  - SDWebImage (3.7.1):
+    - SDWebImage/Core
+  - SDWebImage/Core (3.7.1)
+  - Toast (2.3)
+
+DEPENDENCIES:
+  - SDWebImage (~> 3.6)
+  - Toast (~> 2.3)
+
+SPEC CHECKSUMS:
+  SDWebImage: 116e88633b5b416ea0ca4b334a4ac59cf72dd38d
+  Toast: 1d773017c5d2e7b1d90565a5f9530340e6eeff72
+
+COCOAPODS: 0.33.1

@@ -50,6 +50,11 @@ static NSString * const LastCellID = @"LastCell";
     }
 }
 
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+}
+
 - (void)viewDidUnload
 {
     _resultsTableController = nil;

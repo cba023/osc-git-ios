@@ -65,7 +65,8 @@
                                          NSFontAttributeName:[UIFont fontWithName:@"STHeitiSC-Medium" size:15]
                                          };
     NSMutableAttributedString *updateTime = [[NSMutableAttributedString alloc] initWithString:@"更新于 " attributes:grayTextAttributes];
-    [updateTime appendAttributedString:[Tools getIntervalAttrStr:_project.lastPushAt]];
+    NSString *lastPushTime = _project.lastPushAt ?: _project.createdAt;
+    [updateTime appendAttributedString:[Tools getIntervalAttrStr:lastPushTime]];
     [_timeInterval setAttributedText:updateTime];
     [self.contentView addSubview:_timeInterval];
 }
