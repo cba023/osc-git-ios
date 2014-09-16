@@ -158,24 +158,21 @@ static NSString * const kKeyPortrait = @"new_portrait";
             int64_t userID = [[self.user objectForKey:kKeyUserId] intValue];
             UserDetailsView *ownDetailsView = [[UserDetailsView alloc] initWithPrivateToken:privateToken userID:userID];
             navigationController = [[NavigationController alloc] initWithRootViewController:ownDetailsView];
-            self.frostedViewController.contentViewController = navigationController;
         }
     } else {
         if (indexPath.row == 1) {
             ProjectsViewController *projectViewController = [[ProjectsViewController alloc] init];
             navigationController = [[NavigationController alloc] initWithRootViewController:projectViewController];
-            self.frostedViewController.contentViewController = navigationController;
         } else if (indexPath.row == 2) {
             SearchView *searchView = [SearchView new];
             navigationController = [[NavigationController alloc] initWithRootViewController:searchView];
-            self.frostedViewController.contentViewController = navigationController;
         } else {
             LanguageSearchView *languageSearchView = [LanguageSearchView new];
             navigationController = [[NavigationController alloc] initWithRootViewController:languageSearchView];
-            self.frostedViewController.contentViewController = navigationController;
         }
     }
     
+    self.frostedViewController.contentViewController = navigationController;
     [self.frostedViewController hideMenuViewController];
 }
 

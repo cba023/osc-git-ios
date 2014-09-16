@@ -307,8 +307,8 @@ static NSString * const cellId = @"ProjectCell";
     return
     
     ^(id responseObject) {
-        if (responseObject == nil) {
-            [Tools toastNotification:@"网络错误" inView:self.view];
+        if ([responseObject count] == 0) {
+            [_lastCell finishedLoad];
         } else {
             if (refresh) {
                 [self.refreshControl endRefreshing];

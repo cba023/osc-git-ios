@@ -45,7 +45,7 @@
 
 - (void)setLayout
 {
-    _statusLabel = [[UILabel alloc] initWithFrame:self.contentView.bounds];
+    _statusLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 20, self.contentView.bounds.size.width, 20)];
     _statusLabel.textAlignment = NSTextAlignmentCenter;
     [self.contentView addSubview:_statusLabel];
     

@@ -296,8 +296,8 @@ static NSString * const EventCellIdentifier = @"EventCell";
     }
 
     GLGitlabSuccessBlock success = ^(id responseObject) {
-        if (responseObject == nil) {
-            NSLog(@"Request failed");
+        if ([responseObject count] == 0) {
+            [_lastCell finishedLoad];
         } else {
             if (refresh) {
                 [self.refreshControl endRefreshing];

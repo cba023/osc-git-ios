@@ -47,6 +47,8 @@ static NSString * const ProjectDetailsCellID = @"ProjectDetailsCell";
 {
     [super viewDidAppear:animated];
     
+    if (_project) {return;}
+    
     [self.view makeToastActivity];
     NSString *privateToken = [Tools getPrivateToken];
         

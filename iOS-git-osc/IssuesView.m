@@ -231,8 +231,8 @@ static NSString * const cellId = @"IssueCell";
     return
     
     ^(id responseObject) {
-        if (responseObject == nil) {
-            NSLog(@"Request failed");
+        if ([responseObject count] == 0) {
+            [_lastCell finishedLoad];
         } else {
             if (refresh) {
                 [self.refreshControl endRefreshing];
