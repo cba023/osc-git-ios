@@ -35,5 +35,21 @@ static NSString * const kKeyUpdatedAt = @"updated_at";
     return self;
 }
 
+- (NSDictionary *)jsonRepresentation
+{
+    NSNull *null = [NSNull null];
+    
+    return @{
+             kKeyLanguageID:    @(_languageID),
+             kKeyName:          _name ?: null,
+             kKeyIdent:         _ident ?: null,
+             kKeyOrder:         @(_order),
+             kKeyParentID:      @(_parentID),
+             kKeyProjectsCount: @(_projectsCount),
+             kKeyCreatedAt:     _createdAt ?: null,
+             kKeyUpdatedAt:     _updatedAt ?: null
+             };
+}
+
 
 @end

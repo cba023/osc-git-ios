@@ -11,6 +11,8 @@
 #import "Project.h"
 #import "NavigationController.h"
 #import "ProjectsTableController.h"
+#import "UIView+Toast.h"
+#import "Tools.h"
 
 @interface LanguageSearchView ()
 
@@ -55,24 +57,34 @@ static NSString * const LanguageCellID = @"LanguageCell";
 {
     [super viewDidAppear:animated];
     
+    if (_languages.count > 0) {
+        return;
+    }
+    
+    if ([Tools isPageCacheExist:10]) {
+        [self loadFromCache];
+        [self.view hideToastActivity];
+        return;
+    }
+    
+    [self.view makeToastActivity];
+    
     GLGitlabSuccessBlock success = ^(id responseObject) {
+        [self.view hideToastActivity];
         if (responseObject == nil) {
             NSLog(@"Request failed");
         } else {
             _languages = responseObject;
+            [Tools savePageCache:_languages type:10];
             dispatch_async(dispatch_get_main_queue(), ^{
                 [self.tableView reloadData];
             });
-
         }
     };
     
     GLGitlabFailureBlock failure = ^(NSError *error) {
-        if (error != nil) {
-            NSLog(@"%@, Request failed", error);
-        } else {
-            NSLog(@"error == nil");
-        }
+        [self.view hideToastActivity];
+        [Tools toastNotification:@"网络错误" inView:self.view];
     };
     
     [[GLGitlabApi sharedInstance] getLanguagesListSuccess:success failure:failure];
@@ -133,6 +145,19 @@ static NSString * const LanguageCellID = @"LanguageCell";
     
     [self.navigationController pushViewController:projectsTC animated:YES];
 }
+
+
+#pragma mark - 从缓存加载
+
+- (void)loadFromCache
+{
+    _languages = [Tools getPageCache:10];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.tableView reloadData];
+    });
+}
+
+
 
 
 @end
