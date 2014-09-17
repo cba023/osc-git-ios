@@ -15,6 +15,7 @@
 #import "GLGitlab.h"
 #import "UserDetailsView.h"
 #import "UIViewController+REFrostedViewController.h"
+#import "UIView+Toast.h"
 
 @interface LoginViewController ()
 
@@ -173,19 +174,14 @@
     NSTimeInterval animationDuration=0.30f;
     [UIView beginAnimations:@"ResizeForKeyboard" context:nil];
     [UIView setAnimationDuration:animationDuration];
-#if 1
-    float width = self.view.frame.size.width;
-    float height = self.view.frame.size.height;
-    //float originY = self.view.frame.origin.y - 40;
-    //上移30个单位，按实际情况设置
-    CGRect rect=CGRectMake(0.0f, -30, width, height);
+    
+    CGFloat width = self.view.frame.size.width;
+    CGFloat height = self.view.frame.size.height;
+    
+    CGFloat y = -50;
+    CGRect rect=CGRectMake(0.0f, y, width, height);
     self.view.frame=rect;
-#else
-    CGRect frame = self.view.frame;
-    frame.origin.y -= 40;
-    frame.size.height += 40;
-    self.view.frame = frame;
-#endif
+    
     [UIView commitAnimations];
     return YES;
 }
@@ -196,11 +192,18 @@
     [UIView beginAnimations:@"ResizeForKeyboard" context:nil];
     [UIView setAnimationDuration:animationDuration];
 #if 1
-    float width = self.view.frame.size.width;
-    float height = self.view.frame.size.height;
+    CGFloat width = self.view.frame.size.width;
+    CGFloat height = self.view.frame.size.height;
     //如果当前View是父视图，则Y为20个像素高度，如果当前View为其他View的子视图，则动态调节Y的高度
-    float Y = 20.0f;
-    CGRect rect=CGRectMake(0.0f,Y,width,height);
+    CGFloat y;
+    if([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0)
+    {
+        y = 64;
+    } else {
+        y = 0;
+    }
+
+    CGRect rect=CGRectMake(0.0f, y, width, height);
     self.view.frame=rect;
 #else
     CGRect frame = self.view.frame;
@@ -247,13 +250,22 @@
 {
     if (sender == self.accountTextField) {
         [self.passwordTextField becomeFirstResponder];
-    }else if (sender == self.passwordTextField){
+    }else if (sender == self.passwordTextField) {
+        [self hidenKeyboard];
         [self login];
     }
 }
 
 - (void)login {
+    if (![Tools isNetworkExist]) {
+        [Tools toastNotification:@"网络连接失败，请检查网络设置" inView:self.view];
+        return;
+    } else {
+        [self.view makeToastActivity];
+    }
+    
     GLGitlabSuccessBlock success = ^(id responseObject) {
+        [self.view hideToastActivity];
         GLUser *user = responseObject;
         if (responseObject == nil){
             [Tools toastNotification:@"网络错误" inView:self.view];
@@ -268,7 +280,8 @@
     
     GLGitlabFailureBlock failure = ^(NSError *error) {
         if (error != nil) {
-            [Tools toastNotification:[error description] inView:self.view];
+            [self.view hideToastActivity];
+            [Tools toastNotification:@"账号密码错误" inView:self.view];
         }
     };
     

@@ -278,7 +278,7 @@ static NSString * const cellId = @"ProjectCell";
         } else {
             [_lastCell empty];
         }
-        [Tools toastNotification:@"错误 无网络连接" inView:self.view];
+        [Tools toastNotification:@"网络连接失败，请检查网络设置" inView:self.view];
         return;
     }
     
