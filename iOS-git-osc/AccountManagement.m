@@ -76,6 +76,7 @@ static NSString * const kKeyFollow = @"follow";
     [self.view addSubview:_portrait];
     
     _name = [UILabel new];
+    _name.backgroundColor = [UIColor clearColor];
     [_name setText:[_userDefaults objectForKey:kKeyName]];
     [self.view addSubview:_name];
     
@@ -97,9 +98,8 @@ static NSString * const kKeyFollow = @"follow";
     [Tools roundView:_social cornerRadius:5.0];
     [self.view addSubview:_social];
     
-    _logoutButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    [Tools roundView:_logoutButton cornerRadius:5.0];
-    _logoutButton.tintColor = [UIColor whiteColor];
+    _logoutButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    //_logoutButton.tintColor = [UIColor whiteColor];
     _logoutButton.backgroundColor = [UIColor redColor];
     [Tools roundView:_logoutButton cornerRadius:5.0];
     [_logoutButton setTitle:@"注销登录" forState:UIControlStateNormal];
