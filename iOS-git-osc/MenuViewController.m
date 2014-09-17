@@ -55,7 +55,7 @@ static NSString * const kKeyPortrait = @"new_portrait";
             NSString *urlString = [git_osc_url stringByAppendingString:portrait];
             [self.imageView setImageWithURL:[NSURL URLWithString:urlString]];
         } else {
-            self.imageView.image = [UIImage imageNamed:@"avatar.jpg"];
+            self.imageView.image = [UIImage imageNamed:@"tx"];
         }
         
         self.imageView.layer.masksToBounds = YES;
@@ -97,7 +97,7 @@ static NSString * const kKeyPortrait = @"new_portrait";
         if (portrait) {
             [self.imageView sd_setImageWithURL:[NSURL URLWithString:portrait]];
         } else {
-            self.imageView.image = [UIImage imageNamed:@"avatar.jpg"];
+            self.imageView.image = [UIImage imageNamed:@"tx"];
         }
         
         self.imageView.layer.masksToBounds = YES;

@@ -173,17 +173,19 @@
     NSTimeInterval animationDuration=0.30f;
     [UIView beginAnimations:@"ResizeForKeyboard" context:nil];
     [UIView setAnimationDuration:animationDuration];
-#if 0
+#if 1
     float width = self.view.frame.size.width;
     float height = self.view.frame.size.height;
+    //float originY = self.view.frame.origin.y - 40;
     //上移30个单位，按实际情况设置
-    CGRect rect=CGRectMake(0.0f,-30,width,height);
+    CGRect rect=CGRectMake(0.0f, -30, width, height);
     self.view.frame=rect;
-#endif
+#else
     CGRect frame = self.view.frame;
     frame.origin.y -= 40;
     frame.size.height += 40;
     self.view.frame = frame;
+#endif
     [UIView commitAnimations];
     return YES;
 }
@@ -193,17 +195,18 @@
     NSTimeInterval animationDuration=0.30f;
     [UIView beginAnimations:@"ResizeForKeyboard" context:nil];
     [UIView setAnimationDuration:animationDuration];
-    CGRect frame = self.view.frame;
-    frame.origin.y += 40;
-    frame.size. height -= 40;
-    self.view.frame = frame;
-#if 0
+#if 1
     float width = self.view.frame.size.width;
     float height = self.view.frame.size.height;
     //如果当前View是父视图，则Y为20个像素高度，如果当前View为其他View的子视图，则动态调节Y的高度
     float Y = 20.0f;
     CGRect rect=CGRectMake(0.0f,Y,width,height);
     self.view.frame=rect;
+#else
+    CGRect frame = self.view.frame;
+    frame.origin.y += 40;
+    frame.size. height -= 40;
+    self.view.frame = frame;
 #endif
     [UIView commitAnimations];
 }

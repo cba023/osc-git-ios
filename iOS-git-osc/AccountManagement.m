@@ -70,7 +70,7 @@ static NSString * const kKeyFollow = @"follow";
     _portrait.contentMode = UIViewContentModeScaleAspectFit;
     NSString *portraitURL = [_userDefaults objectForKey:kKeyPortrait];
     [_portrait sd_setImageWithURL:[NSURL URLWithString:portraitURL]
-                 placeholderImage:[UIImage imageNamed:@"avatar"]];
+                 placeholderImage:[UIImage imageNamed:@"tx"]];
     
     [Tools roundView:_portrait cornerRadius:5.0];
     [self.view addSubview:_portrait];

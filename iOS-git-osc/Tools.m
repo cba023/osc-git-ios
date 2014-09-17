@@ -260,7 +260,7 @@
     NSString *portraitURL = [NSString stringWithString:user.portrait];
     
     [portraitView sd_setImageWithURL:[NSURL URLWithString:portraitURL]
-                    placeholderImage:[UIImage imageNamed:@"avatar"]];
+                    placeholderImage:[UIImage imageNamed:@"tx"]];
     
     [self roundView:portraitView cornerRadius:cornerRadius];
 }
