@@ -13,6 +13,7 @@
 #import "EventsView.h"
 #import "Event.h"
 #import "GLGitlab.h"
+#import "UserDetailsView.h"
 #import "UIViewController+REFrostedViewController.h"
 
 @interface LoginViewController ()
@@ -256,8 +257,8 @@
         } else {
             [User saveUserInformation:user];
             
-            EventsView *eventsView = [[EventsView alloc] initWithPrivateToken:user.private_token];
-            NavigationController *navigationController = [[NavigationController alloc] initWithRootViewController:eventsView];
+            UserDetailsView *ownDetailsView = [[UserDetailsView alloc] initWithPrivateToken:user.private_token userID:user.userId];
+            NavigationController *navigationController = [[NavigationController alloc] initWithRootViewController:ownDetailsView];
             self.frostedViewController.contentViewController = navigationController;
         }
     };

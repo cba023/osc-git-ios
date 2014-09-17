@@ -56,6 +56,7 @@
     [self.contentView addSubview:_eventAbstract];
     
     _time = [UILabel new];
+    _time.backgroundColor = [Tools uniformColor];
     [self.contentView addSubview:_time];
 }
 

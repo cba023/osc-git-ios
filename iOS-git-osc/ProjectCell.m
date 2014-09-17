@@ -43,32 +43,35 @@
     [self.contentView addSubview:_portrait];
     
     _projectNameField = [UILabel new];
-    _projectNameField.textAlignment = NSTextAlignmentLeft;
+    _projectNameField.backgroundColor = [Tools uniformColor];
     _projectNameField.font = [UIFont boldSystemFontOfSize:14];
     _projectNameField.textColor = UIColorFromRGB(0x294fa1);
     [self.contentView addSubview:_projectNameField];
     
     _projectDescriptionField = [UILabel new];
+    _projectDescriptionField.backgroundColor = [Tools uniformColor];
     _projectDescriptionField.lineBreakMode = NSLineBreakByWordWrapping | NSLineBreakByTruncatingTail;
     _projectDescriptionField.numberOfLines = 4;
-    _projectDescriptionField.textAlignment = NSTextAlignmentLeft;
     _projectDescriptionField.font = [UIFont systemFontOfSize:14];
     _projectDescriptionField.textColor = UIColorFromRGB(0x515151);
     [self.contentView addSubview:_projectDescriptionField];
     
     _languageField = [UILabel new];
+    _languageField.backgroundColor = [Tools uniformColor];
     _languageField.textAlignment = NSTextAlignmentLeft;
     _languageField.font = [UIFont systemFontOfSize:12];
     _languageField.textColor = UIColorFromRGB(0xb6b6b6);
     [self.contentView addSubview:_languageField];
     
     _forksCount = [UILabel new];
+    _forksCount.backgroundColor = [Tools uniformColor];
     _forksCount.textAlignment = NSTextAlignmentLeft;
     _forksCount.font = [UIFont boldSystemFontOfSize:12];
     _forksCount.textColor = UIColorFromRGB(0xb6b6b6);
     [self.contentView addSubview:_forksCount];
     
     _starsCount = [UILabel new];
+    _starsCount.backgroundColor = [Tools uniformColor];
     _starsCount.textAlignment = NSTextAlignmentLeft;
     _starsCount.font = [UIFont boldSystemFontOfSize:12];
     _starsCount.textColor = UIColorFromRGB(0xb6b6b6);
