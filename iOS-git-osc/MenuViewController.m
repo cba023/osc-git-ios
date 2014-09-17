@@ -194,7 +194,7 @@ static NSString * const kKeyPortrait = @"new_portrait";
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *cellIdentifier = @"Cell";
-    NSArray *titles, *images;
+    NSArray *titles;        //, *images;
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     
@@ -203,8 +203,8 @@ static NSString * const kKeyPortrait = @"new_portrait";
     }
     
     titles = @[@"我的", @"发现", @"搜索", @"语言"];
-    images = @[@"MenuProfile", @"MenuProfile", @"MenuOrgRepos", @"MenuOrgRepos", @"MenuOrgRepos", @"MenuOrgRepos"];
-    cell.imageView.image = [UIImage imageNamed:images[indexPath.row]];
+    //images = @[@"MenuProfile", @"MenuProfile", @"MenuOrgRepos", @"MenuOrgRepos", @"MenuOrgRepos", @"MenuOrgRepos"];
+    //cell.imageView.image = [UIImage imageNamed:images[indexPath.row]];
     cell.textLabel.text = titles[indexPath.row];
     
     return cell;

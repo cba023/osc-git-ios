@@ -7,6 +7,7 @@
 //
 
 #import "LastCell.h"
+#import "Tools.h"
 
 @implementation LastCell
 
@@ -46,6 +47,7 @@
 - (void)setLayout
 {
     _statusLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 20, self.contentView.bounds.size.width, 20)];
+    _statusLabel.backgroundColor = [Tools uniformColor];
     _statusLabel.textAlignment = NSTextAlignmentCenter;
     [self.contentView addSubview:_statusLabel];
     
