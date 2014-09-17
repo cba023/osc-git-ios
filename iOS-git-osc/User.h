@@ -11,7 +11,6 @@
 
 @interface User : NSObject
 
-+ (void)loginWithAccount:(NSString *)account andPassword:(NSString *)password;
 + (void)saveUserName:(NSString *)username andPassword:(NSString *)password;
 + (void)saveUserInformation:(GLUser *)user;
 

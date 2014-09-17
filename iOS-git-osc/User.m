@@ -31,31 +31,6 @@ static NSString * const kKeyFollow = @"follow";
 
 @implementation User
 
-+ (void)loginWithAccount:(NSString *)account andPassword:(NSString *)password {
-    __block BOOL done = NO;
-    GLGitlabSuccessBlock success = ^(id responseObject) {
-        GLUser *user = responseObject;
-        if (responseObject == nil){
-            NSLog(@"Request failed");
-        } else {
-            [User saveUserInformation:user];
-        }
-        done = YES;
-    };
-    
-    GLGitlabFailureBlock failure = ^(NSError *error) {
-        if (error != nil) {
-            NSLog(@"%@, Request failed", error);
-        }
-        done = YES;
-    };
-    GLNetworkOperation *op = [[GLGitlabApi sharedInstance] loginWithEmail:account Password:password Success:success Failure:failure];
-    //[[GLGitlabApi sharedInstance] privateToken];
-    while (!done) {
-        [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate distantFuture]];
-    }
-}
-
 + (void)saveUserInformation:(GLUser *)user {
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     [userDefaults setFloat:user.userId forKey:kKeyUserId];
