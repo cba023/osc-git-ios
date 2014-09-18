@@ -11,7 +11,7 @@
 #import "Tools.h"
 
 enum action {
-    CREATED = 1, UPDATED, CLOSED, REOPENED, PUSHED, COMMENTED, MERGED, JOINED, LEFT, FORKED
+    CREATED = 1, UPDATED, CLOSED, REOPENED, PUSHED, COMMENTED, MERGED, JOINED, LEFT, FORKED = 11
 };
 
 @implementation Event
@@ -97,15 +97,11 @@ enum action {
             [action appendAttributedString:project];
             break;
         default:
+            action = [action initWithString:@" 更新了动态" attributes:actionAttributes];
             break;
     }
     
-    if (event.action > 0 && event.action <= 10) {
-        [eventDescription appendAttributedString:action];
-    } else {
-        [eventDescription appendAttributedString:[[NSAttributedString alloc] initWithString:@"更新了动态"
-                                                                                 attributes:actionAttributes]];
-    }
+    [eventDescription appendAttributedString:action];
     
     return eventDescription;
 }
