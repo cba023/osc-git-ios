@@ -179,10 +179,11 @@
     CGFloat height = self.view.frame.size.height;
     
     CGFloat y = -50;
-    CGRect rect=CGRectMake(0.0f, y, width, height);
-    self.view.frame=rect;
+    CGRect rect = CGRectMake(0.0f, y, width, height);
+    self.view.frame = rect;
     
     [UIView commitAnimations];
+    
     return YES;
 }
 
@@ -279,8 +280,8 @@
     };
     
     GLGitlabFailureBlock failure = ^(NSError *error) {
+        [self.view hideToastActivity];
         if (error != nil) {
-            [self.view hideToastActivity];
             [Tools toastNotification:@"账号密码错误" inView:self.view];
         }
     };

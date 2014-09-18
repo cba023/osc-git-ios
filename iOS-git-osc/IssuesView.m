@@ -70,6 +70,8 @@ static NSString * const cellId = @"IssueCell";
 {
     [super viewDidAppear:animated];
     
+    if (issues.count > 0) {return;}
+    
     [_lastCell loading];
     [self loadIssuesOnPage:1 refresh:NO];
 }

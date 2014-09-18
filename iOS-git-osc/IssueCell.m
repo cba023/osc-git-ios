@@ -45,12 +45,14 @@
     [self.contentView addSubview:_portrait];
 
     _title  = [UILabel new];
+    _title.backgroundColor = [Tools uniformColor];
     _title.numberOfLines = 0;
     _title.lineBreakMode = NSLineBreakByWordWrapping;
     [_title setFont:[UIFont systemFontOfSize:16]];
     [self.contentView addSubview:_title];
     
     _issueInfo = [UILabel new];
+    _issueInfo.backgroundColor = [Tools uniformColor];
     [_issueInfo setFont:[UIFont systemFontOfSize:10]];
     [self.contentView addSubview:_issueInfo];
 }

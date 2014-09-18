@@ -12,6 +12,7 @@
 #import "Tools.h"
 #import "GLGitlab.h"
 #import "Issue.h"
+#import "UIView+Toast.h"
 
 @interface IssueCreation ()
 
@@ -24,6 +25,7 @@
     [super viewDidLoad];
     self.navigationController.navigationBar.translucent = NO;
     self.title = @"创建Issue";
+    self.view.backgroundColor = [Tools uniformColor];
     
     //[self getMembersAndMilestones];
     [self initSubviews];
@@ -36,35 +38,22 @@
     // Dispose of any resources that can be recreated.
 }
 
+#if 0
 - (void)getMembersAndMilestones
 {
     _members = [Project getTeamMembersForProjectId:_projectId];
     _milestones = [Issue getMilestonesForProjectId:_projectId page:1];
 }
+#endif
 
 - (void)initSubviews
 {
-#if 0
-    _consignorLabel = [UILabel new];
-    _consignorLabel.text = @"指派人";
-    [self.view addSubview:_consignorLabel];
-    
-    _mileStoneLabel = [UILabel new];
-    _mileStoneLabel.text = @"里程碑";
-    [self.view addSubview:_mileStoneLabel];
-    
-    _consignor = [UIPickerView new];
-    [self.view addSubview:_consignor];
-    
-    _milestone = [UIPickerView new];
-    [self.view addSubview:_milestone];
-#endif
-    
     _titleLabel = [UILabel new];
     _titleLabel.text = @"标题";
     [self.view addSubview:_titleLabel];
     
     _issueTitle = [UITextField new];
+    _issueTitle.backgroundColor = [UIColor whiteColor];
     _issueTitle.layer.borderWidth = 0.8;
     _issueTitle.layer.cornerRadius = 3.0;
     _issueTitle.returnKeyType = UIReturnKeyNext;
@@ -78,6 +67,7 @@
     [self.view addSubview:_descriptionLabel];
     
     _description = [UITextView new];
+    _description.backgroundColor = [UIColor whiteColor];
     _description.layer.borderWidth = 0.8;
     _description.layer.cornerRadius = 3.0;
     _description.layer.borderColor = [[UIColor grayColor] CGColor];
@@ -93,11 +83,11 @@
     gesture.numberOfTapsRequired = 1;
     [self.view addGestureRecognizer:gesture];
     
-    _submit = [UIButton new];
+    _submit = [UIButton buttonWithType:UIButtonTypeCustom];
     [Tools roundView:_submit cornerRadius:5.0];
-    _submit.tintColor = [UIColor whiteColor];
     _submit.backgroundColor = [UIColor redColor];
-    [Tools roundView:_submit cornerRadius:5.0];
+    _submit.alpha = 0.4;
+    _submit.enabled = NO;
     [_submit setTitle:@"创建Issue" forState:UIControlStateNormal];
     [_submit addTarget:self action:@selector(submitIssue) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:_submit];
@@ -109,18 +99,7 @@
         view.translatesAutoresizingMaskIntoConstraints = NO;
     }
     
-#if 0
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-8-[_titleLabel]-[_issueTitle(15)]-8-[_consignorLabel]-[_consignor(30)]-8-[_mileStoneLabel]-[_milestone(30)]-8-[_descriptionLabel]-[_description(40)]-20-[_submit(40)]"
-                                                                      options:NSLayoutFormatAlignAllLeft | NSLayoutFormatAlignAllRight
-                                                                      metrics:nil
-                                                                        views:NSDictionaryOfVariableBindings(_titleLabel, _issueTitle,
-                                                                                                             _consignorLabel, _consignor,
-                                                                                                             _mileStoneLabel, _milestone,
-                                                                                                             _descriptionLabel, _description,
-                                                                                                             _submit)]];
-#endif
-    
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-20-[_titleLabel]-[_issueTitle(40)]-20-[_descriptionLabel]-[_description(150)]-30-[_submit]"
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-20-[_titleLabel]-[_issueTitle(40)]-20-[_descriptionLabel]-[_description(150)]-30-[_submit(30)]"
                                                                      options:NSLayoutFormatAlignAllLeft | NSLayoutFormatAlignAllRight
                                                                      metrics:nil
                                                                        views:NSDictionaryOfVariableBindings(_titleLabel, _issueTitle,
@@ -139,68 +118,65 @@
     issue.projectId = _projectId;
     issue.title = _issueTitle.text;
     issue.issueDescription = _description.text;
-    [Issue createIssue:issue];
+    [self createIssue:issue];
 }
 
-#if 0
-#pragma mark - UIPickerView things
-
-- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component
+- (void)createIssue:(GLIssue *)issue
 {
-    if (pickerView == _consignor) {
-        return [_members count];
-    } else {
-        return [_milestones count];
+    if (![Tools isNetworkExist]) {
+         [Tools toastNotification:@"网络连接失败，请检查网络设置" inView:self.view];
+        return;
     }
+    
+    [self.view makeToastActivity];
+    NSString *privateToken = [Tools getPrivateToken];
+    
+    GLGitlabSuccessBlock success = ^(id responseObject) {
+        if (responseObject == nil) {
+            [Tools toastNotification:@"网络错误" inView:self.view];
+        } else {
+            [self.view hideToastActivity];
+            [Tools toastNotification:@"Issue 创建成功" inView:self.view];
+        }
+    };
+    
+    GLGitlabFailureBlock failure = ^(NSError *error) {
+        [self.view hideToastActivity];
+        if (error != nil) {
+            [Tools toastNotification:[error description] inView:self.view];
+        }
+    };
+    
+    [[GLGitlabApi sharedInstance] createIssue:issue
+                                 privateToken:privateToken
+                             withSuccessBlock:success
+                              andFailureBlock:failure];
 }
-
-- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView
-{
-    return 1;
-}
-
-- (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
-{
-    if (pickerView == _consignor) {
-        GLUser *user = [_members objectAtIndex:row];
-        return user.name;
-    } else {
-        GLMilestone *milestone = [_milestones objectAtIndex:row];
-        return milestone.title;
-    }
-}
-
-- (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
-{
-
-}
-#endif
 
 #pragma mark - 键盘操作
 
-#if 0
-- (void)shouldBeginEditing
+- (BOOL)textViewShouldBeginEditing:(UITextView *)textView
 {
     NSTimeInterval animationDuration=0.30f;
     [UIView beginAnimations:@"ResizeForKeyboard" context:nil];
     [UIView setAnimationDuration:animationDuration];
-    float width = self.view.frame.size.width;
-    float height = self.view.frame.size.height;
-    //上移30个单位，按实际情况设置
-    CGRect rect=CGRectMake(0.0f,-30,width,height);
-    self.view.frame=rect;
+    
+    CGFloat width = self.view.frame.size.width;
+    CGFloat height = self.view.frame.size.height;
+    
+    CGFloat y;
+    if([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0)
+    {
+        y = -40;
+    } else {
+        y = -95;
+    }
+    
+    CGRect rect = CGRectMake(0.0f, y, width, height);
+    self.view.frame = rect;
+    
     [UIView commitAnimations];
-}
-
-- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
-{
-    [self shouldBeginEditing];
-    return YES;
-}
-
-- (BOOL)textViewShouldBeginEditing:(UITextView *)textView
-{
-    [self shouldBeginEditing];
+    
     return YES;
 }
 
@@ -209,21 +185,30 @@
     NSTimeInterval animationDuration=0.30f;
     [UIView beginAnimations:@"ResizeForKeyboard" context:nil];
     [UIView setAnimationDuration:animationDuration];
-    float width = self.view.frame.size.width;
-    float height = self.view.frame.size.height;
-    //如果当前View是父视图，则Y为20个像素高度，如果当前View为其他View的子视图，则动态调节Y的高度
-    float Y = 20.0f;
-    CGRect rect=CGRectMake(0.0f,Y,width,height);
+    
+    CGFloat width = self.view.frame.size.width;
+    CGFloat height = self.view.frame.size.height;
+    
+    CGFloat y;
+    if([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0)
+    {
+        y = 64;
+    } else {
+        y = 0;
+    }
+    
+    CGRect rect=CGRectMake(0.0f, y, width, height);
     self.view.frame=rect;
+
     [UIView commitAnimations];
 }
-#endif
 
 - (void)hidenKeyboard
 {
     [self.issueTitle resignFirstResponder];
     [self.description resignFirstResponder];
-    //[self resumeView];
+    
+    [self resumeView];
 }
 
 //点击键盘上的Return按钮响应的方法
@@ -235,8 +220,26 @@
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
     if ([text isEqualToString: @"\n"]) {
         [self hidenKeyboard];
+        [self submitIssue];
         return NO;
     }
+    
+    return YES;
+}
+
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
+{
+    NSMutableString *newStr = [textField.text mutableCopy];
+    [newStr replaceCharactersInRange:range withString:string];
+    
+    if (newStr.length) {
+        _submit.alpha = 1;
+        _submit.enabled = YES;
+    } else {
+        _submit.alpha = 0.4;
+        _submit.enabled = NO;
+    }
+    
     return YES;
 }
 

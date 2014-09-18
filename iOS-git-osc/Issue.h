@@ -14,9 +14,5 @@
 
 + (NSAttributedString *)generateIssueInfo:(GLIssue *)issue;
 
-+ (NSArray *)getMilestonesForProjectId:(int64_t)projectId page:(int)page;
-
-+ (void)createIssue:(GLIssue *)issue;
-
 
 @end

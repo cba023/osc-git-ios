@@ -48,7 +48,7 @@
     _body = [UITextView new];
     _body.backgroundColor = [UIColor clearColor];
     _body.editable = NO;
-    _body.selectable = NO;
+    //_body.selectable = NO;
     _body.scrollEnabled = NO;
     [self.contentView addSubview:_body];
     

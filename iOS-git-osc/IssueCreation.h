@@ -12,16 +12,16 @@
 
 @property int64_t projectId;
 @property NSArray *members;
-@property NSArray *milestones;
+//@property NSArray *milestones;
 
 @property UILabel *titleLabel;
-@property UILabel *consignorLabel;
-@property UILabel *mileStoneLabel;
+//@property UILabel *consignorLabel;
+//@property UILabel *mileStoneLabel;
 @property UILabel *descriptionLabel;
 
 @property UITextField *issueTitle;
-@property UIPickerView *consignor;
-@property UIPickerView *milestone;
+//@property UIPickerView *consignor;
+//@property UIPickerView *milestone;
 @property UITextView *description;
 
 @property UIButton *submit;
