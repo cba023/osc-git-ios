@@ -112,7 +112,7 @@ static NSString * const cellId = @"ProjectCell";
         return;
     }
     
-    if ([Tools isPageCacheExist:_projectsType]) {
+    if ([self needCache] && [Tools isPageCacheExist:_projectsType]) {
         [_lastCell loading];
         [self loadFromCache];
         return;
@@ -328,7 +328,7 @@ static NSString * const cellId = @"ProjectCell";
             }
             [projects addObjectsFromArray:newProjects];
             
-            if (refresh || _isFirstRequest) {
+            if ((refresh || _isFirstRequest) && [self needCache]) {
                 [Tools savePageCache:responseObject type:_projectsType];
                 _isFirstRequest = NO;
             }
@@ -359,6 +359,19 @@ static NSString * const cellId = @"ProjectCell";
         
         _isLoading = NO;
     };
+}
+
+
+- (BOOL)needCache
+{
+    if (_projectsType <= 3) {return YES;}
+    
+    NSUserDefaults *user = [NSUserDefaults standardUserDefaults];
+    int64_t userID = [[user objectForKey:@"id"] longLongValue];
+    
+    if (_projectsType <= 5 && _userID == userID) {return YES;}
+    
+    return NO;
 }
 
 
