@@ -13,6 +13,7 @@
 @property int64_t projectID;
 @property NSString *projectName;
 @property NSString *ownerName;
+@property NSString *privateToken;
 
 @property NSMutableArray *filesArray;
 @property (strong, nonatomic) NSString *currentPath;

@@ -15,6 +15,7 @@
 #import "File.h"
 #import "ImageView.h"
 #import "Tools.h"
+#import "UIView+Toast.h"
 
 @interface FilesTableController ()
 
@@ -49,17 +50,17 @@ static NSString * const cellId = @"FileCell";
 {
     [super viewDidLoad];
     
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"back"]
-                                                                             style:UIBarButtonItemStylePlain
-                                                                            target:self
-                                                                            action:@selector(popBack)];
-    self.title = @"项目文件";
+    UIBarButtonItem *backItem = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStyleBordered target:nil action:nil];
+    [self.navigationItem setBackBarButtonItem:backItem];
+    
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     [self.tableView registerClass:[FileCell class] forCellReuseIdentifier:cellId];
     self.tableView.backgroundColor = [Tools uniformColor];
     UIView *footer =[[UIView alloc] initWithFrame:CGRectZero];
     self.tableView.tableFooterView = footer;
+    
+    _filesArray = [NSMutableArray new];
     
 #if 0
     self.refreshControl = [[UIRefreshControl alloc] init];
@@ -72,17 +73,45 @@ static NSString * const cellId = @"FileCell";
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
+    
+    if (_filesArray.count > 0) {return;}
+    
+    if (![Tools isNetworkExist]) {
+        [Tools toastNotification:@"网络连接失败，请检查网络设置" inView:self.view];
+        return;
+    }
+    
+    [self.view makeToastActivity];
+    
+    GLGitlabSuccessBlock success = ^(id responseObject) {
+        [self.view hideToastActivity];
+        if (responseObject == nil){
+            [Tools toastNotification:@"请求失败，请稍后再试" inView:self.view];
+        } else {
+            [_filesArray addObjectsFromArray:responseObject];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.tableView reloadData];
+            });
+        }
+    };
+    
+    GLGitlabFailureBlock failure = ^(NSError *error) {
+        [self.view hideToastActivity];
+        [Tools toastNotification:[error description] inView:self.view];
+    };
+    
+    [[GLGitlabApi sharedInstance] getRepositoryTreeForProjectId:_projectID
+                                                   privateToken:_privateToken
+                                                           path:_currentPath
+                                                     branchName:@"master"
+                                                   successBlock:success
+                                                   failureBlock:failure];
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
-}
-
-- (void)popBack
-{
-    [self.navigationController popViewControllerAnimated:YES];
 }
 
 #pragma mark - Table view data source
@@ -125,11 +154,9 @@ static NSString * const cellId = @"FileCell";
         FilesTableController *innerFilesTable = [[FilesTableController alloc] initWithProjectID:_projectID
                                                                                     projectName:_projectName
                                                                                       ownerName:_ownerName];
+        innerFilesTable.title = file.name;
         innerFilesTable.currentPath = [NSString stringWithFormat:@"%@%@/", self.currentPath, file.name];
-        innerFilesTable.filesArray = [[NSMutableArray alloc] initWithCapacity:20];
-        [innerFilesTable.filesArray addObjectsFromArray:[Project getProjectTreeWithID:innerFilesTable.projectID
-                                                                               Branch:@"master"
-                                                                                 Path:innerFilesTable.currentPath]];
+        innerFilesTable.privateToken = self.privateToken;
         
         [self.navigationController pushViewController:innerFilesTable animated:YES];
     } else {

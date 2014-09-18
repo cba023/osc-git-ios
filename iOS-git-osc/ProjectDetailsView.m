@@ -231,10 +231,10 @@ static NSString * const ProjectDetailsCellID = @"ProjectDetailsCell";
                 FilesTableController *filesTable = [[FilesTableController alloc] initWithProjectID:_project.projectId
                                                                                        projectName:_project.name
                                                                                          ownerName:_project.owner.username];
+                filesTable.title = _project.name;
                 filesTable.currentPath = @"";
-                filesTable.filesArray = [[NSMutableArray alloc] initWithArray:[Project getProjectTreeWithID:_project.projectId
-                                                                                                     Branch:nil
-                                                                                                       Path:nil]];
+                filesTable.privateToken = [Tools getPrivateToken];
+                
                 [self.navigationController pushViewController:filesTable animated:YES];
                 break;
             }
