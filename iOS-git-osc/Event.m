@@ -29,9 +29,8 @@ enum action {
     NSMutableAttributedString *eventDescription = [[NSMutableAttributedString alloc] initWithString:event.author.name
                                                                                          attributes:authorStrAttributes];
     
-    UIFont *actionFont = [UIFont fontWithName:@"STHeitiSC-Medium" size:15];
     UIColor *actionFontColor = [UIColor colorWithRed:153/255.0 green:153/255.0 blue:153/255.0 alpha:1];
-    NSDictionary *actionAttributes = @{NSFontAttributeName: actionFont,
+    NSDictionary *actionAttributes = @{NSFontAttributeName: [UIFont systemFontOfSize:15],
                                        NSForegroundColorAttributeName: actionFontColor};
     
     UIFont *projectFont = [UIFont systemFontOfSize:15];
@@ -93,7 +92,7 @@ enum action {
             [action appendAttributedString:project];
             break;
         case FORKED:
-            action = [action initWithString:@" FORK了项目 " attributes:actionAttributes];
+            action = [action initWithString:@" Fork了项目 " attributes:actionAttributes];
             [action appendAttributedString:project];
             break;
         default:

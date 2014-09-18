@@ -184,12 +184,16 @@ static NSString * const kKeyFollow = @"follow";
                 [label setText:[NSString stringWithFormat:@"加入时间 : %@", creatTime]];
                 break;
             }
-            case 1:
-                [label setText:[NSString stringWithFormat:@"微博 : %@", [_userDefaults objectForKey:kKeyWeibo]]];
+            case 1: {
+                NSString *weibo = [_userDefaults objectForKey:kKeyWeibo]?: @"";
+                [label setText:[NSString stringWithFormat:@"微博 : %@", weibo]];
                 break;
-            case 2:
-                 [label setText:[NSString stringWithFormat:@"博客 : %@", [_userDefaults objectForKey:kKeyBlog]]];
+            }
+            case 2: {
+                NSString *blog = [_userDefaults objectForKey:kKeyBlog]?: @"";
+                [label setText:[NSString stringWithFormat:@"博客 : %@", blog]];
                 break;
+            }
             default:
                 break;
         }
