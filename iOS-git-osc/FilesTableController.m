@@ -69,6 +69,11 @@ static NSString * const cellId = @"FileCell";
 #endif
 }
 
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+}
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];

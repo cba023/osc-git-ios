@@ -49,10 +49,14 @@
 {
     [super viewDidLoad];
     
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"three_lines"]
-                                                                             style:UIBarButtonItemStylePlain
-                                                                            target:(NavigationController *)self.navigationController
-                                                                            action:@selector(showMenu)];
+    NSUInteger controllersInStack = self.navigationController.viewControllers.count;
+    if (controllersInStack < 2) {
+        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"three_lines"]
+                                                                                 style:UIBarButtonItemStylePlain
+                                                                                target:(NavigationController *)self.navigationController
+                                                                                action:@selector(showMenu)];
+    }
+    
     self.navigationController.navigationBar.translucent = NO;
     
     _segmentTitle = [[UISegmentedControl alloc] initWithItems:@[@"动态", @"项目", @"Star", @"Watch"]];

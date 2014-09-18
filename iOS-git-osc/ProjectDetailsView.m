@@ -213,6 +213,9 @@ static NSString * const ProjectDetailsCellID = @"ProjectDetailsCell";
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     NSUInteger section = indexPath.section, row = indexPath.row;
+    
+    UIBarButtonItem *backItem = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStyleBordered target:nil action:nil];
+    [self.navigationItem setBackBarButtonItem:backItem];
 
     if (section == 0 && row == 3) {
         UserDetailsView *userDetails = [[UserDetailsView alloc] initWithPrivateToken:nil userID:_project.owner.userId];
