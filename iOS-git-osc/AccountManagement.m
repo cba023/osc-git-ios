@@ -233,6 +233,14 @@ static NSString * const kKeyFollow = @"follow";
     [userDefaults removeObjectForKey:kKeyCanCreateTeam];
     [userDefaults removeObjectForKey:kKeyFollow];
     
+    // 删除用户动态及项目的缓存
+    NSUserDefaults *cache = [NSUserDefaults standardUserDefaults];
+    for (int i = 3; i < 6; i++) {
+        NSString *key = [NSString stringWithFormat:@"type-%d", i];
+        [cache removeObjectForKey:key];
+    }
+    [cache removeObjectForKey:@"type-9"];
+    
     //[self.navigationController popToRootViewControllerAnimated:YES];
     ProjectsViewController *projectViewController = [[ProjectsViewController alloc] init];
     NavigationController *navigationController = [[NavigationController alloc] initWithRootViewController:projectViewController];

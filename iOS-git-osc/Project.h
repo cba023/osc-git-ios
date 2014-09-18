@@ -12,8 +12,6 @@
 
 @interface Project : NSObject
 
-+ (NSString *)getFileContent:(int64_t)projectID Path:(NSString *)path Branch:(NSString *)branch;
-
 + (NSString *)loadReadme:(int64_t)projectID;
 
 

@@ -34,11 +34,11 @@
         done = YES;
     };
     
-    GLNetworkOperation *op = [[GLGitlabApi sharedInstance] getAllNotesForIssue:issue
-                                                                  privateToken:privateToken
-                                                                          page:page
-                                                              withSuccessBlock:success
-                                                               andFailureBlock:failure];
+    [[GLGitlabApi sharedInstance] getAllNotesForIssue:issue
+                                         privateToken:privateToken
+                                                 page:page
+                                     withSuccessBlock:success
+                                      andFailureBlock:failure];
     
     while (!done) {
         [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate distantFuture]];
@@ -67,10 +67,10 @@
         done = YES;
     };
     
-    GLNetworkOperation *op = [[GLGitlabApi sharedInstance] createNoteForIssue:issue
-                                                                     withBody:body
-                                                                 successBlock:success
-                                                              andFailureBlock:failure];
+    [[GLGitlabApi sharedInstance] createNoteForIssue:issue
+                                            withBody:body
+                                        successBlock:success
+                                     andFailureBlock:failure];
     
     while (!done) {
         [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate distantFuture]];

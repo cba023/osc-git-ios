@@ -64,10 +64,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"back"]
-                                                                             style:UIBarButtonItemStylePlain
-                                                                            target:self
-                                                                            action:@selector(popBack)];
+    
     self.title = self.fileName;
     
     self.webView = [[UIWebView alloc] initWithFrame:self.view.bounds];
