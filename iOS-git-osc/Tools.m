@@ -224,7 +224,7 @@
 + (NSAttributedString *)getIntervalAttrStr:(NSString *)dateStr
 {
     NSAttributedString *intervalAttrStr = [self grayString:[self intervalSinceNow:dateStr]
-                                                  fontName:nigl
+                                                  fontName:nil
                                                   fontSize:15];
     
     return intervalAttrStr;

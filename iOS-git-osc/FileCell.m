@@ -7,6 +7,7 @@
 //
 
 #import "FileCell.h"
+#import "Tools.h"
 
 @implementation FileCell
 
@@ -43,6 +44,7 @@
     [self.contentView addSubview:_fileType];
     
     _fileName = [UILabel new];
+    _fileName.backgroundColor = [Tools uniformColor];
     _fileName.translatesAutoresizingMaskIntoConstraints = NO;
     [self.contentView addSubview:_fileName];
     
