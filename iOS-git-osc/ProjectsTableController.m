@@ -317,16 +317,14 @@ static NSString * const cellId = @"ProjectCell";
             
             _isFinishedLoad = [(NSArray *)responseObject count] < _pageSize;
             
-            NSMutableArray *newProjects = [NSMutableArray new];
             for (GLProject *newProject in responseObject) {
                 for (GLProject *project in projects) {
                     if (newProject.projectId == project.projectId) {
                         break;
                     }
                 }
-                [newProjects addObject:newProject];
+                [projects addObject:newProject];
             }
-            [projects addObjectsFromArray:newProjects];
             
             if ((refresh || _isFirstRequest) && [self needCache]) {
                 [Tools savePageCache:responseObject type:_projectsType];

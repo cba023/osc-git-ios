@@ -221,5 +221,9 @@
                                success:(GLGitlabSuccessBlock)successBlock
                                failure:(GLGitlabFailureBlock)failureBlock;
 
+- (GLNetworkOperation *)fetchARandomProjectWithPrivateToken:(NSString *)privateToken
+                                                    success:(GLGitlabSuccessBlock)successBlock
+                                                    failure:(GLGitlabFailureBlock)failureBlock;
+
 
 @end

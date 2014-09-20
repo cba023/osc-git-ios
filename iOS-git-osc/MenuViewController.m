@@ -23,6 +23,7 @@
 #import "LanguageSearchView.h"
 #import "UIImageView+WebCache.h"
 #import "UserDetailsView.h"
+#import "ShakingView.h"
 
 @interface MenuViewController ()
 
@@ -166,9 +167,12 @@ static NSString * const kKeyPortrait = @"new_portrait";
         } else if (indexPath.row == 2) {
             SearchView *searchView = [SearchView new];
             navigationController = [[NavigationController alloc] initWithRootViewController:searchView];
-        } else {
+        } else if (indexPath.row == 3) {
             LanguageSearchView *languageSearchView = [LanguageSearchView new];
             navigationController = [[NavigationController alloc] initWithRootViewController:languageSearchView];
+        } else {
+            ShakingView *shakingView = [ShakingView new];
+            navigationController = [[NavigationController alloc] initWithRootViewController:shakingView];
         }
     }
     
@@ -188,7 +192,7 @@ static NSString * const kKeyPortrait = @"new_portrait";
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)sectionIndex
 {
-    return 4;
+    return 5;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -202,7 +206,7 @@ static NSString * const kKeyPortrait = @"new_portrait";
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
     }
     
-    titles = @[@"我的", @"发现", @"搜索", @"语言"];
+    titles = @[@"我的", @"发现", @"搜索", @"语言", @"摇一摇"];
     //images = @[@"MenuProfile", @"MenuProfile", @"MenuOrgRepos", @"MenuOrgRepos", @"MenuOrgRepos", @"MenuOrgRepos"];
     //cell.imageView.image = [UIImage imageNamed:images[indexPath.row]];
     cell.textLabel.text = titles[indexPath.row];

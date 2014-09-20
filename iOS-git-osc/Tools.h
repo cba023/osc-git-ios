@@ -18,7 +18,6 @@
 
 + (NSString *)md5:(NSString *)input;
 + (UIImage *)loadImage:(NSString *)imageURL;
-+ (NSString *)decodeBase64String:(NSString *)originalHTML;
 
 + (NSString *)escapeHTML:(NSString *)string;
 + (NSString *)flattenHTML:(NSString *)html;

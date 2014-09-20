@@ -35,6 +35,7 @@ static NSString * const kProjectStarAProjectEndPoint = @"/projects/%llu/star";
 static NSString * const kProjectUnstarAProjectEndPoint = @"/projects/%llu/unstar";
 static NSString * const kProjectWatchAProjectEndPoint = @"/projects/%llu/watch";
 static NSString * const kProjectUnwatchAProjectEndPoint = @"/projects/%llu/unwatch";
+static NSString * const kProjectRandomProjectEndPoint = @"/projects/random";
 
 static NSString * const kKeyPrivate_token = @"private_token";
 static NSString * const kKeyPage = @"page";
@@ -426,6 +427,26 @@ static NSString * const kKeyPage = @"page";
         id object = [resonseObject objectForKey:@"count"];
         successBlock(object);
     };
+    GLNetworkOperationFailureBlock localFailureBlock = [self defaultFailureBlock:failureBlock];
+    
+    return [self queueOperationWithRequest:request
+                                      type:GLNetworkOperationTypeJson
+                                   success:localSuccessBlock
+                                   failure:localFailureBlock];
+}
+
+- (GLNetworkOperation *)fetchARandomProjectWithPrivateToken:(NSString *)privateToken
+                                                    success:(GLGitlabSuccessBlock)successBlock
+                                                    failure:(GLGitlabFailureBlock)failureBlock
+{
+    NSMutableURLRequest *request = [self requestForEndPoint:[NSString stringWithFormat:kProjectRandomProjectEndPoint]
+                                                     params:@{
+                                                              kKeyPrivate_token: privateToken,
+                                                              @"luck": @(1)
+                                                              }
+                                                     method:GLNetworkOperationGetMethod];
+    
+    GLNetworkOperationSuccessBlock localSuccessBlock = [self singleObjectSuccessBlockForClass:[GLProject class] successBlock:successBlock];
     GLNetworkOperationFailureBlock localFailureBlock = [self defaultFailureBlock:failureBlock];
     
     return [self queueOperationWithRequest:request
