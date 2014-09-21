@@ -14,6 +14,7 @@
 #import "Tools.h"
 #import "ProjectCell.h"
 #import "ProjectDetailsView.h"
+#import "ReceivingInfoView.h"
 
 #define accelerationThreshold  0.4
 
@@ -48,6 +49,12 @@
                                                                              style:UIBarButtonItemStylePlain
                                                                             target:(NavigationController *)self.navigationController
                                                                             action:@selector(showMenu)];
+    
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"收货信息"
+                                                                              style:UIBarButtonItemStylePlain
+                                                                             target:self
+                                                                             action:@selector(pushReceivingInfoView)];
+    
     [self setLayout];
     
     _motionManager = [CMMotionManager new];
@@ -79,6 +86,16 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+#pragma mark - 跳转到收货信息界面
+
+- (void)pushReceivingInfoView
+{
+    [_motionManager stopDeviceMotionUpdates];
+    ReceivingInfoView *infoView = [ReceivingInfoView new];
+    [self.navigationController pushViewController:infoView animated:YES];
+}
+
 
 - (void)setLayout
 {

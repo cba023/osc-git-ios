@@ -78,6 +78,7 @@
 		005841DF19B9BEB100C20E19 /* project_detail_icon_lockpublic.png in Resources */ = {isa = PBXBuildFile; fileRef = 005841DE19B9BEB100C20E19 /* project_detail_icon_lockpublic.png */; };
 		005841E119B9BEDE00C20E19 /* time.png in Resources */ = {isa = PBXBuildFile; fileRef = 005841E019B9BEDE00C20E19 /* time.png */; };
 		005841E319B9BF2B00C20E19 /* project_details_language.png in Resources */ = {isa = PBXBuildFile; fileRef = 005841E219B9BF2B00C20E19 /* project_details_language.png */; };
+		005D05D119CEF6A100439874 /* ReceivingInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 005D05D019CEF6A100439874 /* ReceivingInfoView.m */; };
 		0062237D1963F30D00454CB9 /* back@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0062237C1963F30D00454CB9 /* back@2x.png */; };
 		006391C71988848800689FAD /* ProjectDetailsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 006391C61988848800689FAD /* ProjectDetailsView.m */; };
 		006BF01C19963101000C868D /* MenuApp.png in Resources */ = {isa = PBXBuildFile; fileRef = 006BF00219963101000C868D /* MenuApp.png */; };
@@ -365,6 +366,8 @@
 		005841DE19B9BEB100C20E19 /* project_detail_icon_lockpublic.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = project_detail_icon_lockpublic.png; sourceTree = "<group>"; };
 		005841E019B9BEDE00C20E19 /* time.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = time.png; sourceTree = "<group>"; };
 		005841E219B9BF2B00C20E19 /* project_details_language.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = project_details_language.png; sourceTree = "<group>"; };
+		005D05CF19CEF6A100439874 /* ReceivingInfoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReceivingInfoView.h; sourceTree = "<group>"; };
+		005D05D019CEF6A100439874 /* ReceivingInfoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReceivingInfoView.m; sourceTree = "<group>"; };
 		0062237C1963F30D00454CB9 /* back@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "back@2x.png"; sourceTree = "<group>"; };
 		006391C51988848800689FAD /* ProjectDetailsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProjectDetailsView.h; sourceTree = "<group>"; };
 		006391C61988848800689FAD /* ProjectDetailsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProjectDetailsView.m; sourceTree = "<group>"; };
@@ -872,6 +875,8 @@
 			children = (
 				00B3CF9419CBDDDF00747373 /* ShakingView.h */,
 				00B3CF9519CBDDE000747373 /* ShakingView.m */,
+				005D05CF19CEF6A100439874 /* ReceivingInfoView.h */,
+				005D05D019CEF6A100439874 /* ReceivingInfoView.m */,
 			);
 			name = Shake;
 			sourceTree = "<group>";
@@ -1463,6 +1468,7 @@
 				0021BAD4192342BD00626A2C /* GLMergeRequest.m in Sources */,
 				0021BAD1192342BD00626A2C /* GLFile.m in Sources */,
 				0057719919A73D6A00EAA606 /* LanguageSearchView.m in Sources */,
+				005D05D119CEF6A100439874 /* ReceivingInfoView.m in Sources */,
 				009567AC19B8430100E9624E /* ProjectDescriptionCell.m in Sources */,
 				0021BAD3192342BD00626A2C /* GLIssue.m in Sources */,
 				0021BAD7192342BD00626A2C /* GLNote.m in Sources */,
