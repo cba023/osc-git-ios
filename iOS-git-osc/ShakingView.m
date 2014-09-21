@@ -22,6 +22,8 @@
 @property CMMotionManager *motionManager;
 @property SystemSoundID soundID;
 
+@property UILabel *luckMessage;
+@property UIView *layer;
 @property UIImageView *imageUp;
 @property UIImageView *imageDown;
 @property UIImageView *sweetPotato;
@@ -51,17 +53,25 @@
     _motionManager = [CMMotionManager new];
     _motionManager.deviceMotionUpdateInterval = 0.5;
     
-    [_motionManager startDeviceMotionUpdatesToQueue:[NSOperationQueue currentQueue]
-                                        withHandler:^(CMDeviceMotion *motion, NSError *error) {
-                                                        [self motionMethod:motion];
-                                                    }
-    ];
-    
     NSString *path = [[NSBundle mainBundle] pathForResource:@"shake" ofType:@"wav"];
 	AudioServicesCreateSystemSoundID((CFURLRef)CFBridgingRetain([NSURL fileURLWithPath:path]), &_soundID);
     
     
     _privateToken = [Tools getPrivateToken];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [_motionManager startDeviceMotionUpdatesToQueue:[NSOperationQueue currentQueue]
+                                        withHandler:^(CMDeviceMotion *motion, NSError *error) {
+                                            [self motionMethod:motion];
+                                        }
+     ];
+    
+    [[GLGitlabApi sharedInstance] fetchLuckMessageSuccess:^(id responseObject) {
+                                                                _luckMessage.text = responseObject;
+                                                            }
+                                                  failure:^(NSError *error) {}];
 }
 
 - (void)didReceiveMemoryWarning
@@ -72,17 +82,31 @@
 
 - (void)setLayout
 {
+    _luckMessage = [UILabel new];
+    _luckMessage.backgroundColor = [UIColor whiteColor];
+    _luckMessage.font = [UIFont systemFontOfSize:12];
+    _luckMessage.numberOfLines = 0;
+    _luckMessage.lineBreakMode = NSLineBreakByWordWrapping;
+    [self.view addSubview:_luckMessage];
+    
+    _layer = [UIView new];
+    //_layer.backgroundColor = UIColorFromRGB(0x111111);
+    [self.view addSubview:_layer];
+    
+    _sweetPotato = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"shakehideimg_man"]];
+    _sweetPotato.contentMode = UIViewContentModeScaleAspectFill;
+    [_layer addSubview:_sweetPotato];
+    
     _imageUp = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"shake_logo_up"]];
     _imageUp.contentMode = UIViewContentModeScaleAspectFill;
-    [self.view addSubview:_imageUp];
+    [_layer addSubview:_imageUp];
     
     _imageDown = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"shake_logo_down"]];
     _imageDown.contentMode = UIViewContentModeScaleAspectFill;
-    [self.view addSubview:_imageDown];
+    [_layer addSubview:_imageDown];
     
     _projectCell = [ProjectCell new];
-    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self
-                                                                          action:@selector(tapProjectCell)];
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapProjectCell)];
     [_projectCell addGestureRecognizer:tap];
     [_projectCell setHidden:YES];
     [self.view addSubview:_projectCell];
@@ -91,24 +115,73 @@
         subview.translatesAutoresizingMaskIntoConstraints = NO;
     }
     
-    NSDictionary *viewsDict = NSDictionaryOfVariableBindings(_imageUp, _imageDown, _projectCell);
+    for (UIView *subview in [_layer subviews]) {
+        subview.translatesAutoresizingMaskIntoConstraints = NO;
+    }
     
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-80-[_imageUp(95.25)][_imageDown(95.25)]"
-                                                                      options:NSLayoutFormatAlignAllLeft | NSLayoutFormatAlignAllRight
+    NSDictionary *viewsDict = NSDictionaryOfVariableBindings(_luckMessage, _layer, _sweetPotato, _imageUp, _imageDown, _projectCell);
+    
+    
+    // luckMessage
+    
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-5-[_luckMessage]"
+                                                                      options:0
                                                                       metrics:nil
                                                                         views:viewsDict]];
     
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|->=50-[_imageUp(168.75)]->=50-|"
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|-5-[_luckMessage]-5-|"
+                                                                      options:0
+                                                                      metrics:nil
+                                                                        views:viewsDict]];
+    
+    
+    // layer
+    
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-80-[_layer(195)]"
+                                                                      options:0
+                                                                      metrics:nil
+                                                                        views:viewsDict]];
+    
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|->=50-[_layer(168.75)]->=50-|"
                                                                       options:NSLayoutFormatAlignAllCenterX
                                                                       metrics:nil
                                                                         views:viewsDict]];
     
-    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_imageUp
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_layer
                                                           attribute:NSLayoutAttributeCenterX
                                                           relatedBy:NSLayoutRelationEqual
                                                              toItem:self.view
                                                           attribute:NSLayoutAttributeCenterX
                                                          multiplier:1.f constant:0.f]];
+    
+    
+    // sweetPotato
+    
+    [_layer addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-60-[_sweetPotato(75)]"
+                                                                   options:0
+                                                                   metrics:nil
+                                                                     views:viewsDict]];
+    
+    [_layer addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|-50-[_sweetPotato(56.25)]"
+                                                                   options:0
+                                                                   metrics:nil
+                                                                     views:viewsDict]];
+    
+    
+    // imageUp and imageDown
+    
+    [_layer addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=1-[_imageUp(95.25)][_imageDown(95.25)]|"
+                                                                      options:NSLayoutFormatAlignAllLeft | NSLayoutFormatAlignAllRight
+                                                                      metrics:nil
+                                                                        views:viewsDict]];
+    
+    [_layer addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|[_imageUp(168.75)]|"
+                                                                      options:0
+                                                                      metrics:nil
+                                                                        views:viewsDict]];
+    
+    
+    // projectCell
     
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[_projectCell]|"
                                                                       options:0
@@ -123,6 +196,8 @@
 
 - (void)tapProjectCell
 {
+    [_motionManager stopDeviceMotionUpdates];
+    
     ProjectDetailsView *projectDetails = [[ProjectDetailsView alloc] initWithProjectID:_project.projectId];
     [self.navigationController pushViewController:projectDetails animated:YES];
 }
@@ -155,13 +230,15 @@
     
     AudioServicesPlaySystemSound(_soundID);
     
-    [self rotate:self.view];
+    //[self rotate:_layer];
+    [self moveImage];
 }
 
 - (void)rotate:(UIView *)view
 {
     CABasicAnimation *translation = [CABasicAnimation animationWithKeyPath:@"transform"];
     translation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+    //view.layer.anchorPoint = CGPointMake(1, 0);
     translation.toValue = [NSValue valueWithCATransform3D:CATransform3DMakeRotation(-M_PI_4, 0, 0, 100)];
     
     translation.duration = 0.2;
@@ -170,6 +247,27 @@
     
     [view.layer addAnimation:translation forKey:@"translation"];
 }
+
+- (void)moveImage
+{
+    CABasicAnimation *moveUp = [CABasicAnimation animationWithKeyPath:@"position"];
+    moveUp.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+    moveUp.toValue = [NSValue valueWithCGPoint:CGPointMake(_imageUp.center.x, _imageUp.center.y - 50)];
+    moveUp.duration = 0.5;
+    moveUp.repeatCount = 1;
+    moveUp.autoreverses = YES;
+    
+    CABasicAnimation *moveDown = [CABasicAnimation animationWithKeyPath:@"position"];
+    moveDown.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+    moveDown.toValue = [NSValue valueWithCGPoint:CGPointMake(_imageDown.center.x, _imageDown.center.y + 50)];
+    moveDown.duration = 0.5;
+    moveDown.repeatCount = 1;
+    moveDown.autoreverses = YES;
+    
+    [_imageUp.layer addAnimation:moveUp forKey:@"moveUp"];
+    [_imageDown.layer addAnimation:moveDown forKey:@"moveDown"];
+}
+
 
 
 - (void)requestProject

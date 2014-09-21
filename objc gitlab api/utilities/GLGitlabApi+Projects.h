@@ -225,5 +225,12 @@
                                                     success:(GLGitlabSuccessBlock)successBlock
                                                     failure:(GLGitlabFailureBlock)failureBlock;
 
+- (GLNetworkOperation *)fetchLuckMessageSuccess:(GLGitlabSuccessBlock)successBlock
+                                        failure:(GLGitlabFailureBlock)failureBlock;
+
+
+
+
+
 
 @end

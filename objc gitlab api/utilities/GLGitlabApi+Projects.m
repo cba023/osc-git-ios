@@ -36,6 +36,7 @@ static NSString * const kProjectUnstarAProjectEndPoint = @"/projects/%llu/unstar
 static NSString * const kProjectWatchAProjectEndPoint = @"/projects/%llu/watch";
 static NSString * const kProjectUnwatchAProjectEndPoint = @"/projects/%llu/unwatch";
 static NSString * const kProjectRandomProjectEndPoint = @"/projects/random";
+static NSString * const kProjectLuckMessage = @"/projects/luck_msg";
 
 static NSString * const kKeyPrivate_token = @"private_token";
 static NSString * const kKeyPage = @"page";
@@ -439,7 +440,7 @@ static NSString * const kKeyPage = @"page";
                                                     success:(GLGitlabSuccessBlock)successBlock
                                                     failure:(GLGitlabFailureBlock)failureBlock
 {
-    NSMutableURLRequest *request = [self requestForEndPoint:[NSString stringWithFormat:kProjectRandomProjectEndPoint]
+    NSMutableURLRequest *request = [self requestForEndPoint:kProjectRandomProjectEndPoint
                                                      params:@{
                                                               kKeyPrivate_token: privateToken,
                                                               @"luck": @(1)
@@ -447,6 +448,25 @@ static NSString * const kKeyPage = @"page";
                                                      method:GLNetworkOperationGetMethod];
     
     GLNetworkOperationSuccessBlock localSuccessBlock = [self singleObjectSuccessBlockForClass:[GLProject class] successBlock:successBlock];
+    GLNetworkOperationFailureBlock localFailureBlock = [self defaultFailureBlock:failureBlock];
+    
+    return [self queueOperationWithRequest:request
+                                      type:GLNetworkOperationTypeJson
+                                   success:localSuccessBlock
+                                   failure:localFailureBlock];
+}
+
+- (GLNetworkOperation *)fetchLuckMessageSuccess:(GLGitlabSuccessBlock)successBlock
+                                        failure:(GLGitlabFailureBlock)failureBlock
+{
+    NSMutableURLRequest *request = [self requestForEndPoint:kProjectLuckMessage
+                                                     method:GLNetworkOperationGetMethod];
+    
+    GLNetworkOperationSuccessBlock localSuccessBlock = ^(NSDictionary *resonseObject) {
+        id object = [resonseObject objectForKey:@"message"];
+        successBlock(object);
+    };
+
     GLNetworkOperationFailureBlock localFailureBlock = [self defaultFailureBlock:failureBlock];
     
     return [self queueOperationWithRequest:request
