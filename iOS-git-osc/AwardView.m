@@ -22,6 +22,7 @@
         [self addSubview:_image];
         
         _messageLabel = [UILabel new];
+        _messageLabel.backgroundColor = [UIColor clearColor];
         [self addSubview:_messageLabel];
         
         [self setLayout];

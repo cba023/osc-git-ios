@@ -49,7 +49,7 @@ static NSString * const kKeyFollow = @"follow";
                                                                              style:UIBarButtonItemStylePlain
                                                                             target:(NavigationController *)self.navigationController
                                                                             action:@selector(showMenu)];
-    self.view.backgroundColor = UIColorFromRGB(0xE0FFFF);
+    self.view.backgroundColor = [Tools uniformColor];
     
     _userDefaults = [NSUserDefaults standardUserDefaults];
     [self initSubviews];

@@ -13,6 +13,8 @@
 
 @interface ReceivingInfoView ()
 
+@property NSUserDefaults *userDefaults;
+
 @property UITextField *nameField;
 @property UITextField *phoneNumField;
 @property UITextView *addressView;
@@ -20,6 +22,11 @@
 @property UIButton *buttonSave;
 
 @end
+
+static NSString * const kKeyTrueName = @"trueName";
+static NSString * const kKeyPhoneNumber = @"phoneNumber";
+static NSString * const kKeyAddress = @"address";
+static NSString * const kKeyExtroInfo = @"extraInfo";
 
 @implementation ReceivingInfoView
 
@@ -30,9 +37,9 @@
     self.title = @"收货信息";
     self.view.backgroundColor = [Tools uniformColor];
     
+    _userDefaults = [NSUserDefaults standardUserDefaults];
     [self setLayout];
     
-    //添加手势，点击屏幕其他区域关闭键盘的操作
     UITapGestureRecognizer *gesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideKeyboard)];
     gesture.numberOfTapsRequired = 1;
     [self.view addGestureRecognizer:gesture];
@@ -86,23 +93,30 @@
     [self.view addSubview:_buttonSave];
     
     _nameField = [UITextField new];
+    _nameField.delegate = self;
+    _nameField.text = [_userDefaults objectForKey:kKeyTrueName];
+    _nameField.enablesReturnKeyAutomatically = YES;
     _nameField.backgroundColor = [UIColor whiteColor];
     _nameField.returnKeyType = UIReturnKeyNext;
     _nameField.layer.borderWidth = 1;
     _nameField.layer.borderColor = [[UIColor grayColor] CGColor];
-    [_nameField addTarget:self action:@selector(returnOnKeyboard:) forControlEvents:UIControlEventEditingDidEndOnExit];
     [self.view addSubview:_nameField];
     
     _phoneNumField = [UITextField new];
+    _phoneNumField.delegate = self;
+    _phoneNumField.text = [_userDefaults objectForKey:kKeyPhoneNumber];
+    _phoneNumField.enablesReturnKeyAutomatically = YES;
     _phoneNumField.backgroundColor = [UIColor whiteColor];
     _phoneNumField.returnKeyType = UIReturnKeyNext;
     _phoneNumField.layer.borderWidth = 1;
     _phoneNumField.layer.borderColor = [[UIColor grayColor] CGColor];
-    [_phoneNumField addTarget:self action:@selector(returnOnKeyboard:) forControlEvents:UIControlEventEditingDidEndOnExit];
     [self.view addSubview:_phoneNumField];
     
     _addressView = [UITextView new];
     _addressView.delegate = self;
+    _addressView.text = [_userDefaults objectForKey:kKeyAddress];
+    _addressView.enablesReturnKeyAutomatically = YES;
+    _addressView.font = [UIFont systemFontOfSize:16];
     _addressView.backgroundColor = [UIColor whiteColor];
     _addressView.returnKeyType = UIReturnKeyNext;
     _addressView.layer.borderWidth = 1;
@@ -111,9 +125,13 @@
     
     _remarkView = [UITextView new];
     _remarkView.delegate = self;
+    _remarkView.text = [_userDefaults objectForKey:kKeyExtroInfo];
+    _remarkView.enablesReturnKeyAutomatically = YES;
+    _remarkView.font = [UIFont systemFontOfSize:13];
     _remarkView.backgroundColor = [UIColor whiteColor];
     _remarkView.scrollEnabled = NO;
     _remarkView.text = PLACE_HOLDER;
+    _remarkView.returnKeyType = UIReturnKeyDone;
     _remarkView.textColor = [UIColor lightGrayColor];
     _remarkView.layer.borderWidth = 1;
     _remarkView.layer.borderColor = [[UIColor grayColor] CGColor];
@@ -127,7 +145,7 @@
     NSDictionary *viewsDict = NSDictionaryOfVariableBindings(nameLabel, phoneNumLabel, addressLabel, remarkLabel, tipsLabel,
                                                              _nameField, _phoneNumField, _addressView, _remarkView, _buttonSave);
     
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-5-[nameLabel]-3-[_nameField(30)]-10-[phoneNumLabel]-3-[_phoneNumField(30)]-10-[addressLabel]-3-[_addressView(50)]-10-[remarkLabel]-3-[_remarkView(60)]-10-[tipsLabel]-25-[_buttonSave(30)]"
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-5-[nameLabel]-3-[_nameField(30)]-10-[phoneNumLabel]-3-[_phoneNumField(30)]-10-[addressLabel]-3-[_addressView(50)]-10-[remarkLabel]-3-[_remarkView(65)]-10-[tipsLabel]-25-[_buttonSave(30)]"
                                                                      options:NSLayoutFormatAlignAllLeft | NSLayoutFormatAlignAllRight
                                                                      metrics:nil
                                                                        views:viewsDict]];
@@ -140,11 +158,13 @@
 
 - (void)save
 {
-    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    [userDefaults setObject:_nameField.text forKey:@"trueName"];
-    [userDefaults setObject:_phoneNumField.text forKey:@"phoneNumber"];
-    [userDefaults setObject:_addressView.text forKey:@"address"];
-    [userDefaults setObject:_remarkView.text forKey:@"extraInfo"];
+    [_userDefaults setObject:_nameField.text forKey:kKeyTrueName];
+    [_userDefaults setObject:_phoneNumField.text forKey:kKeyPhoneNumber];
+    [_userDefaults setObject:_addressView.text forKey:kKeyAddress];
+    [_userDefaults setObject:_remarkView.text forKey:kKeyExtroInfo];
+    [_userDefaults synchronize];
+    
+    [Tools toastNotification:@"收货信息保存成功" inView:self.view];
 }
 
 - (void)hideKeyboard
@@ -180,23 +200,59 @@
     [UIView commitAnimations];
 }
 
-- (void)returnOnKeyboard:(UITextField *)sender
+#pragma mark - UITextFieldDelegate
+
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
 {
-    if (sender == _nameField) {
-        [_phoneNumField becomeFirstResponder];
+    UITextField *anotherTextField = textField == _nameField ? _nameField : _phoneNumField;
+    NSString *anotherStr = anotherTextField.text;
+    
+    NSMutableString *newStr = [textField.text mutableCopy];
+    [newStr replaceCharactersInRange:range withString:string];
+    
+    if (newStr.length && anotherStr.length && _addressView.text.length) {
+        _buttonSave.alpha = 1;
+        _buttonSave.enabled = YES;
     } else {
-        [_addressView becomeFirstResponder];
+        _buttonSave.alpha = 0.4;
+        _buttonSave.enabled = NO;
     }
+    
+    if ([string isEqualToString: @"\n"]) {
+        [textField resignFirstResponder];
+        textField == _nameField ? [_phoneNumField becomeFirstResponder] : [_addressView becomeFirstResponder];
+        return NO;
+    }
+    
+    return YES;
 }
+
 
 #pragma mark - UITextViewDelegate
 
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
+    NSMutableString *addressStr;
+    if (textView == _addressView) {
+        addressStr = [textView.text mutableCopy];
+        [addressStr replaceCharactersInRange:range withString:text];
+    } else {
+        addressStr = [[NSMutableString alloc] initWithString:_addressView.text];
+    }
+    
+    if (addressStr.length && _nameField.text.length && _phoneNumField.text.length) {
+        _buttonSave.alpha = 1;
+        _buttonSave.enabled = YES;
+    } else {
+        _buttonSave.alpha = 0.4;
+        _buttonSave.enabled = NO;
+    }
+    
     if ([text isEqualToString: @"\n"]) {
         [textView resignFirstResponder];
-        [self save];
+        textView == _addressView ? [_remarkView becomeFirstResponder] : [self hideKeyboard];
         return NO;
     }
+    
     return YES;
 }
 

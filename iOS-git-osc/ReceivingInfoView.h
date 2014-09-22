@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ReceivingInfoView : UIViewController <UITextViewDelegate>
+@interface ReceivingInfoView : UIViewController <UITextFieldDelegate, UITextViewDelegate>
 
 @end

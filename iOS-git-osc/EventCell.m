@@ -50,6 +50,7 @@
     
     _eventAbstract = [UITextView new];
     _eventAbstract.backgroundColor = [Tools uniformColor];
+    [Tools roundView:_eventAbstract cornerRadius:3.0];
     //_eventAbstract.backgroundColor = [UIColor whiteColor];
     _eventAbstract.editable = NO;
     _eventAbstract.scrollEnabled = NO;
