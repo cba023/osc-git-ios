@@ -29,6 +29,7 @@
 @property UIImageView *imageDown;
 @property UIImageView *sweetPotato;
 
+@property NSOperationQueue *operationQueue;
 @property NSString *privateToken;
 @property GLProject *project;
 @property ProjectCell *projectCell;
@@ -57,41 +58,102 @@
     
     [self setLayout];
     
+    _operationQueue = [NSOperationQueue new];
     _motionManager = [CMMotionManager new];
-    _motionManager.deviceMotionUpdateInterval = 0.5;
+    _motionManager.accelerometerUpdateInterval = 0.1;
     
     NSString *path = [[NSBundle mainBundle] pathForResource:@"shake" ofType:@"wav"];
 	AudioServicesCreateSystemSoundID((CFURLRef)CFBridgingRetain([NSURL fileURLWithPath:path]), &_soundID);
-    
     
     _privateToken = [Tools getPrivateToken];
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
-    [_motionManager startDeviceMotionUpdatesToQueue:[NSOperationQueue currentQueue]
-                                        withHandler:^(CMDeviceMotion *motion, NSError *error) {
-                                            [self motionMethod:motion];
-                                        }
-     ];
+    [super viewDidAppear:animated];
+    
+    [self startAccelerometer];
     
     [[GLGitlabApi sharedInstance] fetchLuckMessageSuccess:^(id responseObject) {
                                                                 _luckMessage.text = responseObject;
                                                             }
                                                   failure:^(NSError *error) {}];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(receiveNotification:)
+                                                 name:UIApplicationDidEnterBackgroundNotification
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(receiveNotification:)
+                                                 name:UIApplicationWillEnterForegroundNotification
+                                               object:nil];
+}
+
+- (void)viewDidDisappear:(BOOL)animated
+{
+    [_motionManager stopAccelerometerUpdates];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:UIApplicationDidEnterBackgroundNotification
+                                                  object:nil];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:UIApplicationWillEnterForegroundNotification
+                                                  object:nil];
+    
+    [super viewDidDisappear:animated];
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
+
+
+-(void)startAccelerometer
+{
+    //以push的方式更新并在block中接收加速度
+    
+    [self.motionManager startAccelerometerUpdatesToQueue:_operationQueue
+                                             withHandler:^(CMAccelerometerData *accelerometerData, NSError *error) {
+                                                 [self outputAccelertionData:accelerometerData.acceleration];
+                                             }];
+}
+
+-(void)outputAccelertionData:(CMAcceleration)acceleration
+{
+    double accelerameter = sqrt(pow(acceleration.x, 2) + pow(acceleration.y, 2) + pow(acceleration.z, 2));
+    
+    if (accelerameter > 1.8f) {
+        [_motionManager stopAccelerometerUpdates];
+        [_operationQueue cancelAllOperations];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self shakeAnimation];
+            if ([Tools isNetworkExist]) {
+                [self requestProject];
+            } else {
+                [Tools toastNotification:@"网络连接失败，请检查网络设置" inView:self.view];
+            }
+        });
+    }
+}
+
+-(void)receiveNotification:(NSNotification *)notification
+{
+    if ([notification.name isEqualToString:UIApplicationDidEnterBackgroundNotification]) {
+        [_motionManager stopAccelerometerUpdates];
+    } else {
+        [self startAccelerometer];
+    }
+}
+
 
 #pragma mark - 跳转到收货信息界面
 
 - (void)pushReceivingInfoView
 {
-    [_motionManager stopDeviceMotionUpdates];
     ReceivingInfoView *infoView = [ReceivingInfoView new];
     [self.navigationController pushViewController:infoView animated:YES];
 }
@@ -213,8 +275,6 @@
 
 - (void)tapProjectCell
 {
-    [_motionManager stopDeviceMotionUpdates];
-    
     ProjectDetailsView *projectDetails = [[ProjectDetailsView alloc] initWithProjectID:_project.projectId];
     [self.navigationController pushViewController:projectDetails animated:YES];
 }
@@ -313,6 +373,8 @@
         _projectCell.starsCount.text = [NSString stringWithFormat:@"%i", _project.starsCount];
         
         [_projectCell setHidden:NO];
+        
+        [self startAccelerometer];
     };
 }
 
@@ -322,6 +384,8 @@
     
     ^(NSError *error) {
         [Tools toastNotification:@"红薯跟你开了一个玩笑，没有为你找到项目" inView:self.view];
+        
+        [self startAccelerometer];
     };
 }
 
