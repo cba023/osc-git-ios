@@ -150,7 +150,7 @@ static NSString * const kKeyPortrait = @"new_portrait";
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     NavigationController *navigationController;
-    if (indexPath.row == 0) {
+    if (indexPath.row == 1) {
         NSString *privateToken = [self.user objectForKey:@"private_token"];
         if (privateToken == nil) {
             LoginViewController *loginViewController = [LoginViewController new];
@@ -161,15 +161,15 @@ static NSString * const kKeyPortrait = @"new_portrait";
             navigationController = [[NavigationController alloc] initWithRootViewController:ownDetailsView];
         }
     } else {
-        if (indexPath.row == 1) {
+        if (indexPath.row == 0) {
             ProjectsViewController *projectViewController = [[ProjectsViewController alloc] init];
             navigationController = [[NavigationController alloc] initWithRootViewController:projectViewController];
         } else if (indexPath.row == 2) {
-            SearchView *searchView = [SearchView new];
-            navigationController = [[NavigationController alloc] initWithRootViewController:searchView];
-        } else if (indexPath.row == 3) {
             LanguageSearchView *languageSearchView = [LanguageSearchView new];
             navigationController = [[NavigationController alloc] initWithRootViewController:languageSearchView];
+        } else if (indexPath.row == 3) {
+            SearchView *searchView = [SearchView new];
+            navigationController = [[NavigationController alloc] initWithRootViewController:searchView];
         } else {
             ShakingView *shakingView = [ShakingView new];
             navigationController = [[NavigationController alloc] initWithRootViewController:shakingView];
@@ -206,7 +206,7 @@ static NSString * const kKeyPortrait = @"new_portrait";
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
     }
     
-    titles = @[@"我的", @"发现", @"搜索", @"语言", @"摇一摇"];
+    titles = @[@"发现", @"我的", @"语言", @"搜索", @"摇一摇"];
     //images = @[@"MenuProfile", @"MenuProfile", @"MenuOrgRepos", @"MenuOrgRepos", @"MenuOrgRepos", @"MenuOrgRepos"];
     //cell.imageView.image = [UIImage imageNamed:images[indexPath.row]];
     cell.textLabel.text = titles[indexPath.row];

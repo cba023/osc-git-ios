@@ -141,15 +141,10 @@ static NSString * const EventCellIdentifier = @"EventCell";
         
         CGFloat abstractHeight = 0;
         UITextView *textView = [UITextView new];
-        textView.editable = NO;
+        textView.editable = NO;g
         textView.scrollEnabled = NO;
-        int totalCommitsCount = 0;
-        if (![event.data isEqual:@""]) {
-            totalCommitsCount = [[event.data objectForKey:@"total_commits_count"] intValue];
-        }
-        if (totalCommitsCount > 0) {
-            [textView setAttributedText:[Event generateEventAbstract:event]];
-        }
+        
+        [Event setAbstractContent:textView forEvent:event];
         abstractHeight = [textView sizeThatFits:CGSizeMake(self.tableView.frame.size.width - 60, MAXFLOAT)].height;
         
         //CGFloat staticHeight = totalCommitsCount > 0? 47: 39;
@@ -188,17 +183,6 @@ static NSString * const EventCellIdentifier = @"EventCell";
         
         [cell.time setAttributedText:[Tools getIntervalAttrStr:event.createdAt]];
         
-#if 0
-        int totalCommitsCount = 0;
-        if (event.data.count > 0) {
-            totalCommitsCount = [[event.data objectForKey:@"total_commits_count"] intValue];
-        }
-        if (totalCommitsCount > 0) {
-            [cell.eventAbstract setAttributedText:[Event generateEventAbstract:event]];
-        } else {
-            [cell.eventAbstract setText:@""];
-        }
-#endif
         [Event setAbstractContent:cell.eventAbstract forEvent:event];
         
         return cell;        

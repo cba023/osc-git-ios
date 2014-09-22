@@ -9,6 +9,8 @@
 #import "ReceivingInfoView.h"
 #import "Tools.h"
 
+#define PLACE_HOLDER @"T恤（ S、M、L、XL ）或内裤（ L、XL、2XL、3XL ）请备注码数\n如未填写，我们将随机寄出"
+
 @interface ReceivingInfoView ()
 
 @property UITextField *nameField;
@@ -29,6 +31,11 @@
     self.view.backgroundColor = [Tools uniformColor];
     
     [self setLayout];
+    
+    //添加手势，点击屏幕其他区域关闭键盘的操作
+    UITapGestureRecognizer *gesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideKeyboard)];
+    gesture.numberOfTapsRequired = 1;
+    [self.view addGestureRecognizer:gesture];
 }
 
 - (void)didReceiveMemoryWarning
@@ -79,6 +86,7 @@
     [self.view addSubview:_buttonSave];
     
     _nameField = [UITextField new];
+    _nameField.delegate = self;
     _nameField.backgroundColor = [UIColor whiteColor];
     _nameField.returnKeyType = UIReturnKeyNext;
     _nameField.layer.borderWidth = 1;
@@ -86,6 +94,7 @@
     [self.view addSubview:_nameField];
     
     _phoneNumField = [UITextField new];
+    _phoneNumField.delegate = self;
     _phoneNumField.backgroundColor = [UIColor whiteColor];
     _phoneNumField.returnKeyType = UIReturnKeyNext;
     _phoneNumField.layer.borderWidth = 1;
@@ -93,6 +102,7 @@
     [self.view addSubview:_phoneNumField];
     
     _addressField = [UITextField new];
+    _addressField.delegate = self;
     _addressField.backgroundColor = [UIColor whiteColor];
     _addressField.returnKeyType = UIReturnKeyNext;
     _addressField.layer.borderWidth = 1;
@@ -100,9 +110,10 @@
     [self.view addSubview:_addressField];
     
     _remarkView = [UITextView new];
+    _remarkView.delegate = self;
     _remarkView.backgroundColor = [UIColor whiteColor];
     _remarkView.scrollEnabled = NO;
-    _remarkView.text = @"T恤（ S、M、L、XL ）或内裤（ L、XL、2XL、3XL ）请备注码数\n如未填写，我们将随机寄出";
+    _remarkView.text = PLACE_HOLDER;
     _remarkView.textColor = [UIColor lightGrayColor];
     _remarkView.layer.borderWidth = 1;
     _remarkView.layer.borderColor = [[UIColor grayColor] CGColor];
@@ -130,6 +141,118 @@
 - (void)save
 {
     
+}
+
+- (void)hideKeyboard
+{
+    [_nameField resignFirstResponder];
+    [_phoneNumField resignFirstResponder];
+    [_addressField resignFirstResponder];
+    [_remarkView resignFirstResponder];
+    
+    [self resumeView];
+}
+
+- (void)resumeView
+{
+    NSTimeInterval animationDuration=0.30f;
+    [UIView beginAnimations:@"ResizeForKeyboard" context:nil];
+    [UIView setAnimationDuration:animationDuration];
+    
+    CGFloat width = self.view.frame.size.width;
+    CGFloat height = self.view.frame.size.height;
+    
+    CGFloat y;
+    if([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0)
+    {
+        y = 64;
+    } else {
+        y = 0;
+    }
+    
+    CGRect rect=CGRectMake(0.0f, y, width, height);
+    self.view.frame=rect;
+    
+    [UIView commitAnimations];
+}
+
+
+#pragma mark - UITextFieldDelegate
+
+- (void)returnOnKeyboard:(UITextField *)sender
+{
+    if (sender == _nameField) {
+        [_phoneNumField becomeFirstResponder];
+    } else if (sender == _phoneNumField) {
+        [_addressField becomeFirstResponder];
+    } else {
+        [_remarkView becomeFirstResponder];
+    }
+}
+
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
+{
+    NSTimeInterval animationDuration=0.30f;
+    [UIView beginAnimations:@"ResizeForKeyboard" context:nil];
+    [UIView setAnimationDuration:animationDuration];
+    
+    CGFloat width = self.view.frame.size.width;
+    CGFloat height = self.view.frame.size.height;
+    
+    CGFloat y = -50;
+    CGRect rect = CGRectMake(0.0f, y, width, height);
+    self.view.frame = rect;
+    
+    [UIView commitAnimations];
+    
+    return YES;
+}
+
+
+#pragma mark - UITextViewDelegate
+
+- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
+    if ([text isEqualToString: @"\n"]) {
+        [textView resignFirstResponder];
+        [self save];
+        return NO;
+    }
+    return YES;
+}
+
+- (void)textViewDidBeginEditing:(UITextView *)textView
+{
+    NSTimeInterval animationDuration=0.30f;
+    [UIView beginAnimations:@"ResizeForKeyboard" context:nil];
+    [UIView setAnimationDuration:animationDuration];
+    
+    CGFloat width = self.view.frame.size.width;
+    CGFloat height = self.view.frame.size.height;
+    
+    CGFloat y = -200;
+    CGRect rect = CGRectMake(0.0f, y, width, height);
+    self.view.frame = rect;
+    
+    [UIView commitAnimations];
+    
+    // 清除placeholder
+    
+    if ([textView.text isEqualToString:PLACE_HOLDER]) {
+        textView.text = @"";
+        textView.textColor = [UIColor blackColor];
+    }
+    [textView becomeFirstResponder];
+}
+
+- (void)textViewDidEndEditing:(UITextView *)textView
+{
+    // 恢复placeholder
+    
+    if ([textView.text isEqualToString:@""]) {
+        textView.text = PLACE_HOLDER;
+        textView.textColor = [UIColor lightGrayColor];
+    }
+    [textView resignFirstResponder];
 }
 
 

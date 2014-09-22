@@ -114,9 +114,25 @@ enum action {
     } else if ([[events objectForKey:@"issue"] count] > 0) {
         NSString *iid = [[events objectForKey:@"issue"] objectForKey:@"iid"];
         eventTitle = [NSString stringWithFormat:@"Issue #%@", iid];
+    } else {
+        eventTitle = @"";
     }
 
     return eventTitle;
+}
+
++ (NSString *)eventContent:(NSDictionary *)events
+{
+    NSString *eventContent;
+    if ([[events objectForKey:@"pull_request"] count] > 0) {
+        eventContent = [[events objectForKey:@"pull_request"] objectForKey:@"title"];
+    } else if ([[events objectForKey:@"issue"] count] > 0) {
+        eventContent = [[events objectForKey:@"issue"] objectForKey:@"title"];
+    } else {
+        eventContent = @"";
+    }
+    
+    return eventContent;
 }
 
 
@@ -176,6 +192,10 @@ enum action {
         textView.backgroundColor = [Tools uniformColor];
         NSString *comment = [Tools flattenHTML:[[event.events objectForKey:@"note"] objectForKey:@"note"]];
         [textView setAttributedText:[[NSAttributedString alloc] initWithString:comment attributes:digestAttributes]];
+    } else if (actionType == MERGED) {
+        textView.backgroundColor = [Tools uniformColor];
+        NSString *content = [Event eventContent:event.events];
+        [textView setAttributedText:[[NSAttributedString alloc] initWithString:content attributes:digestAttributes]];
     } else if (actionType == CREATED) {
         textView.backgroundColor = [Tools uniformColor];
         NSString *title = [NSString new];
