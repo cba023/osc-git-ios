@@ -70,6 +70,16 @@
 // watched
 @property (nonatomic, assign, getter = isWatched) BOOL watched;
 
+
+#pragma mark - 奖品信息
+
+// rand_num
+//@property (nonatomic, assign) NSUInteger randNum;
+// msg
+@property (nonatomic, copy) NSString *message;
+// img
+@property (nonatomic, copy) NSString *imageURL;
+
 //- (BOOL)isEqualToProject:(GLProject *)project;
 
 @end

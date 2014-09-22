@@ -15,6 +15,7 @@
 #import "ProjectCell.h"
 #import "ProjectDetailsView.h"
 #import "ReceivingInfoView.h"
+#import "AwardView.h"
 
 #define accelerationThreshold  0.4
 
@@ -33,6 +34,7 @@
 @property NSString *privateToken;
 @property GLProject *project;
 @property ProjectCell *projectCell;
+@property AwardView *awardView;
 @property BOOL shaking;
 
 @end
@@ -130,12 +132,17 @@
         [_operationQueue cancelAllOperations];
         
         dispatch_async(dispatch_get_main_queue(), ^{
+#if 0
             [self shakeAnimation];
             if ([Tools isNetworkExist]) {
                 [self requestProject];
             } else {
                 [Tools toastNotification:@"网络连接失败，请检查网络设置" inView:self.view];
             }
+#else
+            [_awardView setMessage:@"开源内裤一条" andImageURL:@"http://static.oschina.net/uploads/space/2014/0724/101153_qshT_1539046.jpg"];
+            [_awardView setHidden:NO];
+#endif
         });
     }
 }
@@ -190,6 +197,11 @@
     [_projectCell setHidden:YES];
     [self.view addSubview:_projectCell];
     
+    _awardView = [AwardView new];
+    [Tools roundView:_awardView cornerRadius:8.0];
+    [_awardView setHidden:YES];
+    [self.view addSubview:_awardView];
+    
     for (UIView *subview in [self.view subviews]) {
         subview.translatesAutoresizingMaskIntoConstraints = NO;
     }
@@ -198,7 +210,7 @@
         subview.translatesAutoresizingMaskIntoConstraints = NO;
     }
     
-    NSDictionary *viewsDict = NSDictionaryOfVariableBindings(_luckMessage, _layer, _sweetPotato, _imageUp, _imageDown, _projectCell);
+    NSDictionary *viewsDict = NSDictionaryOfVariableBindings(_luckMessage, _layer, _sweetPotato, _imageUp, _imageDown, _projectCell, _awardView);
     
     
     // luckMessage
@@ -271,6 +283,18 @@
                                                                       options:0
                                                                       metrics:nil
                                                                         views:viewsDict]];
+    
+    // awardView
+    
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[_awardView]-10-|"
+                                                                      options:0
+                                                                      metrics:nil
+                                                                        views:viewsDict]];
+    
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|-10-[_awardView]-10-|"
+                                                                      options:0
+                                                                      metrics:nil
+                                                                        views:viewsDict]];
 }
 
 - (void)tapProjectCell
@@ -304,6 +328,7 @@
 - (void)shakeAnimation
 {
     [_projectCell setHidden:YES];
+    [_awardView setHidden:YES];
     
     AudioServicesPlaySystemSound(_soundID);
     
@@ -365,16 +390,21 @@
         }
         _project = responseObject;
         
-        [Tools setPortraitForUser:_project.owner view:_projectCell.portrait cornerRadius:5.0];
-        _projectCell.projectNameField.text = [NSString stringWithFormat:@"%@ / %@", _project.owner.name, _project.name];
-        _projectCell.projectDescriptionField.text = _project.projectDescription.length > 0? _project.projectDescription: @"暂无项目介绍";
-        _projectCell.languageField.text = _project.language ?: @"Unknown";
-        _projectCell.forksCount.text = [NSString stringWithFormat:@"%i", _project.forksCount];
-        _projectCell.starsCount.text = [NSString stringWithFormat:@"%i", _project.starsCount];
-        
-        [_projectCell setHidden:NO];
-        
-        [self startAccelerometer];
+        if (_project.message) {
+            [_awardView setMessage:_project.message andImageURL:_project.imageURL];
+            [_awardView setHidden:NO];
+        } else {
+            [Tools setPortraitForUser:_project.owner view:_projectCell.portrait cornerRadius:5.0];
+            _projectCell.projectNameField.text = [NSString stringWithFormat:@"%@ / %@", _project.owner.name, _project.name];
+            _projectCell.projectDescriptionField.text = _project.projectDescription.length > 0? _project.projectDescription: @"暂无项目介绍";
+            _projectCell.languageField.text = _project.language ?: @"Unknown";
+            _projectCell.forksCount.text = [NSString stringWithFormat:@"%i", _project.forksCount];
+            _projectCell.starsCount.text = [NSString stringWithFormat:@"%i", _project.starsCount];
+            
+            [_projectCell setHidden:NO];
+            
+            [self startAccelerometer];
+        }
     };
 }
 

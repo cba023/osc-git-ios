@@ -42,6 +42,10 @@ static NSString * const kKeyLanguage = @"language";
 static NSString * const kKeyStarred = @"stared";
 static NSString * const kKeyWatched = @"watched";
 
+static NSString * const kKeyRandNumber = @"rand_num";
+static NSString * const kKeyMessage = @"msg";
+static NSString * const kKeyImage = @"img";
+
 @implementation GLProject
 
 - (instancetype)initWithJSON:(NSDictionary *)json
@@ -79,6 +83,10 @@ static NSString * const kKeyWatched = @"watched";
         _watchesCount = [json[kKeyWatchesCount] intValue];
         _starred = [[self checkForNull:json[kKeyStarred]] boolValue];
         _watched = [[self checkForNull:json[kKeyWatched]] boolValue];
+        
+        //_randNum = [[self checkForNull:json[kKeyRandNumber]] intValue];
+        _message = [self checkForNull:json[kKeyMessage]];
+        _imageURL = [self checkForNull:json[kKeyMessage]];
     }
     return self;
 }
