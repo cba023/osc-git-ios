@@ -15,7 +15,7 @@
 
 @property UITextField *nameField;
 @property UITextField *phoneNumField;
-@property UITextField *addressField;
+@property UITextView *addressView;
 @property UITextView *remarkView;
 @property UIButton *buttonSave;
 
@@ -86,28 +86,28 @@
     [self.view addSubview:_buttonSave];
     
     _nameField = [UITextField new];
-    _nameField.delegate = self;
     _nameField.backgroundColor = [UIColor whiteColor];
     _nameField.returnKeyType = UIReturnKeyNext;
     _nameField.layer.borderWidth = 1;
     _nameField.layer.borderColor = [[UIColor grayColor] CGColor];
+    [_nameField addTarget:self action:@selector(returnOnKeyboard:) forControlEvents:UIControlEventEditingDidEndOnExit];
     [self.view addSubview:_nameField];
     
     _phoneNumField = [UITextField new];
-    _phoneNumField.delegate = self;
     _phoneNumField.backgroundColor = [UIColor whiteColor];
     _phoneNumField.returnKeyType = UIReturnKeyNext;
     _phoneNumField.layer.borderWidth = 1;
     _phoneNumField.layer.borderColor = [[UIColor grayColor] CGColor];
+    [_phoneNumField addTarget:self action:@selector(returnOnKeyboard:) forControlEvents:UIControlEventEditingDidEndOnExit];
     [self.view addSubview:_phoneNumField];
     
-    _addressField = [UITextField new];
-    _addressField.delegate = self;
-    _addressField.backgroundColor = [UIColor whiteColor];
-    _addressField.returnKeyType = UIReturnKeyNext;
-    _addressField.layer.borderWidth = 1;
-    _addressField.layer.borderColor = [[UIColor grayColor] CGColor];
-    [self.view addSubview:_addressField];
+    _addressView = [UITextView new];
+    _addressView.delegate = self;
+    _addressView.backgroundColor = [UIColor whiteColor];
+    _addressView.returnKeyType = UIReturnKeyNext;
+    _addressView.layer.borderWidth = 1;
+    _addressView.layer.borderColor = [[UIColor grayColor] CGColor];
+    [self.view addSubview:_addressView];
     
     _remarkView = [UITextView new];
     _remarkView.delegate = self;
@@ -125,9 +125,9 @@
     }
     
     NSDictionary *viewsDict = NSDictionaryOfVariableBindings(nameLabel, phoneNumLabel, addressLabel, remarkLabel, tipsLabel,
-                                                             _nameField, _phoneNumField, _addressField, _remarkView, _buttonSave);
+                                                             _nameField, _phoneNumField, _addressView, _remarkView, _buttonSave);
     
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-8-[nameLabel]-5-[_nameField(30)]-12-[phoneNumLabel]-5-[_phoneNumField(30)]-12-[addressLabel]-5-[_addressField(30)]-12-[remarkLabel]-5-[_remarkView(60)]-12-[tipsLabel]-25-[_buttonSave(30)]"
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-5-[nameLabel]-3-[_nameField(30)]-10-[phoneNumLabel]-3-[_phoneNumField(30)]-10-[addressLabel]-3-[_addressView(50)]-10-[remarkLabel]-3-[_remarkView(60)]-10-[tipsLabel]-25-[_buttonSave(30)]"
                                                                      options:NSLayoutFormatAlignAllLeft | NSLayoutFormatAlignAllRight
                                                                      metrics:nil
                                                                        views:viewsDict]];
@@ -140,14 +140,18 @@
 
 - (void)save
 {
-    
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    [userDefaults setObject:_nameField.text forKey:@"trueName"];
+    [userDefaults setObject:_phoneNumField.text forKey:@"phoneNumber"];
+    [userDefaults setObject:_addressView.text forKey:@"address"];
+    [userDefaults setObject:_remarkView.text forKey:@"extraInfo"];
 }
 
 - (void)hideKeyboard
 {
     [_nameField resignFirstResponder];
     [_phoneNumField resignFirstResponder];
-    [_addressField resignFirstResponder];
+    [_addressView resignFirstResponder];
     [_remarkView resignFirstResponder];
     
     [self resumeView];
@@ -176,38 +180,14 @@
     [UIView commitAnimations];
 }
 
-
-#pragma mark - UITextFieldDelegate
-
 - (void)returnOnKeyboard:(UITextField *)sender
 {
     if (sender == _nameField) {
         [_phoneNumField becomeFirstResponder];
-    } else if (sender == _phoneNumField) {
-        [_addressField becomeFirstResponder];
     } else {
-        [_remarkView becomeFirstResponder];
+        [_addressView becomeFirstResponder];
     }
 }
-
-- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
-{
-    NSTimeInterval animationDuration=0.30f;
-    [UIView beginAnimations:@"ResizeForKeyboard" context:nil];
-    [UIView setAnimationDuration:animationDuration];
-    
-    CGFloat width = self.view.frame.size.width;
-    CGFloat height = self.view.frame.size.height;
-    
-    CGFloat y = -50;
-    CGRect rect = CGRectMake(0.0f, y, width, height);
-    self.view.frame = rect;
-    
-    [UIView commitAnimations];
-    
-    return YES;
-}
-
 
 #pragma mark - UITextViewDelegate
 
@@ -229,7 +209,7 @@
     CGFloat width = self.view.frame.size.width;
     CGFloat height = self.view.frame.size.height;
     
-    CGFloat y = -200;
+    CGFloat y = textView == _addressView? -60 : -100;
     CGRect rect = CGRectMake(0.0f, y, width, height);
     self.view.frame = rect;
     
@@ -237,7 +217,7 @@
     
     // 清除placeholder
     
-    if ([textView.text isEqualToString:PLACE_HOLDER]) {
+    if (textView == _remarkView && [textView.text isEqualToString:PLACE_HOLDER]) {
         textView.text = @"";
         textView.textColor = [UIColor blackColor];
     }
@@ -248,7 +228,7 @@
 {
     // 恢复placeholder
     
-    if ([textView.text isEqualToString:@""]) {
+    if (textView == _remarkView && [textView.text isEqualToString:@""]) {
         textView.text = PLACE_HOLDER;
         textView.textColor = [UIColor lightGrayColor];
     }

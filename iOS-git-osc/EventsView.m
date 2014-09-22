@@ -141,7 +141,7 @@ static NSString * const EventCellIdentifier = @"EventCell";
         
         CGFloat abstractHeight = 0;
         UITextView *textView = [UITextView new];
-        textView.editable = NO;g
+        textView.editable = NO;
         textView.scrollEnabled = NO;
         
         [Event setAbstractContent:textView forEvent:event];
