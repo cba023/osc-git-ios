@@ -7,14 +7,13 @@
 //
 
 #import "LoginViewController.h"
-#import "NavigationController.h"
 #import "User.h"
 #import "Tools.h"
 #import "EventsView.h"
 #import "Event.h"
 #import "GLGitlab.h"
 #import "UserDetailsView.h"
-#import "UIViewController+REFrostedViewController.h"
+#import "PKRevealController.h"
 #import "UIView+Toast.h"
 
 @interface LoginViewController ()
@@ -51,8 +50,13 @@
     
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"three_lines"]
                                                                              style:UIBarButtonItemStylePlain
-                                                                            target:(NavigationController *)self.navigationController
+                                                                            target:self
                                                                             action:@selector(showMenu)];
+}
+
+- (void)showMenu
+{
+    [self.navigationController.revealController showViewController:self.navigationController.revealController.leftViewController];
 }
 
 - (void)didReceiveMemoryWarning
@@ -274,8 +278,9 @@
             [User saveUserInformation:user];
             
             UserDetailsView *ownDetailsView = [[UserDetailsView alloc] initWithPrivateToken:user.private_token userID:user.userId];
-            NavigationController *navigationController = [[NavigationController alloc] initWithRootViewController:ownDetailsView];
-            self.frostedViewController.contentViewController = navigationController;
+            UINavigationController *front = [[UINavigationController alloc] initWithRootViewController:ownDetailsView];
+            [self.revealController setFrontViewController:front];
+            [self.revealController showViewController:self.revealController.frontViewController];
         }
     };
     

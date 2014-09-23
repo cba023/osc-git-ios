@@ -9,7 +9,6 @@
 #import "GLGitlab.h"
 #import "EventsView.h"
 #import "EventCell.h"
-#import "NavigationController.h"
 #import "Event.h"
 #import "Tools.h"
 #import "UIImageView+WebCache.h"
@@ -62,11 +61,6 @@ static NSString * const EventCellIdentifier = @"EventCell";
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"three_lines"]
-                                                                             style:UIBarButtonItemStylePlain
-                                                                            target:(NavigationController *)self.navigationController
-                                                                            action:@selector(showMenu)];
     
 #if 0
     if([[[UIDevice currentDevice]systemVersion]floatValue]>=7.0)

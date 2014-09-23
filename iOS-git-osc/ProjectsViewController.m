@@ -7,7 +7,7 @@
 //
 
 #import "ProjectsViewController.h"
-#import "NavigationController.h"
+#import "PKRevealController.h"
 
 @interface ProjectsViewController ()
 
@@ -25,7 +25,7 @@
     [super viewDidLoad];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"three_lines"]
                                                                              style:UIBarButtonItemStylePlain
-                                                                            target:(NavigationController *)self.navigationController
+                                                                            target:self
                                                                             action:@selector(showMenu)];
     
     self.segmentTitle = [[UISegmentedControl alloc] initWithItems:@[@"推荐", @"热门", @"最近更新"]];
@@ -47,6 +47,11 @@
     [self.view addSubview:_recommendedProjects.view];
     _recommendedProjects.view.frame = self.view.bounds;
     _recommendedProjects.view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+}
+
+- (void)showMenu
+{
+    [self.navigationController.revealController showViewController:self.navigationController.revealController.leftViewController];
 }
 
 - (void)didReceiveMemoryWarning

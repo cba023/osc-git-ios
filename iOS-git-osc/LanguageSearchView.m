@@ -9,10 +9,10 @@
 #import "LanguageSearchView.h"
 #import "GLGitlab.h"
 #import "Project.h"
-#import "NavigationController.h"
 #import "ProjectsTableController.h"
 #import "UIView+Toast.h"
 #import "Tools.h"
+#import "PKRevealController.h"
 
 @interface LanguageSearchView ()
 
@@ -37,7 +37,7 @@ static NSString * const LanguageCellID = @"LanguageCell";
     
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"three_lines"]
                                                                              style:UIBarButtonItemStylePlain
-                                                                            target:(NavigationController *)self.navigationController
+                                                                            target:self
                                                                             action:@selector(showMenu)];
     self.title = @"编程语言";
     
@@ -45,6 +45,11 @@ static NSString * const LanguageCellID = @"LanguageCell";
     UIView *footer = [[UIView alloc] initWithFrame:CGRectZero];
     self.tableView.tableFooterView = footer;
     self.tableView.bounces = NO;
+}
+
+- (void)showMenu
+{
+    [self.navigationController.revealController showViewController:self.navigationController.revealController.leftViewController];
 }
 
 - (void)didReceiveMemoryWarning

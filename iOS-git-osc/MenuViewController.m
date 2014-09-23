@@ -7,9 +7,7 @@
 //
 
 #import "MenuViewController.h"
-#import "NavigationController.h"
 #import "LoginViewController.h"
-#import "UIViewController+REFrostedViewController.h"
 #import "GLGitlab.h"
 #import "User.h"
 #import "Event.h"
@@ -24,6 +22,7 @@
 #import "UIImageView+WebCache.h"
 #import "UserDetailsView.h"
 #import "ShakingView.h"
+#import "PKRevealController.h"
 
 @interface MenuViewController ()
 
@@ -44,8 +43,9 @@ static NSString * const kKeyPortrait = @"new_portrait";
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     self.tableView.opaque = NO;
-    self.tableView.backgroundColor = [UIColor clearColor];
+    self.tableView.backgroundColor = UIColorFromRGB(0x363636);
     self.tableView.separatorStyle = NO;
+    [self.revealController setMinimumWidth:200.0 maximumWidth:220.0 forViewController:self];
 #if 0
     self.tableView.tableHeaderView = ({
         UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, 184.0f)];
@@ -90,8 +90,8 @@ static NSString * const kKeyPortrait = @"new_portrait";
     [super viewWillAppear:animated];
     self.tableView.tableHeaderView = ({
         UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, 184.0f)];
-        self.imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 40, 100, 100)];
-        self.imageView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
+        self.imageView = [[UIImageView alloc] initWithFrame:CGRectMake(80, 40, 80, 80)];
+        //self.imageView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
         NSString *portrait = [self.user objectForKey:kKeyPortrait];
         NSString *name = [self.user objectForKey:kKeyName];
         
@@ -102,7 +102,7 @@ static NSString * const kKeyPortrait = @"new_portrait";
         }
         
         self.imageView.layer.masksToBounds = YES;
-        self.imageView.layer.cornerRadius = 50.0;
+        self.imageView.layer.cornerRadius = 40.0;
         self.imageView.layer.borderColor = [UIColor clearColor].CGColor;
         self.imageView.layer.borderWidth = 0.0f;
         self.imageView.layer.rasterizationScale = [UIScreen mainScreen].scale;
@@ -113,17 +113,18 @@ static NSString * const kKeyPortrait = @"new_portrait";
                                                                                                 action:@selector(tapPortrait:)];
         [view addGestureRecognizer:tapPortraitRecognizer];
         
-        self.label = [[UILabel alloc] initWithFrame:CGRectMake(0, 150, 0, 24)];
+        self.label = [[UILabel alloc] initWithFrame:CGRectMake(80, 130, 0, 24)];
         if (name) {
             self.label.text = name;
         } else {
             self.label.text = @"游客";
         }
         self.label.font = [UIFont fontWithName:@"HelveticaNeue" size:21];
+        self.label.textColor = [UIColor whiteColor];
         self.label.backgroundColor = [UIColor clearColor];
         self.label.textColor = [UIColor colorWithRed:62/255.0f green:68/255.0f blue:75/255.0f alpha:1.0f];
         [self.label sizeToFit];
-        self.label.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
+        //self.label.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
         
         [view addSubview:self.imageView];
         [view addSubview:self.label];
@@ -136,7 +137,7 @@ static NSString * const kKeyPortrait = @"new_portrait";
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     cell.backgroundColor = [UIColor clearColor];
-    cell.textLabel.textColor = [UIColor colorWithRed:62/255.0f green:68/255.0f blue:75/255.0f alpha:1.0f];
+    cell.textLabel.textColor = [UIColor whiteColor];//[UIColor colorWithRed:62/255.0f green:68/255.0f blue:75/255.0f alpha:1.0f];
     cell.textLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:17];
 }
 
@@ -149,35 +150,35 @@ static NSString * const kKeyPortrait = @"new_portrait";
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    NavigationController *navigationController;
+    UINavigationController *front = [UINavigationController alloc];
     if (indexPath.row == 1) {
         NSString *privateToken = [self.user objectForKey:@"private_token"];
         if (privateToken == nil) {
             LoginViewController *loginViewController = [LoginViewController new];
-            navigationController = [[NavigationController alloc] initWithRootViewController:loginViewController];
+            front = [front initWithRootViewController:loginViewController];
         } else {
             int64_t userID = [[self.user objectForKey:kKeyUserId] intValue];
             UserDetailsView *ownDetailsView = [[UserDetailsView alloc] initWithPrivateToken:privateToken userID:userID];
-            navigationController = [[NavigationController alloc] initWithRootViewController:ownDetailsView];
+            front = [front initWithRootViewController:ownDetailsView];
         }
     } else {
         if (indexPath.row == 0) {
-            ProjectsViewController *projectViewController = [[ProjectsViewController alloc] init];
-            navigationController = [[NavigationController alloc] initWithRootViewController:projectViewController];
+            ProjectsViewController *projectViewController = [ProjectsViewController new];
+            front = [front initWithRootViewController:projectViewController];
         } else if (indexPath.row == 2) {
             LanguageSearchView *languageSearchView = [LanguageSearchView new];
-            navigationController = [[NavigationController alloc] initWithRootViewController:languageSearchView];
+            front = [front initWithRootViewController:languageSearchView];
         } else if (indexPath.row == 3) {
             SearchView *searchView = [SearchView new];
-            navigationController = [[NavigationController alloc] initWithRootViewController:searchView];
+            front = [front initWithRootViewController:searchView];
         } else {
             ShakingView *shakingView = [ShakingView new];
-            navigationController = [[NavigationController alloc] initWithRootViewController:shakingView];
+            front = [front initWithRootViewController:shakingView];
         }
     }
     
-    self.frostedViewController.contentViewController = navigationController;
-    [self.frostedViewController hideMenuViewController];
+    [self.revealController setFrontViewController:front];
+    [self.revealController showViewController:self.revealController.frontViewController];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -210,6 +211,7 @@ static NSString * const kKeyPortrait = @"new_portrait";
     //images = @[@"MenuProfile", @"MenuProfile", @"MenuOrgRepos", @"MenuOrgRepos", @"MenuOrgRepos", @"MenuOrgRepos"];
     //cell.imageView.image = [UIImage imageNamed:images[indexPath.row]];
     cell.textLabel.text = titles[indexPath.row];
+    cell.textLabel.textColor = [UIColor whiteColor];
     
     return cell;
 }
@@ -217,18 +219,18 @@ static NSString * const kKeyPortrait = @"new_portrait";
 #pragma mark - recognizer
 - (void)tapPortrait:(UITapGestureRecognizer *)recognizer
 {
-    NavigationController *navigationController;
+    UINavigationController *front = [UINavigationController alloc];
     
     if ([_user objectForKey:@"private_token"]) {
         AccountManagement *accountView = [AccountManagement new];
-        navigationController = [[NavigationController alloc] initWithRootViewController:accountView];
+        front = [front initWithRootViewController:accountView];
     } else {
         LoginViewController *loginViewController = [LoginViewController new];
-        navigationController = [[NavigationController alloc] initWithRootViewController:loginViewController];
+        front = [front initWithRootViewController:loginViewController];
     }
     
-    self.frostedViewController.contentViewController = navigationController;
-    [self.frostedViewController hideMenuViewController];
+    [self.revealController setFrontViewController:front];
+    [self.revealController showViewController:self.revealController.frontViewController];
 }
 
 @end

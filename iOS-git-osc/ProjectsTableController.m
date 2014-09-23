@@ -9,12 +9,12 @@
 #import "ProjectsTableController.h"
 #import "ProjectCell.h"
 #import "FilesTableController.h"
-#import "NavigationController.h"
 #import "ProjectDetailsView.h"
 #import "GLGitlab.h"
 #import "Project.h"
 #import "Tools.h"
 #import "LastCell.h"
+#import "PKRevealController.h"
 
 @interface ProjectsTableController ()
 
@@ -70,7 +70,7 @@ static NSString * const cellId = @"ProjectCell";
     if (self.navigationController.viewControllers.count <= 1) {
         self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"three_lines"]
                                                                                  style:UIBarButtonItemStylePlain
-                                                                                target:(NavigationController *)self.navigationController
+                                                                                target:self
                                                                                 action:@selector(showMenu)];
     }
 #if 1
@@ -97,6 +97,11 @@ static NSString * const cellId = @"ProjectCell";
     projects = [NSMutableArray new];
     _lastCell = [[LastCell alloc] initCell];
     _isFinishedLoad = NO;
+}
+
+- (void)showMenu
+{
+    [self.navigationController.revealController showViewController:self.navigationController.revealController.leftViewController];
 }
 
 - (void)didReceiveMemoryWarning

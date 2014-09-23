@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "REFrostedViewController.h"
 
 @interface AccountManagement : UIViewController <UITableViewDataSource, UITableViewDelegate>
 

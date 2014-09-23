@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import "ProjectsViewController.h"
 
 @implementation AppDelegate
 
@@ -14,23 +15,16 @@
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
-    // Create content and menu controllers
-    //
-    NavigationController *navigationController = [[NavigationController alloc] initWithRootViewController:[[ProjectsViewController alloc] init]];
-    MenuViewController *menuController = [[MenuViewController alloc] initWithStyle:UITableViewStylePlain];
+    MenuViewController* leftFaceController = [[MenuViewController alloc] init];
+    ProjectsViewController *projectsView = [ProjectsViewController new];
     
-    // Create frosted view controller
-    //
-    REFrostedViewController *frostedViewController = [[REFrostedViewController alloc] initWithContentViewController:navigationController menuViewController:menuController];
-    frostedViewController.direction = REFrostedViewControllerDirectionLeft;
-    frostedViewController.liveBlurBackgroundStyle = REFrostedViewControllerLiveBackgroundStyleLight;
-    frostedViewController.liveBlur = YES;
-    frostedViewController.delegate = self;
+    //构造PKRevealController对象
+    UINavigationController *frontViewController = [[UINavigationController alloc] initWithRootViewController:projectsView];
+    PKRevealController *revealController = [PKRevealController revealControllerWithFrontViewController:frontViewController leftViewController:leftFaceController];
     
-    // Make it a root controller
-    //
-    self.window.rootViewController = frostedViewController;
+    //将其PKRevealController对象作为RootViewController
     self.window.backgroundColor = [UIColor whiteColor];
+    self.window.rootViewController = revealController;
     [self.window makeKeyAndVisible];
     
     if([[[UIDevice currentDevice] systemVersion] floatValue]>=7.0) {

@@ -7,12 +7,11 @@
 //
 
 #import "AccountManagement.h"
-#import "NavigationController.h"
 #import "GLGitlab.h"
 #import "Tools.h"
 #import "UIImageView+WebCache.h"
 #import "ProjectsViewController.h"
-#import "UIViewController+REFrostedViewController.h"
+#import "PKRevealController.h"
 
 static NSString * const FollowCellId = @"FollowCell";
 static NSString * const SocialCellId = @"SocialCell";
@@ -47,13 +46,18 @@ static NSString * const kKeyFollow = @"follow";
     self.navigationController.navigationBar.translucent = NO;
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"three_lines"]
                                                                              style:UIBarButtonItemStylePlain
-                                                                            target:(NavigationController *)self.navigationController
+                                                                            target:self
                                                                             action:@selector(showMenu)];
     self.view.backgroundColor = [Tools uniformColor];
     
     _userDefaults = [NSUserDefaults standardUserDefaults];
     [self initSubviews];
     [self setAutoLayout];
+}
+
+- (void)showMenu
+{
+    [self.navigationController.revealController showViewController:self.navigationController.revealController.leftViewController];
 }
 
 - (void)didReceiveMemoryWarning
@@ -246,9 +250,11 @@ static NSString * const kKeyFollow = @"follow";
     [cache removeObjectForKey:@"type-9"];
     
     //[self.navigationController popToRootViewControllerAnimated:YES];
-    ProjectsViewController *projectViewController = [[ProjectsViewController alloc] init];
-    NavigationController *navigationController = [[NavigationController alloc] initWithRootViewController:projectViewController];
-    self.frostedViewController.contentViewController = navigationController;
+    ProjectsViewController *projectViewController = [ProjectsViewController new];
+    UINavigationController *front = [[UINavigationController alloc] initWithRootViewController:projectViewController];
+    [self.revealController setFrontViewController:front];
+    [self.revealController showViewController:self.revealController.frontViewController];
+
 }
 
 

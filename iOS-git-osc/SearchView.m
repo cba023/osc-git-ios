@@ -13,7 +13,7 @@
 #import "Project.h"
 #import "Tools.h"
 #import "ProjectDetailsView.h"
-#import "NavigationController.h"
+#import "PKRevealController.h"
 #import "LastCell.h"
 
 @interface SearchView ()
@@ -33,7 +33,7 @@ static NSString * const LastCellID = @"LastCell";
     self.title = @"项目搜索";
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"three_lines"]
                                                                              style:UIBarButtonItemStylePlain
-                                                                            target:(NavigationController *)self.navigationController
+                                                                            target:self
                                                                             action:@selector(showMenu)];
 
     
@@ -48,6 +48,11 @@ static NSString * const LastCellID = @"LastCell";
         self.edgesForExtendedLayout = UIRectEdgeNone;
         self.automaticallyAdjustsScrollViewInsets = NO;
     }
+}
+
+- (void)showMenu
+{
+    [self.navigationController.revealController showViewController:self.navigationController.revealController.leftViewController];
 }
 
 - (void)viewDidAppear:(BOOL)animated

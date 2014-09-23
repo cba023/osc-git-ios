@@ -8,7 +8,6 @@
 
 #import "GLGitlab.h"
 #import "FilesTableController.h"
-#import "NavigationController.h"
 #import "Project.h"
 #import "FileCell.h"
 #import "FileContentView.h"

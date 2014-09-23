@@ -16,14 +16,7 @@
 		0002D2691916324B001FDED8 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0002D2681916324B001FDED8 /* XCTest.framework */; };
 		0002D26A1916324B001FDED8 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0002D2491916324B001FDED8 /* Foundation.framework */; };
 		0002D26B1916324B001FDED8 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0002D24D1916324B001FDED8 /* UIKit.framework */; };
-		0002D2B219163DF6001FDED8 /* RECommonFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = 0002D2A719163DF6001FDED8 /* RECommonFunctions.m */; };
-		0002D2B319163DF6001FDED8 /* REFrostedContainerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0002D2A919163DF6001FDED8 /* REFrostedContainerViewController.m */; };
-		0002D2B419163DF6001FDED8 /* REFrostedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0002D2AB19163DF6001FDED8 /* REFrostedViewController.m */; };
-		0002D2B519163DF6001FDED8 /* UIImage+REFrostedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0002D2AD19163DF6001FDED8 /* UIImage+REFrostedViewController.m */; };
-		0002D2B619163DF6001FDED8 /* UIView+REFrostedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0002D2AF19163DF6001FDED8 /* UIView+REFrostedViewController.m */; };
-		0002D2B719163DF6001FDED8 /* UIViewController+REFrostedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0002D2B119163DF6001FDED8 /* UIViewController+REFrostedViewController.m */; };
 		0002D2BE19164716001FDED8 /* MenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0002D2BD19164716001FDED8 /* MenuViewController.m */; };
-		0002D2C119164B02001FDED8 /* NavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0002D2C019164B02001FDED8 /* NavigationController.m */; };
 		0002D2D719188953001FDED8 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0002D2D619188953001FDED8 /* Images.xcassets */; };
 		0002D2E219188B4E001FDED8 /* three_lines.png in Resources */ = {isa = PBXBuildFile; fileRef = 0002D2DF19188B4E001FDED8 /* three_lines.png */; };
 		0002D2E319188B4E001FDED8 /* three_lines@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0002D2E019188B4E001FDED8 /* three_lines@2x.png */; };
@@ -71,6 +64,7 @@
 		003232BA19A49F71007243CA /* MenuOrgRepos@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 003232B619A49F71007243CA /* MenuOrgRepos@2x.png */; };
 		003232BB19A49F71007243CA /* MenuOrgs.png in Resources */ = {isa = PBXBuildFile; fileRef = 003232B719A49F71007243CA /* MenuOrgs.png */; };
 		003232BC19A49F71007243CA /* MenuOrgs@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 003232B819A49F71007243CA /* MenuOrgs@2x.png */; };
+		00329A5119D1784C001B9DC6 /* libPKRevealController.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00329A5019D177F1001B9DC6 /* libPKRevealController.a */; };
 		0041FA9B191C87AF00E1F237 /* Tools.m in Sources */ = {isa = PBXBuildFile; fileRef = 0041FA9A191C87AF00E1F237 /* Tools.m */; };
 		00541C0A196684AB002EC356 /* GLBlob.m in Sources */ = {isa = PBXBuildFile; fileRef = 00541C09196684AB002EC356 /* GLBlob.m */; };
 		0057719919A73D6A00EAA606 /* LanguageSearchView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0057719819A73D6A00EAA606 /* LanguageSearchView.m */; };
@@ -239,6 +233,13 @@
 			remoteGlobalIDString = 0002D2451916324B001FDED8;
 			remoteInfo = "iOS-git-osc";
 		};
+		00329A4F19D177F1001B9DC6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 00329A4B19D177F0001B9DC6 /* PKRevealController.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = F9621E7B1815246000469E41;
+			remoteInfo = PKRevealController;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
@@ -254,22 +255,8 @@
 		0002D2591916324B001FDED8 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		0002D2671916324B001FDED8 /* Git@OSC Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Git@OSC Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0002D2681916324B001FDED8 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
-		0002D2A619163DF6001FDED8 /* RECommonFunctions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RECommonFunctions.h; sourceTree = "<group>"; };
-		0002D2A719163DF6001FDED8 /* RECommonFunctions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RECommonFunctions.m; sourceTree = "<group>"; };
-		0002D2A819163DF6001FDED8 /* REFrostedContainerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = REFrostedContainerViewController.h; sourceTree = "<group>"; };
-		0002D2A919163DF6001FDED8 /* REFrostedContainerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = REFrostedContainerViewController.m; sourceTree = "<group>"; };
-		0002D2AA19163DF6001FDED8 /* REFrostedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = REFrostedViewController.h; sourceTree = "<group>"; };
-		0002D2AB19163DF6001FDED8 /* REFrostedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = REFrostedViewController.m; sourceTree = "<group>"; };
-		0002D2AC19163DF6001FDED8 /* UIImage+REFrostedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+REFrostedViewController.h"; sourceTree = "<group>"; };
-		0002D2AD19163DF6001FDED8 /* UIImage+REFrostedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+REFrostedViewController.m"; sourceTree = "<group>"; };
-		0002D2AE19163DF6001FDED8 /* UIView+REFrostedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+REFrostedViewController.h"; sourceTree = "<group>"; };
-		0002D2AF19163DF6001FDED8 /* UIView+REFrostedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+REFrostedViewController.m"; sourceTree = "<group>"; };
-		0002D2B019163DF6001FDED8 /* UIViewController+REFrostedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+REFrostedViewController.h"; sourceTree = "<group>"; };
-		0002D2B119163DF6001FDED8 /* UIViewController+REFrostedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+REFrostedViewController.m"; sourceTree = "<group>"; };
 		0002D2BC19164716001FDED8 /* MenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuViewController.h; sourceTree = "<group>"; };
 		0002D2BD19164716001FDED8 /* MenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuViewController.m; sourceTree = "<group>"; };
-		0002D2BF19164B02001FDED8 /* NavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavigationController.h; sourceTree = "<group>"; };
-		0002D2C019164B02001FDED8 /* NavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavigationController.m; sourceTree = "<group>"; };
 		0002D2D619188953001FDED8 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		0002D2DF19188B4E001FDED8 /* three_lines.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = three_lines.png; sourceTree = "<group>"; };
 		0002D2E019188B4E001FDED8 /* three_lines@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "three_lines@2x.png"; sourceTree = "<group>"; };
@@ -356,6 +343,9 @@
 		003232B619A49F71007243CA /* MenuOrgRepos@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MenuOrgRepos@2x.png"; sourceTree = "<group>"; };
 		003232B719A49F71007243CA /* MenuOrgs.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MenuOrgs.png; sourceTree = "<group>"; };
 		003232B819A49F71007243CA /* MenuOrgs@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MenuOrgs@2x.png"; sourceTree = "<group>"; };
+		00329A4B19D177F0001B9DC6 /* PKRevealController.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = PKRevealController.xcodeproj; path = "../../Objective-C/PKRevealController-master/Source/PKRevealController.xcodeproj"; sourceTree = "<group>"; };
+		00329A5219D178E6001B9DC6 /* PKRevealController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKRevealController.h; path = "../../../Objective-C/PKRevealController-master/Source/PKRevealController/PKRevealController.h"; sourceTree = "<group>"; };
+		00329A5319D178E6001B9DC6 /* UIViewController+PKRevealController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIViewController+PKRevealController.h"; path = "../../../Objective-C/PKRevealController-master/Source/PKRevealController/Categories/UIViewController+PKRevealController.h"; sourceTree = "<group>"; };
 		0041FA99191C87AF00E1F237 /* Tools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tools.h; sourceTree = "<group>"; };
 		0041FA9A191C87AF00E1F237 /* Tools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Tools.m; sourceTree = "<group>"; };
 		00541C08196684AB002EC356 /* GLBlob.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLBlob.h; sourceTree = "<group>"; };
@@ -580,6 +570,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				00329A5119D1784C001B9DC6 /* libPKRevealController.a in Frameworks */,
 				00B3CF9C19CC0D2E00747373 /* CoreMotion.framework in Frameworks */,
 				00B3CF9A19CC0A6600747373 /* AudioToolbox.framework in Frameworks */,
 				00B685B819ADCF7D00705534 /* SystemConfiguration.framework in Frameworks */,
@@ -608,7 +599,6 @@
 			isa = PBXGroup;
 			children = (
 				00760B6819767BDA00C88C6F /* SDWebImage */,
-				0002D2A519163DF6001FDED8 /* REFrostedViewController */,
 				0021BA7E192342BD00626A2C /* objc gitlab api */,
 				0002D24F1916324B001FDED8 /* iOS-git-osc */,
 				0002D2C519179858001FDED8 /* Resource */,
@@ -629,6 +619,7 @@
 		0002D2481916324B001FDED8 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				00329A4B19D177F0001B9DC6 /* PKRevealController.xcodeproj */,
 				00B3CF9B19CC0D2E00747373 /* CoreMotion.framework */,
 				00B3CF9919CC0A6600747373 /* AudioToolbox.framework */,
 				00B685B719ADCF7D00705534 /* SystemConfiguration.framework */,
@@ -666,33 +657,11 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		0002D2A519163DF6001FDED8 /* REFrostedViewController */ = {
-			isa = PBXGroup;
-			children = (
-				0002D2A619163DF6001FDED8 /* RECommonFunctions.h */,
-				0002D2A719163DF6001FDED8 /* RECommonFunctions.m */,
-				0002D2A819163DF6001FDED8 /* REFrostedContainerViewController.h */,
-				0002D2A919163DF6001FDED8 /* REFrostedContainerViewController.m */,
-				0002D2AA19163DF6001FDED8 /* REFrostedViewController.h */,
-				0002D2AB19163DF6001FDED8 /* REFrostedViewController.m */,
-				0002D2AC19163DF6001FDED8 /* UIImage+REFrostedViewController.h */,
-				0002D2AD19163DF6001FDED8 /* UIImage+REFrostedViewController.m */,
-				0002D2AE19163DF6001FDED8 /* UIView+REFrostedViewController.h */,
-				0002D2AF19163DF6001FDED8 /* UIView+REFrostedViewController.m */,
-				0002D2B019163DF6001FDED8 /* UIViewController+REFrostedViewController.h */,
-				0002D2B119163DF6001FDED8 /* UIViewController+REFrostedViewController.m */,
-			);
-			name = REFrostedViewController;
-			path = "iOS-git-osc/REFrostedViewController";
-			sourceTree = "<group>";
-		};
 		0002D2B81916407B001FDED8 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
 				0002D2BC19164716001FDED8 /* MenuViewController.h */,
 				0002D2BD19164716001FDED8 /* MenuViewController.m */,
-				0002D2BF19164B02001FDED8 /* NavigationController.h */,
-				0002D2C019164B02001FDED8 /* NavigationController.m */,
 				006391C41987924100689FAD /* Login&Management */,
 				00B7AF0E198BADCC0025C868 /* User */,
 				00B75960196CE5EB009C9C58 /* Projects */,
@@ -843,9 +812,19 @@
 			path = private;
 			sourceTree = "<group>";
 		};
+		00329A4C19D177F0001B9DC6 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				00329A5019D177F1001B9DC6 /* libPKRevealController.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		0057719619A6299500EAA606 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				00329A5219D178E6001B9DC6 /* PKRevealController.h */,
+				00329A5319D178E6001B9DC6 /* UIViewController+PKRevealController.h */,
 				0079C03519B56521005EF089 /* UIView+Toast.h */,
 				0079C03619B56521005EF089 /* UIView+Toast.m */,
 				0021BAF5192360A100626A2C /* SSKeychain.h */,
@@ -1248,6 +1227,12 @@
 			mainGroup = 0002D23D1916324B001FDED8;
 			productRefGroup = 0002D2471916324B001FDED8 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 00329A4C19D177F0001B9DC6 /* Products */;
+					ProjectRef = 00329A4B19D177F0001B9DC6 /* PKRevealController.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				0002D2451916324B001FDED8 /* Git@OSC */,
@@ -1255,6 +1240,16 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		00329A5019D177F1001B9DC6 /* libPKRevealController.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libPKRevealController.a;
+			remoteRef = 00329A4F19D177F1001B9DC6 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		0002D2441916324B001FDED8 /* Resources */ = {
@@ -1387,7 +1382,6 @@
 				00B01FE919221EB40095D488 /* User.m in Sources */,
 				00B7594E196BE989009C9C58 /* GLGitLabApi+Events.m in Sources */,
 				0021BAE6192342BD00626A2C /* GLGitlabApi+Session.m in Sources */,
-				0002D2B719163DF6001FDED8 /* UIViewController+REFrostedViewController.m in Sources */,
 				00A74FD519A59FD7009DACDF /* SearchView.m in Sources */,
 				00D4ED26196F9B9900F3A4A5 /* IssueCell.m in Sources */,
 				0021BAEB192342BD00626A2C /* GLNetworkOperation.m in Sources */,
@@ -1404,13 +1398,11 @@
 				006391C71988848800689FAD /* ProjectDetailsView.m in Sources */,
 				00760B611973BF6600C88C6F /* NoteEditingView.m in Sources */,
 				00760B9419767BDB00C88C6F /* UIImage+GIF.m in Sources */,
-				0002D2B619163DF6001FDED8 /* UIView+REFrostedViewController.m in Sources */,
 				00C3A42219639F8D002A34AB /* ProjectCell.m in Sources */,
 				00B3CF9619CBDDE000747373 /* ShakingView.m in Sources */,
 				0021BAE7192342BD00626A2C /* GLGitlabApi+Snippets.m in Sources */,
 				0021BAE9192342BD00626A2C /* GLGitlabApi.m in Sources */,
 				00760B8A19767BDA00C88C6F /* MKAnnotationView+WebCache.m in Sources */,
-				0002D2B319163DF6001FDED8 /* REFrostedContainerViewController.m in Sources */,
 				0079C03719B56521005EF089 /* UIView+Toast.m in Sources */,
 				00A502D019BE970200EF057B /* ImageView.m in Sources */,
 				0021BADA192342BD00626A2C /* GLTag.m in Sources */,
@@ -1418,7 +1410,6 @@
 				0021BADF192342BD00626A2C /* GLGitlabApi+Groups.m in Sources */,
 				00760B9119767BDB00C88C6F /* SDWebImageManager.m in Sources */,
 				0021BAF7192360A100626A2C /* SSKeychain.m in Sources */,
-				0002D2B519163DF6001FDED8 /* UIImage+REFrostedViewController.m in Sources */,
 				00F017771994BB040076BE43 /* CreationInfoCell.m in Sources */,
 				008AB6D119BDD5BC00DF31B0 /* File.m in Sources */,
 				0021BAE2192342BD00626A2C /* GLGitlabApi+Milestones.m in Sources */,
@@ -1443,9 +1434,7 @@
 				0021BAD5192342BD00626A2C /* GLMilestone.m in Sources */,
 				00B685B619ADCF2A00705534 /* Reachability.m in Sources */,
 				00D4ED34196FF88300F3A4A5 /* NotesView.m in Sources */,
-				0002D2B219163DF6001FDED8 /* RECommonFunctions.m in Sources */,
 				00760B9519767BDB00C88C6F /* UIImage+MultiFormat.m in Sources */,
-				0002D2C119164B02001FDED8 /* NavigationController.m in Sources */,
 				00B75957196BEB90009C9C58 /* EventsView.m in Sources */,
 				00760B8F19767BDB00C88C6F /* SDWebImageDownloader.m in Sources */,
 				0021BAEE192342BD00626A2C /* NSURL+GLAdditions.m in Sources */,
@@ -1482,7 +1471,6 @@
 				00B75954196BEB6F009C9C58 /* EventCell.m in Sources */,
 				0021BAE1192342BD00626A2C /* GLGitlabApi+MergeRequest.m in Sources */,
 				0021BAED192342BD00626A2C /* GLVoidNetworkOperation.m in Sources */,
-				0002D2B419163DF6001FDED8 /* REFrostedViewController.m in Sources */,
 				0021BAEC192342BD00626A2C /* GLRawNetworkOperation.m in Sources */,
 				00541C0A196684AB002EC356 /* GLBlob.m in Sources */,
 				00760B9919767BDB00C88C6F /* UIView+WebCacheOperation.m in Sources */,

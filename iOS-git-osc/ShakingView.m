@@ -9,7 +9,7 @@
 #import "ShakingView.h"
 #import <CoreMotion/CoreMotion.h>
 #import <AudioToolbox/AudioToolbox.h>
-#import "NavigationController.h"
+#import "PKRevealController.h"
 #import "GLGitlab.h"
 #import "Tools.h"
 #import "ProjectCell.h"
@@ -48,10 +48,11 @@
     
     self.title = @"摇一摇";
     [self.navigationController.navigationBar setTranslucent:NO];
+    self.view.backgroundColor = [UIColor whiteColor];
     //self.view.backgroundColor = UIColorFromRGB(0x111111);
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"three_lines"]
                                                                              style:UIBarButtonItemStylePlain
-                                                                            target:(NavigationController *)self.navigationController
+                                                                            target:self
                                                                             action:@selector(showMenu)];
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"收货信息"
@@ -69,6 +70,11 @@
 	AudioServicesCreateSystemSoundID((CFURLRef)CFBridgingRetain([NSURL fileURLWithPath:path]), &_soundID);
     
     _privateToken = [Tools getPrivateToken];
+}
+
+- (void)showMenu
+{
+    [self.navigationController.revealController showViewController:self.navigationController.revealController.leftViewController];
 }
 
 - (void)viewDidAppear:(BOOL)animated

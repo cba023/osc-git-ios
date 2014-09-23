@@ -9,7 +9,7 @@
 #import "UserDetailsView.h"
 #import "EventsView.h"
 #import "ProjectsTableController.h"
-#import "NavigationController.h"
+#import "PKRevealController.h"
 
 @interface UserDetailsView ()
 
@@ -53,7 +53,7 @@
     if (controllersInStack < 2) {
         self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"three_lines"]
                                                                                  style:UIBarButtonItemStylePlain
-                                                                                target:(NavigationController *)self.navigationController
+                                                                                target:self
                                                                                 action:@selector(showMenu)];
     }
     
@@ -78,6 +78,11 @@
     [self.view addSubview:_eventsView.view];
     _eventsView.view.frame = self.view.bounds;
     _eventsView.view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+}
+
+- (void)showMenu
+{
+    [self.navigationController.revealController showViewController:self.navigationController.revealController.leftViewController];
 }
 
 - (void)didReceiveMemoryWarning

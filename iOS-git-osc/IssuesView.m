@@ -9,7 +9,6 @@
 #import "IssuesView.h"
 #import "IssueCell.h"
 #import "Issue.h"
-#import "NavigationController.h"
 #import "GLGitlab.h"
 #import "NotesView.h"
 #import "IssueCreation.h"
