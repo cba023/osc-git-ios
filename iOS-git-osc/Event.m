@@ -208,6 +208,7 @@ enum action {
     } else {
         textView.backgroundColor = [Tools uniformColor];
         textView.text = @"";
+        textView.font = [UIFont systemFontOfSize:0];
     }
 }
 

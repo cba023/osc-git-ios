@@ -163,12 +163,12 @@
 
 - (void)pushReceivingInfoView
 {
-    if ([Tools getPrivateToken]) {
+    if ([Tools getPrivateToken].length) {
         ReceivingInfoView *infoView = [ReceivingInfoView new];
         [self.navigationController pushViewController:infoView animated:YES];
     } else {
         LoginViewController *loginView = [LoginViewController new];
-        [self.navigationController pushViewController:loginView animated:YES];
+        [self.navigationController pushViewController:loginView animated:NO];
     }
 }
 

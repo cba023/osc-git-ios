@@ -74,7 +74,7 @@
                                                                              metrics:nil
                                                                                views:viewsDictionary]];
     
-    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-8-[_eventDescription]-8-[_eventAbstract]-8-[_time]-8-|"
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-8-[_eventDescription]-5-[_eventAbstract]-5-[_time]-8-|"
                                                                              options:NSLayoutFormatAlignAllLeft | NSLayoutFormatAlignAllRight
                                                                              metrics:nil
                                                                                views:viewsDictionary]];

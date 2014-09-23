@@ -645,7 +645,7 @@
 		0002D24F1916324B001FDED8 /* iOS-git-osc */ = {
 			isa = PBXGroup;
 			children = (
-				0057719619A6299500EAA606 /* Helpers */,
+				0057719619A6299500EAA606 /* Utils */,
 				0002D2B81916407B001FDED8 /* Controller */,
 				0002D2581916324B001FDED8 /* AppDelegate.h */,
 				0002D2591916324B001FDED8 /* AppDelegate.m */,
@@ -843,7 +843,7 @@
 			path = private;
 			sourceTree = "<group>";
 		};
-		0057719619A6299500EAA606 /* Helpers */ = {
+		0057719619A6299500EAA606 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
 				0079C03519B56521005EF089 /* UIView+Toast.h */,
@@ -857,7 +857,7 @@
 				00B481B619AED592001F3B2D /* LastCell.h */,
 				00B481B719AED592001F3B2D /* LastCell.m */,
 			);
-			name = Helpers;
+			name = Utils;
 			sourceTree = "<group>";
 		};
 		006391C41987924100689FAD /* Login&Management */ = {
