@@ -66,15 +66,15 @@
     _descriptionLabel.text = @"描述";
     [self.view addSubview:_descriptionLabel];
     
-    _description = [UITextView new];
-    _description.backgroundColor = [UIColor whiteColor];
-    _description.layer.borderWidth = 0.8;
-    _description.layer.cornerRadius = 3.0;
-    _description.layer.borderColor = [[UIColor grayColor] CGColor];
-    _description.returnKeyType = UIReturnKeyDone;
-    _description.autocorrectionType = UITextAutocorrectionTypeNo;
-    _description.delegate = self;
-    [self.view addSubview:_description];
+    _issueDescription = [UITextView new];
+    _issueDescription.backgroundColor = [UIColor whiteColor];
+    _issueDescription.layer.borderWidth = 0.8;
+    _issueDescription.layer.cornerRadius = 3.0;
+    _issueDescription.layer.borderColor = [[UIColor grayColor] CGColor];
+    _issueDescription.returnKeyType = UIReturnKeyDone;
+    _issueDescription.autocorrectionType = UITextAutocorrectionTypeNo;
+    _issueDescription.delegate = self;
+    [self.view addSubview:_issueDescription];
     
     [_issueTitle addTarget:self action:@selector(returnOnKeyboard:) forControlEvents:UIControlEventEditingDidEndOnExit];
     
@@ -99,17 +99,17 @@
         view.translatesAutoresizingMaskIntoConstraints = NO;
     }
     
+    NSDictionary *viewsDict = NSDictionaryOfVariableBindings(_titleLabel, _issueTitle, _descriptionLabel, _issueDescription, _submit);
+    
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-20-[_titleLabel]-[_issueTitle(40)]-20-[_descriptionLabel]-[_description(150)]-30-[_submit(30)]"
                                                                      options:NSLayoutFormatAlignAllLeft | NSLayoutFormatAlignAllRight
                                                                      metrics:nil
-                                                                       views:NSDictionaryOfVariableBindings(_titleLabel, _issueTitle,
-                                                                                                            _descriptionLabel, _description,
-                                                                                                            _submit)]];
+                                                                       views:viewsDict]];
     
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|-10-[_submit]-10-|"
                                                                       options:0
                                                                       metrics:nil
-                                                                        views:NSDictionaryOfVariableBindings(_submit)]];
+                                                                        views:viewsDict]];
 }
 
 - (void)submitIssue
@@ -117,7 +117,7 @@
     GLIssue *issue = [GLIssue new];
     issue.projectId = _projectId;
     issue.title = _issueTitle.text;
-    issue.issueDescription = _description.text;
+    issue.issueDescription = _issueDescription.text;
     [self createIssue:issue];
 }
 
@@ -205,8 +205,8 @@
 
 - (void)hidenKeyboard
 {
-    [self.issueTitle resignFirstResponder];
-    [self.description resignFirstResponder];
+    [_issueTitle resignFirstResponder];
+    [_issueDescription resignFirstResponder];
     
     [self resumeView];
 }
@@ -214,7 +214,7 @@
 //点击键盘上的Return按钮响应的方法
 - (void)returnOnKeyboard:(UITextField *)sender
 {
-    [self.description becomeFirstResponder];
+    [_issueDescription becomeFirstResponder];
 }
 
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {

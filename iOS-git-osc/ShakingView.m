@@ -16,6 +16,7 @@
 #import "ProjectDetailsView.h"
 #import "ReceivingInfoView.h"
 #import "AwardView.h"
+#import "LoginViewController.h"
 
 #define accelerationThreshold  0.4
 
@@ -140,6 +141,7 @@
                 [Tools toastNotification:@"网络连接失败，请检查网络设置" inView:self.view];
             }
 #else
+            [self shakeAnimation];
             [_awardView setMessage:@"开源内裤一条" andImageURL:@"http://static.oschina.net/uploads/space/2014/0724/101153_qshT_1539046.jpg"];
             [_awardView setHidden:NO];
 #endif
@@ -161,8 +163,13 @@
 
 - (void)pushReceivingInfoView
 {
-    ReceivingInfoView *infoView = [ReceivingInfoView new];
-    [self.navigationController pushViewController:infoView animated:YES];
+    if ([Tools getPrivateToken]) {
+        ReceivingInfoView *infoView = [ReceivingInfoView new];
+        [self.navigationController pushViewController:infoView animated:YES];
+    } else {
+        LoginViewController *loginView = [LoginViewController new];
+        [self.navigationController pushViewController:loginView animated:YES];
+    }
 }
 
 
@@ -192,12 +199,14 @@
     [_layer addSubview:_imageDown];
     
     _projectCell = [ProjectCell new];
-    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapProjectCell)];
-    [_projectCell addGestureRecognizer:tap];
+    UITapGestureRecognizer *tapPC = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapProjectCell)];
+    [_projectCell addGestureRecognizer:tapPC];
     [_projectCell setHidden:YES];
     [self.view addSubview:_projectCell];
     
     _awardView = [AwardView new];
+    UITapGestureRecognizer *tapAW = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapAwardView)];
+    [_awardView addGestureRecognizer:tapAW];
     [Tools roundView:_awardView cornerRadius:8.0];
     [_awardView setHidden:YES];
     [self.view addSubview:_awardView];
@@ -301,6 +310,12 @@
 {
     ProjectDetailsView *projectDetails = [[ProjectDetailsView alloc] initWithProjectID:_project.projectId];
     [self.navigationController pushViewController:projectDetails animated:YES];
+}
+
+- (void)tapAwardView
+{
+    ReceivingInfoView *receivingView = [ReceivingInfoView new];
+    [self.navigationController pushViewController:receivingView animated:YES];
 }
 
 -(void)motionMethod:(CMDeviceMotion *)deviceMotion

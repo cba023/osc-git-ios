@@ -77,4 +77,23 @@
 - (GLNetworkOperation *)deleteUser:(GLUser *)user
                            success:(GLGitlabSuccessBlock)successBlock
                            failure:(GLGitlabFailureBlock)failureBlock;
+
+
+- (GLNetworkOperation *)updateReceivingInfo:(ino64_t)userID
+                               privateToken:(NSString *)privateToken
+                                       name:(NSString *)name
+                                phoneNumber:(NSString *)phoneNumber
+                                    address:(NSString *)address
+                                  extraInfo:(NSString *)extraInfo
+                                    success:(GLGitlabSuccessBlock)successBlock
+                                    failure:(GLGitlabFailureBlock)failureBlock;
+
+
+- (GLNetworkOperation *)fetchReceivingInfo:(int64_t)userID
+                              privateToken:(NSString *)privateToken
+                                   success:(GLGitlabSuccessBlock)successBlock
+                                   failure:(GLGitlabFailureBlock)failureBlock;
+
+
+
 @end

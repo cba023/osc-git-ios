@@ -22,7 +22,7 @@
 @property UITextField *issueTitle;
 //@property UIPickerView *consignor;
 //@property UIPickerView *milestone;
-@property UITextView *description;
+@property UITextView *issueDescription;
 
 @property UIButton *submit;
 

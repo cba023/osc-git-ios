@@ -13,10 +13,17 @@
 // End points
 static NSString * const kUserEndpoint = @"/users";
 static NSString * const kSingleUserEndpoint = @"/users/%llu";
+static NSString * const kReceivingInfoEndpoint = @"/users/%llu/address";
 
 // Parameter Keys
 static NSString * const kPageParam = @"page";
 static NSString * const kPerPageParam = @"per_page";
+static NSString * const kUid = @"uid";
+static NSString * const kPrivateToken = @"private_token";
+static NSString * const kName = @"name";
+static NSString * const kPhoneNumber = @"tel";
+static NSString * const kAddress = @"address";
+static NSString * const kExtraInfo = @"comment";
 
 @implementation GLGitlabApi (Users)
 #pragma mark - User Methods
@@ -107,5 +114,59 @@ static NSString * const kPerPageParam = @"per_page";
                                    success:localSuccessBlock
                                    failure:localFailureBlock];
 }
+
+- (GLNetworkOperation *)updateReceivingInfo:(ino64_t)userID
+                               privateToken:(NSString *)privateToken
+                                       name:(NSString *)name
+                                phoneNumber:(NSString *)phoneNumber
+                                    address:(NSString *)address
+                                  extraInfo:(NSString *)extraInfo
+                                    success:(GLGitlabSuccessBlock)successBlock
+                                    failure:(GLGitlabFailureBlock)failureBlock
+{
+    NSMutableURLRequest *request = [self requestForEndPoint:[NSString stringWithFormat:kReceivingInfoEndpoint, userID]
+                                                     params:@{
+                                                              kPrivateToken: privateToken,
+                                                              kName: name,
+                                                              kPhoneNumber: phoneNumber,
+                                                              kAddress: address,
+                                                              kExtraInfo: extraInfo
+                                                              }
+                                                     method:GLNetworkOperationPostMethod];
+    
+    GLNetworkOperationSuccessBlock localSuccessBlock = ^(NSDictionary *responseObject) {
+        successBlock(nil);
+    };
+
+    GLNetworkOperationFailureBlock localFailureBlock = [self defaultFailureBlock:failureBlock];
+    
+    return [self queueOperationWithRequest:request
+                                      type:GLNetworkOperationTypeJson
+                                   success:localSuccessBlock
+                                   failure:localFailureBlock];
+}
+
+- (GLNetworkOperation *)fetchReceivingInfo:(int64_t)userID
+                              privateToken:(NSString *)privateToken
+                                   success:(GLGitlabSuccessBlock)successBlock
+                                   failure:(GLGitlabFailureBlock)failureBlock
+{
+    NSMutableURLRequest *request = [self requestForEndPoint:[NSString stringWithFormat:kReceivingInfoEndpoint, userID]
+                                                     params:@{kPrivateToken: privateToken}
+                                                     method:GLNetworkOperationGetMethod];
+    
+    GLNetworkOperationSuccessBlock localSuccessBlock = ^(NSDictionary *responseObject) {
+        successBlock(responseObject);
+    };
+    
+    GLNetworkOperationFailureBlock localFailureBlock = [self defaultFailureBlock:failureBlock];
+    
+    return [self queueOperationWithRequest:request
+                                      type:GLNetworkOperationTypeJson
+                                   success:localSuccessBlock
+                                   failure:localFailureBlock];
+}
+
+
 
 @end

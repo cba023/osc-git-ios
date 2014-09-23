@@ -10,29 +10,29 @@
 	<string>Git@OSC</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-		<key>E09702D2-AE4D-4E4A-9AC7-2419E32DDD3E</key>
+		<key>F9444441B1C4D956E9107EAA1859BC764189C7D8</key>
 		<string>https://git.oschina.net/aetern/git-iphone-app.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
 	<string>Git@OSC.xcodeproj/project.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>E09702D2-AE4D-4E4A-9AC7-2419E32DDD3E</key>
+		<key>F9444441B1C4D956E9107EAA1859BC764189C7D8</key>
 		<string>../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
 	<string>https://git.oschina.net/aetern/git-iphone-app.git</string>
 	<key>IDESourceControlProjectVersion</key>
-	<integer>110</integer>
+	<integer>111</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>E09702D2-AE4D-4E4A-9AC7-2419E32DDD3E</string>
+	<string>F9444441B1C4D956E9107EAA1859BC764189C7D8</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>E09702D2-AE4D-4E4A-9AC7-2419E32DDD3E</string>
+			<string>F9444441B1C4D956E9107EAA1859BC764189C7D8</string>
 			<key>IDESourceControlWCCName</key>
 			<string>iOS-git-osc</string>
 		</dict>

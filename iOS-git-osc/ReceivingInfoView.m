@@ -8,6 +8,8 @@
 
 #import "ReceivingInfoView.h"
 #import "Tools.h"
+#import "GLGitlab.h"
+#import "UIView+Toast.h"
 
 #define PLACE_HOLDER @"T恤（ S、M、L、XL ）或内裤（ L、XL、2XL、3XL ）请备注码数\n如未填写，我们将随机寄出"
 
@@ -43,6 +45,38 @@ static NSString * const kKeyExtroInfo = @"extraInfo";
     UITapGestureRecognizer *gesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideKeyboard)];
     gesture.numberOfTapsRequired = 1;
     [self.view addGestureRecognizer:gesture];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+    if (![Tools isNetworkExist]) {
+        _buttonSave.alpha = 0.4;
+        _buttonSave.enabled = NO;
+        return;
+    }
+    
+    [self.view makeToastActivity];
+    
+    [[GLGitlabApi sharedInstance] fetchReceivingInfo:[[_userDefaults objectForKey:@"id"] longLongValue]
+                                        privateToken:[_userDefaults objectForKey:@"private_token"]
+                                             success:^(id responseObject) {
+                                                 [self.view hideToastActivity];
+                                                 _nameField.text = [responseObject objectForKey:@"name"];
+                                                 _phoneNumField.text = [responseObject objectForKey:@"tel"];
+                                                 _addressView.text = [responseObject objectForKey:@"address"];
+                                                 _remarkView.text = [responseObject objectForKey:@"comment"];
+                                                 if (!_nameField.text.length || !_phoneNumField.text.length || !_addressView.text.length) {
+                                                     _buttonSave.alpha = 0.4;
+                                                     _buttonSave.enabled = NO;
+                                                 }
+                                             }
+                                             failure:^(NSError *error) {
+                                                 [self.view hideToastActivity];
+                                                 _buttonSave.alpha = 0.4;
+                                                 _buttonSave.enabled = NO;
+                                             }];
 }
 
 - (void)didReceiveMemoryWarning
@@ -82,19 +116,9 @@ static NSString * const kKeyExtroInfo = @"extraInfo";
     tipsLabel.font = [UIFont systemFontOfSize:13];
     [self.view addSubview:tipsLabel];
     
-    _buttonSave = [UIButton buttonWithType:UIButtonTypeCustom];
-    [Tools roundView:_buttonSave cornerRadius:5.0];
-    _buttonSave.backgroundColor = [UIColor redColor];
-    [_buttonSave setTitle:@"保存" forState:UIControlStateNormal];
-    _buttonSave.titleLabel.font = [UIFont systemFontOfSize:17];
-    _buttonSave.alpha = 0.4;
-    _buttonSave.enabled = NO;
-    [_buttonSave addTarget:self action:@selector(save) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:_buttonSave];
-    
     _nameField = [UITextField new];
     _nameField.delegate = self;
-    _nameField.text = [_userDefaults objectForKey:kKeyTrueName];
+    //_nameField.text = [_userDefaults objectForKey:kKeyTrueName];
     _nameField.enablesReturnKeyAutomatically = YES;
     _nameField.backgroundColor = [UIColor whiteColor];
     _nameField.returnKeyType = UIReturnKeyNext;
@@ -104,7 +128,7 @@ static NSString * const kKeyExtroInfo = @"extraInfo";
     
     _phoneNumField = [UITextField new];
     _phoneNumField.delegate = self;
-    _phoneNumField.text = [_userDefaults objectForKey:kKeyPhoneNumber];
+    //_phoneNumField.text = [_userDefaults objectForKey:kKeyPhoneNumber];
     _phoneNumField.enablesReturnKeyAutomatically = YES;
     _phoneNumField.backgroundColor = [UIColor whiteColor];
     _phoneNumField.returnKeyType = UIReturnKeyNext;
@@ -114,7 +138,7 @@ static NSString * const kKeyExtroInfo = @"extraInfo";
     
     _addressView = [UITextView new];
     _addressView.delegate = self;
-    _addressView.text = [_userDefaults objectForKey:kKeyAddress];
+    //_addressView.text = [_userDefaults objectForKey:kKeyAddress];
     _addressView.enablesReturnKeyAutomatically = YES;
     _addressView.font = [UIFont systemFontOfSize:16];
     _addressView.backgroundColor = [UIColor whiteColor];
@@ -125,7 +149,7 @@ static NSString * const kKeyExtroInfo = @"extraInfo";
     
     _remarkView = [UITextView new];
     _remarkView.delegate = self;
-    _remarkView.text = [_userDefaults objectForKey:kKeyExtroInfo];
+    //_remarkView.text = [_userDefaults objectForKey:kKeyExtroInfo];
     _remarkView.enablesReturnKeyAutomatically = YES;
     _remarkView.font = [UIFont systemFontOfSize:13];
     _remarkView.backgroundColor = [UIColor whiteColor];
@@ -136,6 +160,14 @@ static NSString * const kKeyExtroInfo = @"extraInfo";
     _remarkView.layer.borderWidth = 1;
     _remarkView.layer.borderColor = [[UIColor grayColor] CGColor];
     [self.view addSubview:_remarkView];
+    
+    _buttonSave = [UIButton buttonWithType:UIButtonTypeCustom];
+    [Tools roundView:_buttonSave cornerRadius:5.0];
+    _buttonSave.backgroundColor = [UIColor redColor];
+    [_buttonSave setTitle:@"保存" forState:UIControlStateNormal];
+    _buttonSave.titleLabel.font = [UIFont systemFontOfSize:17];
+    [_buttonSave addTarget:self action:@selector(saveAndSubmit) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:_buttonSave];
 
     
     for (UIView *subview in [self.view subviews]) {
@@ -156,15 +188,33 @@ static NSString * const kKeyExtroInfo = @"extraInfo";
                                                                         views:viewsDict]];
 }
 
-- (void)save
+- (void)saveAndSubmit
 {
+    if (![Tools isNetworkExist]) {
+        [Tools toastNotification:@"网络连接失败，请检查网络设置" inView:self.view];
+        return;
+    } else {
+        //[self.view makeToastActivity];
+    }
+
     [_userDefaults setObject:_nameField.text forKey:kKeyTrueName];
     [_userDefaults setObject:_phoneNumField.text forKey:kKeyPhoneNumber];
     [_userDefaults setObject:_addressView.text forKey:kKeyAddress];
     [_userDefaults setObject:_remarkView.text forKey:kKeyExtroInfo];
     [_userDefaults synchronize];
     
-    [Tools toastNotification:@"收货信息保存成功" inView:self.view];
+    [[GLGitlabApi sharedInstance] updateReceivingInfo:[[_userDefaults objectForKey:@"id"] longLongValue]
+                                         privateToken:[_userDefaults objectForKey:@"private_token"]
+                                                 name:_nameField.text
+                                          phoneNumber:_phoneNumField.text
+                                              address:_addressView.text
+                                            extraInfo:_remarkView.text
+                                              success:^(id responseObject) {
+                                                  [Tools toastNotification:@"保存成功" inView:self.view];
+                                              }
+                                              failure:^(NSError *error) {
+                                                  [Tools toastNotification:@"网络连接失败，请检查网络设置" inView:self.view];
+                                              }];
 }
 
 - (void)hideKeyboard
