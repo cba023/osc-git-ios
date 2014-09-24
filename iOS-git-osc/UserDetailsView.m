@@ -40,6 +40,14 @@
             _eventsView = [[EventsView alloc] initWithUserID:userID];
             _ownProjects = [[ProjectsTableController alloc] initWithUserID:userID andProjectsType:8];
         }
+        
+        _starredProjects = [[ProjectsTableController alloc] initWithUserID:_userID andProjectsType:4];
+        _watchedProjects = [[ProjectsTableController alloc] initWithUserID:_userID andProjectsType:5];
+        
+        [self addChildViewController:_eventsView];
+        [self addChildViewController:_ownProjects];
+        [self addChildViewController:_starredProjects];
+        [self addChildViewController:_watchedProjects];
     }
     
     return self;
@@ -67,17 +75,14 @@
     [_segmentTitle addTarget:self action:@selector(switchView) forControlEvents:UIControlEventValueChanged];
     self.navigationItem.titleView = _segmentTitle;
     
-    _starredProjects = [[ProjectsTableController alloc] initWithUserID:_userID andProjectsType:4];
-    _watchedProjects = [[ProjectsTableController alloc] initWithUserID:_userID andProjectsType:5];
-    
-    [self addChildViewController:_eventsView];
-    [self addChildViewController:_ownProjects];
-    [self addChildViewController:_starredProjects];
-    [self addChildViewController:_watchedProjects];
-    
     [self.view addSubview:_eventsView.view];
     _eventsView.view.frame = self.view.bounds;
     _eventsView.view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
 }
 
 - (void)showMenu

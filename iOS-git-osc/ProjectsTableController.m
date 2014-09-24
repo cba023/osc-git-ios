@@ -61,7 +61,8 @@ static NSString * const cellId = @"ProjectCell";
     self = [self initWithProjectsType:3];
     _privateToken = privateToken;
     
-    return self;}
+    return self;
+}
 
 - (void)viewDidLoad
 {

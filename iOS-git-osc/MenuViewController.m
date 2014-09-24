@@ -50,20 +50,32 @@ static NSString * const kKeyPortrait = @"new_portrait";
     self.tableView.tableHeaderView = ({
         UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, 184.0f)];
         
-        self.imageView = [[UIImageView alloc] initWithFrame:CGRectMake(60, 40, 80, 80)];
-        self.imageView.layer.masksToBounds = YES;
-        self.imageView.layer.cornerRadius = 40.0;
-        self.imageView.layer.rasterizationScale = [UIScreen mainScreen].scale;
-        self.imageView.layer.shouldRasterize = YES;
-        self.imageView.clipsToBounds = YES;
+        _imageView = [UIImageView new];
+        _imageView.translatesAutoresizingMaskIntoConstraints = NO;
+        _imageView.layer.masksToBounds = YES;
+        _imageView.layer.cornerRadius = 40.0;
+        _imageView.layer.rasterizationScale = [UIScreen mainScreen].scale;
+        _imageView.layer.shouldRasterize = YES;
+        _imageView.clipsToBounds = YES;
+        [view addSubview:_imageView];
         
-        self.label = [[UILabel alloc] initWithFrame:CGRectMake(60, 130, 0, 24)];
-        self.label.font = [UIFont fontWithName:@"HelveticaNeue" size:21];
-        self.label.textColor = [UIColor whiteColor];
-        self.label.backgroundColor = [UIColor clearColor];
+        _label = [UILabel new];
+        _label.translatesAutoresizingMaskIntoConstraints = NO;
+        _label.font = [UIFont fontWithName:@"HelveticaNeue" size:21];
+        _label.textColor = [UIColor whiteColor];
+        _label.backgroundColor = [UIColor clearColor];
+        [view addSubview:_label];
         
-        [view addSubview:self.imageView];
-        [view addSubview:self.label];
+        NSDictionary *viewsDict = NSDictionaryOfVariableBindings(_imageView, _label);
+        [view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-40-[_imageView(80)]-[_label]"
+                                                                     options:NSLayoutFormatAlignAllCenterX
+                                                                     metrics:nil
+                                                                       views:viewsDict]];
+        
+        [view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|-60-[_imageView(80)]"
+                                                                     options:0
+                                                                     metrics:nil
+                                                                       views:viewsDict]];
         
         UITapGestureRecognizer *tapPortraitRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self
                                                                                                 action:@selector(tapPortrait:)];
