@@ -36,6 +36,8 @@
     [self initSubviews];
     [self setLayout];
     
+    self.view.backgroundColor = [UIColor whiteColor];
+    
     
 #if 1
     [self.navigationController.navigationBar setTranslucent:NO];

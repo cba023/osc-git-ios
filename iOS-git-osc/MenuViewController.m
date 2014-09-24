@@ -45,91 +45,53 @@ static NSString * const kKeyPortrait = @"new_portrait";
     self.tableView.opaque = NO;
     self.tableView.backgroundColor = UIColorFromRGB(0x363636);
     self.tableView.separatorStyle = NO;
+    self.tableView.bounces = NO;
     [self.revealController setMinimumWidth:200.0 maximumWidth:220.0 forViewController:self];
-#if 0
+    
     self.tableView.tableHeaderView = ({
         UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, 184.0f)];
-        self.imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 40, 100, 100)];
-        self.imageView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
         
-        if (portrait) {
-            NSString *urlString = [git_osc_url stringByAppendingString:portrait];
-            [self.imageView setImageWithURL:[NSURL URLWithString:urlString]];
-        } else {
-            self.imageView.image = [UIImage imageNamed:@"tx"];
-        }
-        
+        self.imageView = [[UIImageView alloc] initWithFrame:CGRectMake(60, 40, 80, 80)];
         self.imageView.layer.masksToBounds = YES;
-        self.imageView.layer.cornerRadius = 50.0;
-        self.imageView.layer.borderColor = [UIColor clearColor].CGColor;
-        self.imageView.layer.borderWidth = 0.0f;
+        self.imageView.layer.cornerRadius = 40.0;
         self.imageView.layer.rasterizationScale = [UIScreen mainScreen].scale;
         self.imageView.layer.shouldRasterize = YES;
         self.imageView.clipsToBounds = YES;
         
-        self.label = [[UILabel alloc] initWithFrame:CGRectMake(0, 150, 0, 24)];
-        if (name) {
-            self.label.text = name;
-        } else {
-            self.label.text = @"游客";
-        }
+        self.label = [[UILabel alloc] initWithFrame:CGRectMake(60, 130, 0, 24)];
         self.label.font = [UIFont fontWithName:@"HelveticaNeue" size:21];
+        self.label.textColor = [UIColor whiteColor];
         self.label.backgroundColor = [UIColor clearColor];
-        self.label.textColor = [UIColor colorWithRed:62/255.0f green:68/255.0f blue:75/255.0f alpha:1.0f];
-        [self.label sizeToFit];
-        self.label.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
         
         [view addSubview:self.imageView];
         [view addSubview:self.label];
-        view;
-    });
-#endif
-}
-
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    self.tableView.tableHeaderView = ({
-        UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, 184.0f)];
-        self.imageView = [[UIImageView alloc] initWithFrame:CGRectMake(80, 40, 80, 80)];
-        //self.imageView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
-        NSString *portrait = [self.user objectForKey:kKeyPortrait];
-        NSString *name = [self.user objectForKey:kKeyName];
-        
-        if (portrait) {
-            [self.imageView sd_setImageWithURL:[NSURL URLWithString:portrait]];
-        } else {
-            self.imageView.image = [UIImage imageNamed:@"tx"];
-        }
-        
-        self.imageView.layer.masksToBounds = YES;
-        self.imageView.layer.cornerRadius = 40.0;
-        self.imageView.layer.borderColor = [UIColor clearColor].CGColor;
-        self.imageView.layer.borderWidth = 0.0f;
-        self.imageView.layer.rasterizationScale = [UIScreen mainScreen].scale;
-        self.imageView.layer.shouldRasterize = YES;
-        self.imageView.clipsToBounds = YES;
         
         UITapGestureRecognizer *tapPortraitRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self
                                                                                                 action:@selector(tapPortrait:)];
         [view addGestureRecognizer:tapPortraitRecognizer];
         
-        self.label = [[UILabel alloc] initWithFrame:CGRectMake(80, 130, 0, 24)];
-        if (name) {
-            self.label.text = name;
-        } else {
-            self.label.text = @"游客";
-        }
-        self.label.font = [UIFont fontWithName:@"HelveticaNeue" size:21];
-        self.label.textColor = [UIColor whiteColor];
-        self.label.backgroundColor = [UIColor clearColor];
-        self.label.textColor = [UIColor colorWithRed:62/255.0f green:68/255.0f blue:75/255.0f alpha:1.0f];
-        [self.label sizeToFit];
-        //self.label.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
-        
-        [view addSubview:self.imageView];
-        [view addSubview:self.label];
         view;
     });
+
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    NSString *portrait = [self.user objectForKey:kKeyPortrait];
+    NSString *name = [self.user objectForKey:kKeyName];
+    
+    if (portrait) {
+        [self.imageView sd_setImageWithURL:[NSURL URLWithString:portrait]];
+    } else {
+        self.imageView.image = [UIImage imageNamed:@"tx"];
+    }
+    
+    if (name) {
+        self.label.text = name;
+    } else {
+        self.label.text = @"游客";
+    }
+    [self.label sizeToFit];
 }
 
 #pragma mark - UITableView Delegate
