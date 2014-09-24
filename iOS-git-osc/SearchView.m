@@ -116,7 +116,7 @@ static NSString * const LastCellID = @"LastCell";
                                                                       metrics:nil
                                                                         views:NSDictionaryOfVariableBindings(_searchBar, _results)]];
     
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|-[_searchBar]-|"
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|[_searchBar]|"
                                                                       options:0
                                                                       metrics:nil
                                                                         views:NSDictionaryOfVariableBindings(_searchBar)]];

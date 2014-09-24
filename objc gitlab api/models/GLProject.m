@@ -86,7 +86,7 @@ static NSString * const kKeyImage = @"img";
         
         //_randNum = [[self checkForNull:json[kKeyRandNumber]] intValue];
         _message = [self checkForNull:json[kKeyMessage]];
-        _imageURL = [self checkForNull:json[kKeyMessage]];
+        _imageURL = [self checkForNull:json[kKeyImage]];
     }
     return self;
 }

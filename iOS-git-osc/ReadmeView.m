@@ -25,6 +25,7 @@
     //_readme = [[UIWebView alloc] initWithFrame:self.view.bounds];
     //_readme.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
     //[self.view addSubview:_readme];
+    self.view.backgroundColor = [UIColor whiteColor];
     [self initSubviews];
     [self setAutoLayout];
     _isFinishedLoading = NO;

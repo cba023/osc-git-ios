@@ -39,7 +39,6 @@ static NSString * const kKeyPortrait = @"new_portrait";
     [super viewDidLoad];
     self.user = [NSUserDefaults standardUserDefaults];
     
-    self.tableView.separatorColor = [UIColor colorWithRed:150/255.0f green:161/255.0f blue:177/255.0f alpha:1.0f];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     self.tableView.opaque = NO;
@@ -174,6 +173,10 @@ static NSString * const kKeyPortrait = @"new_portrait";
     //cell.imageView.image = [UIImage imageNamed:images[indexPath.row]];
     cell.textLabel.text = titles[indexPath.row];
     cell.textLabel.textColor = [UIColor whiteColor];
+    
+    UIView *selectedBackground = [UIView new];
+    selectedBackground.backgroundColor = UIColorFromRGB(0x252525);
+    [cell setSelectedBackgroundView:selectedBackground];
     
     return cell;
 }

@@ -132,6 +132,8 @@
 
 -(void)outputAccelertionData:(CMAcceleration)acceleration
 {
+    if (_shaking) {return;}
+    _shaking = YES;
     double accelerameter = sqrt(pow(acceleration.x, 2) + pow(acceleration.y, 2) + pow(acceleration.z, 2));
     
     if (accelerameter > 1.8f) {
@@ -139,20 +141,16 @@
         [_operationQueue cancelAllOperations];
         
         dispatch_async(dispatch_get_main_queue(), ^{
-#if 0
             [self shakeAnimation];
             if ([Tools isNetworkExist]) {
                 [self requestProject];
             } else {
                 [Tools toastNotification:@"网络连接失败，请检查网络设置" inView:self.view];
             }
-#else
-            [self shakeAnimation];
-            [_awardView setMessage:@"开源内裤一条" andImageURL:@"http://static.oschina.net/uploads/space/2014/0724/101153_qshT_1539046.jpg"];
-            [_awardView setHidden:NO];
-#endif
         });
     }
+    
+    _shaking = NO;
 }
 
 -(void)receiveNotification:(NSNotification *)notification
@@ -340,6 +338,7 @@
             [self requestProject];
         } else {
             [Tools toastNotification:@"网络连接失败，请检查网络设置" inView:self.view];
+            [self startAccelerometer];
         }
     }
     

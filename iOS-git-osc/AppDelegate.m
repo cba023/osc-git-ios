@@ -15,7 +15,7 @@
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
-    MenuViewController* leftFaceController = [[MenuViewController alloc] init];
+    MenuViewController *leftFaceController = [MenuViewController new];
     ProjectsViewController *projectsView = [ProjectsViewController new];
     
     //构造PKRevealController对象

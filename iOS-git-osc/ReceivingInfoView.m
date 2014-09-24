@@ -63,6 +63,8 @@ static NSString * const kKeyExtroInfo = @"extraInfo";
                                         privateToken:[_userDefaults objectForKey:@"private_token"]
                                              success:^(id responseObject) {
                                                  [self.view hideToastActivity];
+                                                 if (responseObject == [NSNull null]) {return ;}
+                                                 
                                                  _nameField.text = [responseObject objectForKey:@"name"];
                                                  _phoneNumField.text = [responseObject objectForKey:@"tel"];
                                                  _addressView.text = [responseObject objectForKey:@"address"];
