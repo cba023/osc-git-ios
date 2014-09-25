@@ -100,7 +100,7 @@ static NSString * const kKeyPortrait = @"new_portrait";
     if (name) {
         self.label.text = name;
     } else {
-        self.label.text = @"游客";
+        self.label.text = @"点击登录";
     }
     [self.label sizeToFit];
 }

@@ -17,15 +17,16 @@
 #import "ReceivingInfoView.h"
 #import "AwardView.h"
 #import "LoginViewController.h"
+#import "TTTAttributedLabel.h"
 
 #define accelerationThreshold  0.4
 
-@interface ShakingView ()
+@interface ShakingView () <UIActionSheetDelegate, TTTAttributedLabelDelegate>
 
 @property CMMotionManager *motionManager;
 @property SystemSoundID soundID;
 
-@property UILabel *luckMessage;
+@property TTTAttributedLabel *luckMessage;
 @property UIView *layer;
 @property UIImageView *imageUp;
 @property UIImageView *imageDown;
@@ -179,7 +180,9 @@
 
 - (void)setLayout
 {
-    _luckMessage = [UILabel new];
+    _luckMessage = [TTTAttributedLabel new];
+    _luckMessage.enabledTextCheckingTypes = NSTextCheckingTypeLink;
+    _luckMessage.delegate = self;
     _luckMessage.backgroundColor = [UIColor whiteColor];
     _luckMessage.font = [UIFont systemFontOfSize:12];
     _luckMessage.numberOfLines = 0;
@@ -437,6 +440,24 @@
         
         [self startAccelerometer];
     };
+}
+
+
+#pragma mark - TTTAttributedLabelDelegate
+
+- (void)attributedLabel:(TTTAttributedLabel *)label didSelectLinkWithURL:(NSURL *)url
+{
+    [[[UIActionSheet alloc] initWithTitle:[url absoluteString] delegate:self cancelButtonTitle:NSLocalizedString(@"取消", nil) destructiveButtonTitle:nil otherButtonTitles:NSLocalizedString(@"打开链接", nil), nil] showInView:self.view];
+}
+
+#pragma mark - UIActionSheetDelegate
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if (buttonIndex == actionSheet.cancelButtonIndex) {
+        return;
+    }
+    
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:actionSheet.title]];
 }
 
 

@@ -20,6 +20,7 @@
 		0002D2D719188953001FDED8 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0002D2D619188953001FDED8 /* Images.xcassets */; };
 		0002D2E219188B4E001FDED8 /* three_lines.png in Resources */ = {isa = PBXBuildFile; fileRef = 0002D2DF19188B4E001FDED8 /* three_lines.png */; };
 		0002D2E319188B4E001FDED8 /* three_lines@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0002D2E019188B4E001FDED8 /* three_lines@2x.png */; };
+		000EDABD19D3C39E00975253 /* TTTAttributedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 000EDABC19D3C39E00975253 /* TTTAttributedLabel.m */; };
 		0021BACC192342BD00626A2C /* GLBaseObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 0021BA82192342BD00626A2C /* GLBaseObject.m */; };
 		0021BACD192342BD00626A2C /* GLBranch.m in Sources */ = {isa = PBXBuildFile; fileRef = 0021BA84192342BD00626A2C /* GLBranch.m */; };
 		0021BACE192342BD00626A2C /* GLCommit.m in Sources */ = {isa = PBXBuildFile; fileRef = 0021BA86192342BD00626A2C /* GLCommit.m */; };
@@ -260,6 +261,8 @@
 		0002D2D619188953001FDED8 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		0002D2DF19188B4E001FDED8 /* three_lines.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = three_lines.png; sourceTree = "<group>"; };
 		0002D2E019188B4E001FDED8 /* three_lines@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "three_lines@2x.png"; sourceTree = "<group>"; };
+		000EDABB19D3C39E00975253 /* TTTAttributedLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTTAttributedLabel.h; sourceTree = "<group>"; };
+		000EDABC19D3C39E00975253 /* TTTAttributedLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTTAttributedLabel.m; sourceTree = "<group>"; };
 		0021BA7F192342BD00626A2C /* GLGitlab.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLGitlab.h; sourceTree = "<group>"; };
 		0021BA81192342BD00626A2C /* GLBaseObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLBaseObject.h; sourceTree = "<group>"; };
 		0021BA82192342BD00626A2C /* GLBaseObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GLBaseObject.m; sourceTree = "<group>"; };
@@ -701,6 +704,15 @@
 			name = Resource;
 			sourceTree = "<group>";
 		};
+		000EDABA19D3C39E00975253 /* TTTAttributedLabel */ = {
+			isa = PBXGroup;
+			children = (
+				000EDABB19D3C39E00975253 /* TTTAttributedLabel.h */,
+				000EDABC19D3C39E00975253 /* TTTAttributedLabel.m */,
+			);
+			path = TTTAttributedLabel;
+			sourceTree = "<group>";
+		};
 		0021BA7E192342BD00626A2C /* objc gitlab api */ = {
 			isa = PBXGroup;
 			children = (
@@ -823,6 +835,7 @@
 		0057719619A6299500EAA606 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				000EDABA19D3C39E00975253 /* TTTAttributedLabel */,
 				00329A5219D178E6001B9DC6 /* PKRevealController.h */,
 				00329A5319D178E6001B9DC6 /* UIViewController+PKRevealController.h */,
 				0079C03519B56521005EF089 /* UIView+Toast.h */,
@@ -1449,6 +1462,7 @@
 				0021BAE4192342BD00626A2C /* GLGitlabApi+Projects.m in Sources */,
 				0021BACF192342BD00626A2C /* GLDiff.m in Sources */,
 				0021BAE0192342BD00626A2C /* GLGitlabApi+Issues.m in Sources */,
+				000EDABD19D3C39E00975253 /* TTTAttributedLabel.m in Sources */,
 				0087828A19583E7D003F331C /* Project.m in Sources */,
 				00760B8C19767BDB00C88C6F /* SDImageCache.m in Sources */,
 				0002D2BE19164716001FDED8 /* MenuViewController.m in Sources */,

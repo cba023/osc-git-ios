@@ -15,10 +15,12 @@
 #import "UserDetailsView.h"
 #import "PKRevealController.h"
 #import "UIView+Toast.h"
+#import "TTTAttributedLabel.h"
 
-@interface LoginViewController ()
+@interface LoginViewController () <UIGestureRecognizerDelegate, UIActionSheetDelegate, TTTAttributedLabelDelegate>
 
 @property UIButton *submit;
+@property TTTAttributedLabel *tips;
 
 @end
 
@@ -64,7 +66,6 @@
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 
@@ -90,11 +91,6 @@
     
     [self.accountTextField addTarget:self action:@selector(returnOnKeyboard:) forControlEvents:UIControlEventEditingDidEndOnExit];
     [self.passwordTextField addTarget:self action:@selector(returnOnKeyboard:) forControlEvents:UIControlEventEditingDidEndOnExit];
-    
-    //添加手势，点击屏幕其他区域关闭键盘的操作
-    UITapGestureRecognizer *gesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hidenKeyboard)];
-    gesture.numberOfTapsRequired = 1;
-    [self.view addGestureRecognizer:gesture];
     
     [self.view addSubview: self.accountTextField];
     [self.view addSubview: self.passwordTextField];
@@ -122,27 +118,44 @@
     [submit addTarget:self action:@selector(login) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview: submit];
     
-    UILabel *tips = [UILabel new];
-    tips.font = [UIFont systemFontOfSize:12];
-    tips.textColor = [UIColor grayColor];
-    tips.lineBreakMode = NSLineBreakByCharWrapping;
-    tips.numberOfLines = 0;
-    tips.text = @"tips:\n\t请使用Git@OSC的push邮箱和密码登录\n\t注册请前往 https://git.oschina.net";
-    [self.view addSubview:tips];
+    _tips = [TTTAttributedLabel new];
+    _tips.enabledTextCheckingTypes = NSTextCheckingTypeLink;
+    _tips.delegate = self;
+    _tips.font = [UIFont systemFontOfSize:12];
+    _tips.textColor = [UIColor grayColor];
+    _tips.lineBreakMode = NSLineBreakByWordWrapping;
+    _tips.numberOfLines = 0;
+    _tips.text = @"tips:\n\t请使用Git@OSC的push邮箱和密码登录\n\t注册请前往 https://git.oschina.net";
+    [self.view addSubview:_tips];
+    
+    //添加手势，点击屏幕其他区域关闭键盘的操作
+    UITapGestureRecognizer *gesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hidenKeyboard)];
+    gesture.numberOfTapsRequired = 1;
+    gesture.delegate = self;
+#if 1
+    [self.view addGestureRecognizer:gesture];
+#else
+    [submit addGestureRecognizer:gesture];
+    [loginLogo addGestureRecognizer:gesture];
+    [email addGestureRecognizer:gesture];
+    [password addGestureRecognizer:gesture];
+#endif
     
     for (UIView *view in [self.view subviews]) {
         view.translatesAutoresizingMaskIntoConstraints = NO;
     }
     
+    NSDictionary *viewsDict = NSDictionaryOfVariableBindings(loginLogo, email, password, _accountTextField, _passwordTextField, _tips, submit);
+    
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-40-[loginLogo(90)]-25-[email(20)]-20-[password(20)]"
                                                                       options:0
                                                                       metrics:nil
-                                                                        views:NSDictionaryOfVariableBindings(loginLogo, email, password)]];
+                                                                        views:viewsDict]];
     
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|->=50-[loginLogo(90)]->=50-|"
                                                                       options:NSLayoutFormatAlignAllCenterX
                                                                       metrics:nil
-                                                                        views:NSDictionaryOfVariableBindings(loginLogo)]];
+                                                                        views:viewsDict]];
     
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:loginLogo
                                                           attribute:NSLayoutAttributeCenterX
@@ -154,22 +167,30 @@
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|-30-[email(20)]-[_accountTextField]-30-|"
                                                                       options:NSLayoutFormatAlignAllCenterY
                                                                       metrics:nil
-                                                                        views:NSDictionaryOfVariableBindings(email, _accountTextField)]];
+                                                                        views:viewsDict]];
     
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|-30-[password(20)]-[_passwordTextField]-30-|"
                                                                       options:NSLayoutFormatAlignAllCenterY
                                                                       metrics:nil
-                                                                        views:NSDictionaryOfVariableBindings(password, _passwordTextField)]];
+                                                                        views:viewsDict]];
     
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[password]->=20-[submit(30)]-20-[tips]"
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[password]->=20-[submit(35)]-20-[_tips]"
                                                                       options:NSLayoutFormatAlignAllLeft
                                                                       metrics:nil
-                                                                        views:NSDictionaryOfVariableBindings(password, submit, tips)]];
+                                                                        views:viewsDict]];
     
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[_passwordTextField]-30-[submit]"
                                                                       options:NSLayoutFormatAlignAllRight
                                                                       metrics:nil
-                                                                        views:NSDictionaryOfVariableBindings(_passwordTextField, submit)]];
+                                                                        views:viewsDict]];
+}
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
+{
+    if (![_accountTextField isFirstResponder] && ![_passwordTextField isFirstResponder]) {
+        return NO;
+    }
+    return YES;
 }
 
 
@@ -298,6 +319,25 @@
                                          Success:success
                                          Failure:failure];
 }
+
+
+#pragma mark - TTTAttributedLabelDelegate
+
+- (void)attributedLabel:(TTTAttributedLabel *)label didSelectLinkWithURL:(NSURL *)url
+{
+    [[[UIActionSheet alloc] initWithTitle:[url absoluteString] delegate:self cancelButtonTitle:NSLocalizedString(@"取消", nil) destructiveButtonTitle:nil otherButtonTitles:NSLocalizedString(@"打开链接", nil), nil] showInView:self.view];
+}
+
+#pragma mark - UIActionSheetDelegate
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if (buttonIndex == actionSheet.cancelButtonIndex) {
+        return;
+    }
+    
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:actionSheet.title]];
+}
+
 
 
 
