@@ -93,7 +93,7 @@ static NSString * const EventCellIdentifier = @"EventCell";
 {
     [super viewDidAppear:animated];
     
-    if (events.count > 0) {
+    if (events.count > 0 || _isFinishedLoad) {
         return;
     }
     
@@ -275,6 +275,7 @@ static NSString * const EventCellIdentifier = @"EventCell";
 
     GLGitlabSuccessBlock success = ^(id responseObject) {
         if ([responseObject count] == 0) {
+            _isFinishedLoad = YES;
             [_lastCell finishedLoad];
         } else {
             if (refresh) {

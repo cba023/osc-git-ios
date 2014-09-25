@@ -101,7 +101,7 @@
     
     NSDictionary *viewsDict = NSDictionaryOfVariableBindings(_titleLabel, _issueTitle, _descriptionLabel, _issueDescription, _submit);
     
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-20-[_titleLabel]-[_issueTitle(40)]-20-[_descriptionLabel]-[_description(150)]-30-[_submit(30)]"
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-20-[_titleLabel]-[_issueTitle(40)]-20-[_descriptionLabel]-[_issueDescription(150)]-30-[_submit(35)]"
                                                                      options:NSLayoutFormatAlignAllLeft | NSLayoutFormatAlignAllRight
                                                                      metrics:nil
                                                                        views:viewsDict]];

@@ -114,7 +114,7 @@ static NSString * const cellId = @"ProjectCell";
 {
     [super viewDidAppear:animated];
     
-    if (projects.count > 0) {
+    if (projects.count > 0 || _isFinishedLoad) {
         return;
     }
     
@@ -314,6 +314,7 @@ static NSString * const cellId = @"ProjectCell";
     
     ^(id responseObject) {
         if ([responseObject count] == 0) {
+            _isFinishedLoad = YES;
             [_lastCell finishedLoad];
         } else {
             if (refresh) {

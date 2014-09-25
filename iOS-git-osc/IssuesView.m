@@ -69,7 +69,7 @@ static NSString * const cellId = @"IssueCell";
 {
     [super viewDidAppear:animated];
     
-    if (issues.count > 0) {return;}
+    if (issues.count > 0 || _isFinishedLoad) {return;}
     
     [_lastCell loading];
     [self loadIssuesOnPage:1 refresh:NO];
@@ -233,6 +233,7 @@ static NSString * const cellId = @"IssueCell";
     
     ^(id responseObject) {
         if ([responseObject count] == 0) {
+            _isFinishedLoad = YES;
             [_lastCell finishedLoad];
         } else {
             if (refresh) {
