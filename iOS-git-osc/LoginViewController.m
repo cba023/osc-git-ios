@@ -94,19 +94,6 @@
     
     [self.view addSubview: self.accountTextField];
     [self.view addSubview: self.passwordTextField];
-}
-
-- (void)setLayout
-{
-    UIImageView *loginLogo = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"loginLogo"]];
-    loginLogo.contentMode = UIViewContentModeScaleAspectFit;
-    UIImageView *email = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"email"]];
-    email.contentMode = UIViewContentModeScaleAspectFill;
-    UIImageView *password = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"password"]];
-    password.contentMode = UIViewContentModeScaleAspectFit;
-    [self.view addSubview:loginLogo];
-    [self.view addSubview:email];
-    [self.view addSubview:password];
     
     submit = [UIButton buttonWithType:UIButtonTypeCustom];
     [Tools roundView:submit cornerRadius:5.0];
@@ -132,14 +119,20 @@
     UITapGestureRecognizer *gesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hidenKeyboard)];
     gesture.numberOfTapsRequired = 1;
     gesture.delegate = self;
-#if 1
     [self.view addGestureRecognizer:gesture];
-#else
-    [submit addGestureRecognizer:gesture];
-    [loginLogo addGestureRecognizer:gesture];
-    [email addGestureRecognizer:gesture];
-    [password addGestureRecognizer:gesture];
-#endif
+}
+
+- (void)setLayout
+{
+    UIImageView *loginLogo = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"loginLogo"]];
+    loginLogo.contentMode = UIViewContentModeScaleAspectFit;
+    UIImageView *email = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"email"]];
+    email.contentMode = UIViewContentModeScaleAspectFill;
+    UIImageView *password = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"password"]];
+    password.contentMode = UIViewContentModeScaleAspectFit;
+    [self.view addSubview:loginLogo];
+    [self.view addSubview:email];
+    [self.view addSubview:password];
     
     for (UIView *view in [self.view subviews]) {
         view.translatesAutoresizingMaskIntoConstraints = NO;
