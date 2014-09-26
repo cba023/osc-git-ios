@@ -29,6 +29,19 @@
     return self;
 }
 
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    
+    self.title = self.fileName;
+    
+    self.webView = [[UIWebView alloc] initWithFrame:self.view.bounds];
+    self.webView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+    self.webView.scrollView.bounces = NO;
+    
+    [self.view addSubview:self.webView];
+}
+
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
@@ -61,18 +74,6 @@
 }
 
 
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-    
-    self.title = self.fileName;
-    
-    self.webView = [[UIWebView alloc] initWithFrame:self.view.bounds];
-    self.webView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
-    
-    [self.view addSubview:self.webView];
-}
-
 
 - (void)popBack
 {
@@ -90,7 +91,7 @@
     NSURL *baseUrl = [NSURL fileURLWithPath:NSBundle.mainBundle.bundlePath];
 	BOOL lineNumbers = YES;//[[defaults valueForKey:kLineNumbersDefaultsKey] boolValue];
     NSString *lang = [[_fileName componentsSeparatedByString:@"."] lastObject];
-	NSString *theme = @"tomorrow-night";//[defaults valueForKey:kThemeDefaultsKey];
+	NSString *theme = @"github";//@"tomorrow-night";//[defaults valueForKey:kThemeDefaultsKey];
 	NSString *formatPath = [[NSBundle mainBundle] pathForResource:@"code" ofType:@"html"];
 	NSString *highlightJsPath = [[NSBundle mainBundle] pathForResource:@"highlight.pack" ofType:@"js"];
 	NSString *themeCssPath = [[NSBundle mainBundle] pathForResource:theme ofType:@"css"];

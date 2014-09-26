@@ -38,6 +38,7 @@ static NSString * const ProjectDetailsCellID = @"ProjectDetailsCell";
     [super viewDidLoad];
     
     self.navigationController.navigationBar.translucent = NO;
+    self.revealController.frontViewController.revealController.recognizesPanningOnFrontView = NO;
     
     [self initSubviews];
     [self setAutoLayout];

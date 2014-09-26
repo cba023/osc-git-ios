@@ -81,6 +81,7 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
+    self.revealController.frontViewController.revealController.recognizesPanningOnFrontView = YES;
     
     [self startAccelerometer];
     
@@ -290,7 +291,7 @@
     
     // projectCell
     
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[_projectCell]|"
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[_projectCell(>=81)]|"
                                                                       options:0
                                                                       metrics:nil
                                                                         views:viewsDict]];
@@ -416,6 +417,15 @@
         if (_project.message) {
             [_awardView setMessage:_project.message andImageURL:_project.imageURL];
             [_awardView setHidden:NO];
+            
+            NSString *alertMessage = @"获得：%@\n\n温馨提示：\n请完善您的收货信息，方便我们给您邮寄奖品";
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"恭喜你，摇到奖品啦!!!"
+                                                                message:[NSString stringWithFormat:alertMessage, _project.message]
+                                                               delegate:self
+                                                      cancelButtonTitle:@"我知道了"
+                                                      otherButtonTitles:nil];
+            
+            [alertView show];
         } else {
             [Tools setPortraitForUser:_project.owner view:_projectCell.portrait cornerRadius:5.0];
             _projectCell.projectNameField.text = [NSString stringWithFormat:@"%@ / %@", _project.owner.name, _project.name];

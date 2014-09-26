@@ -50,6 +50,7 @@ static NSString * const kKeyExtroInfo = @"extraInfo";
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
+    self.revealController.frontViewController.revealController.recognizesPanningOnFrontView = NO;
     
     if (![Tools isNetworkExist]) {
         _buttonSave.alpha = 0.4;

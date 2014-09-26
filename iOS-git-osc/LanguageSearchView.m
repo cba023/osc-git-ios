@@ -40,6 +40,7 @@ static NSString * const LanguageCellID = @"LanguageCell";
                                                                             target:self
                                                                             action:@selector(showMenu)];
     self.title = @"编程语言";
+    self.revealController.frontViewController.revealController.recognizesPanningOnFrontView = YES;
     
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:LanguageCellID];
     UIView *footer = [[UIView alloc] initWithFrame:CGRectZero];

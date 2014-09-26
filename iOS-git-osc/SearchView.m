@@ -35,7 +35,6 @@ static NSString * const LastCellID = @"LastCell";
                                                                              style:UIBarButtonItemStylePlain
                                                                             target:self
                                                                             action:@selector(showMenu)];
-
     
     _projects = [NSMutableArray new];
     
@@ -58,6 +57,8 @@ static NSString * const LastCellID = @"LastCell";
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
+    
+    self.revealController.frontViewController.revealController.recognizesPanningOnFrontView = YES;
 }
 
 - (void)viewDidUnload

@@ -27,6 +27,7 @@
                                                                              style:UIBarButtonItemStylePlain
                                                                             target:self
                                                                             action:@selector(showMenu)];
+    self.revealController.frontViewController.revealController.recognizesPanningOnFrontView = YES;
     
     self.segmentTitle = [[UISegmentedControl alloc] initWithItems:@[@"推荐", @"热门", @"最近更新"]];
     self.segmentTitle.selectedSegmentIndex = 0;
