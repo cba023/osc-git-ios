@@ -66,8 +66,13 @@
 
     NSString *password = [SSKeychain passwordForService:@"Git@OSC" account:email];
     
-    _accountTextField.text = email;
-    _passwordTextField.text = password;
+    _accountTextField.text = email ?: @"";
+    _passwordTextField.text = password ?: @"";
+    
+    if (!_accountTextField.text.length || !_passwordTextField.text.length) {
+        submit.alpha = 0.4;
+        submit.enabled = NO;
+    }
 }
 
 - (void)showMenu
@@ -112,8 +117,6 @@
     submit.backgroundColor = [UIColor redColor];
     [submit setTitle:@"登录" forState:UIControlStateNormal];
     submit.titleLabel.font = [UIFont systemFontOfSize:17];
-    submit.alpha = 0.4;
-    submit.enabled = NO;
     [submit addTarget:self action:@selector(login) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview: submit];
     
