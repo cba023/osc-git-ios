@@ -11,7 +11,6 @@
 #import "FilesTableController.h"
 #import "ProjectDetailsView.h"
 #import "GLGitlab.h"
-#import "Project.h"
 #import "Tools.h"
 #import "LastCell.h"
 #import "PKRevealController.h"

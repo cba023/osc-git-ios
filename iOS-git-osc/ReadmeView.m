@@ -8,7 +8,6 @@
 
 #import "ReadmeView.h"
 #import "GLGitlab.h"
-#import "Project.h"
 #import "Tools.h"
 #import "UIView+Toast.h"
 

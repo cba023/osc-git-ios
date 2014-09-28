@@ -8,7 +8,6 @@
 
 #import "LanguageSearchView.h"
 #import "GLGitlab.h"
-#import "Project.h"
 #import "ProjectsTableController.h"
 #import "UIView+Toast.h"
 #import "Tools.h"

@@ -11,7 +11,6 @@
 #import "GLGitlab.h"
 #import "User.h"
 #import "Event.h"
-#import "Project.h"
 #import "ProjectsViewController.h"
 #import "ProjectsTableController.h"
 #import "EventsView.h"

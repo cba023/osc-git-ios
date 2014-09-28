@@ -10,7 +10,6 @@
 #import "ProjectsTableController.h"
 #import "FilesTableController.h"
 #import "Tools.h"
-#import "Project.h"
 #import "GLGitlab.h"
 #import "UserDetailsView.h"
 #import "IssuesView.h"

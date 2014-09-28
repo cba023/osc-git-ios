@@ -8,7 +8,6 @@
 
 #import "IssueCreation.h"
 #import "Issue.h"
-#import "Project.h"
 #import "Tools.h"
 #import "GLGitlab.h"
 #import "Issue.h"

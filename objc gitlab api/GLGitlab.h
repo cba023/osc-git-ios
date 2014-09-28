@@ -44,5 +44,5 @@
     #import "GLUser.h"
     #import "GLLanguage.h"
 
-    #define git_osc_url @"https://git.oschina.net"       //@"http://192.168.1.117"
+    #define git_osc_url @"http://192.168.1.117"       //@"http://192.168.1.117"
 #endif

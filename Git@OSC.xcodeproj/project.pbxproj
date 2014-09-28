@@ -118,7 +118,6 @@
 		0079C00E19B452CF005EF089 /* projectCellStar.png in Resources */ = {isa = PBXBuildFile; fileRef = 0079C00C19B452CF005EF089 /* projectCellStar.png */; };
 		0079C03719B56521005EF089 /* UIView+Toast.m in Sources */ = {isa = PBXBuildFile; fileRef = 0079C03619B56521005EF089 /* UIView+Toast.m */; };
 		0081D0D919BB090A00BF9FFA /* ProjectNameCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0081D0D819BB090A00BF9FFA /* ProjectNameCell.m */; };
-		0087828A19583E7D003F331C /* Project.m in Sources */ = {isa = PBXBuildFile; fileRef = 0087828919583E7D003F331C /* Project.m */; };
 		008896DF19D7C1A4008B99C3 /* userNotLoggedIn.png in Resources */ = {isa = PBXBuildFile; fileRef = 008896DD19D7C1A4008B99C3 /* userNotLoggedIn.png */; };
 		008896E019D7C1A4008B99C3 /* userNotLoggedIn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 008896DE19D7C1A4008B99C3 /* userNotLoggedIn@2x.png */; };
 		008AB6D119BDD5BC00DF31B0 /* File.m in Sources */ = {isa = PBXBuildFile; fileRef = 008AB6D019BDD5BC00DF31B0 /* File.m */; };
@@ -429,8 +428,6 @@
 		0079C03619B56521005EF089 /* UIView+Toast.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Toast.m"; sourceTree = "<group>"; };
 		0081D0D719BB090A00BF9FFA /* ProjectNameCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProjectNameCell.h; sourceTree = "<group>"; };
 		0081D0D819BB090A00BF9FFA /* ProjectNameCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProjectNameCell.m; sourceTree = "<group>"; };
-		0087828819583E7D003F331C /* Project.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Project.h; sourceTree = "<group>"; };
-		0087828919583E7D003F331C /* Project.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Project.m; sourceTree = "<group>"; };
 		008896DD19D7C1A4008B99C3 /* userNotLoggedIn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = userNotLoggedIn.png; sourceTree = "<group>"; };
 		008896DE19D7C1A4008B99C3 /* userNotLoggedIn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "userNotLoggedIn@2x.png"; sourceTree = "<group>"; };
 		008AB6CF19BDD5BC00DF31B0 /* File.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = File.h; sourceTree = "<group>"; };
@@ -1110,8 +1107,6 @@
 		00B75960196CE5EB009C9C58 /* Projects */ = {
 			isa = PBXGroup;
 			children = (
-				0087828819583E7D003F331C /* Project.h */,
-				0087828919583E7D003F331C /* Project.m */,
 				00C3A40D196113E7002A34AB /* ProjectsViewController.h */,
 				00C3A40E196113E7002A34AB /* ProjectsViewController.m */,
 				00C3A4131961538B002A34AB /* ProjectsTableController.h */,
@@ -1471,7 +1466,6 @@
 				0021BACF192342BD00626A2C /* GLDiff.m in Sources */,
 				0021BAE0192342BD00626A2C /* GLGitlabApi+Issues.m in Sources */,
 				000EDABD19D3C39E00975253 /* TTTAttributedLabel.m in Sources */,
-				0087828A19583E7D003F331C /* Project.m in Sources */,
 				00760B8C19767BDB00C88C6F /* SDImageCache.m in Sources */,
 				0002D2BE19164716001FDED8 /* MenuViewController.m in Sources */,
 				0021BAD9192342BD00626A2C /* GLSnippet.m in Sources */,

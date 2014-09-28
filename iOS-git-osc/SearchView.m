@@ -10,7 +10,6 @@
 #import "ProjectsTableController.h"
 #import "ProjectCell.h"
 #import "GLGitlab.h"
-#import "Project.h"
 #import "Tools.h"
 #import "ProjectDetailsView.h"
 #import "PKRevealController.h"
