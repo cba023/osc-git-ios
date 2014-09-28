@@ -11,7 +11,7 @@
 
 @interface User : NSObject
 
-+ (void)saveUserName:(NSString *)username andPassword:(NSString *)password;
++ (void)saveAccount:(NSString *)email andPassword:(NSString *)password;
 + (void)saveUserInformation:(GLUser *)user;
 
 @end

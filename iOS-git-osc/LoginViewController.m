@@ -16,6 +16,7 @@
 #import "PKRevealController.h"
 #import "UIView+Toast.h"
 #import "TTTAttributedLabel.h"
+#import "SSKeychain.h"
 
 @interface LoginViewController () <UIGestureRecognizerDelegate, UIActionSheetDelegate, TTTAttributedLabelDelegate>
 
@@ -56,6 +57,17 @@
                                                                              style:UIBarButtonItemStylePlain
                                                                             target:self
                                                                             action:@selector(showMenu)];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    NSString *email = [userDefaults objectForKey:@"email"];
+
+    NSString *password = [SSKeychain passwordForService:@"Git@OSC" account:email];
+    
+    _accountTextField.text = email;
+    _passwordTextField.text = password;
 }
 
 - (void)showMenu
@@ -292,6 +304,7 @@
             [Tools toastNotification:@"网络错误" inView:self.view];
         } else {
             [User saveUserInformation:user];
+            [User saveAccount:user.email andPassword:_passwordTextField.text];
             
             UserDetailsView *ownDetailsView = [[UserDetailsView alloc] initWithPrivateToken:user.private_token userID:user.userId];
             UINavigationController *front = [[UINavigationController alloc] initWithRootViewController:ownDetailsView];

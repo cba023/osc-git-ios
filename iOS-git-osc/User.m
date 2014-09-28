@@ -22,6 +22,7 @@ static NSString * const kKeyThemeId = @"theme_id";
 static NSString * const kKeyCreatedAt = @"created_at";
 static NSString * const kKeyState = @"state";
 static NSString * const kKeyPortrait = @"new_portrait";
+static NSString * const kKeyEmail = @"email";
 static NSString * const kKeyPrivateToken = @"private_token";
 static NSString * const kKeyAdmin = @"is_admin";
 static NSString * const kKeyCanCreateGroup = @"can_create_group";
@@ -43,6 +44,7 @@ static NSString * const kKeyFollow = @"follow";
     [userDefaults setObject:user.state forKey:kKeyState];
     [userDefaults setObject:user.createdAt forKey:kKeyCreatedAt];
     [userDefaults setObject:user.portrait forKey:kKeyPortrait];
+    [userDefaults setObject:user.email forKey:kKeyEmail];
     [userDefaults setObject:user.private_token forKey:kKeyPrivateToken];
     [userDefaults setBool:user.admin forKey:kKeyAdmin];
     [userDefaults setBool:user.canCreateGroup forKey:kKeyCanCreateGroup];
@@ -53,8 +55,8 @@ static NSString * const kKeyFollow = @"follow";
     [userDefaults synchronize];
 }
 
-+ (void)saveUserName:(NSString *)username andPassword:(NSString *)password {
-    [SSKeychain setPassword:password forService:@"password" account:username];
++ (void)saveAccount:(NSString *)email andPassword:(NSString *)password {
+    [SSKeychain setPassword:password forService:@"Git@OSC" account:email];
 }
 
 @end
