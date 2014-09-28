@@ -71,6 +71,9 @@
     _segmentTitle.selectedSegmentIndex = 0;
     _segmentTitle.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     _segmentTitle.segmentedControlStyle = UISegmentedControlStyleBar;
+    _segmentTitle.layer.cornerRadius = 5.0;
+    _segmentTitle.backgroundColor = UIColorFromRGB(0xdadada);
+    _segmentTitle.tintColor = UIColorFromRGB(0xaf1219);
     _segmentTitle.frame = CGRectMake(0, 0, 210, 30);
     [_segmentTitle addTarget:self action:@selector(switchView) forControlEvents:UIControlEventValueChanged];
     self.navigationItem.titleView = _segmentTitle;
@@ -83,6 +86,8 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
+    
+    self.revealController.frontViewController.revealController.recognizesPanningOnFrontView = YES;
 }
 
 - (void)showMenu

@@ -42,7 +42,7 @@ static NSString * const kKeyPortrait = @"new_portrait";
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     self.tableView.opaque = NO;
-    self.tableView.backgroundColor = UIColorFromRGB(0x363636);
+    self.tableView.backgroundColor = UIColorFromRGB(0x272727);
     self.tableView.separatorStyle = NO;
     self.tableView.bounces = NO;
     [self.revealController setMinimumWidth:200.0 maximumWidth:220.0 forViewController:self];
@@ -62,7 +62,7 @@ static NSString * const kKeyPortrait = @"new_portrait";
         _label = [UILabel new];
         _label.translatesAutoresizingMaskIntoConstraints = NO;
         _label.font = [UIFont fontWithName:@"HelveticaNeue" size:21];
-        _label.textColor = [UIColor whiteColor];
+        _label.textColor = UIColorFromRGB(0xebebf3);
         _label.backgroundColor = [UIColor clearColor];
         [view addSubview:_label];
         
@@ -94,7 +94,7 @@ static NSString * const kKeyPortrait = @"new_portrait";
     if (portrait) {
         [self.imageView sd_setImageWithURL:[NSURL URLWithString:portrait]];
     } else {
-        self.imageView.image = [UIImage imageNamed:@"tx"];
+        self.imageView.image = [UIImage imageNamed:@"userNotLoggedIn"];
     }
     
     if (name) {
@@ -110,7 +110,7 @@ static NSString * const kKeyPortrait = @"new_portrait";
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     cell.backgroundColor = [UIColor clearColor];
-    cell.textLabel.textColor = [UIColor whiteColor];//[UIColor colorWithRed:62/255.0f green:68/255.0f blue:75/255.0f alpha:1.0f];
+    cell.textLabel.textColor = UIColorFromRGB(0xebebf3);
     cell.textLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:17];
 }
 
