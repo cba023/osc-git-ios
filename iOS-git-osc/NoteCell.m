@@ -17,6 +17,10 @@
         self.contentView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
         [self initSubviews];
         [self setAutoLayout];
+        
+        UIView *selectedBackground = [UIView new];
+        selectedBackground.backgroundColor = UIColorFromRGB(0xdadbdc);
+        [self setSelectedBackgroundView:selectedBackground];
     }
     return self;
 }

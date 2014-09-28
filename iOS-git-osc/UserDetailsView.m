@@ -10,6 +10,7 @@
 #import "EventsView.h"
 #import "ProjectsTableController.h"
 #import "PKRevealController.h"
+#import "Tools.h"
 
 @interface UserDetailsView ()
 
@@ -72,7 +73,7 @@
     _segmentTitle.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     _segmentTitle.segmentedControlStyle = UISegmentedControlStyleBar;
     _segmentTitle.layer.cornerRadius = 5.0;
-    _segmentTitle.backgroundColor = UIColorFromRGB(0xdadada);
+    _segmentTitle.backgroundColor = [Tools uniformColor];
     _segmentTitle.tintColor = UIColorFromRGB(0xaf1219);
     _segmentTitle.frame = CGRectMake(0, 0, 210, 30);
     [_segmentTitle addTarget:self action:@selector(switchView) forControlEvents:UIControlEventValueChanged];

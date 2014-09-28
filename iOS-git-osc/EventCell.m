@@ -22,6 +22,10 @@
         
         [self initSubview];
         [self setAutoLayout];
+        
+        UIView *selectedBackground = [UIView new];
+        selectedBackground.backgroundColor = UIColorFromRGB(0xdadbdc);
+        [self setSelectedBackgroundView:selectedBackground];
     }
     return self;
 }
@@ -52,6 +56,7 @@
     _eventAbstract.backgroundColor = [Tools uniformColor];
     [Tools roundView:_eventAbstract cornerRadius:3.0];
     //_eventAbstract.backgroundColor = [UIColor whiteColor];
+    _eventAbstract.selectable = NO;
     _eventAbstract.editable = NO;
     _eventAbstract.scrollEnabled = NO;
     [self.contentView addSubview:_eventAbstract];

@@ -97,7 +97,7 @@ static NSString * const cellId = @"FileCell";
         [self.view hideToastActivity];
         
         if (error != nil) {
-            [Tools toastNotification:[NSString stringWithFormat:@"网络异常，错误码：%d", error.code] inView:self.view];
+            [Tools toastNotification:[NSString stringWithFormat:@"网络异常，错误码：%ld", (long)error.code] inView:self.view];
         } else {
             [Tools toastNotification:@"网络错误" inView:self.view];
         }
@@ -145,6 +145,10 @@ static NSString * const cellId = @"FileCell";
         [cell.fileType setImage:[UIImage imageNamed:@"file"]];
     }
     cell.fileName.text = file.name;
+    
+    UIView *selectedBackground = [UIView new];
+    selectedBackground.backgroundColor = UIColorFromRGB(0xdadbdc);
+    [cell setSelectedBackgroundView:selectedBackground];
     
     return cell;
 }

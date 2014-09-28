@@ -315,7 +315,7 @@ static NSString * const EventCellIdentifier = @"EventCell";
         }
         
         if (error != nil) {
-            [Tools toastNotification:[NSString stringWithFormat:@"网络异常，错误码：%d", error.code] inView:self.view];
+            [Tools toastNotification:[NSString stringWithFormat:@"网络异常，错误码：%ld", (long)error.code] inView:self.view];
         } else {
             [Tools toastNotification:@"网络错误" inView:self.view];
         }

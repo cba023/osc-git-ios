@@ -110,7 +110,7 @@ static NSString * const kKeyPortrait = @"new_portrait";
 {
     cell.backgroundColor = [UIColor clearColor];
     cell.textLabel.textColor = UIColorFromRGB(0xebebf3);
-    cell.textLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:17];
+    cell.textLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:18];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)sectionIndex
@@ -171,7 +171,7 @@ static NSString * const kKeyPortrait = @"new_portrait";
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *cellIdentifier = @"Cell";
-    NSArray *titles;        //, *images;
+    NSArray *titles, *images;
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     
@@ -180,13 +180,21 @@ static NSString * const kKeyPortrait = @"new_portrait";
     }
     
     titles = @[@"发现", @"我的", @"语言", @"搜索", @"摇一摇"];
-    //images = @[@"MenuProfile", @"MenuProfile", @"MenuOrgRepos", @"MenuOrgRepos", @"MenuOrgRepos", @"MenuOrgRepos"];
-    //cell.imageView.image = [UIImage imageNamed:images[indexPath.row]];
+    images = @[@"sidebar_find", @"sidebar_mine", @"sidebar_tag", @"sidebar_search", @"sidebar_shake"];
+    cell.imageView.image = [UIImage imageNamed:images[indexPath.row]];
+    
+    CGSize imageSize = CGSizeMake(20, 20);
+    UIGraphicsBeginImageContextWithOptions(imageSize, NO, UIScreen.mainScreen.scale);
+    CGRect imageRect = CGRectMake(0.0, 0.0, imageSize.width, imageSize.height);
+    [cell.imageView.image drawInRect:imageRect];
+    cell.imageView.image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+
     cell.textLabel.text = titles[indexPath.row];
-    cell.textLabel.textColor = [UIColor whiteColor];
+    cell.textLabel.font = [UIFont systemFontOfSize:18];
     
     UIView *selectedBackground = [UIView new];
-    selectedBackground.backgroundColor = UIColorFromRGB(0x252525);
+    selectedBackground.backgroundColor = UIColorFromRGB(0x1c1c1c);
     [cell setSelectedBackgroundView:selectedBackground];
     
     return cell;

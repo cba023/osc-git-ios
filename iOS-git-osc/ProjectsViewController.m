@@ -8,6 +8,7 @@
 
 #import "ProjectsViewController.h"
 #import "PKRevealController.h"
+#import "Tools.h"
 
 @interface ProjectsViewController ()
 
@@ -34,7 +35,7 @@
     self.segmentTitle.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     self.segmentTitle.segmentedControlStyle = UISegmentedControlStyleBar;
     self.segmentTitle.layer.cornerRadius = 5.0;
-    self.segmentTitle.backgroundColor = UIColorFromRGB(0xdadada);
+    self.segmentTitle.backgroundColor = [Tools uniformColor];
     self.segmentTitle.tintColor = UIColorFromRGB(0xaf1219);
     self.segmentTitle.frame = CGRectMake(0, 0, 200, 30);
     [self.segmentTitle addTarget:self action:@selector(switchView) forControlEvents:UIControlEventValueChanged];
