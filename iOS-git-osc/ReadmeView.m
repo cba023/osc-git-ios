@@ -9,6 +9,8 @@
 #import "ReadmeView.h"
 #import "GLGitlab.h"
 #import "Project.h"
+#import "Tools.h"
+#import "UIView+Toast.h"
 
 @interface ReadmeView ()
 
@@ -29,9 +31,41 @@
     [self initSubviews];
     [self setAutoLayout];
     _isFinishedLoading = NO;
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    if (_isFinishedLoading) {return;}
+    if (![Tools isNetworkExist]) {
+        [Tools toastNotification:@"网络连接失败，请检查网络设置" inView:self.view];
+        return;
+    }
     
-    _html = [Project loadReadme:_projectID];
-    [_readme loadHTMLString:_html baseURL:nil];
+    [self.view makeToastActivity];
+    
+    GLGitlabSuccessBlock success = ^(id responseObject) {
+        if (responseObject == nil) {
+            [_readme loadHTMLString:@"该项目暂无Readme文件" baseURL:nil];
+        } else {
+            _html = responseObject;
+            [_readme loadHTMLString:_html baseURL:nil];
+        }
+    };
+    
+    GLGitlabFailureBlock failure = ^(NSError *error) {
+        [self.view hideToastActivity];
+        
+        if (error != nil) {
+            [Tools toastNotification:[NSString stringWithFormat:@"网络异常，错误码：%d", error.code] inView:self.view];
+        } else {
+            [Tools toastNotification:@"网络错误" inView:self.view];
+        }
+    };
+
+    [[GLGitlabApi sharedInstance] loadReadmeForProjectID:_projectID
+                                            privateToken:[Tools getPrivateToken]
+                                                 success:success
+                                                 failure:failure];
 }
 
 - (void)didReceiveMemoryWarning
@@ -80,6 +114,7 @@
 {
     if (_isFinishedLoading) {
         webView.hidden = NO;
+        [self.view hideToastActivity];
         return;
     }
     

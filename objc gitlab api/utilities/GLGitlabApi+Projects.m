@@ -239,7 +239,11 @@ static NSString * const kKeyPage = @"page";
                                                      params:@{kKeyPrivate_token: privateToken}
                                                      method:GLNetworkOperationGetMethod];
 
-    GLNetworkOperationSuccessBlock localSuccessBlock = [self singleObjectSuccessBlockForClass:[GLBlob class] successBlock:successBlock];
+    GLNetworkOperationSuccessBlock localSuccessBlock = ^(NSDictionary *resonseObject) {
+        id object = [resonseObject objectForKey:@"content"];
+        successBlock(object);
+    };
+
     GLNetworkOperationFailureBlock localFailureBlock = [self defaultFailureBlock:failureBlock];
     
     return [self queueOperationWithRequest:request

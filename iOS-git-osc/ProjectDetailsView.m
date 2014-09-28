@@ -70,7 +70,11 @@ static NSString * const ProjectDetailsCellID = @"ProjectDetailsCell";
 
                                            failure:^(NSError *error) {
                                                [self.view hideToastActivity];
-                                               [Tools toastNotification:@"网络错误" inView:self.view];
+                                               if (error != nil) {
+                                                   [Tools toastNotification:[NSString stringWithFormat:@"网络异常，错误码：%d", error.code] inView:self.view];
+                                               } else {
+                                                   [Tools toastNotification:@"网络错误" inView:self.view];
+                                               }
                                            }];
 }
 
@@ -297,7 +301,11 @@ static NSString * const ProjectDetailsCellID = @"ProjectDetailsCell";
     };
     
     GLGitlabFailureBlock failure = ^(NSError *error) {
-        [Tools toastNotification:@"网络错误" inView:self.view];
+        if (error != nil) {
+            [Tools toastNotification:[NSString stringWithFormat:@"网络异常，错误码：%d", error.code] inView:self.view];
+        } else {
+            [Tools toastNotification:@"网络错误" inView:self.view];
+        }
     };
     
     if (_project.starred) {
@@ -327,7 +335,11 @@ static NSString * const ProjectDetailsCellID = @"ProjectDetailsCell";
     };
     
     GLGitlabFailureBlock failure = ^(NSError *error) {
-        [Tools toastNotification:@"网络错误" inView:self.view];
+        if (error != nil) {
+            [Tools toastNotification:[NSString stringWithFormat:@"网络异常，错误码：%d", error.code] inView:self.view];
+        } else {
+            [Tools toastNotification:@"网络错误" inView:self.view];
+        }
     };
     
     if (_project.watched) {
