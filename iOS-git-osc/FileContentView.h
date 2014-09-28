@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface FileContentView : UIViewController
+@interface FileContentView : UIViewController <UIWebViewDelegate>
 
 @property int64_t projectID;
 @property NSString *path;

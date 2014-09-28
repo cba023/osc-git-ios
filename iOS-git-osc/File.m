@@ -26,7 +26,7 @@
                              @"xsl", @"swift", @"ftl", @"yml", @"ru", @"jsp", @"markdown",
                              @"cshap", @"apsx", @"sass", @"less", @"ftl", @"haml", @"log",
                              @"tx", @"csproj", @"sln", @"clj", @"scm", @"xhml", @"xaml",
-                             @"lua"
+                             @"lua", @"pch"
                              ];
 
     });

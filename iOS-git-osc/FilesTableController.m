@@ -72,6 +72,8 @@ static NSString * const cellId = @"FileCell";
 {
     [super viewDidAppear:animated];
     
+    self.revealController.frontViewController.revealController.recognizesPanningOnFrontView = YES;
+    
     if (_filesArray.count > 0) {return;}
     
     if (![Tools isNetworkExist]) {
@@ -184,7 +186,7 @@ static NSString * const cellId = @"FileCell";
         
         [self.navigationController pushViewController:imageView animated:YES];
     } else {
-        NSString *urlString = [NSString stringWithFormat:@"https://git.oschina.net/%@/%@/blob/master/%@/%@?private_token=%@", _ownerName, _projectName, _currentPath, file.name, [Tools getPrivateToken]];
+        NSString *urlString = [NSString stringWithFormat:@"https://git.oschina.net/%@/%@/blob/master/%@%@?private_token=%@", _ownerName, _projectName, _currentPath, file.name, [Tools getPrivateToken]];
         NSURL *url = [NSURL URLWithString:urlString];
         [[UIApplication sharedApplication] openURL:url];
     }

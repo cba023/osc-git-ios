@@ -33,11 +33,14 @@
 {
     [super viewDidLoad];
     
+    self.revealController.frontViewController.revealController.recognizesPanningOnFrontView = NO;
+    
     self.title = self.fileName;
     
     self.webView = [[UIWebView alloc] initWithFrame:self.view.bounds];
     self.webView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
     self.webView.scrollView.bounces = NO;
+    self.webView.delegate = self;
     
     [self.view addSubview:self.webView];
 }
@@ -53,9 +56,8 @@
                                                        path:[NSString stringWithFormat:@"%@%@", _path, _fileName]
                                                  branchName:@"master"
                                                successBlock:^(id responseObject) {
-                                                   [self.view hideToastActivity];
-                                                   
                                                    if (responseObject == nil) {
+                                                       [self.view hideToastActivity];
                                                        [Tools toastNotification:@"网络错误" inView:self.view];
                                                    } else {
                                                        _content = ((GLBlob *)responseObject).content;
@@ -102,6 +104,11 @@
 	NSString *contentHTML = [NSString stringWithFormat:format, themeCssPath, codeCssPath, highlightJsPath, lineNums, lang, escapedCode];
     
 	[self.webView loadHTMLString:contentHTML baseURL:baseUrl];
+}
+
+- (void)webViewDidFinishLoad:(UIWebView *)webView
+{
+    [self.view hideToastActivity];
 }
 
 
