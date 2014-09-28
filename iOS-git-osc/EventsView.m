@@ -141,8 +141,6 @@ static NSString * const EventCellIdentifier = @"EventCell";
         [Event setAbstractContent:textView forEvent:event];
         abstractHeight = [textView sizeThatFits:CGSizeMake(self.tableView.frame.size.width - 60, MAXFLOAT)].height;
         
-        //CGFloat staticHeight = totalCommitsCount > 0? 47: 39;
-        
         return descriptionHeight + abstractHeight + 47;
     } else {
         return 60;
@@ -187,9 +185,18 @@ static NSString * const EventCellIdentifier = @"EventCell";
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    GLEvent *event = [self.events objectAtIndex:indexPath.row];
-    ProjectDetailsView *projectDetails = [[ProjectDetailsView alloc] initWithProjectID:event.projectId];
-    [self.navigationController pushViewController:projectDetails animated:YES];
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    NSInteger row = indexPath.row;
+    
+    if (row < self.events.count) {
+        GLEvent *event = [self.events objectAtIndex:indexPath.row];
+        ProjectDetailsView *projectDetails = [[ProjectDetailsView alloc] initWithProjectID:event.projectId];
+        [self.navigationController pushViewController:projectDetails animated:YES];
+    } else {
+        if (!_isLoading) {
+            [self loadMore];
+        }
+    }
 }
 
 #pragma mark - recognizer
@@ -305,6 +312,12 @@ static NSString * const EventCellIdentifier = @"EventCell";
     GLGitlabFailureBlock failure = ^(NSError *error) {
         if (refresh) {
             [self.refreshControl endRefreshing];
+        }
+        
+        if (error != nil) {
+            [Tools toastNotification:[NSString stringWithFormat:@"网络异常，错误码：%d", error.code] inView:self.view];
+        } else {
+            [Tools toastNotification:@"网络错误" inView:self.view];
         }
         
         if (_isFinishedLoad) {

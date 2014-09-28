@@ -141,8 +141,11 @@
     
     GLGitlabFailureBlock failure = ^(NSError *error) {
         [self.view hideToastActivity];
+        
         if (error != nil) {
-            [Tools toastNotification:[error description] inView:self.view];
+            [Tools toastNotification:[NSString stringWithFormat:@"网络异常，错误码：%d", error.code] inView:self.view];
+        } else {
+            [Tools toastNotification:@"网络错误" inView:self.view];
         }
     };
     

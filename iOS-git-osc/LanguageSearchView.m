@@ -89,7 +89,12 @@ static NSString * const LanguageCellID = @"LanguageCell";
     
     GLGitlabFailureBlock failure = ^(NSError *error) {
         [self.view hideToastActivity];
-        [Tools toastNotification:@"网络错误" inView:self.view];
+        
+        if (error != nil) {
+            [Tools toastNotification:[NSString stringWithFormat:@"网络异常，错误码：%d", error.code] inView:self.view];
+        } else {
+            [Tools toastNotification:@"网络错误" inView:self.view];
+        }
     };
     
     [[GLGitlabApi sharedInstance] getLanguagesListSuccess:success failure:failure];
