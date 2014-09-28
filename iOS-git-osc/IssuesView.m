@@ -232,15 +232,15 @@ static NSString * const cellId = @"IssueCell";
     return
     
     ^(id responseObject) {
+        if (refresh) {
+            [self.refreshControl endRefreshing];
+            [issues removeAllObjects];
+        }
+        
         if ([responseObject count] == 0) {
             _isFinishedLoad = YES;
             [_lastCell finishedLoad];
         } else {
-            if (refresh) {
-                [self.refreshControl endRefreshing];
-                [issues removeAllObjects];
-            }
-            
             _isFinishedLoad = [(NSArray *)responseObject count] < 20;
             
             NSUInteger repeatedCount = [Tools numberOfRepeatedIssueds:issues issue:[responseObject objectAtIndex:0]];

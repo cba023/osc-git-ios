@@ -274,15 +274,15 @@ static NSString * const EventCellIdentifier = @"EventCell";
     }
 
     GLGitlabSuccessBlock success = ^(id responseObject) {
+        if (refresh) {
+            [self.refreshControl endRefreshing];
+            [events removeAllObjects];
+        }
+        
         if ([responseObject count] == 0) {
             _isFinishedLoad = YES;
             [_lastCell finishedLoad];
         } else {
-            if (refresh) {
-                [self.refreshControl endRefreshing];
-                [events removeAllObjects];
-            }
-            
             _isFinishedLoad = [(NSArray *)responseObject count] < 20;
             
             NSUInteger repeatedCount = [Tools numberOfRepeatedEvents:events event:[responseObject objectAtIndex:0]];

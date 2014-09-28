@@ -313,15 +313,15 @@ static NSString * const cellId = @"ProjectCell";
     return
     
     ^(id responseObject) {
+        if (refresh) {
+            [self.refreshControl endRefreshing];
+            [projects removeAllObjects];
+        }
+        
         if ([responseObject count] == 0) {
             _isFinishedLoad = YES;
             [_lastCell finishedLoad];
         } else {
-            if (refresh) {
-                [self.refreshControl endRefreshing];
-                [projects removeAllObjects];
-            }
-            
             _isFinishedLoad = [(NSArray *)responseObject count] < _pageSize;
             
             for (GLProject *newProject in responseObject) {
