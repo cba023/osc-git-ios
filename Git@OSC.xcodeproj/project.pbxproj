@@ -204,7 +204,6 @@
 		00D4ED23196F97FE00F3A4A5 /* Issue.m in Sources */ = {isa = PBXBuildFile; fileRef = 00D4ED22196F97FE00F3A4A5 /* Issue.m */; };
 		00D4ED26196F9B9900F3A4A5 /* IssueCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 00D4ED25196F9B9900F3A4A5 /* IssueCell.m */; };
 		00D4ED29196F9BCA00F3A4A5 /* IssuesView.m in Sources */ = {isa = PBXBuildFile; fileRef = 00D4ED28196F9BCA00F3A4A5 /* IssuesView.m */; };
-		00D4ED2C196FF5C500F3A4A5 /* Note.m in Sources */ = {isa = PBXBuildFile; fileRef = 00D4ED2B196FF5C500F3A4A5 /* Note.m */; };
 		00D4ED30196FF85E00F3A4A5 /* NoteCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 00D4ED2F196FF85E00F3A4A5 /* NoteCell.m */; };
 		00D4ED34196FF88300F3A4A5 /* NotesView.m in Sources */ = {isa = PBXBuildFile; fileRef = 00D4ED33196FF88300F3A4A5 /* NotesView.m */; };
 		00DB0DFE19A7B86F0021E257 /* loginLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 00DB0DFD19A7B86F0021E257 /* loginLogo.png */; };
@@ -530,8 +529,6 @@
 		00D4ED25196F9B9900F3A4A5 /* IssueCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IssueCell.m; sourceTree = "<group>"; };
 		00D4ED27196F9BCA00F3A4A5 /* IssuesView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IssuesView.h; sourceTree = "<group>"; };
 		00D4ED28196F9BCA00F3A4A5 /* IssuesView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IssuesView.m; sourceTree = "<group>"; };
-		00D4ED2A196FF5C500F3A4A5 /* Note.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Note.h; sourceTree = "<group>"; };
-		00D4ED2B196FF5C500F3A4A5 /* Note.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Note.m; sourceTree = "<group>"; };
 		00D4ED2E196FF85E00F3A4A5 /* NoteCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NoteCell.h; sourceTree = "<group>"; };
 		00D4ED2F196FF85E00F3A4A5 /* NoteCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NoteCell.m; sourceTree = "<group>"; };
 		00D4ED32196FF88300F3A4A5 /* NotesView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotesView.h; sourceTree = "<group>"; };
@@ -1116,8 +1113,6 @@
 		00D4ED2D196FF83100F3A4A5 /* Notes */ = {
 			isa = PBXGroup;
 			children = (
-				00D4ED2A196FF5C500F3A4A5 /* Note.h */,
-				00D4ED2B196FF5C500F3A4A5 /* Note.m */,
 				00D4ED2E196FF85E00F3A4A5 /* NoteCell.h */,
 				00D4ED2F196FF85E00F3A4A5 /* NoteCell.m */,
 				00D4ED32196FF88300F3A4A5 /* NotesView.h */,
@@ -1402,7 +1397,6 @@
 				00B7AF11198BAE0D0025C868 /* UserDetailsView.m in Sources */,
 				0021BAD2192342BD00626A2C /* GLGroup.m in Sources */,
 				0021BADB192342BD00626A2C /* GLUser.m in Sources */,
-				00D4ED2C196FF5C500F3A4A5 /* Note.m in Sources */,
 				0021BAD5192342BD00626A2C /* GLMilestone.m in Sources */,
 				00B685B619ADCF2A00705534 /* Reachability.m in Sources */,
 				00D4ED34196FF88300F3A4A5 /* NotesView.m in Sources */,

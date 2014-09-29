@@ -210,7 +210,12 @@ static NSString * const cellId = @"IssueCell";
         if (refresh) {
             [self.refreshControl endRefreshing];
         } else {
-            [_lastCell empty];
+            _isLoading = NO;
+            if (_isFinishedLoad) {
+                [_lastCell finishedLoad];
+            } else {
+                [_lastCell normal];
+            }
         }
         [Tools toastNotification:@"网络连接失败，请检查网络设置" inView:self.view];
         return;

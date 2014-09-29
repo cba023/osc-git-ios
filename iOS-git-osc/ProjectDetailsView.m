@@ -47,6 +47,10 @@ static NSString * const ProjectDetailsCellID = @"ProjectDetailsCell";
     [super viewDidAppear:animated];
     
     if (_project) {return;}
+    if (![Tools isNetworkExist]) {
+        [Tools toastNotification:@"网络连接失败，请检查网络设置" inView:self.view];
+        return;
+    }
     
     [self.view makeToastActivity];
     NSString *privateToken = [Tools getPrivateToken];

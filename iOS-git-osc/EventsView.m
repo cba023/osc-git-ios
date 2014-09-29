@@ -62,14 +62,6 @@ static NSString * const EventCellIdentifier = @"EventCell";
 {
     [super viewDidLoad];
     
-#if 0
-    if([[[UIDevice currentDevice]systemVersion]floatValue]>=7.0)
-    {
-        self.navigationController.navigationBar.barTintColor = UIColorFromRGB(0x145096);
-    } else {
-        [self.navigationController.navigationBar setTintColor:UIColorFromRGB(0x3A5FCD)];
-    }
-#endif
     self.title = @"动态";
     
     UIBarButtonItem *backItem = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStyleBordered target:nil action:nil];
@@ -277,9 +269,14 @@ static NSString * const EventCellIdentifier = @"EventCell";
         if (refresh) {
             [self.refreshControl endRefreshing];
         } else {
-            [_lastCell empty];
+            _isLoading = NO;
+            if (_isFinishedLoad) {
+                [_lastCell finishedLoad];
+            } else {
+                [_lastCell normal];
+            }
         }
-        [Tools toastNotification:@"网络连接失败，请检查网络设置" inView:self.view];
+        [Tools toastNotification:@"网络连接失败，请检查网络设置" inView:self.parentViewController.view];
         return;
     }
 

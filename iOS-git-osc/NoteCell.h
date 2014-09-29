@@ -12,7 +12,7 @@
 
 @property UIImageView *portrait;
 @property UILabel *author;
-@property UITextView *body;
+@property UILabel *body;
 @property UILabel *time;
 
 @end

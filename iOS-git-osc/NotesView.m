@@ -10,14 +10,11 @@
 #import "NoteCell.h"
 #import "NoteEditingView.h"
 #import "GLGitlab.h"
-#import "Note.h"
 #import "Tools.h"
 #import "CreationInfoCell.h"
 #import "IssueDescriptionCell.h"
 
 @interface NotesView ()
-
-@property (nonatomic, strong) NoteCell *prototypeCell;
 
 @property BOOL isLoadingFinished;
 @property CGFloat webViewHeight;
@@ -47,16 +44,28 @@ static NSString * const IssueDescriptionCellId = @"IssueDescriptionCell";
     [self.tableView registerClass:[NoteCell class] forCellReuseIdentifier:NoteCellId];
     [self.tableView registerClass:[CreationInfoCell class] forCellReuseIdentifier:CreationInfoCellId];
     [self.tableView registerClass:[IssueDescriptionCell class] forCellReuseIdentifier:IssueDescriptionCellId];
+    
     UIView *footer = [[UIView alloc] initWithFrame:CGRectZero];
     self.tableView.tableFooterView = footer;
+    self.tableView.bounces = NO;
     
-    _notes = [Note getNotesForIssue:_issue page:1];
+    _notes = [NSMutableArray new];
     _issueContentHTML = _issue.issueDescription;
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"评论"
                                                                               style:UIBarButtonItemStylePlain
                                                                              target:self
                                                                              action:@selector(editComment)];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    if (![Tools isNetworkExist]) {
+        [Tools toastNotification:@"网络连接失败，请检查网络设置" inView:self.parentViewController.view];
+        return;
+    }
+    
+    [self fetchNotesOnPage:1];
 }
 
 - (void)didReceiveMemoryWarning
@@ -96,15 +105,17 @@ static NSString * const IssueDescriptionCellId = @"IssueDescriptionCell";
             return _webViewHeight + 10;
         }
     } else {
-        if (!self.prototypeCell) {
-            self.prototypeCell = [self.tableView dequeueReusableCellWithIdentifier:NoteCellId];
-        }
+        GLNote *note = [_notes objectAtIndex:row];
         
-        [self configureNoteCell:self.prototypeCell forRowInSection:indexPath.row];
+        UILabel *label = [UILabel new];
+        label.numberOfLines = 0;
+        label.lineBreakMode = NSLineBreakByWordWrapping;
+        label.font = [UIFont systemFontOfSize:16];
+        label.text = [Tools flattenHTML:note.body];
         
-        [self.prototypeCell layoutIfNeeded];
-        CGSize size = [self.prototypeCell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
-        return size.height;
+        CGSize size = [label sizeThatFits:CGSizeMake(tableView.frame.size.width - 8, MAXFLOAT)];
+        
+        return size.height + 54;
     }
 }
 
@@ -203,6 +214,44 @@ static NSString * const IssueDescriptionCellId = @"IssueDescriptionCell";
     }
     return 35;
 }
+
+
+#pragma mark - 获取评论
+
+- (void)fetchNotesOnPage:(NSUInteger)page
+{
+    if (![Tools isNetworkExist]) {
+        [Tools toastNotification:@"网络连接失败，请检查网络设置" inView:self.parentViewController.view];
+        return;
+    }
+    
+    GLGitlabSuccessBlock success = ^(id responseObject) {
+        if (responseObject == nil) {
+            [Tools toastNotification:@"网络错误" inView:self.tableView];
+        } else {
+            [_notes addObjectsFromArray:responseObject];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.tableView reloadData];
+            });
+        }
+    };
+    
+    GLGitlabFailureBlock failure = ^(NSError *error) {
+        if (error != nil) {
+            [Tools toastNotification:[NSString stringWithFormat:@"网络异常，错误码：%ld", (long)error.code] inView:self.tableView];
+        } else {
+            [Tools toastNotification:@"网络错误" inView:self.tableView];
+        }
+    };
+    
+    [[GLGitlabApi sharedInstance] getAllNotesForIssue:_issue
+                                         privateToken:[Tools getPrivateToken]
+                                                 page:page
+                                     withSuccessBlock:success
+                                      andFailureBlock:failure];
+}
+
+
 
 #pragma mark - UIWebView things
 

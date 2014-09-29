@@ -7,7 +7,9 @@
 //
 
 #import "NoteEditingView.h"
-#import "Note.h"
+#import "GLGitlab.h"
+#import "Tools.h"
+#import "LoginViewController.h"
 
 @interface NoteEditingView ()
 
@@ -25,10 +27,10 @@
                                                                              target:self
                                                                              action:@selector(sendComment)];
     
+    self.view.backgroundColor = [Tools uniformColor];
     [self setLayout];
     
     UITapGestureRecognizer *gesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideKeyboard)];
-    gesture.numberOfTapsRequired = 1;
     [self.view addGestureRecognizer:gesture];
 }
 
@@ -41,16 +43,36 @@
 #pragma mark - 发表评论
 - (void)sendComment
 {
+    if (![Tools isNetworkExist]) {
+        [Tools toastNotification:@"网络连接失败，请检查网络设置" inView:self.view];
+        return;
+    }
+    
+    GLGitlabSuccessBlock success = ^(id responseObject) {
+        if (responseObject == nil) {
+            [Tools toastNotification:@"评论失败" inView:self.view];
+        } else {
+            [Tools toastNotification:@"评论成功" inView:self.view];
+        }
+    };
+    
+    GLGitlabFailureBlock failure = ^(NSError *error) {
+        if (error != nil) {
+            [Tools toastNotification:[NSString stringWithFormat:@"评论失败，错误码：%ld", (long)error.code] inView:self.view];
+        } else {
+            [Tools toastNotification:@"评论失败" inView:self.view];
+        }
+    };
+    
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     if ([userDefaults objectForKey:@"private_token"]) {
-        BOOL success = [Note createNoteForIssue:_issue body:_noteContent.text];
-        if (success) {
-            NSLog(@"评论成功");
-        } else {
-            NSLog(@"评论失败");
-        }
+        [[GLGitlabApi sharedInstance] createNoteForIssue:_issue
+                                                withBody:_noteContent.text
+                                            successBlock:success
+                                         andFailureBlock:failure];
     } else {
-        NSLog(@"请先登录");
+        LoginViewController *loginView = [LoginViewController new];
+        [self.navigationController pushViewController:loginView animated:YES];
     }
 }
 
@@ -66,6 +88,7 @@
     _noteContent.layer.borderWidth = 0.8;
     _noteContent.layer.cornerRadius = 3.0;
     _noteContent.layer.borderColor = [[UIColor grayColor] CGColor];
+    _noteContent.font = [UIFont systemFontOfSize:16];
     _noteContent.enablesReturnKeyAutomatically = YES;
     _noteContent.autocorrectionType = UITextAutocorrectionTypeNo;
     _noteContent.autocapitalizationType = UITextAutocapitalizationTypeNone;
@@ -91,7 +114,6 @@
 
 - (void)hideKeyboard
 {
-    _noteContent.text = @"";
     [_noteContent resignFirstResponder];
 }
 

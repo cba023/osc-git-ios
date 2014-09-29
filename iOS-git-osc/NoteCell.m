@@ -46,14 +46,14 @@
     [self.contentView addSubview:_portrait];
     
     _author = [UILabel new];
-    [_author setFont:[UIFont systemFontOfSize:12]];
+    [_author setFont:[UIFont systemFontOfSize:15]];
     [self.contentView addSubview:_author];
     
-    _body = [UITextView new];
+    _body = [UILabel new];
     _body.backgroundColor = [UIColor clearColor];
-    _body.editable = NO;
-    //_body.selectable = NO;
-    _body.scrollEnabled = NO;
+    _body.numberOfLines = 0;
+    _body.font = [UIFont systemFontOfSize:16];
+    _body.lineBreakMode = NSLineBreakByWordWrapping;
     [self.contentView addSubview:_body];
     
     _time = [UILabel new];
@@ -72,7 +72,7 @@
                                                                              metrics:nil
                                                                                views:NSDictionaryOfVariableBindings(_portrait, _author, _time)]];
     
-    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(8)-[_portrait(25)]-(5)-[_body]-(5)-|"
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(8)-[_portrait(25)]-(13)-[_body]-(8)-|"
                                                                              options:NSLayoutFormatAlignAllLeft
                                                                              metrics:nil
                                                                                views:NSDictionaryOfVariableBindings(_portrait, _body)]];

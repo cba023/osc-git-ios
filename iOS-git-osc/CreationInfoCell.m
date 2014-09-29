@@ -42,7 +42,7 @@
     [self.contentView addSubview:_portrait];
     
     _creationInfo = [UILabel new];
-    [_creationInfo setFont:[UIFont systemFontOfSize:12]];
+    [_creationInfo setFont:[UIFont systemFontOfSize:13]];
     [self.contentView addSubview:_creationInfo];
 }
 
