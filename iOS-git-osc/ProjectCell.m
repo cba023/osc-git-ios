@@ -86,17 +86,17 @@
 {
     UIImageView *languageImage = [UIImageView new];
     languageImage.contentMode = UIViewContentModeScaleAspectFit;
-    [languageImage setImage:[UIImage imageNamed:@"projectCellLanguage"]];
+    [languageImage setImage:[UIImage imageNamed:@"language"]];
     [self.contentView addSubview:languageImage];
     
     UIImageView *forkImage = [UIImageView new];
     forkImage.contentMode = UIViewContentModeScaleAspectFit;
-    [forkImage setImage:[UIImage imageNamed:@"projectCellFork"]];
+    [forkImage setImage:[UIImage imageNamed:@"fork"]];
     [self.contentView addSubview:forkImage];
     
     UIImageView *starImage = [UIImageView new];
     starImage.contentMode = UIViewContentModeScaleAspectFit;
-    [starImage setImage:[UIImage imageNamed:@"projectCellStar"]];
+    [starImage setImage:[UIImage imageNamed:@"star"]];
     [self.contentView addSubview:starImage];
 
     for (UIView *view in [self.contentView subviews]) {

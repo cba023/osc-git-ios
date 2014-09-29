@@ -110,7 +110,7 @@ static NSString * const kKeyPortrait = @"new_portrait";
 {
     cell.backgroundColor = [UIColor clearColor];
     cell.textLabel.textColor = UIColorFromRGB(0xebebf3);
-    cell.textLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:18];
+    cell.textLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:19];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)sectionIndex
@@ -180,10 +180,10 @@ static NSString * const kKeyPortrait = @"new_portrait";
     }
     
     titles = @[@"发现", @"我的", @"语言", @"搜索", @"摇一摇"];
-    images = @[@"sidebar_find", @"sidebar_mine", @"sidebar_tag", @"sidebar_search", @"sidebar_shake"];
+    images = @[@"sidebar_find", @"sidebar_mine", @"sidebar_language", @"sidebar_search", @"sidebar_shake"];
     cell.imageView.image = [UIImage imageNamed:images[indexPath.row]];
     
-    CGSize imageSize = CGSizeMake(20, 20);
+    CGSize imageSize = CGSizeMake(19, 19);
     UIGraphicsBeginImageContextWithOptions(imageSize, NO, UIScreen.mainScreen.scale);
     CGRect imageRect = CGRectMake(0.0, 0.0, imageSize.width, imageSize.height);
     [cell.imageView.image drawInRect:imageRect];
@@ -191,7 +191,6 @@ static NSString * const kKeyPortrait = @"new_portrait";
     UIGraphicsEndImageContext();
 
     cell.textLabel.text = titles[indexPath.row];
-    cell.textLabel.font = [UIFont systemFontOfSize:18];
     
     UIView *selectedBackground = [UIView new];
     selectedBackground.backgroundColor = UIColorFromRGB(0x1c1c1c);

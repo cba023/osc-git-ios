@@ -33,8 +33,6 @@
 {
     [super viewDidLoad];
     
-    self.revealController.frontViewController.revealController.recognizesPanningOnFrontView = NO;
-    
     self.title = self.fileName;
     
     self.webView = [[UIWebView alloc] initWithFrame:self.view.bounds];
@@ -48,6 +46,8 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
+    
+    self.revealController.frontViewController.revealController.recognizesPanningOnFrontView = NO;
     
     [self.view makeToastActivity];
     

@@ -43,6 +43,8 @@
 {
     [super viewDidAppear:animated];
     
+    self.revealController.frontViewController.revealController.recognizesPanningOnFrontView = NO;
+    
     [self.view makeToastActivity];
     
     [[SDWebImageDownloader sharedDownloader] downloadImageWithURL:[NSURL URLWithString:_imageURL]

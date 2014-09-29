@@ -93,8 +93,8 @@
     UIImageView *infoImage = [[UIImageView alloc] initWithFrame:CGRectMake(16, 12, 15, 15)];
     infoImage.contentMode = UIViewContentModeScaleAspectFit;
     NSArray *imageNames = @[
-                            @[@"time", @"projectCellFork"],
-                            @[@"project_detail_icon_lockpublic", @"project_details_language.png"]
+                            @[@"time", @"fork"],
+                            @[@"lock", @"language"]
                             ];
     NSString *imageName = [[imageNames objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
     infoImage.image = [UIImage imageNamed:imageName];
