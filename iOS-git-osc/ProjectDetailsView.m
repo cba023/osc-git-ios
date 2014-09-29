@@ -19,6 +19,7 @@
 #import "ProjectNameCell.h"
 #import "UIView+Toast.h"
 #import "LoginViewController.h"
+#import "UMSocial.h"
 
 
 static NSString * const ProjectDetailsCellID = @"ProjectDetailsCell";
@@ -64,6 +65,14 @@ static NSString * const ProjectDetailsCellID = @"ProjectDetailsCell";
                                                    _project = responseObject;
                                                    self.title = _project.name;
                                                    [self.view hideToastActivity];
+                                                   
+                                                   if (_project.isPublicProject) {
+                                                    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]
+                                                                                              initWithTitle:@"分享"
+                                                                                              style:UIBarButtonItemStylePlain
+                                                                                              target:self
+                                                                                              action:@selector(showShareView)];
+                                                   }
                                                    
                                                    dispatch_async(dispatch_get_main_queue(), ^{
                                                        [_projectInfo reloadData];
@@ -350,6 +359,43 @@ static NSString * const ProjectDetailsCellID = @"ProjectDetailsCell";
     } else {
         [[GLGitlabApi sharedInstance] watchProject:_project.projectId privateToken:privateToken success:success failure:failure];
     }
+}
+
+- (void)showShareView
+{
+    NSString *projectURL = [NSString stringWithFormat:@"http://git.oschina.net/%@/%@", _project.owner.username, _project.name];
+    
+    // 微信相关设置
+
+    [UMSocialData defaultData].extConfig.wxMessageType = UMSocialWXMessageTypeWeb;
+    
+    [UMSocialData defaultData].extConfig.wechatSessionData.url = projectURL;
+    [UMSocialData defaultData].extConfig.wechatTimelineData.url = projectURL;
+    //[UMSocialData defaultData].extConfig.wechatFavoriteData.url = projectURL;
+    
+    [UMSocialData defaultData].extConfig.title = _project.name;
+    
+    // 手机QQ相关设置
+    
+    [UMSocialData defaultData].extConfig.qqData.qqMessageType = UMSocialQQMessageTypeDefault;
+
+    [UMSocialData defaultData].extConfig.qqData.title = _project.name;
+    [UMSocialData defaultData].extConfig.qqData.url = projectURL;
+
+    // 新浪微博相关设置
+
+    [[UMSocialData defaultData].extConfig.sinaData.urlResource setResourceType:UMSocialUrlResourceTypeDefault url:projectURL];
+
+    // 显示分享的平台icon
+    
+    [UMSocialSnsService presentSnsIconSheetView:self
+                                         appKey:@"5423cd47fd98c58f04000c52"
+                                      shareText:[NSString stringWithFormat:@"我在关注%@的项目%@，你也来瞧瞧呗！", _project.owner.name, _project.name]
+                                     shareImage:[Tools getScreenshot:self.view]
+                                shareToSnsNames:@[
+                                                  UMShareToWechatSession, UMShareToWechatTimeline, UMShareToQQ, UMShareToSina //, UMShareToWechatFavorite
+                                                  ]
+                                       delegate:nil];
 }
 
 

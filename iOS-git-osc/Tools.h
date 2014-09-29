@@ -30,6 +30,7 @@
 + (void)roundView:(UIView *)view cornerRadius:(CGFloat)cornerRadius;
 + (void)setPortraitForUser:(GLUser *)user view:(UIImageView *)portraitView cornerRadius:(CGFloat)cornerRadius;
 + (UIColor *)uniformColor;
++ (UIImage *)getScreenshot:(UIView *)view;
 
 + (void)toastNotification:(NSString *)text inView:(UIView *)view;
 + (NSInteger)networkStatus;

@@ -184,6 +184,27 @@
     return [UIColor colorWithRed:235.0/255 green:235.0/255 blue:243.0/255 alpha:1.0];
 }
 
++ (UIImage *)getScreenshot:(UIView *)view
+{
+    UIGraphicsBeginImageContext(view.frame.size);
+
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    [view.layer renderInContext:context];
+#if 1
+    UIImage *screenshot = UIGraphicsGetImageFromCurrentImageContext();
+#else
+    if(UIGraphicsBeginImageContextWithOptions != NULL) {
+        UIGraphicsBeginImageContextWithOptions(view.frame.size, NO, 0.0);
+    } else {
+        UIGraphicsBeginImageContext(view.frame.size);
+    }
+#endif
+
+    UIGraphicsEndImageContext();
+
+    return screenshot;
+}
+
 
 #pragma mark - about notifications
 + (void)toastNotification:(NSString *)text inView:(UIView *)view
