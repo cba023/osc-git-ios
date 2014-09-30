@@ -50,7 +50,7 @@
     self.title = @"摇一摇";
     [self.navigationController.navigationBar setTranslucent:NO];
     self.view.backgroundColor = [UIColor whiteColor];
-    //self.view.backgroundColor = UIColorFromRGB(0x111111);
+    self.view.backgroundColor = UIColorFromRGB(0x111111);
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"three_lines"]
                                                                              style:UIBarButtonItemStylePlain
                                                                             target:self
@@ -184,14 +184,15 @@
     _luckMessage = [TTTAttributedLabel new];
     _luckMessage.enabledTextCheckingTypes = NSTextCheckingTypeLink;
     _luckMessage.delegate = self;
-    _luckMessage.backgroundColor = [UIColor whiteColor];
+    _luckMessage.backgroundColor = [UIColor clearColor];
+    _luckMessage.textColor = [Tools uniformColor];
     _luckMessage.font = [UIFont systemFontOfSize:12];
     _luckMessage.numberOfLines = 0;
     _luckMessage.lineBreakMode = NSLineBreakByWordWrapping;
     [self.view addSubview:_luckMessage];
     
     _layer = [UIView new];
-    //_layer.backgroundColor = UIColorFromRGB(0x111111);
+    _layer.backgroundColor = [UIColor clearColor];
     [self.view addSubview:_layer];
     
     _sweetPotato = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"shakehideimg_man"]];
@@ -215,6 +216,7 @@
     _awardView = [AwardView new];
     UITapGestureRecognizer *tapAW = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapAwardView)];
     [_awardView addGestureRecognizer:tapAW];
+    _awardView.backgroundColor = [Tools uniformColor];
     [Tools roundView:_awardView cornerRadius:8.0];
     [_awardView setHidden:YES];
     [self.view addSubview:_awardView];
