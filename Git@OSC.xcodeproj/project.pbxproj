@@ -59,8 +59,8 @@
 		0021BAEF192342BD00626A2C /* GLGitlabApi+Private.m in Sources */ = {isa = PBXBuildFile; fileRef = 0021BACB192342BD00626A2C /* GLGitlabApi+Private.m */; };
 		0021BAF41923608200626A2C /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0021BAF31923608200626A2C /* Security.framework */; };
 		0021BAF7192360A100626A2C /* SSKeychain.m in Sources */ = {isa = PBXBuildFile; fileRef = 0021BAF6192360A100626A2C /* SSKeychain.m */; };
-		00329A5119D1784C001B9DC6 /* libPKRevealController.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00329A5019D177F1001B9DC6 /* libPKRevealController.a */; };
 		0041FA9B191C87AF00E1F237 /* Tools.m in Sources */ = {isa = PBXBuildFile; fileRef = 0041FA9A191C87AF00E1F237 /* Tools.m */; };
+		00474E9819DA9712001F8E89 /* libPKRevealController.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00474E9519DA96D1001F8E89 /* libPKRevealController.a */; };
 		00541C0A196684AB002EC356 /* GLBlob.m in Sources */ = {isa = PBXBuildFile; fileRef = 00541C09196684AB002EC356 /* GLBlob.m */; };
 		0057719919A73D6A00EAA606 /* LanguageSearchView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0057719819A73D6A00EAA606 /* LanguageSearchView.m */; };
 		0057719C19A73F8C00EAA606 /* GLLanguage.m in Sources */ = {isa = PBXBuildFile; fileRef = 0057719B19A73F8C00EAA606 /* GLLanguage.m */; };
@@ -245,9 +245,9 @@
 			remoteGlobalIDString = 0002D2451916324B001FDED8;
 			remoteInfo = "iOS-git-osc";
 		};
-		00329A4F19D177F1001B9DC6 /* PBXContainerItemProxy */ = {
+		00474E9419DA96D1001F8E89 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 00329A4B19D177F0001B9DC6 /* PKRevealController.xcodeproj */;
+			containerPortal = 00474E9019DA96D0001F8E89 /* PKRevealController.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = F9621E7B1815246000469E41;
 			remoteInfo = PKRevealController;
@@ -351,11 +351,11 @@
 		0021BAF31923608200626A2C /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		0021BAF5192360A100626A2C /* SSKeychain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SSKeychain.h; path = "../../../Objective-C/sskeychain-master/SSKeychain.h"; sourceTree = "<group>"; };
 		0021BAF6192360A100626A2C /* SSKeychain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SSKeychain.m; path = "../../../Objective-C/sskeychain-master/SSKeychain.m"; sourceTree = "<group>"; };
-		00329A4B19D177F0001B9DC6 /* PKRevealController.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = PKRevealController.xcodeproj; path = "../../Objective-C/PKRevealController-master/Source/PKRevealController.xcodeproj"; sourceTree = "<group>"; };
-		00329A5219D178E6001B9DC6 /* PKRevealController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKRevealController.h; path = "../../../Objective-C/PKRevealController-master/Source/PKRevealController/PKRevealController.h"; sourceTree = "<group>"; };
-		00329A5319D178E6001B9DC6 /* UIViewController+PKRevealController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIViewController+PKRevealController.h"; path = "../../../Objective-C/PKRevealController-master/Source/PKRevealController/Categories/UIViewController+PKRevealController.h"; sourceTree = "<group>"; };
 		0041FA99191C87AF00E1F237 /* Tools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tools.h; sourceTree = "<group>"; };
 		0041FA9A191C87AF00E1F237 /* Tools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Tools.m; sourceTree = "<group>"; };
+		00474E9019DA96D0001F8E89 /* PKRevealController.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = PKRevealController.xcodeproj; path = "../../Objective-C/PKRevealController-master/Source/PKRevealController.xcodeproj"; sourceTree = "<group>"; };
+		00474E9619DA96EF001F8E89 /* PKRevealController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKRevealController.h; path = "../../../Objective-C/PKRevealController-master/Source/PKRevealController/PKRevealController.h"; sourceTree = "<group>"; };
+		00474E9719DA96F0001F8E89 /* UIViewController+PKRevealController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIViewController+PKRevealController.h"; path = "../../../Objective-C/PKRevealController-master/Source/PKRevealController/Categories/UIViewController+PKRevealController.h"; sourceTree = "<group>"; };
 		00541C08196684AB002EC356 /* GLBlob.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLBlob.h; sourceTree = "<group>"; };
 		00541C09196684AB002EC356 /* GLBlob.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GLBlob.m; sourceTree = "<group>"; };
 		0057719719A73D6A00EAA606 /* LanguageSearchView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LanguageSearchView.h; sourceTree = "<group>"; };
@@ -610,13 +610,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				00474E9819DA9712001F8E89 /* libPKRevealController.a in Frameworks */,
 				00D0852919D99D9600E2EA0E /* libz.dylib in Frameworks */,
 				00D0852719D99D8400E2EA0E /* libstdc++.dylib in Frameworks */,
 				00D0852519D99D7100E2EA0E /* CoreTelephony.framework in Frameworks */,
 				00D0852319D99D6200E2EA0E /* libsqlite3.dylib in Frameworks */,
 				00D0852119D99D3D00E2EA0E /* libiconv.dylib in Frameworks */,
 				00D0851B19D99B9C00E2EA0E /* libSocialQQ.a in Frameworks */,
-				00329A5119D1784C001B9DC6 /* libPKRevealController.a in Frameworks */,
 				00B3CF9C19CC0D2E00747373 /* CoreMotion.framework in Frameworks */,
 				00B3CF9A19CC0A6600747373 /* AudioToolbox.framework in Frameworks */,
 				00D0851C19D99B9C00E2EA0E /* TencentOpenAPI.framework in Frameworks */,
@@ -670,12 +670,12 @@
 		0002D2481916324B001FDED8 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				00474E9019DA96D0001F8E89 /* PKRevealController.xcodeproj */,
 				00D0852819D99D9600E2EA0E /* libz.dylib */,
 				00D0852619D99D8400E2EA0E /* libstdc++.dylib */,
 				00D0852419D99D7100E2EA0E /* CoreTelephony.framework */,
 				00D0852219D99D6100E2EA0E /* libsqlite3.dylib */,
 				00D0852019D99D3D00E2EA0E /* libiconv.dylib */,
-				00329A4B19D177F0001B9DC6 /* PKRevealController.xcodeproj */,
 				00B3CF9B19CC0D2E00747373 /* CoreMotion.framework */,
 				00B3CF9919CC0A6600747373 /* AudioToolbox.framework */,
 				00B685B719ADCF7D00705534 /* SystemConfiguration.framework */,
@@ -870,10 +870,10 @@
 			path = private;
 			sourceTree = "<group>";
 		};
-		00329A4C19D177F0001B9DC6 /* Products */ = {
+		00474E9119DA96D0001F8E89 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				00329A5019D177F1001B9DC6 /* libPKRevealController.a */,
+				00474E9519DA96D1001F8E89 /* libPKRevealController.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -884,8 +884,8 @@
 				00D084E519D99B9C00E2EA0E /* UMSocial_Sdk_4.1 */,
 				00D0850019D99B9C00E2EA0E /* UMSocial_Sdk_Extra_Frameworks */,
 				000EDABA19D3C39E00975253 /* TTTAttributedLabel */,
-				00329A5219D178E6001B9DC6 /* PKRevealController.h */,
-				00329A5319D178E6001B9DC6 /* UIViewController+PKRevealController.h */,
+				00474E9619DA96EF001F8E89 /* PKRevealController.h */,
+				00474E9719DA96F0001F8E89 /* UIViewController+PKRevealController.h */,
 				0079C03519B56521005EF089 /* UIView+Toast.h */,
 				0079C03619B56521005EF089 /* UIView+Toast.m */,
 				0021BAF5192360A100626A2C /* SSKeychain.h */,
@@ -1372,8 +1372,8 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
-					ProductGroup = 00329A4C19D177F0001B9DC6 /* Products */;
-					ProjectRef = 00329A4B19D177F0001B9DC6 /* PKRevealController.xcodeproj */;
+					ProductGroup = 00474E9119DA96D0001F8E89 /* Products */;
+					ProjectRef = 00474E9019DA96D0001F8E89 /* PKRevealController.xcodeproj */;
 				},
 			);
 			projectRoot = "";
@@ -1385,11 +1385,11 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		00329A5019D177F1001B9DC6 /* libPKRevealController.a */ = {
+		00474E9519DA96D1001F8E89 /* libPKRevealController.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
 			path = libPKRevealController.a;
-			remoteRef = 00329A4F19D177F1001B9DC6 /* PBXContainerItemProxy */;
+			remoteRef = 00474E9419DA96D1001F8E89 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */

@@ -72,9 +72,11 @@
     _segmentTitle.selectedSegmentIndex = 0;
     _segmentTitle.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     _segmentTitle.segmentedControlStyle = UISegmentedControlStyleBar;
+#if 0
     _segmentTitle.layer.cornerRadius = 5.0;
     _segmentTitle.backgroundColor = [Tools uniformColor];
     _segmentTitle.tintColor = UIColorFromRGB(0xaf1219);
+#endif
     _segmentTitle.frame = CGRectMake(0, 0, 210, 30);
     [_segmentTitle addTarget:self action:@selector(switchView) forControlEvents:UIControlEventValueChanged];
     self.navigationItem.titleView = _segmentTitle;

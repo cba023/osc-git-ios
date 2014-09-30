@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>C6DAD07E-5DE0-45C9-B85A-89874D54E4ED</string>
+	<key>IDESourceControlProjectName</key>
+	<string>Git@OSC</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>F9444441B1C4D956E9107EAA1859BC764189C7D8</key>
+		<string>https://git.oschina.net/aetern/git-iphone-app.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>Git@OSC.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>F9444441B1C4D956E9107EAA1859BC764189C7D8</key>
+		<string>..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://git.oschina.net/aetern/git-iphone-app.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>F9444441B1C4D956E9107EAA1859BC764189C7D8</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>F9444441B1C4D956E9107EAA1859BC764189C7D8</string>
+			<key>IDESourceControlWCCName</key>
+			<string>iOS-git-osc</string>
+		</dict>
+	</array>
+</dict>
+</plist>
