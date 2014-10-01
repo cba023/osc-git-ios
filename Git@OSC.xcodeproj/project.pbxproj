@@ -77,6 +77,8 @@
 		00474EB719DAA9CB001F8E89 /* projectDetails_unwatch@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 00474EA719DAA9CB001F8E89 /* projectDetails_unwatch@2x.png */; };
 		00474EB819DAA9CB001F8E89 /* projectDetails_watch.png in Resources */ = {isa = PBXBuildFile; fileRef = 00474EA819DAA9CB001F8E89 /* projectDetails_watch.png */; };
 		00474EB919DAA9CB001F8E89 /* projectDetails_watch@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 00474EA919DAA9CB001F8E89 /* projectDetails_watch@2x.png */; };
+		00474EBC19DC0CBE001F8E89 /* shake_match.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 00474EBA19DC0CBD001F8E89 /* shake_match.mp3 */; };
+		00474EBD19DC0CBE001F8E89 /* shake_sound_male.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 00474EBB19DC0CBE001F8E89 /* shake_sound_male.mp3 */; };
 		00541C0A196684AB002EC356 /* GLBlob.m in Sources */ = {isa = PBXBuildFile; fileRef = 00541C09196684AB002EC356 /* GLBlob.m */; };
 		0057719919A73D6A00EAA606 /* LanguageSearchView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0057719819A73D6A00EAA606 /* LanguageSearchView.m */; };
 		0057719C19A73F8C00EAA606 /* GLLanguage.m in Sources */ = {isa = PBXBuildFile; fileRef = 0057719B19A73F8C00EAA606 /* GLLanguage.m */; };
@@ -170,7 +172,6 @@
 		00A74FD519A59FD7009DACDF /* SearchView.m in Sources */ = {isa = PBXBuildFile; fileRef = 00A74FD419A59FD7009DACDF /* SearchView.m */; };
 		00B01FE919221EB40095D488 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 00B01FE819221EB40095D488 /* User.m */; };
 		00B3CF9619CBDDE000747373 /* ShakingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 00B3CF9519CBDDE000747373 /* ShakingView.m */; };
-		00B3CF9819CC093300747373 /* shake.wav in Resources */ = {isa = PBXBuildFile; fileRef = 00B3CF9719CC093300747373 /* shake.wav */; };
 		00B3CF9A19CC0A6600747373 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00B3CF9919CC0A6600747373 /* AudioToolbox.framework */; };
 		00B3CF9C19CC0D2E00747373 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00B3CF9B19CC0D2E00747373 /* CoreMotion.framework */; };
 		00B3CFA019CC1A9100747373 /* shake_logo_down.png in Resources */ = {isa = PBXBuildFile; fileRef = 00B3CF9D19CC1A9100747373 /* shake_logo_down.png */; };
@@ -388,6 +389,8 @@
 		00474EA719DAA9CB001F8E89 /* projectDetails_unwatch@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "projectDetails_unwatch@2x.png"; sourceTree = "<group>"; };
 		00474EA819DAA9CB001F8E89 /* projectDetails_watch.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = projectDetails_watch.png; sourceTree = "<group>"; };
 		00474EA919DAA9CB001F8E89 /* projectDetails_watch@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "projectDetails_watch@2x.png"; sourceTree = "<group>"; };
+		00474EBA19DC0CBD001F8E89 /* shake_match.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = shake_match.mp3; sourceTree = "<group>"; };
+		00474EBB19DC0CBE001F8E89 /* shake_sound_male.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = shake_sound_male.mp3; sourceTree = "<group>"; };
 		00541C08196684AB002EC356 /* GLBlob.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLBlob.h; sourceTree = "<group>"; };
 		00541C09196684AB002EC356 /* GLBlob.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GLBlob.m; sourceTree = "<group>"; };
 		0057719719A73D6A00EAA606 /* LanguageSearchView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LanguageSearchView.h; sourceTree = "<group>"; };
@@ -515,7 +518,6 @@
 		00B01FE819221EB40095D488 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
 		00B3CF9419CBDDDF00747373 /* ShakingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShakingView.h; sourceTree = "<group>"; };
 		00B3CF9519CBDDE000747373 /* ShakingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShakingView.m; sourceTree = "<group>"; };
-		00B3CF9719CC093300747373 /* shake.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = shake.wav; sourceTree = "<group>"; };
 		00B3CF9919CC0A6600747373 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		00B3CF9B19CC0D2E00747373 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
 		00B3CF9D19CC1A9100747373 /* shake_logo_down.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = shake_logo_down.png; sourceTree = "<group>"; };
@@ -765,6 +767,8 @@
 		0002D2C519179858001FDED8 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				00474EBA19DC0CBD001F8E89 /* shake_match.mp3 */,
+				00474EBB19DC0CBE001F8E89 /* shake_sound_male.mp3 */,
 				00474E9919DAA9CB001F8E89 /* projectDetails */,
 				00D084A919D9089500E2EA0E /* sidebar */,
 				008896DD19D7C1A4008B99C3 /* userNotLoggedIn.png */,
@@ -772,7 +776,6 @@
 				00B3CF9D19CC1A9100747373 /* shake_logo_down.png */,
 				00B3CF9E19CC1A9100747373 /* shake_logo_up.png */,
 				00B3CF9F19CC1A9100747373 /* shakehideimg_man.png */,
-				00B3CF9719CC093300747373 /* shake.wav */,
 				00E8838C19C9B15800C89EA6 /* tx.png */,
 				00E8838D19C9B15900C89EA6 /* tx@2x.png */,
 				00DB0DFC19A7B83B0021E257 /* Login */,
@@ -1475,6 +1478,7 @@
 				00DB0E0219A7B8EA0021E257 /* email.png in Resources */,
 				009B51F5199B4CB300E7F575 /* atelier-forest.light.css in Resources */,
 				00D084D319D9089500E2EA0E /* sidebar_search@2x.png in Resources */,
+				00474EBD19DC0CBE001F8E89 /* shake_sound_male.mp3 in Resources */,
 				00D084D119D9089500E2EA0E /* sidebar_mine@2x.png in Resources */,
 				00474EAD19DAA9CB001F8E89 /* projectDetails_owner@2x.png in Resources */,
 				009B51FF199B4CB300E7F575 /* color-brewer.css in Resources */,
@@ -1484,6 +1488,7 @@
 				009B51F2199B4CB300E7F575 /* atelier-dune.dark.css in Resources */,
 				00D084CE19D9089500E2EA0E /* sidebar_language.png in Resources */,
 				009B5219199B4CB300E7F575 /* solarized_dark.css in Resources */,
+				00474EBC19DC0CBE001F8E89 /* shake_match.mp3 in Resources */,
 				00474EB919DAA9CB001F8E89 /* projectDetails_watch@2x.png in Resources */,
 				00474EB119DAA9CB001F8E89 /* projectDetails_Readme@2X.png in Resources */,
 				00D0851419D99B9C00E2EA0E /* UMShareEditViewController.xib in Resources */,
@@ -1531,7 +1536,6 @@
 				009B5203199B4CB300E7F575 /* far.css in Resources */,
 				009B5200199B4CB300E7F575 /* dark.css in Resources */,
 				0002D2D719188953001FDED8 /* Images.xcassets in Resources */,
-				00B3CF9819CC093300747373 /* shake.wav in Resources */,
 				009B5201199B4CB300E7F575 /* default.css in Resources */,
 				00474EAA19DAA9CB001F8E89 /* projectDetails_code.png in Resources */,
 				00D084D219D9089500E2EA0E /* sidebar_search.png in Resources */,

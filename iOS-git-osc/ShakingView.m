@@ -24,7 +24,8 @@
 @interface ShakingView () <UIActionSheetDelegate, TTTAttributedLabelDelegate>
 
 @property CMMotionManager *motionManager;
-@property SystemSoundID soundID;
+@property SystemSoundID shakeSoundID;
+@property SystemSoundID matchSoundID;
 
 @property TTTAttributedLabel *luckMessage;
 @property UIView *layer;
@@ -67,8 +68,10 @@
     _motionManager = [CMMotionManager new];
     _motionManager.accelerometerUpdateInterval = 0.1;
     
-    NSString *path = [[NSBundle mainBundle] pathForResource:@"shake" ofType:@"wav"];
-	AudioServicesCreateSystemSoundID((CFURLRef)CFBridgingRetain([NSURL fileURLWithPath:path]), &_soundID);
+    NSString *shakeMusicPath = [[NSBundle mainBundle] pathForResource:@"shake_sound_male" ofType:@"mp3"];
+	AudioServicesCreateSystemSoundID((CFURLRef)CFBridgingRetain([NSURL fileURLWithPath:shakeMusicPath]), &_shakeSoundID);
+    NSString *matchMusicPath = [[NSBundle mainBundle] pathForResource:@"shake_match" ofType:@"mp3"];
+    AudioServicesCreateSystemSoundID((CFURLRef)CFBridgingRetain([NSURL fileURLWithPath:matchMusicPath]), &_matchSoundID);
     
     _privateToken = [Tools getPrivateToken];
 }
@@ -356,7 +359,7 @@
     [_projectCell setHidden:YES];
     [_awardView setHidden:YES];
     
-    AudioServicesPlaySystemSound(_soundID);
+    AudioServicesPlaySystemSound(_shakeSoundID);
     
     //[self rotate:_layer];
     [self moveImage];
@@ -414,6 +417,8 @@
             [Tools toastNotification:@"红薯跟你开了一个玩笑，没有为你找到项目" inView:self.view];
             return;
         }
+        
+        AudioServicesPlaySystemSound(_matchSoundID);
         _project = responseObject;
         
         if (_project.message) {
