@@ -38,8 +38,17 @@
         _isWatched = isWatched;
         NSString *starAction = isStarred? @"Unstar" : @"Star";
         NSString *watchAction = isWatched? @"Unwatch" : @"Watch";
+        
         [_starButton setTitle:[NSString stringWithFormat:@" %@ %ld ",starAction, (long)starsCount] forState:UIControlStateNormal];
+        NSString *starImageName = isStarred? @"projectDetails_star" : @"projectDetails_unstar";
+        [_starButton setImage:[UIImage imageNamed:starImageName] forState:UIControlStateNormal];
+        [_starButton setImageEdgeInsets:UIEdgeInsetsMake(3, 3, 3, -1)];
+        
         [_watchButton setTitle:[NSString stringWithFormat:@" %@ %ld ",watchAction, (long)watchesCount] forState:UIControlStateNormal];
+        NSString *watchImageName = isWatched? @"projectDetails_watch" : @"projectDetails_unwatch";
+        [_watchButton setImage:[UIImage imageNamed:watchImageName] forState:UIControlStateNormal];
+        [_watchButton setImageEdgeInsets:UIEdgeInsetsMake(3, 3, 3, -1)];
+        
         _projectDescriptionField.text = projectDescription.length > 0? projectDescription : @"暂无项目介绍";
     }
     

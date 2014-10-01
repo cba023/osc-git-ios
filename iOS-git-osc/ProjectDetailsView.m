@@ -165,9 +165,13 @@ static NSString * const ProjectDetailsCellID = @"ProjectDetailsCell";
                 NSMutableAttributedString *ownerAttrTxt = [[NSMutableAttributedString alloc] initWithString:@"拥有者 "
                                                                                                  attributes:nameAttributes];
                 [ownerAttrTxt appendAttributedString:[[NSAttributedString alloc] initWithString:_project.owner.name]];
-                UILabel *owner = [[UILabel alloc] initWithFrame:CGRectMake(20, 9, 254, 21)];
+                UILabel *owner = [[UILabel alloc] initWithFrame:CGRectMake(38, 9, 254, 21)];
                 [owner setAttributedText:ownerAttrTxt];
                 [cell addSubview:owner];
+                
+                UIImageView *icon = [[UIImageView alloc] initWithFrame:CGRectMake(15, 10, 17, 17)];
+                [icon setImage:[UIImage imageNamed:@"projectDetails_owner"]];
+                [cell addSubview:icon];
                 
                 return cell;
             }
@@ -185,9 +189,14 @@ static NSString * const ProjectDetailsCellID = @"ProjectDetailsCell";
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         
         NSArray *rowTitle = @[@"Readme", @"代码", @"问题"];             //@"提交"
-        UILabel *title = [[UILabel alloc] initWithFrame:CGRectMake(20, 9, 254, 21)];
+        UILabel *title = [[UILabel alloc] initWithFrame:CGRectMake(38, 9, 254, 21)];
         [title setText:rowTitle[indexPath.row]];
         [cell.contentView addSubview:title];
+        
+        NSArray *imageName = @[@"projectDetails_Readme", @"projectDetails_code", @"projectDetails_issue"];
+        UIImageView *icon = [[UIImageView alloc] initWithFrame:CGRectMake(15, 10, 17, 17)];
+        [icon setImage:[UIImage imageNamed:imageName[indexPath.row]]];
+        [cell addSubview:icon];
         
         return cell;
     }
@@ -390,7 +399,7 @@ static NSString * const ProjectDetailsCellID = @"ProjectDetailsCell";
     
     [UMSocialSnsService presentSnsIconSheetView:self
                                          appKey:@"5423cd47fd98c58f04000c52"
-                                      shareText:[NSString stringWithFormat:@"我在关注%@的项目%@，你也来瞧瞧呗！", _project.owner.name, _project.name]
+                                      shareText:[NSString stringWithFormat:@"我在关注%@的项目%@，你也来瞧瞧呗！%@", _project.owner.name, _project.name, projectURL]
                                      shareImage:[Tools getScreenshot:self.view]
                                 shareToSnsNames:@[
                                                   UMShareToWechatSession, UMShareToWechatTimeline, UMShareToQQ, UMShareToSina //, UMShareToWechatFavorite
