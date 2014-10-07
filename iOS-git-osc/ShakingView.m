@@ -20,7 +20,7 @@
 #import "TTTAttributedLabel.h"
 #import "UMSocial.h"
 
-#define accelerationThreshold  0.4
+#define accelerationThreshold  2.0f
 
 @interface ShakingView () <UIActionSheetDelegate, TTTAttributedLabelDelegate>
 
@@ -138,15 +138,16 @@
 
 -(void)outputAccelertionData:(CMAcceleration)acceleration
 {
-    if (_shaking) {return;}
-    _shaking = YES;
     double accelerameter = sqrt(pow(acceleration.x, 2) + pow(acceleration.y, 2) + pow(acceleration.z, 2));
     
-    if (accelerameter > 1.8f) {
+    if (accelerameter > accelerationThreshold) {
         [_motionManager stopAccelerometerUpdates];
         [_operationQueue cancelAllOperations];
         
         dispatch_async(dispatch_get_main_queue(), ^{
+            if (_shaking) {return;}
+            _shaking = YES;
+            
             [self shakeAnimation];
             if ([Tools isNetworkExist]) {
                 [self requestProject];
