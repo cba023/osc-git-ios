@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ShakingView : UIViewController
+@interface ShakingView : UIViewController <UIAlertViewDelegate>
 
 @end

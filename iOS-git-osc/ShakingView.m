@@ -18,6 +18,7 @@
 #import "AwardView.h"
 #import "LoginViewController.h"
 #import "TTTAttributedLabel.h"
+#import "UMSocial.h"
 
 #define accelerationThreshold  0.4
 
@@ -430,7 +431,7 @@
                                                                 message:[NSString stringWithFormat:alertMessage, _project.message]
                                                                delegate:self
                                                       cancelButtonTitle:@"我知道了"
-                                                      otherButtonTitles:nil];
+                                                      otherButtonTitles:@"分享", nil];
             
             [alertView show];
         } else {
@@ -477,6 +478,51 @@
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:actionSheet.title]];
 }
 
+
+
+#pragma mark - UIAlertView Delegate
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == 1) {
+        [self showShareView];
+    }
+}
+
+- (void)showShareView
+{
+    NSString *projectURL = @"https://git.oschina.net";
+    
+    // 微信相关设置
+    
+    [UMSocialData defaultData].extConfig.wxMessageType = UMSocialWXMessageTypeWeb;
+    
+    [UMSocialData defaultData].extConfig.wechatSessionData.url = projectURL;
+    [UMSocialData defaultData].extConfig.wechatTimelineData.url = projectURL;
+    
+    [UMSocialData defaultData].extConfig.title = @"摇到奖品啦！";
+    
+    // 手机QQ相关设置
+    
+    [UMSocialData defaultData].extConfig.qqData.qqMessageType = UMSocialQQMessageTypeDefault;
+    
+    [UMSocialData defaultData].extConfig.qqData.title = @"摇到奖品啦！";
+    
+    // 新浪微博相关设置
+    
+    [[UMSocialData defaultData].extConfig.sinaData.urlResource setResourceType:UMSocialUrlResourceTypeDefault url:projectURL];
+    
+    // 显示分享的平台icon
+    
+    [UMSocialSnsService presentSnsIconSheetView:self
+                                         appKey:@"5423cd47fd98c58f04000c52"
+                                      shareText:[NSString stringWithFormat:@"我在Git@OSC app上摇到了%@，你也来瞧瞧呗！%@", _project.message, projectURL]
+                                     shareImage:[Tools getScreenshot:self.view]
+                                shareToSnsNames:@[
+                                                  UMShareToWechatSession, UMShareToWechatTimeline, UMShareToQQ, UMShareToSina
+                                                  ]
+                                       delegate:nil];
+}
 
 
 @end

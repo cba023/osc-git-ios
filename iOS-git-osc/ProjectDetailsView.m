@@ -136,7 +136,6 @@ static NSString * const ProjectDetailsCellID = @"ProjectDetailsCell";
                 ProjectNameCell *cell = [[ProjectNameCell alloc] initWithProject:_project];
                 return cell;
             }
-                
             case 1: {
                 ProjectDescriptionCell *cell = [[ProjectDescriptionCell alloc] initWithStarsCount:_project.starsCount
                                                                                      watchesCount:_project.watchesCount
@@ -175,7 +174,6 @@ static NSString * const ProjectDetailsCellID = @"ProjectDetailsCell";
                 
                 return cell;
             }
-                
             default:
                 return nil;
         }
@@ -333,7 +331,8 @@ static NSString * const ProjectDetailsCellID = @"ProjectDetailsCell";
         [[GLGitlabApi sharedInstance] unstarProject:_project.projectId privateToken:privateToken success:success failure:failure];
     } else {
         [[GLGitlabApi sharedInstance] starProject:_project.projectId privateToken:privateToken success:success failure:failure];
-    }}
+    }
+}
 
 - (void)watchButtonClicked
 {
