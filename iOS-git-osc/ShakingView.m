@@ -189,7 +189,7 @@
     _luckMessage = [TTTAttributedLabel new];
     _luckMessage.enabledTextCheckingTypes = NSTextCheckingTypeLink;
     _luckMessage.delegate = self;
-    _luckMessage.backgroundColor = [UIColor clearColor];
+    _luckMessage.backgroundColor = UIColorFromRGB(0x111111);
     _luckMessage.textColor = [Tools uniformColor];
     _luckMessage.font = [UIFont systemFontOfSize:12];
     _luckMessage.numberOfLines = 0;

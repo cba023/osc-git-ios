@@ -36,7 +36,7 @@
     //self = [super initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"StatusCell"];
     self = [super init];
     if (self) {
-        self.backgroundColor = [UIColor clearColor];
+        self.backgroundColor = [Tools uniformColor];
         [self setLayout];
         [self empty];
     }
@@ -61,12 +61,14 @@
 {
     [_indicator stopAnimating];
     _statusLabel.text = @"More...";
+    self.userInteractionEnabled = YES;
 }
 
 - (void)loading
 {
     [_indicator startAnimating];
     _statusLabel.text = @"";
+    self.userInteractionEnabled = YES;
     self.selectionStyle = UITableViewCellSelectionStyleNone;
 }
 
@@ -81,6 +83,7 @@
 {
     [_indicator stopAnimating];
     _statusLabel.text = @"";
+    self.userInteractionEnabled = NO;
     self.selectionStyle = UITableViewCellSelectionStyleNone;
 }
 
