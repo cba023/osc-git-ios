@@ -30,6 +30,7 @@
     if (self) {
         self.contentView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
         self.selectionStyle = UITableViewCellSelectionStyleNone;
+        self.backgroundColor = UIColorFromRGB(0xf0f0f0);
         self.userInteractionEnabled = YES;
         [self initSubviews];
         [self setLayout];
@@ -76,16 +77,16 @@
     [self.contentView addSubview:_projectDescriptionField];
     
     _starButton = [UIButton new];
-    //[_starButton setImage:[UIImage imageNamed:@"projectCellStar"] forState:UIControlStateNormal];
     _starButton.titleLabel.font = [UIFont systemFontOfSize:14];
-    [_starButton setBackgroundColor:[UIColor grayColor]];
+    [_starButton setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
+    [_starButton setBackgroundColor:UIColorFromRGB(0xcdcdcd)];
     [Tools roundView:_starButton cornerRadius:2.0];
     [self.contentView addSubview:_starButton];
     
     _watchButton = [UIButton new];
     _watchButton.titleLabel.font = [UIFont systemFontOfSize:14];
-    [_watchButton setBackgroundColor:[UIColor grayColor]];
-    //[_watchButton setImage:[UIImage imageNamed:@"projectCellWatch"] forState:UIControlStateNormal];
+    [_watchButton setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
+    [_watchButton setBackgroundColor:UIColorFromRGB(0xcdcdcd)];
     [Tools roundView:_watchButton cornerRadius:2.0];
     [self.contentView addSubview:_watchButton];
 }
@@ -96,20 +97,22 @@
         subview.translatesAutoresizingMaskIntoConstraints = NO;
     }
     
+    NSDictionary *viewsDict = NSDictionaryOfVariableBindings(_projectDescriptionField, _starButton, _watchButton);
+    
     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|-8-[_projectDescriptionField]-8-|"
                                                                              options:0
                                                                              metrics:nil
-                                                                               views:NSDictionaryOfVariableBindings(_projectDescriptionField)]];
+                                                                               views:viewsDict]];
     
-    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-8-[_projectDescriptionField]-8-[_watchButton(27)]-8-|"
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-8-[_starButton(27)]-8-[_projectDescriptionField]-8-|"
                                                                             options:0
                                                                             metrics:nil
-                                                                              views:NSDictionaryOfVariableBindings(_projectDescriptionField, _watchButton)]];
+                                                                              views:viewsDict]];
     
-    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"[_starButton]-15-[_watchButton]-20-|"
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|-15-[_starButton(130)]->=8-[_watchButton(130)]-15-|"
                                                                              options:NSLayoutFormatAlignAllTop | NSLayoutFormatAlignAllBottom
                                                                              metrics:nil
-                                                                               views:NSDictionaryOfVariableBindings(_starButton, _watchButton)]];
+                                                                               views:viewsDict]];
 }
 
 

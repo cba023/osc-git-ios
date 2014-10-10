@@ -10,12 +10,10 @@
 
 @class GLProject;
 
-@interface ProjectDetailsView : UIViewController <UITableViewDataSource, UITableViewDelegate>
+@interface ProjectDetailsView : UITableViewController
 
 @property GLProject *project;
 @property GLProject *parentProject;
-
-@property UITableView *projectInfo;
 
 - (id)initWithProjectID:(int64_t)projectID;
 

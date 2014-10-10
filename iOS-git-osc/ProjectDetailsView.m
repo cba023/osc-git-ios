@@ -25,9 +25,10 @@
 static NSString * const ProjectDetailsCellID = @"ProjectDetailsCell";
 //static NSString * const ProjcetDescriptionCellID = @"ProjcetDescriptionCell";
 
-@interface ProjectDetailsView ()
+@interface ProjectDetailsView () <UIActionSheetDelegate>
 
 @property int64_t projectID;
+@property NSString *projectURL;
 
 @end
 
@@ -39,8 +40,16 @@ static NSString * const ProjectDetailsCellID = @"ProjectDetailsCell";
     
     self.navigationController.navigationBar.translucent = NO;
     
-    [self initSubviews];
-    [self setAutoLayout];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"More"
+                                                                              style:UIBarButtonItemStylePlain
+                                                                             target:self
+                                                                             action:@selector(moreChoice)];
+    
+    self.view.backgroundColor = UIColorFromRGB(0xf0f0f0);
+    
+    [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:ProjectDetailsCellID];
+    UIView *footer =[[UIView alloc] initWithFrame:CGRectZero];
+    self.tableView.tableFooterView = footer;
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -66,16 +75,10 @@ static NSString * const ProjectDetailsCellID = @"ProjectDetailsCell";
                                                    self.title = _project.name;
                                                    [self.view hideToastActivity];
                                                    
-                                                   if (_project.isPublicProject) {
-                                                    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]
-                                                                                              initWithTitle:@"分享"
-                                                                                              style:UIBarButtonItemStylePlain
-                                                                                              target:self
-                                                                                              action:@selector(showShareView)];
-                                                   }
+                                                   _projectURL = [NSString stringWithFormat:@"http://git.oschina.net/%@/%@", _project.owner.username, _project.name];
                                                    
                                                    dispatch_async(dispatch_get_main_queue(), ^{
-                                                       [_projectInfo reloadData];
+                                                       [self.tableView reloadData];
                                                    });
                                                }
                                            }
@@ -120,9 +123,9 @@ static NSString * const ProjectDetailsCellID = @"ProjectDetailsCell";
 {
     switch (section) {
         case 0:
-            return 4;
+            return 3;
         case 1:
-            return 3;       //return 4;
+            return 4;       //return 4;
         default:
             return 0;
     }
@@ -156,24 +159,6 @@ static NSString * const ProjectDetailsCellID = @"ProjectDetailsCell";
                 
                 return cell;
             }
-            case 3: {
-                UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ProjectDetailsCellID forIndexPath:indexPath];
-                cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-                
-                NSDictionary *nameAttributes = @{NSForegroundColorAttributeName: [UIColor grayColor]};
-                NSMutableAttributedString *ownerAttrTxt = [[NSMutableAttributedString alloc] initWithString:@"拥有者 "
-                                                                                                 attributes:nameAttributes];
-                [ownerAttrTxt appendAttributedString:[[NSAttributedString alloc] initWithString:_project.owner.name]];
-                UILabel *owner = [[UILabel alloc] initWithFrame:CGRectMake(38, 9, 254, 21)];
-                [owner setAttributedText:ownerAttrTxt];
-                [cell addSubview:owner];
-                
-                UIImageView *icon = [[UIImageView alloc] initWithFrame:CGRectMake(15, 10, 17, 17)];
-                [icon setImage:[UIImage imageNamed:@"projectDetails_owner"]];
-                [cell addSubview:icon];
-                
-                return cell;
-            }
             default:
                 return nil;
         }
@@ -186,15 +171,22 @@ static NSString * const ProjectDetailsCellID = @"ProjectDetailsCell";
         
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         
+        if (indexPath.row == 0) {
+            NSDictionary *nameAttributes = @{NSForegroundColorAttributeName: [UIColor grayColor]};
+            NSMutableAttributedString *ownerAttrTxt = [[NSMutableAttributedString alloc] initWithString:@"拥有者 "
+                                                                                             attributes:nameAttributes];
+            [ownerAttrTxt appendAttributedString:[[NSAttributedString alloc] initWithString:_project.owner.name]];
+            [cell.textLabel setAttributedText:ownerAttrTxt];
+            
+            [cell.imageView setImage:[UIImage imageNamed:@"projectDetails_owner"]];
+            
+            return cell;
+        }
         NSArray *rowTitle = @[@"Readme", @"代码", @"问题"];             //@"提交"
-        UILabel *title = [[UILabel alloc] initWithFrame:CGRectMake(38, 9, 254, 21)];
-        [title setText:rowTitle[indexPath.row]];
-        [cell.contentView addSubview:title];
+        [cell.textLabel setText:rowTitle[indexPath.row - 1]];
         
         NSArray *imageName = @[@"projectDetails_Readme", @"projectDetails_code", @"projectDetails_issue"];
-        UIImageView *icon = [[UIImageView alloc] initWithFrame:CGRectMake(15, 10, 17, 17)];
-        [icon setImage:[UIImage imageNamed:imageName[indexPath.row]]];
-        [cell addSubview:icon];
+        [cell.imageView setImage:[UIImage imageNamed:imageName[indexPath.row - 1]]];
         
         return cell;
     }
@@ -273,31 +265,7 @@ static NSString * const ProjectDetailsCellID = @"ProjectDetailsCell";
 }
 
 
-#pragma mark - About Subviews and Layout
-
-- (void)initSubviews
-{
-    _projectInfo = [UITableView new];
-    [_projectInfo registerClass:[UITableViewCell class] forCellReuseIdentifier:ProjectDetailsCellID];
-    _projectInfo.dataSource = self;
-    _projectInfo.delegate = self;
-    UIView *footer =[[UIView alloc] initWithFrame:CGRectZero];
-    _projectInfo.tableFooterView = footer;
-    
-    [self.view addSubview:_projectInfo];
-}
-
-- (void)setAutoLayout
-{
-    for (UIView *view in [self.view subviews]) {
-        [view setTranslatesAutoresizingMaskIntoConstraints:NO];
-    }
-    
-    NSDictionary *viewDictionary = NSDictionaryOfVariableBindings(_projectInfo);
-    
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|[_projectInfo]|" options:0 metrics:nil views:viewDictionary]];
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[_projectInfo]|" options:0 metrics:nil views:viewDictionary]];
-}
+#pragma mark - button
 
 - (void)starButtonClicked
 {
@@ -316,7 +284,7 @@ static NSString * const ProjectDetailsCellID = @"ProjectDetailsCell";
         _project.starred = !_project.starred;
         _project.starsCount = [responseObject intValue];
         NSIndexPath *path = [NSIndexPath indexPathForRow:1 inSection:0];
-        [_projectInfo reloadRowsAtIndexPaths:@[path] withRowAnimation:UITableViewRowAnimationNone];
+        [self.tableView reloadRowsAtIndexPaths:@[path] withRowAnimation:UITableViewRowAnimationNone];
     };
     
     GLGitlabFailureBlock failure = ^(NSError *error) {
@@ -351,7 +319,7 @@ static NSString * const ProjectDetailsCellID = @"ProjectDetailsCell";
         _project.watched = !_project.watched;
         _project.watchesCount = [responseObject intValue];
         NSIndexPath *path = [NSIndexPath indexPathForRow:1 inSection:0];
-        [_projectInfo reloadRowsAtIndexPaths:@[path] withRowAnimation:UITableViewRowAnimationNone];
+        [self.tableView reloadRowsAtIndexPaths:@[path] withRowAnimation:UITableViewRowAnimationNone];
     };
     
     GLGitlabFailureBlock failure = ^(NSError *error) {
@@ -369,42 +337,73 @@ static NSString * const ProjectDetailsCellID = @"ProjectDetailsCell";
     }
 }
 
+
+#pragma mark - 导航栏右侧按键
+
+- (void)moreChoice
+{
+    [[[UIActionSheet alloc] initWithTitle:nil
+                                 delegate:self
+                        cancelButtonTitle:NSLocalizedString(@"取消", nil)
+                   destructiveButtonTitle:nil
+                        otherButtonTitles:NSLocalizedString(@"分享项目", nil), NSLocalizedString(@"复制链接", nil),NSLocalizedString(@"在浏览器中打开", nil), nil]
+     
+     showInView:self.view];
+}
+
 - (void)showShareView
 {
-    NSString *projectURL = [NSString stringWithFormat:@"http://git.oschina.net/%@/%@", _project.owner.username, _project.name];
-    
     // 微信相关设置
-
+    
     [UMSocialData defaultData].extConfig.wxMessageType = UMSocialWXMessageTypeWeb;
     
-    [UMSocialData defaultData].extConfig.wechatSessionData.url = projectURL;
-    [UMSocialData defaultData].extConfig.wechatTimelineData.url = projectURL;
-    //[UMSocialData defaultData].extConfig.wechatFavoriteData.url = projectURL;
+    [UMSocialData defaultData].extConfig.wechatSessionData.url = _projectURL;
+    [UMSocialData defaultData].extConfig.wechatTimelineData.url = _projectURL;
+    //[UMSocialData defaultData].extConfig.wechatFavoriteData.url = _projectURL;
     
     [UMSocialData defaultData].extConfig.title = _project.name;
     
     // 手机QQ相关设置
     
     [UMSocialData defaultData].extConfig.qqData.qqMessageType = UMSocialQQMessageTypeDefault;
-
+    
     [UMSocialData defaultData].extConfig.qqData.title = _project.name;
-    [UMSocialData defaultData].extConfig.qqData.url = projectURL;
-
+    [UMSocialData defaultData].extConfig.qqData.url = _projectURL;
+    
     // 新浪微博相关设置
-
-    [[UMSocialData defaultData].extConfig.sinaData.urlResource setResourceType:UMSocialUrlResourceTypeDefault url:projectURL];
-
+    
+    [[UMSocialData defaultData].extConfig.sinaData.urlResource setResourceType:UMSocialUrlResourceTypeDefault url:_projectURL];
+    
     // 显示分享的平台icon
     
     [UMSocialSnsService presentSnsIconSheetView:self
                                          appKey:@"5423cd47fd98c58f04000c52"
-                                      shareText:[NSString stringWithFormat:@"我在关注%@的项目%@，你也来瞧瞧呗！%@", _project.owner.name, _project.name, projectURL]
+                                      shareText:[NSString stringWithFormat:@"我在关注%@的项目%@，你也来瞧瞧呗！%@", _project.owner.name, _project.name, _projectURL]
                                      shareImage:[Tools getScreenshot:self.view]
                                 shareToSnsNames:@[
                                                   UMShareToWechatSession, UMShareToWechatTimeline, UMShareToQQ, UMShareToSina //, UMShareToWechatFavorite
                                                   ]
                                        delegate:nil];
 }
+
+
+#pragma mark - UIActionSheetDelegate
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+    
+    if (buttonIndex == actionSheet.cancelButtonIndex) {
+        return;
+    } else if (buttonIndex == 0) {
+        [self showShareView];
+    } else if (buttonIndex == 1) {
+        UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
+        pasteboard.string = _projectURL;
+        [Tools toastNotification:@"链接已复制到剪贴板" inView:self.view];
+    } else {
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:_projectURL]];
+    }
+}
+
 
 
 @end

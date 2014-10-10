@@ -29,6 +29,8 @@
         
         self.contentView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
         self.selectionStyle = UITableViewCellSelectionStyleNone;
+        self.backgroundColor = UIColorFromRGB(0xf0f0f0);
+        
         [self initSubviews];
         [self setLayout];
     }
@@ -57,6 +59,7 @@
     
     _projectName = [UILabel new];
     [_projectName setText:_project.name];
+    _projectName.font = [UIFont boldSystemFontOfSize:17];
     [self.contentView addSubview:_projectName];
     
     _timeInterval = [UILabel new];

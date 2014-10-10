@@ -105,7 +105,7 @@
     
     NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(_portrait, _projectNameField, _projectDescriptionField, languageImage, forkImage, starImage, _languageField, _forksCount, _starsCount);
     
-    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|-8-[_portrait(36)]-8-[_projectNameField]"
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|-8-[_portrait(36)]-8-[_projectNameField]-5-|"
                                                                              options:0
                                                                              metrics:nil
                                                                                views:viewsDictionary]];

@@ -44,7 +44,7 @@ enum action {
     NSMutableAttributedString *action = [NSMutableAttributedString alloc];
     switch (actionType) {
         case CREATED: 
-            action = [action initWithString:@" 在项目 创建了 " attributes:actionAttributes];
+            action = [action initWithString:@" 在项目  创建了 " attributes:actionAttributes];
             [action insertAttributedString:project atIndex:5];
             [action appendAttributedString:[[NSAttributedString alloc] initWithString:[self eventTitle:event.events]
                                                                            attributes:projectAttributes]];
@@ -56,12 +56,16 @@ enum action {
             break;
         
         case CLOSED:
-            action = [action initWithString:@" 关闭了项目 " attributes:actionAttributes];
-            [action appendAttributedString:project];
+            action = [action initWithString:@" 关闭了项目  的 " attributes:actionAttributes];
+            [action insertAttributedString:project atIndex:7];
+            [action appendAttributedString:[[NSAttributedString alloc]initWithString:[self eventTitle:event.events]
+                                                                          attributes:projectAttributes]];
             break;
         case REOPENED:
-            action = [action initWithString:@" 重新打开了项目 " attributes:actionAttributes];
-            [action appendAttributedString:project];
+            action = [action initWithString:@" 重新打开了项目  的 " attributes:actionAttributes];
+            [action insertAttributedString:project atIndex:9];
+            [action appendAttributedString:[[NSAttributedString alloc]initWithString:[self eventTitle:event.events]
+                                                                          attributes:projectAttributes]];
             break;
         case PUSHED:
             action = [action initWithString:@" 推送到了项目  的分支" attributes:actionAttributes];
