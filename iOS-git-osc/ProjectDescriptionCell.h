@@ -13,6 +13,8 @@
 @property UILabel *projectDescriptionField;
 @property UIButton *starButton;
 @property UIButton *watchButton;
+@property UILabel *starsCountLabel;
+@property UILabel *watchesCountLabel;
 
 @property BOOL isStarred;
 @property BOOL isWatched;

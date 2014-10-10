@@ -245,6 +245,7 @@
 		00D4ED29196F9BCA00F3A4A5 /* IssuesView.m in Sources */ = {isa = PBXBuildFile; fileRef = 00D4ED28196F9BCA00F3A4A5 /* IssuesView.m */; };
 		00D4ED30196FF85E00F3A4A5 /* NoteCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 00D4ED2F196FF85E00F3A4A5 /* NoteCell.m */; };
 		00D4ED34196FF88300F3A4A5 /* NotesView.m in Sources */ = {isa = PBXBuildFile; fileRef = 00D4ED33196FF88300F3A4A5 /* NotesView.m */; };
+		00D6BC8119E7DE5000E8754E /* button_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 00D6BC8019E7DE4F00E8754E /* button_bg.png */; };
 		00DB0DFE19A7B86F0021E257 /* loginLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 00DB0DFD19A7B86F0021E257 /* loginLogo.png */; };
 		00DB0E0119A7B8EA0021E257 /* password.png in Resources */ = {isa = PBXBuildFile; fileRef = 00DB0DFF19A7B8EA0021E257 /* password.png */; };
 		00DB0E0219A7B8EA0021E257 /* email.png in Resources */ = {isa = PBXBuildFile; fileRef = 00DB0E0019A7B8EA0021E257 /* email.png */; };
@@ -628,6 +629,7 @@
 		00D4ED2F196FF85E00F3A4A5 /* NoteCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NoteCell.m; sourceTree = "<group>"; };
 		00D4ED32196FF88300F3A4A5 /* NotesView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotesView.h; sourceTree = "<group>"; };
 		00D4ED33196FF88300F3A4A5 /* NotesView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotesView.m; sourceTree = "<group>"; };
+		00D6BC8019E7DE4F00E8754E /* button_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_bg.png; sourceTree = "<group>"; };
 		00DB0DFD19A7B86F0021E257 /* loginLogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = loginLogo.png; sourceTree = "<group>"; };
 		00DB0DFF19A7B8EA0021E257 /* password.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = password.png; sourceTree = "<group>"; };
 		00DB0E0019A7B8EA0021E257 /* email.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = email.png; sourceTree = "<group>"; };
@@ -767,6 +769,7 @@
 		0002D2C519179858001FDED8 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				00D6BC8019E7DE4F00E8754E /* button_bg.png */,
 				00474EBA19DC0CBD001F8E89 /* shake_match.mp3 */,
 				00474EBB19DC0CBE001F8E89 /* shake_sound_male.mp3 */,
 				00474E9919DAA9CB001F8E89 /* projectDetails */,
@@ -1538,6 +1541,7 @@
 				0002D2D719188953001FDED8 /* Images.xcassets in Resources */,
 				009B5201199B4CB300E7F575 /* default.css in Resources */,
 				00474EAA19DAA9CB001F8E89 /* projectDetails_code.png in Resources */,
+				00D6BC8119E7DE5000E8754E /* button_bg.png in Resources */,
 				00D084D219D9089500E2EA0E /* sidebar_search.png in Resources */,
 				009B5208199B4CB300E7F575 /* idea.css in Resources */,
 				009B51FE199B4CB300E7F575 /* codepen-embed.css in Resources */,

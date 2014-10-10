@@ -46,6 +46,7 @@ static NSString * const ProjectDetailsCellID = @"ProjectDetailsCell";
                                                                              action:@selector(moreChoice)];
     
     self.view.backgroundColor = UIColorFromRGB(0xf0f0f0);
+    [[UITableViewHeaderFooterView appearance] setTintColor:UIColorFromRGB(0xf0f0f0)];
     
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:ProjectDetailsCellID];
     UIView *footer =[[UIView alloc] initWithFrame:CGRectZero];
@@ -109,7 +110,8 @@ static NSString * const ProjectDetailsCellID = @"ProjectDetailsCell";
     return self;
 }
 
-#pragma mark - UITableViewDataSource
+
+#pragma mark - tableview things
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -192,8 +194,6 @@ static NSString * const ProjectDetailsCellID = @"ProjectDetailsCell";
     }
 }
 
-#pragma mark - UITableViewDelegate
-
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
     if (section == 0) {
@@ -216,7 +216,7 @@ static NSString * const ProjectDetailsCellID = @"ProjectDetailsCell";
         tmpLabel.text = _project.projectDescription.length > 0? _project.projectDescription : @"暂无项目介绍";
         
         CGSize size = [tmpLabel sizeThatFits:CGSizeMake(tableView.frame.size.width - 16, MAXFLOAT)];
-        return size.height + 61;
+        return size.height + 61 + 27;
     } else if (section == 0 && row == 2) {
         return 80;
     }
