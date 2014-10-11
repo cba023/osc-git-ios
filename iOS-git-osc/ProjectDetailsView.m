@@ -40,11 +40,6 @@ static NSString * const ProjectDetailsCellID = @"ProjectDetailsCell";
     
     self.navigationController.navigationBar.translucent = NO;
     
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"More"
-                                                                              style:UIBarButtonItemStylePlain
-                                                                             target:self
-                                                                             action:@selector(moreChoice)];
-    
     self.view.backgroundColor = UIColorFromRGB(0xf0f0f0);
     [[UITableViewHeaderFooterView appearance] setTintColor:UIColorFromRGB(0xf0f0f0)];
     
@@ -75,6 +70,12 @@ static NSString * const ProjectDetailsCellID = @"ProjectDetailsCell";
                                                    _project = responseObject;
                                                    self.title = _project.name;
                                                    [self.view hideToastActivity];
+                                                   
+                                                   self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]
+                                                                                             initWithImage:[UIImage imageNamed:@"projectDetails_more"]
+                                                                                                     style:UIBarButtonItemStylePlain
+                                                                                                    target:self
+                                                                                                    action:@selector(moreChoice)];
                                                    
                                                    _projectURL = [NSString stringWithFormat:@"http://git.oschina.net/%@/%@", _project.owner.username, _project.name];
                                                    
@@ -216,7 +217,7 @@ static NSString * const ProjectDetailsCellID = @"ProjectDetailsCell";
         tmpLabel.text = _project.projectDescription.length > 0? _project.projectDescription : @"暂无项目介绍";
         
         CGSize size = [tmpLabel sizeThatFits:CGSizeMake(tableView.frame.size.width - 16, MAXFLOAT)];
-        return size.height + 61 + 27;
+        return size.height + 61 + 34;
     } else if (section == 0 && row == 2) {
         return 80;
     }
@@ -232,17 +233,19 @@ static NSString * const ProjectDetailsCellID = @"ProjectDetailsCell";
     UIBarButtonItem *backItem = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStyleBordered target:nil action:nil];
     [self.navigationItem setBackBarButtonItem:backItem];
 
-    if (section == 0 && row == 3) {
-        UserDetailsView *userDetails = [[UserDetailsView alloc] initWithPrivateToken:nil userID:_project.owner.userId];
-        [self.navigationController pushViewController:userDetails animated:YES];
-    } else if (section == 1) {
+    if (section == 1) {
         switch (row) {
             case 0: {
+                UserDetailsView *userDetails = [[UserDetailsView alloc] initWithPrivateToken:nil userID:_project.owner.userId];
+                [self.navigationController pushViewController:userDetails animated:YES];
+                break;
+            }
+            case 1: {
                 ReadmeView *readme = [[ReadmeView alloc] initWithProjectID:_project.projectId];
                 [self.navigationController pushViewController:readme animated:YES];
                 break;
             }
-            case 1: {
+            case 2: {
                 FilesTableController *filesTable = [[FilesTableController alloc] initWithProjectID:_project.projectId
                                                                                        projectName:_project.name
                                                                                          ownerName:_project.owner.username];
@@ -253,7 +256,7 @@ static NSString * const ProjectDetailsCellID = @"ProjectDetailsCell";
                 [self.navigationController pushViewController:filesTable animated:YES];
                 break;
             }
-            case 2: {
+            case 3: {
                 IssuesView *issuesView = [[IssuesView alloc] initWithProjectId:_project.projectId];
                 [self.navigationController pushViewController:issuesView animated:YES];
                 break;
@@ -270,7 +273,7 @@ static NSString * const ProjectDetailsCellID = @"ProjectDetailsCell";
 - (void)starButtonClicked
 {
     if (![Tools isNetworkExist]) {
-        [Tools toastNotification:@"无网络连接" inView:self.view];
+        [Tools toastNotification:@"网络连接失败，请检查网络设置" inView:self.view];
     }
     
     NSString *privateToken = [Tools getPrivateToken];
@@ -305,7 +308,7 @@ static NSString * const ProjectDetailsCellID = @"ProjectDetailsCell";
 - (void)watchButtonClicked
 {
     if (![Tools isNetworkExist]) {
-        [Tools toastNotification:@"无网络连接" inView:self.view];
+        [Tools toastNotification:@"网络连接失败，请检查网络设置" inView:self.view];
     }
 
     NSString *privateToken = [Tools getPrivateToken];

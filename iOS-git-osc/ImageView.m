@@ -11,6 +11,7 @@
 #import "Tools.h"
 #import "UIView+Toast.h"
 #import "UIImageView+WebCache.h"
+#import "PKRevealController.h"
 
 @interface ImageView ()
 

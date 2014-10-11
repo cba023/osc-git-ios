@@ -10,6 +10,7 @@
 #import "GLGitlab.h"
 #import "Tools.h"
 #import "UIView+Toast.h"
+#import "PKRevealController.h"
 
 @interface ReadmeView ()
 
@@ -23,9 +24,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    //_readme = [[UIWebView alloc] initWithFrame:self.view.bounds];
-    //_readme.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
-    //[self.view addSubview:_readme];
     self.view.backgroundColor = [UIColor whiteColor];
     [self initSubviews];
     [self setAutoLayout];
@@ -34,6 +32,8 @@
 
 - (void)viewDidAppear:(BOOL)animated
 {
+    self.revealController.frontViewController.revealController.recognizesPanningOnFrontView = NO;
+    
     if (_isFinishedLoading) {return;}
     if (![Tools isNetworkExist]) {
         [Tools toastNotification:@"网络连接失败，请检查网络设置" inView:self.view];
@@ -43,7 +43,8 @@
     [self.view makeToastActivity];
     
     GLGitlabSuccessBlock success = ^(id responseObject) {
-        if (responseObject == nil) {
+        if (responseObject == nil || responseObject == [NSNull null]) {
+            _isFinishedLoading = YES;
             [_readme loadHTMLString:@"该项目暂无Readme文件" baseURL:nil];
         } else {
             _html = responseObject;
@@ -85,6 +86,7 @@
 - (void)initSubviews
 {
     _readme = [UIWebView new];
+    //_readme = [[UIWebView alloc] initWithFrame:self.view.bounds];   //不用autolayout，这样设置的话，如果内容很长，底部会有些内容显示不全，原因未知
     _readme.delegate = self;
     _readme.scrollView.bounces = NO;
     _readme.opaque = NO;
@@ -114,6 +116,7 @@
     if (_isFinishedLoading) {
         webView.hidden = NO;
         [self.view hideToastActivity];
+        webView.scalesPageToFit = YES;
         return;
     }
     
@@ -126,7 +129,6 @@
                                            webView:webView];
     
     //加载实际要现实的html
-    //[webView loadHTMLString:html baseURL:nil];
     [_readme loadHTMLString:adjustedHTML baseURL:nil];
     
     //设置为已经加载完成
@@ -141,7 +143,7 @@
     //计算要缩放的比例
     CGFloat initialScale = webView.frame.size.width/pageWidth;
     
-    NSString *header = [NSString stringWithFormat:@"<meta name=\"viewport\" content=\" initial-scale=%f, minimum-scale=0.1, maximum-scale=2.0, user-scalable=no\">", initialScale];
+    NSString *header = [NSString stringWithFormat:@"<meta name=\"viewport\" content=\" initial-scale=%f, minimum-scale=0.1, maximum-scale=2.0, user-scalable=yes\">", initialScale];
     
     NSString *newHTML = [NSString stringWithFormat:@"<html><head>%@</head><body>%@</body></html>", header, html];
     

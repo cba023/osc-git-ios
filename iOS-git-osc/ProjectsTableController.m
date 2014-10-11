@@ -40,7 +40,7 @@ static NSString * const cellId = @"ProjectCell";
     self = [super init];
     if (self) {
         _projectsType = projectsType;
-        _pageSize = projectsType < 7? 20: 15;
+        _pageSize = projectsType != 7? 20: 15;
     }
     
     return self;
@@ -329,12 +329,16 @@ static NSString * const cellId = @"ProjectCell";
             _isFinishedLoad = [(NSArray *)responseObject count] < _pageSize;
             
             for (GLProject *newProject in responseObject) {
+                BOOL shouldBeAdded = YES;
                 for (GLProject *project in projects) {
                     if (newProject.projectId == project.projectId) {
+                        shouldBeAdded = NO;
                         break;
                     }
                 }
-                [projects addObject:newProject];
+                if (shouldBeAdded) {
+                    [projects addObject:newProject];
+                }
             }
             
             if ((refresh || _isFirstRequest) && [self needCache]) {

@@ -68,6 +68,9 @@
     
     self.navigationController.navigationBar.translucent = NO;
     
+    UIBarButtonItem *backItem = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStyleBordered target:nil action:nil];
+    [self.navigationItem setBackBarButtonItem:backItem];
+    
     _segmentTitle = [[UISegmentedControl alloc] initWithItems:@[@"动态", @"项目", @"Star", @"Watch"]];
     _segmentTitle.selectedSegmentIndex = 0;
     _segmentTitle.autoresizingMask = UIViewAutoresizingFlexibleWidth;

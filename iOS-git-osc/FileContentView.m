@@ -10,6 +10,7 @@
 #import "GLGitlab.h"
 #import "Tools.h"
 #import "UIView+Toast.h"
+#import "PKRevealController.h"
 
 @interface FileContentView ()
 

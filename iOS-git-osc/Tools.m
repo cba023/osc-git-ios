@@ -174,7 +174,7 @@
     NSString *portraitURL = [NSString stringWithString:user.portrait];
     
     [portraitView sd_setImageWithURL:[NSURL URLWithString:portraitURL]
-                    placeholderImage:[UIImage imageNamed:@"tx"]];
+                    placeholderImage:[UIImage imageNamed:@"portrait_loading"]];
     
     [self roundView:portraitView cornerRadius:cornerRadius];
 }
