@@ -71,6 +71,7 @@
 - (void)initSubviews
 {
     _projectDescriptionField = [UILabel new];
+    _projectDescriptionField.backgroundColor = UIColorFromRGB(0xf0f0f0);
     _projectDescriptionField.lineBreakMode = NSLineBreakByWordWrapping;
     _projectDescriptionField.numberOfLines = 0;
     _projectDescriptionField.font = [UIFont systemFontOfSize:15];

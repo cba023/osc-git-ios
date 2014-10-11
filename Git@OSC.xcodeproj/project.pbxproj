@@ -1847,6 +1847,7 @@
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "Git@OSC";
+				PROVISIONING_PROFILE = "ad3b94b2-8a34-41c7-8fbc-fe9cba925add";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
@@ -1881,6 +1882,7 @@
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "Git@OSC";
+				PROVISIONING_PROFILE = "ad3b94b2-8a34-41c7-8fbc-fe9cba925add";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};

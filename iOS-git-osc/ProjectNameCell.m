@@ -58,11 +58,13 @@
     [self.contentView addSubview:_portrait];
     
     _projectName = [UILabel new];
+    _projectName.backgroundColor = UIColorFromRGB(0xf0f0f0);
     [_projectName setText:_project.name];
     _projectName.font = [UIFont boldSystemFontOfSize:17];
     [self.contentView addSubview:_projectName];
     
     _timeInterval = [UILabel new];
+    _timeInterval.backgroundColor = UIColorFromRGB(0xf0f0f0);
     NSDictionary *grayTextAttributes = @{
                                          NSForegroundColorAttributeName:[UIColor grayColor],
                                          NSFontAttributeName:[UIFont fontWithName:@"STHeitiSC-Medium" size:15]

@@ -118,6 +118,7 @@ static NSString * const kKeyExtroInfo = @"extraInfo";
     [self.view addSubview:remarkLabel];
     
     UILabel *tipsLabel = [UILabel new];
+    tipsLabel.backgroundColor = [Tools uniformColor];
     tipsLabel.numberOfLines = 2;
     tipsLabel.text = @"tips:\n\t如有疑问，欢迎 @昊翔 或 @阿娇OSC";
     tipsLabel.font = [UIFont systemFontOfSize:13];

@@ -89,6 +89,7 @@
 {
     UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"BasicInfoCell" forIndexPath:indexPath];
     UILabel *infoLabel = [[UILabel alloc] initWithFrame:CGRectMake(39, 10, 130, 21)];
+    infoLabel.backgroundColor = [UIColor clearColor];
     [cell addSubview:infoLabel];
     UIImageView *infoImage = [[UIImageView alloc] initWithFrame:CGRectMake(16, 12, 15, 15)];
     infoImage.contentMode = UIViewContentModeScaleAspectFit;
