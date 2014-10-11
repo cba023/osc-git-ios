@@ -90,7 +90,7 @@
     [self startAccelerometer];
     
     [[GLGitlabApi sharedInstance] fetchLuckMessageSuccess:^(id responseObject) {
-                                                                _luckMessage.text = responseObject;
+                                                                _luckMessage.text = responseObject ?: @"";
                                                             }
                                                   failure:^(NSError *error) {}];
     

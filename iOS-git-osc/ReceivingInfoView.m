@@ -10,6 +10,7 @@
 #import "Tools.h"
 #import "GLGitlab.h"
 #import "UIView+Toast.h"
+#import "PKRevealController.h"
 
 #define PLACE_HOLDER @"T恤（ S、M、L、XL ）或内裤（ L、XL、2XL、3XL ）请备注码数\n如未填写，我们将随机寄出"
 
@@ -53,8 +54,6 @@ static NSString * const kKeyExtroInfo = @"extraInfo";
     self.revealController.frontViewController.revealController.recognizesPanningOnFrontView = NO;
     
     if (![Tools isNetworkExist]) {
-        _buttonSave.alpha = 0.4;
-        _buttonSave.enabled = NO;
         return;
     }
     
@@ -64,7 +63,11 @@ static NSString * const kKeyExtroInfo = @"extraInfo";
                                         privateToken:[_userDefaults objectForKey:@"private_token"]
                                              success:^(id responseObject) {
                                                  [self.view hideToastActivity];
-                                                 if (responseObject == [NSNull null]) {return ;}
+                                                 if (responseObject == [NSNull null]) {
+                                                     _buttonSave.alpha = 0.4;
+                                                     _buttonSave.enabled = NO;
+                                                     return ;
+                                                 }
                                                  
                                                  _nameField.text = [responseObject objectForKey:@"name"];
                                                  _phoneNumField.text = [responseObject objectForKey:@"tel"];
@@ -73,12 +76,13 @@ static NSString * const kKeyExtroInfo = @"extraInfo";
                                                  if (!_nameField.text.length || !_phoneNumField.text.length || !_addressView.text.length) {
                                                      _buttonSave.alpha = 0.4;
                                                      _buttonSave.enabled = NO;
+                                                 } else {
+                                                     _buttonSave.alpha = 1;
+                                                     _buttonSave.enabled = YES;
                                                  }
                                              }
                                              failure:^(NSError *error) {
                                                  [self.view hideToastActivity];
-                                                 _buttonSave.alpha = 0.4;
-                                                 _buttonSave.enabled = NO;
                                              }];
 }
 
@@ -169,6 +173,8 @@ static NSString * const kKeyExtroInfo = @"extraInfo";
     _buttonSave.backgroundColor = [UIColor redColor];
     [_buttonSave setTitle:@"保存" forState:UIControlStateNormal];
     _buttonSave.titleLabel.font = [UIFont systemFontOfSize:17];
+    _buttonSave.alpha = 0.4;
+    _buttonSave.enabled = NO;
     [_buttonSave addTarget:self action:@selector(saveAndSubmit) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:_buttonSave];
 
@@ -257,7 +263,7 @@ static NSString * const kKeyExtroInfo = @"extraInfo";
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
 {
-    UITextField *anotherTextField = textField == _nameField ? _nameField : _phoneNumField;
+    UITextField *anotherTextField = textField == _nameField ? _phoneNumField : _nameField;
     NSString *anotherStr = anotherTextField.text;
     
     NSMutableString *newStr = [textField.text mutableCopy];

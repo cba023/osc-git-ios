@@ -174,16 +174,19 @@
 
 
 - (GLNetworkOperation *)projectsOfUser:(int64_t)userID
+                                  page:(NSUInteger)page
                                success:(GLGitlabSuccessBlock)successBlock
                                failure:(GLGitlabFailureBlock)failureBlock;
 
 
 - (GLNetworkOperation *)getStarredProjectsForUser:(int64_t)userID
+                                             page:(NSUInteger)page
                                           success:(GLGitlabSuccessBlock)successBlock
                                           failure:(GLGitlabFailureBlock)failureBlock;
 
 
 - (GLNetworkOperation *)getWatchedProjectsForUser:(int64_t)userID
+                                             page:(NSUInteger)page
                                           success:(GLGitlabSuccessBlock)successBlock
                                           failure:(GLGitlabFailureBlock)failureBlock;
 

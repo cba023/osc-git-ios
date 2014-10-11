@@ -254,10 +254,12 @@ static NSString * const kKeyPage = @"page";
 
 
 - (GLNetworkOperation *)projectsOfUser:(int64_t)userID
+                                  page:(NSUInteger)page
                                success:(GLGitlabSuccessBlock)successBlock
                                failure:(GLGitlabFailureBlock)failureBlock
 {
     NSMutableURLRequest *request = [self requestForEndPoint:[NSString stringWithFormat:kProjectProjectsOfUser, userID]
+                                                     params:@{kKeyPage: @(page)}
                                                      method:GLNetworkOperationGetMethod];
     
     GLNetworkOperationSuccessBlock localSuccessBlock = [self multipleObjectSuccessBlockForClass:[GLProject class] successBlock:successBlock];
@@ -271,10 +273,12 @@ static NSString * const kKeyPage = @"page";
 
 
 - (GLNetworkOperation *)getStarredProjectsForUser:(int64_t)userID
+                                             page:(NSUInteger)page
                                           success:(GLGitlabSuccessBlock)successBlock
                                           failure:(GLGitlabFailureBlock)failureBlock
 {
     NSMutableURLRequest *request = [self requestForEndPoint:[NSString stringWithFormat:kProjectStarredProjectsEndPoint, userID]
+                                                     params:@{kKeyPage: @(page)}
                                                      method:GLNetworkOperationGetMethod];
     
     GLNetworkOperationSuccessBlock localSuccessBlock = [self multipleObjectSuccessBlockForClass:[GLProject class] successBlock:successBlock];
@@ -288,10 +292,12 @@ static NSString * const kKeyPage = @"page";
 
 
 - (GLNetworkOperation *)getWatchedProjectsForUser:(int64_t)userID
+                                             page:(NSUInteger)page
                                           success:(GLGitlabSuccessBlock)successBlock
                                           failure:(GLGitlabFailureBlock)failureBlock
 {
     NSMutableURLRequest *request = [self requestForEndPoint:[NSString stringWithFormat:kProjectWatchedProjectsEndPoint, userID]
+                                                     params:@{kKeyPage: @(page)}
                                                      method:GLNetworkOperationGetMethod];
     
     GLNetworkOperationSuccessBlock localSuccessBlock = [self multipleObjectSuccessBlockForClass:[GLProject class] successBlock:successBlock];

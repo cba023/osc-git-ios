@@ -300,15 +300,15 @@ static NSString * const cellId = @"ProjectCell";
     } else if (_projectsType == 3) {
         [[GLGitlabApi sharedInstance] getUsersProjectsWithPrivateToken:_privateToken onPage:page success:success failure:failure];
     } else if (_projectsType == 4) {
-        [[GLGitlabApi sharedInstance] getStarredProjectsForUser:_userID success:success failure:failure];
+        [[GLGitlabApi sharedInstance] getStarredProjectsForUser:_userID page:page success:success failure:failure];
     } else if (_projectsType == 5) {
-        [[GLGitlabApi sharedInstance] getWatchedProjectsForUser:_userID success:success failure:failure];
+        [[GLGitlabApi sharedInstance] getWatchedProjectsForUser:_userID page:page success:success failure:failure];
     } else if (_projectsType == 6) {
         [[GLGitlabApi sharedInstance] getProjectsForLanguage:_languageID page:page success:success failure:failure];
     } else if (_projectsType == 7) {
         [[GLGitlabApi sharedInstance] searchProjectsByQuery:_query page:page success:success failure:failure];
     } else {
-        [[GLGitlabApi sharedInstance] projectsOfUser:_userID success:success failure:failure];
+        [[GLGitlabApi sharedInstance] projectsOfUser:_userID page:page success:success failure:failure];
     }
 }
 
