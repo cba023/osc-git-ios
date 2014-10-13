@@ -188,7 +188,7 @@ static NSString * const ProjectDetailsCellID = @"ProjectDetailsCell";
         NSArray *rowTitle = @[@"Readme", @"代码", @"问题"];             //@"提交"
         [cell.textLabel setText:rowTitle[indexPath.row - 1]];
         
-        NSArray *imageName = @[@"projectDetails_Readme", @"projectDetails_code", @"projectDetails_issue"];
+        NSArray *imageName = @[@"projectDetails_readme", @"projectDetails_code", @"projectDetails_issue"];
         [cell.imageView setImage:[UIImage imageNamed:imageName[indexPath.row - 1]]];
         
         return cell;
