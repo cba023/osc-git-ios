@@ -58,6 +58,7 @@
     _projectDescriptionField.numberOfLines = 4;
     _projectDescriptionField.font = [UIFont systemFontOfSize:14];
     _projectDescriptionField.textColor = UIColorFromRGB(0x515151);
+    [_projectDescriptionField setPreferredMaxLayoutWidth:200];
     [self.contentView addSubview:_projectDescriptionField];
     
     _languageField = [UILabel new];

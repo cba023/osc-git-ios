@@ -49,6 +49,7 @@
     _title.numberOfLines = 0;
     _title.lineBreakMode = NSLineBreakByWordWrapping;
     [_title setFont:[UIFont systemFontOfSize:16]];
+    [_title setPreferredMaxLayoutWidth:200];
     [self.contentView addSubview:_title];
     
     _issueInfo = [UILabel new];

@@ -49,8 +49,7 @@ static NSString * const cellId = @"IssueCell";
                                                                               style:UIBarButtonItemStylePlain
                                                                              target:self
                                                                              action:@selector(pushIssueCreationView)];
-    self.tableView.delegate = self;
-    self.tableView.dataSource = self;
+
     [self.tableView registerClass:[IssueCell class] forCellReuseIdentifier:cellId];
     self.tableView.backgroundColor = [Tools uniformColor];
     UIView *footer = [[UIView alloc] initWithFrame:CGRectZero];
@@ -91,7 +90,7 @@ static NSString * const cellId = @"IssueCell";
     return self;
 }
 
-#pragma mark - UITableviewDataSource
+#pragma mark - tableview things
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -119,8 +118,6 @@ static NSString * const cellId = @"IssueCell";
         return _lastCell;
     }
 }
-
-#pragma mark - UITableViewDelegate
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {

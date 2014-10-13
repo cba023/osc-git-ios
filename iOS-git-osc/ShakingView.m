@@ -194,6 +194,7 @@
     _luckMessage.font = [UIFont systemFontOfSize:12];
     _luckMessage.numberOfLines = 0;
     _luckMessage.lineBreakMode = NSLineBreakByWordWrapping;
+    [_luckMessage setPreferredMaxLayoutWidth:200];
     [self.view addSubview:_luckMessage];
     
     _layer = [UIView new];

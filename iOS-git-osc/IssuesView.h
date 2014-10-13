@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface IssuesView : UITableViewController <UIScrollViewDelegate>
+@interface IssuesView : UITableViewController
 
 @property NSMutableArray *issues;
 @property int64_t projectId;

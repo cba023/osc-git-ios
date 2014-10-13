@@ -83,8 +83,6 @@ static NSString * const cellId = @"ProjectCell";
     }
 #endif
     
-    self.tableView.delegate = self;
-    self.tableView.dataSource = self;
     [self.tableView registerClass:[ProjectCell class] forCellReuseIdentifier:cellId];
     self.tableView.backgroundColor = [Tools uniformColor];
     UIView *footer =[[UIView alloc] initWithFrame:CGRectZero];

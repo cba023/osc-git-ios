@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ProjectsTableController : UITableViewController <UIScrollViewDelegate>
+@interface ProjectsTableController : UITableViewController
 
 @property NSMutableArray *projects;
 @property NSInteger languageID;
