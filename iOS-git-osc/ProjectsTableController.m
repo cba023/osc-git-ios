@@ -271,7 +271,7 @@ static NSString * const cellId = @"ProjectCell";
     
     _isLoading = YES;
     [_lastCell loading];
-    [self loadProjectsOnPage:projects.count/_pageSize + 1 refresh:NO];
+    [self loadProjectsOnPage:(projects.count + _pageSize - 1)/_pageSize + 1 refresh:NO];
 }
 
 
