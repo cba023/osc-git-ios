@@ -8,17 +8,22 @@
 
 #import <UIKit/UIKit.h>
 
-@interface LastCell : UITableViewCell
+typedef NS_ENUM(NSUInteger, LastCellStatus)
+{
+    LastCellStatusVisible,
+    LastCellStatusNotVisible,
+};
 
-//@property NSInteger status;
+@interface LastCell : UITableViewCell
 
 @property UIActivityIndicatorView *indicator;
 @property UILabel *statusLabel;
+@property LastCellStatus status;
 
 - (id)initCell;
+
 - (void)normal;
 - (void)loading;
 - (void)finishedLoad;
-- (void)empty;
 
 @end

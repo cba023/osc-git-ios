@@ -37,8 +37,9 @@
     self = [super init];
     if (self) {
         self.backgroundColor = [Tools uniformColor];
+        self.status = LastCellStatusNotVisible;
+        
         [self setLayout];
-        [self empty];
     }
     
     return self;
@@ -76,14 +77,6 @@
 {
     [_indicator stopAnimating];
     _statusLabel.text = @"全部加载完毕";
-    self.selectionStyle = UITableViewCellSelectionStyleNone;
-}
-
-- (void)empty
-{
-    [_indicator stopAnimating];
-    _statusLabel.text = @"";
-    self.userInteractionEnabled = NO;
     self.selectionStyle = UITableViewCellSelectionStyleNone;
 }
 

@@ -116,15 +116,19 @@ static NSString * const cellId = @"ProjectCell";
     }
     
     if ([self needCache] && [Tools isPageCacheExist:_projectsType]) {
-        [_lastCell loading];
+        [self.refreshControl beginRefreshing];
+        [self.tableView setContentOffset:CGPointMake(0, self.tableView.contentOffset.y-self.refreshControl.frame.size.height)
+                                animated:YES];
         [self loadFromCache];
         return;
     }
     
     _isFirstRequest = YES;
     if (_projectsType != 7) {
-        [_lastCell loading];
-        [self loadMore];
+        [self.refreshControl beginRefreshing];
+        [self.tableView setContentOffset:CGPointMake(0, self.tableView.contentOffset.y-self.refreshControl.frame.size.height)
+                                animated:YES];
+        [self loadProjectsOnPage:1 refresh:YES];
     }
 }
 
@@ -184,7 +188,8 @@ static NSString * const cellId = @"ProjectCell";
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return self.projects.count + 1;
+    if (_lastCell.status == LastCellStatusNotVisible) return projects.count;
+    return projects.count + 1;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -223,12 +228,13 @@ static NSString * const cellId = @"ProjectCell";
 - (void)loadFromCache
 {
     [projects removeAllObjects];
-    _isFinishedLoad = NO;
+    _lastCell.status = LastCellStatusVisible;
     
     [projects addObjectsFromArray:[Tools getPageCache:_projectsType]];
     _isFinishedLoad = projects.count < _pageSize;
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.tableView reloadData];
+        [self.refreshControl endRefreshing];
         _isFinishedLoad? [_lastCell finishedLoad]: [_lastCell normal];
     });
 }
@@ -255,12 +261,17 @@ static NSString * const cellId = @"ProjectCell";
 {
     [projects removeAllObjects];
     _isFinishedLoad = NO;
+    _lastCell.status = LastCellStatusNotVisible;
     
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.tableView reloadData];
     });
     
-    [self loadMore];
+    [self.refreshControl beginRefreshing];
+    [self.tableView setContentOffset:CGPointMake(0, self.tableView.contentOffset.y-self.refreshControl.frame.size.height)
+                            animated:YES];
+
+    [self loadProjectsOnPage:1 refresh:YES];
 }
 
 - (void)loadMore
@@ -316,8 +327,8 @@ static NSString * const cellId = @"ProjectCell";
     
     ^(id responseObject) {
         if (refresh) {
-            [self.refreshControl endRefreshing];
             [projects removeAllObjects];
+            _lastCell.status = LastCellStatusVisible;
         }
         
         if ([responseObject count] == 0) {
@@ -346,6 +357,7 @@ static NSString * const cellId = @"ProjectCell";
             
             dispatch_async(dispatch_get_main_queue(), ^{
                 [self.tableView reloadData];
+                if (refresh) {[self.refreshControl endRefreshing];}
                 _isFinishedLoad? [_lastCell finishedLoad]: [_lastCell normal];
             });
         }
@@ -360,6 +372,7 @@ static NSString * const cellId = @"ProjectCell";
     ^(NSError *error) {
         if (refresh) {
             [self.refreshControl endRefreshing];
+            _lastCell.status = LastCellStatusVisible;
         }
         
         if (error != nil) {
