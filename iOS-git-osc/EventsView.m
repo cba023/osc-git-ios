@@ -92,14 +92,17 @@ static NSString * const EventCellIdentifier = @"EventCell";
         return;
     }
     
-    [_lastCell loading];
+    [self.refreshControl beginRefreshing];
+    [self.tableView setContentOffset:CGPointMake(0, self.tableView.contentOffset.y-self.refreshControl.frame.size.height)
+                            animated:YES];
+    
     if (_privateToken && [Tools isPageCacheExist:9]) {
         [self loadFromCache];
         return;
     }
     
     _isFirstRequest = YES;
-    [self loadMore];
+    [self loadEventsOnPage:1 refresh:YES];
 }
 
 - (void)dealloc
@@ -150,6 +153,7 @@ static NSString * const EventCellIdentifier = @"EventCell";
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
+    if (_lastCell.status == LastCellStatusNotVisible) return events.count;
     return events.count + 1;
 }
 
@@ -217,15 +221,14 @@ static NSString * const EventCellIdentifier = @"EventCell";
 
 - (void)loadFromCache
 {
-    [_lastCell loading];
-    
     [events removeAllObjects];
-    _isFinishedLoad = NO;
+    _lastCell.status = LastCellStatusVisible;
     
     [events addObjectsFromArray:[Tools getPageCache:9]];
     _isFinishedLoad = events.count < 20;
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.tableView reloadData];
+        [self.refreshControl endRefreshing];
         _isFinishedLoad? [_lastCell finishedLoad]: [_lastCell normal];
     });
 }
@@ -268,6 +271,7 @@ static NSString * const EventCellIdentifier = @"EventCell";
     if (![Tools isNetworkExist]) {
         if (refresh) {
             [self.refreshControl endRefreshing];
+            _lastCell.status = LastCellStatusVisible;
         } else {
             _isLoading = NO;
             if (_isFinishedLoad) {
@@ -283,6 +287,7 @@ static NSString * const EventCellIdentifier = @"EventCell";
     GLGitlabSuccessBlock success = ^(id responseObject) {
         if (refresh) {
             [self.refreshControl endRefreshing];
+            _lastCell.status = LastCellStatusVisible;
             [events removeAllObjects];
         }
         
@@ -303,6 +308,7 @@ static NSString * const EventCellIdentifier = @"EventCell";
             
             dispatch_async(dispatch_get_main_queue(), ^{
                 [self.tableView reloadData];
+                if (refresh) {[self.refreshControl endRefreshing];}
                 _isFinishedLoad? [_lastCell finishedLoad]: [_lastCell normal];
             });
         }
@@ -310,21 +316,20 @@ static NSString * const EventCellIdentifier = @"EventCell";
     };
     
     GLGitlabFailureBlock failure = ^(NSError *error) {
-        if (refresh) {
-            [self.refreshControl endRefreshing];
-        }
-        
         if (error != nil) {
             [Tools toastNotification:[NSString stringWithFormat:@"网络异常，错误码：%ld", (long)error.code] inView:self.view];
         } else {
             [Tools toastNotification:@"网络错误" inView:self.view];
         }
         
-        if (_isFinishedLoad) {
-            [_lastCell finishedLoad];
-        } else {
-            [_lastCell normal];
-        }
+        dispatch_async(dispatch_get_main_queue(), ^{
+            _lastCell.status = LastCellStatusVisible;
+            [_lastCell errorStatus];
+            [self.tableView reloadData];
+            if (refresh) {
+                [self.refreshControl endRefreshing];
+            }
+        });
         
         _isLoading = NO;
     };

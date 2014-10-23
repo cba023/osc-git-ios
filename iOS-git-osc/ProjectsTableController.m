@@ -289,6 +289,7 @@ static NSString * const cellId = @"ProjectCell";
     if (![Tools isNetworkExist]) {
         if (refresh) {
             [self.refreshControl endRefreshing];
+            _lastCell.status = LastCellStatusVisible;
         } else {
             _isLoading = NO;
             if (_isFinishedLoad) {
@@ -370,22 +371,20 @@ static NSString * const cellId = @"ProjectCell";
     return
     
     ^(NSError *error) {
-        if (refresh) {
-            [self.refreshControl endRefreshing];
-            _lastCell.status = LastCellStatusVisible;
-        }
-        
         if (error != nil) {
             [Tools toastNotification:[NSString stringWithFormat:@"网络异常，错误码：%ld", (long)error.code] inView:self.view];
         } else {
             [Tools toastNotification:@"网络错误" inView:self.view];
         }
         
-        if (_isFinishedLoad) {
-            [_lastCell finishedLoad];
-        } else {
-            [_lastCell normal];
-        }
+        dispatch_async(dispatch_get_main_queue(), ^{
+            _lastCell.status = LastCellStatusVisible;
+            [_lastCell errorStatus];
+            [self.tableView reloadData];
+            if (refresh) {
+                [self.refreshControl endRefreshing];
+            }
+        });
         
         _isLoading = NO;
     };

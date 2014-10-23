@@ -70,8 +70,11 @@ static NSString * const cellId = @"IssueCell";
     
     if (issues.count > 0 || _isFinishedLoad) {return;}
     
-    [_lastCell loading];
-    [self loadIssuesOnPage:1 refresh:NO];
+    [self.refreshControl beginRefreshing];
+    [self.tableView setContentOffset:CGPointMake(0, self.tableView.contentOffset.y-self.refreshControl.frame.size.height)
+                            animated:YES];
+    
+    [self loadIssuesOnPage:1 refresh:YES];
 }
 
 - (void)didReceiveMemoryWarning
@@ -99,6 +102,7 @@ static NSString * const cellId = @"IssueCell";
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
+    if (_lastCell.status == LastCellStatusNotVisible) {return issues.count;}
     return issues.count + 1;
 }
 
@@ -149,7 +153,7 @@ static NSString * const cellId = @"IssueCell";
         
         [self.navigationController pushViewController:notesView animated:YES];
     } else {
-            [self loadMore];
+        [self loadMore];
     }
 }
 
@@ -206,6 +210,7 @@ static NSString * const cellId = @"IssueCell";
     if (![Tools isNetworkExist]) {
         if (refresh) {
             [self.refreshControl endRefreshing];
+            _lastCell.status = LastCellStatusVisible;
         } else {
             _isLoading = NO;
             if (_isFinishedLoad) {
@@ -251,6 +256,7 @@ static NSString * const cellId = @"IssueCell";
             
             dispatch_async(dispatch_get_main_queue(), ^{
                 [self.tableView reloadData];
+                if (refresh) {[self.refreshControl endRefreshing];}
                 _isFinishedLoad? [_lastCell finishedLoad]: [_lastCell normal];
             });
         }
@@ -263,21 +269,20 @@ static NSString * const cellId = @"IssueCell";
     return
     
     ^(NSError *error) {
-        if (refresh) {
-            [self.refreshControl endRefreshing];
-        }
-        
         if (error != nil) {
             [Tools toastNotification:[NSString stringWithFormat:@"网络异常，错误码：%ld", (long)error.code] inView:self.view];
         } else {
             [Tools toastNotification:@"网络错误" inView:self.view];
         }
         
-        if (_isFinishedLoad) {
-            [_lastCell finishedLoad];
-        } else {
-            [_lastCell normal];
-        }
+        dispatch_async(dispatch_get_main_queue(), ^{
+            _lastCell.status = LastCellStatusVisible;
+            [_lastCell errorStatus];
+            [self.tableView reloadData];
+            if (refresh) {
+                [self.refreshControl endRefreshing];
+            }
+        });
         
         _isLoading = NO;
     };

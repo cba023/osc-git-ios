@@ -49,6 +49,7 @@
 {
     _statusLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 20, self.contentView.bounds.size.width, 20)];
     _statusLabel.backgroundColor = [Tools uniformColor];
+    _statusLabel.font = [UIFont boldSystemFontOfSize:18];
     _statusLabel.textAlignment = NSTextAlignmentCenter;
     [self.contentView addSubview:_statusLabel];
     
@@ -78,6 +79,13 @@
     [_indicator stopAnimating];
     _statusLabel.text = @"全部加载完毕";
     self.selectionStyle = UITableViewCellSelectionStyleNone;
+}
+
+- (void)errorStatus
+{
+    [_indicator stopAnimating];
+    _statusLabel.text = @"加载数据出错";
+    self.userInteractionEnabled = YES;
 }
 
 

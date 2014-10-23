@@ -25,5 +25,6 @@ typedef NS_ENUM(NSUInteger, LastCellStatus)
 - (void)normal;
 - (void)loading;
 - (void)finishedLoad;
+- (void)errorStatus;
 
 @end
