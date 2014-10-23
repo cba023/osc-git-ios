@@ -69,10 +69,10 @@ static NSString * const kKeyExtroInfo = @"extraInfo";
                                                      return ;
                                                  }
                                                  
-                                                 _nameField.text = [responseObject objectForKey:@"name"];
-                                                 _phoneNumField.text = [responseObject objectForKey:@"tel"];
-                                                 _addressView.text = [responseObject objectForKey:@"address"];
-                                                 _remarkView.text = [responseObject objectForKey:@"comment"];
+                                                 _nameField.text = [responseObject objectForKey:@"name"] == [NSNull null] ? @"" : [responseObject objectForKey:@"name"];
+                                                 _phoneNumField.text = [responseObject objectForKey:@"tel"] == [NSNull null] ? @"" : [responseObject objectForKey:@"tel"];
+                                                 _addressView.text = [responseObject objectForKey:@"address"] == [NSNull null] ? @"" : [responseObject objectForKey:@"comment"];
+                                                 _remarkView.text = [responseObject objectForKey:@"comment"] == [NSNull null] ? @"" : [responseObject objectForKey:@"comment"];
                                                  if (!_nameField.text.length || !_phoneNumField.text.length || !_addressView.text.length) {
                                                      _buttonSave.alpha = 0.4;
                                                      _buttonSave.enabled = NO;

@@ -20,7 +20,7 @@
                              @"php", @"php3", @"php4", @"php5", @"js", @"css", @"html",
                              @"properties", @"c", @"hpp", @"h", @"hh", @"cpp", @"cfg",
                              @"rb", @"example", @"gitignore", @"project", @"classpath",
-                             @"m", @"md", @"rst", @"vm", @"cl", @"py", @"pl", @"haml",
+                             @"mm", @"md", @"rst", @"vm", @"cl", @"py", @"pl", @"haml",
                              @"erb", @"scss", @"bat", @"coffee", @"as", @"sh", @"m", @"pas",
                              @"cs", @"groovy", @"scala", @"sql", @"bas", @"xml", @"vb",
                              @"xsl", @"swift", @"ftl", @"yml", @"ru", @"jsp", @"markdown",

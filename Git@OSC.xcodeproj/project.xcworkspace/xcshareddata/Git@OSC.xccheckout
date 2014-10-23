@@ -14,7 +14,7 @@
 		<string>https://git.oschina.net/aetern/git-iphone-app.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>Git@OSC.xcodeproj/project.xcworkspace</string>
+	<string>Git@OSC.xcodeproj</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>F9444441B1C4D956E9107EAA1859BC764189C7D8</key>
