@@ -1,39 +1,37 @@
 Toast for iOS
 =============
-*Version 2.3*
+
+[![Build Status](https://travis-ci.org/scalessec/Toast.svg?branch=2.4)](https://travis-ci.org/scalessec/Toast)
 
 Toast is an Objective-C category that adds Android-style toast notifications to the UIView object class. It is intended to be simple, lightweight, and easy to use.
 
-What's New
----------
- - Refactored to support ARC.
- - Added tap to dismiss support, enabled by default. This can be toggled with the `CSToastHidesOnTap` flag.
- - The toast delay duration is now implemented with NSTimer instead of the UIView animation's delay property. 
- - iOS7-related UI updates for the demo app.
 
 Screenshots
 ---------
 ![Toast Screenshots](http://i.imgur.com/oM28l.png)
 
+
 Examples
 ---------
-    // basic usage
-    [self.view makeToast:@"This is a piece of toast."];
+```objc
+// basic usage
+[self.view makeToast:@"This is a piece of toast."];
 
-    // toast with duration, title, and position
-    [self.view makeToast:@"This is a piece of toast with a title." 
-                 duration:3.0
-                 position:@"top"
-                    title:@"Toast Title"];
+// toast with duration, title, and position
+[self.view makeToast:@"This is a piece of toast with a title." 
+            duration:3.0
+            position:CSToastPositionTop
+               title:@"Toast Title"];
             
-    // toast with an image
-    [self.view makeToast:@"This is a piece of toast with an image." 
-                duration:3.0
-                position:[NSValue valueWithCGPoint:CGPointMake(110, 110)]
-                   image:[UIImage imageNamed:@"toast.png"]];
+// toast with an image
+[self.view makeToast:@"This is a piece of toast with an image." 
+            duration:3.0
+            position:[NSValue valueWithCGPoint:CGPointMake(110, 110)]
+               image:[UIImage imageNamed:@"toast.png"]];
                 
-    // display toast with an activity spinner
-    [self.view makeToastActivity];
+// display toast with an activity spinner
+[self.view makeToastActivity];
+```
     
 See the demo project for more examples.
 
@@ -44,7 +42,7 @@ Install with [CocoaPods](http://cocoapods.org) by adding the following to your P
 
 ``` ruby
 platform :ios, '7.0'
-pod 'Toast', '~> 2.3'
+pod 'Toast', '~> 2.4’
 ```
 
 or add manually: 
