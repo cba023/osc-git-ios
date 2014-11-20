@@ -244,16 +244,6 @@
 		811BA39B38156B53A7E3E07E /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3EBA2F84F7B58B70DE5599BC /* libPods.a */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		00474E9419DA96D1001F8E89 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 00474E9019DA96D0001F8E89 /* PKRevealController.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = F9621E7B1815246000469E41;
-			remoteInfo = PKRevealController;
-		};
-/* End PBXContainerItemProxy section */
-
 /* Begin PBXFileReference section */
 		0002D2461916324B001FDED8 /* Git@OSC.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Git@OSC.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0002D2491916324B001FDED8 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -348,13 +338,8 @@
 		0021BACA192342BD00626A2C /* GLGitlabApi+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GLGitlabApi+Private.h"; sourceTree = "<group>"; };
 		0021BACB192342BD00626A2C /* GLGitlabApi+Private.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "GLGitlabApi+Private.m"; sourceTree = "<group>"; };
 		0021BAF31923608200626A2C /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
-		0021BAF5192360A100626A2C /* SSKeychain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SSKeychain.h; path = "../../../Objective-C/sskeychain-master/SSKeychain.h"; sourceTree = "<group>"; };
-		0021BAF6192360A100626A2C /* SSKeychain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SSKeychain.m; path = "../../../Objective-C/sskeychain-master/SSKeychain.m"; sourceTree = "<group>"; };
 		0041FA99191C87AF00E1F237 /* Tools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tools.h; sourceTree = "<group>"; };
 		0041FA9A191C87AF00E1F237 /* Tools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Tools.m; sourceTree = "<group>"; };
-		00474E9019DA96D0001F8E89 /* PKRevealController.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = PKRevealController.xcodeproj; path = "../../Objective-C/PKRevealController-master/Source/PKRevealController.xcodeproj"; sourceTree = "<group>"; };
-		00474E9619DA96EF001F8E89 /* PKRevealController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKRevealController.h; path = "../../../Objective-C/PKRevealController-master/Source/PKRevealController/PKRevealController.h"; sourceTree = "<group>"; };
-		00474E9719DA96F0001F8E89 /* UIViewController+PKRevealController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIViewController+PKRevealController.h"; path = "../../../Objective-C/PKRevealController-master/Source/PKRevealController/Categories/UIViewController+PKRevealController.h"; sourceTree = "<group>"; };
 		00474EBA19DC0CBD001F8E89 /* shake_match.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = shake_match.mp3; sourceTree = "<group>"; };
 		00474EBB19DC0CBE001F8E89 /* shake_sound_male.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = shake_sound_male.mp3; sourceTree = "<group>"; };
 		00541C08196684AB002EC356 /* GLBlob.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLBlob.h; sourceTree = "<group>"; };
@@ -635,7 +620,6 @@
 		0002D23D1916324B001FDED8 = {
 			isa = PBXGroup;
 			children = (
-				0021BA7E192342BD00626A2C /* objc gitlab api */,
 				0002D24F1916324B001FDED8 /* iOS-git-osc */,
 				0002D2C519179858001FDED8 /* Resource */,
 				0002D2481916324B001FDED8 /* Frameworks */,
@@ -655,7 +639,6 @@
 		0002D2481916324B001FDED8 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				00474E9019DA96D0001F8E89 /* PKRevealController.xcodeproj */,
 				00D0852819D99D9600E2EA0E /* libz.dylib */,
 				00D0852619D99D8400E2EA0E /* libstdc++.dylib */,
 				00D0852419D99D7100E2EA0E /* CoreTelephony.framework */,
@@ -678,8 +661,10 @@
 		0002D24F1916324B001FDED8 /* iOS-git-osc */ = {
 			isa = PBXGroup;
 			children = (
+				0021BA7E192342BD00626A2C /* GitAPI */,
+				38BB9AFE1A1DF10D00175F10 /* Share */,
 				0057719619A6299500EAA606 /* Utils */,
-				0002D2B81916407B001FDED8 /* Controller */,
+				0002D2B81916407B001FDED8 /* Controllers */,
 				0002D2581916324B001FDED8 /* AppDelegate.h */,
 				0002D2591916324B001FDED8 /* AppDelegate.m */,
 				0002D2D619188953001FDED8 /* Images.xcassets */,
@@ -699,7 +684,7 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		0002D2B81916407B001FDED8 /* Controller */ = {
+		0002D2B81916407B001FDED8 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
 				0002D2BC19164716001FDED8 /* MenuViewController.h */,
@@ -713,7 +698,7 @@
 				00D4ED20196F97CF00F3A4A5 /* Issues */,
 				00D4ED2D196FF83100F3A4A5 /* Notes */,
 			);
-			name = Controller;
+			name = Controllers;
 			sourceTree = "<group>";
 		};
 		0002D2C519179858001FDED8 /* Resource */ = {
@@ -749,7 +734,7 @@
 			path = TTTAttributedLabel;
 			sourceTree = "<group>";
 		};
-		0021BA7E192342BD00626A2C /* objc gitlab api */ = {
+		0021BA7E192342BD00626A2C /* GitAPI */ = {
 			isa = PBXGroup;
 			children = (
 				0021BA7F192342BD00626A2C /* GLGitlab.h */,
@@ -757,7 +742,8 @@
 				0021BAA1192342BD00626A2C /* objc gitlab api-Prefix.pch */,
 				0021BAA2192342BD00626A2C /* utilities */,
 			);
-			path = "objc gitlab api";
+			name = GitAPI;
+			path = "../objc gitlab api";
 			sourceTree = "<group>";
 		};
 		0021BA80192342BD00626A2C /* models */ = {
@@ -860,14 +846,6 @@
 			path = private;
 			sourceTree = "<group>";
 		};
-		00474E9119DA96D0001F8E89 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				00474E9519DA96D1001F8E89 /* libPKRevealController.a */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		00474E9919DAA9CB001F8E89 /* projectDetails */ = {
 			isa = PBXGroup;
 			children = (
@@ -902,15 +880,9 @@
 		0057719619A6299500EAA606 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
-				00D084E519D99B9C00E2EA0E /* UMSocial_Sdk_4.1 */,
-				00D0850019D99B9C00E2EA0E /* UMSocial_Sdk_Extra_Frameworks */,
 				000EDABA19D3C39E00975253 /* TTTAttributedLabel */,
-				00474E9619DA96EF001F8E89 /* PKRevealController.h */,
-				00474E9719DA96F0001F8E89 /* UIViewController+PKRevealController.h */,
 				0079C03519B56521005EF089 /* UIView+Toast.h */,
 				0079C03619B56521005EF089 /* UIView+Toast.m */,
-				0021BAF5192360A100626A2C /* SSKeychain.h */,
-				0021BAF6192360A100626A2C /* SSKeychain.m */,
 				00B685B419ADCF2A00705534 /* Reachability.h */,
 				00B685B519ADCF2A00705534 /* Reachability.m */,
 				0041FA99191C87AF00E1F237 /* Tools.h */,
@@ -1252,6 +1224,15 @@
 			name = Login;
 			sourceTree = "<group>";
 		};
+		38BB9AFE1A1DF10D00175F10 /* Share */ = {
+			isa = PBXGroup;
+			children = (
+				00D084E519D99B9C00E2EA0E /* UMSocial_Sdk_4.1 */,
+				00D0850019D99B9C00E2EA0E /* UMSocial_Sdk_Extra_Frameworks */,
+			);
+			name = Share;
+			sourceTree = "<group>";
+		};
 		D05BC780208F1E627E7742DD /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -1309,28 +1290,12 @@
 			mainGroup = 0002D23D1916324B001FDED8;
 			productRefGroup = 0002D2471916324B001FDED8 /* Products */;
 			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = 00474E9119DA96D0001F8E89 /* Products */;
-					ProjectRef = 00474E9019DA96D0001F8E89 /* PKRevealController.xcodeproj */;
-				},
-			);
 			projectRoot = "";
 			targets = (
 				0002D2451916324B001FDED8 /* Git@OSC */,
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXReferenceProxy section */
-		00474E9519DA96D1001F8E89 /* libPKRevealController.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libPKRevealController.a;
-			remoteRef = 00474E9419DA96D1001F8E89 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		0002D2441916324B001FDED8 /* Resources */ = {
