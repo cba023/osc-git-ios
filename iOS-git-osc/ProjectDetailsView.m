@@ -77,7 +77,7 @@ static NSString * const ProjectDetailsCellID = @"ProjectDetailsCell";
                                                                                                     target:self
                                                                                                     action:@selector(moreChoice)];
                                                    
-                                                   _projectURL = [NSString stringWithFormat:@"http://git.oschina.net/%@/%@", _project.owner.username, _project.name];
+                                                   _projectURL = [NSString stringWithFormat:@"http://git.oschina.net/%@/%@", _project.owner.username, _project.path];
                                                    
                                                    dispatch_async(dispatch_get_main_queue(), ^{
                                                        [self.tableView reloadData];
