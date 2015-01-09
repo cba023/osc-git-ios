@@ -36,6 +36,7 @@ static NSString * const LastCellID = @"LastCell";
                                                                             action:@selector(showMenu)];
     
     _projects = [NSMutableArray new];
+    _searchBar.delegate = self;
     
     [self initSubviews];
     [self setAutoLayout];
@@ -50,6 +51,8 @@ static NSString * const LastCellID = @"LastCell";
 
 - (void)showMenu
 {
+    [_searchBar resignFirstResponder];
+    
     [self.navigationController.revealController showViewController:self.navigationController.revealController.leftViewController];
 }
 
