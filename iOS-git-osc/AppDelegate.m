@@ -23,7 +23,7 @@
     [UMSocialSinaHandler openSSOWithRedirectURL:@"http://sns.whalecloud.com/sina2/callback"];
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    
+    self.window.backgroundColor=UIColorFromRGB(0x272727);
     MenuViewController *leftFaceController = [MenuViewController new];
     ProjectsViewController *projectsView = [ProjectsViewController new];
     
@@ -32,7 +32,7 @@
     PKRevealController *revealController = [PKRevealController revealControllerWithFrontViewController:frontViewController leftViewController:leftFaceController];
     
     //将其PKRevealController对象作为RootViewController
-    self.window.backgroundColor = [UIColor whiteColor];
+ //   self.window.backgroundColor = [UIColor whiteColor];
     self.window.rootViewController = revealController;
     [self.window makeKeyAndVisible];
     
