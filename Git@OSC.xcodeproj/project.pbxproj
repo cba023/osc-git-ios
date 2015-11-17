@@ -268,6 +268,7 @@
 		EE82EDA51BFAD56A0006F18D /* libSocialWechat.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EE82ED8D1BFAD56A0006F18D /* libSocialWechat.a */; };
 		EE82EDA61BFAD56A0006F18D /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EE82ED8E1BFAD56A0006F18D /* libWeChatSDK.a */; };
 		EE82EDA71BFAD56A0006F18D /* UMSocialSDKResourcesNew.bundle in Resources */ = {isa = PBXBuildFile; fileRef = EE82ED921BFAD56A0006F18D /* UMSocialSDKResourcesNew.bundle */; };
+		EE82EDB11BFB2BC50006F18D /* UIImageView+Util.m in Sources */ = {isa = PBXBuildFile; fileRef = EE82EDB01BFB2BC50006F18D /* UIImageView+Util.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -648,6 +649,8 @@
 		EE82ED911BFAD56A0006F18D /* WXApiObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApiObject.h; sourceTree = "<group>"; };
 		EE82ED921BFAD56A0006F18D /* UMSocialSDKResourcesNew.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = UMSocialSDKResourcesNew.bundle; sourceTree = "<group>"; };
 		EE82ED931BFAD56A0006F18D /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/UMSocialLocalizable.strings"; sourceTree = "<group>"; };
+		EE82EDAF1BFB2BC50006F18D /* UIImageView+Util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+Util.h"; sourceTree = "<group>"; };
+		EE82EDB01BFB2BC50006F18D /* UIImageView+Util.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+Util.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -727,6 +730,7 @@
 		0002D24F1916324B001FDED8 /* iOS-git-osc */ = {
 			isa = PBXGroup;
 			children = (
+				EE82EDA81BFB29D00006F18D /* Catagories */,
 				38BB9B191A1E0CD900175F10 /* GitAPI */,
 				38BB9AFE1A1DF10D00175F10 /* Share */,
 				0057719619A6299500EAA606 /* Utils */,
@@ -1379,6 +1383,15 @@
 			path = Wechat;
 			sourceTree = "<group>";
 		};
+		EE82EDA81BFB29D00006F18D /* Catagories */ = {
+			isa = PBXGroup;
+			children = (
+				EE82EDAF1BFB2BC50006F18D /* UIImageView+Util.h */,
+				EE82EDB01BFB2BC50006F18D /* UIImageView+Util.m */,
+			);
+			name = Catagories;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1646,6 +1659,7 @@
 				38BB9B891A1E0CD900175F10 /* GLGitlabApi+Repositories.m in Sources */,
 				38BB9B7B1A1E0CD900175F10 /* GLProject.m in Sources */,
 				00A74FD519A59FD7009DACDF /* SearchView.m in Sources */,
+				EE82EDB11BFB2BC50006F18D /* UIImageView+Util.m in Sources */,
 				38BB9B701A1E0CD900175F10 /* GLCommit.m in Sources */,
 				00D4ED26196F9B9900F3A4A5 /* IssueCell.m in Sources */,
 				38BB9B7C1A1E0CD900175F10 /* GLSnippet.m in Sources */,
@@ -1827,6 +1841,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -1843,7 +1858,7 @@
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 				);
 				INFOPLIST_FILE = "iOS-git-osc/Git@OSC-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/iOS-git-osc/UMSocial_Sdk_4.1",
@@ -1869,6 +1884,7 @@
 				PRODUCT_NAME = "Git@OSC";
 				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;
+				VALID_ARCHS = "arm64 armv7  armv7s";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -1881,6 +1897,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -1897,7 +1914,7 @@
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 				);
 				INFOPLIST_FILE = "iOS-git-osc/Git@OSC-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/iOS-git-osc/UMSocial_Sdk_4.1",
@@ -1923,6 +1940,7 @@
 				PRODUCT_NAME = "Git@OSC";
 				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;
+				VALID_ARCHS = "arm64 armv7  armv7s";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

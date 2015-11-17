@@ -14,6 +14,8 @@
 #import "Reachability.h"
 #import "UIView+Toast.h"
 
+#import "UIImageView+Util.h"
+
 @implementation Tools
 
 + (NSString *)getPrivateToken
@@ -173,8 +175,7 @@
 {
     NSString *portraitURL = [NSString stringWithString:user.portrait];
     
-    [portraitView sd_setImageWithURL:[NSURL URLWithString:portraitURL]
-                    placeholderImage:[UIImage imageNamed:@"portrait_loading"]];
+    [portraitView loadPortrait:[NSURL URLWithString:portraitURL]];
     
     [self roundView:portraitView cornerRadius:cornerRadius];
 }
