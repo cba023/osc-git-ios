@@ -38,16 +38,23 @@
     if (self) {
         self.backgroundColor = [Tools uniformColor];
         self.status = LastCellStatusNotVisible;
-        
         [self setLayout];
     }
     
     return self;
 }
 
+- (void)setFrame:(CGRect)frame
+{
+    frame.size.width = CGRectGetWidth([[UIScreen mainScreen]bounds]);
+    
+    [super setFrame:frame];
+}
+
 - (void)setLayout
 {
     _statusLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 20, self.contentView.bounds.size.width, 20)];
+    _statusLabel.center = self.contentView.center;
     _statusLabel.backgroundColor = [Tools uniformColor];
     _statusLabel.font = [UIFont boldSystemFontOfSize:18];
     _statusLabel.textAlignment = NSTextAlignmentCenter;
@@ -55,7 +62,7 @@
     
     _indicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
     _indicator.color = [UIColor colorWithRed:54/255 green:54/255 blue:54/255 alpha:1.0];
-    _indicator.center = CGPointMake(self.contentView.frame.size.width/2, self.contentView.frame.size.height/2 + 5);
+    _indicator.center = CGPointMake(self.contentView.frame.size.width/2, self.contentView.frame.size.height/2);
     [self.contentView addSubview:_indicator];
 }
 
