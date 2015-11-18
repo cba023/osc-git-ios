@@ -4,55 +4,75 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
-		<key>Pods-PKRevealController.xcscheme</key>
+		<key>AFNetworking.xcscheme</key>
 		<dict>
-			<key>orderHint</key>
-			<integer>2</integer>
+			<key>isShown</key>
+			<false/>
 		</dict>
-		<key>Pods-SDWebImage.xcscheme</key>
+		<key>PKRevealController.xcscheme</key>
 		<dict>
-			<key>orderHint</key>
-			<integer>3</integer>
-		</dict>
-		<key>Pods-SSKeychain.xcscheme</key>
-		<dict>
-			<key>orderHint</key>
-			<integer>4</integer>
-		</dict>
-		<key>Pods-Toast.xcscheme</key>
-		<dict>
-			<key>orderHint</key>
-			<integer>5</integer>
+			<key>isShown</key>
+			<false/>
 		</dict>
 		<key>Pods.xcscheme</key>
 		<dict>
-			<key>orderHint</key>
-			<integer>1</integer>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>SDWebImage.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>SSKeychain.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>TTTAttributedLabel.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Toast.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>1444DE3B77424488AF22AC44</key>
+		<key>2A0FD02039534FB042E87BA8134ECEA5</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>68944AE7E2A6030FBA243407</key>
+		<key>30041BA2C05F40F1081A70370B599E76</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>BA854A719C4A9301EBA1E872</key>
+		<key>5352D432641F0656C90741034E32F31E</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>DDB309AE1AA64751BC2E98D0</key>
+		<key>55E3BAD594CAB8A0672DDE1E423B67E8</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>FCE4A2408BCE452FEE46F649</key>
+		<key>C57FC58EE9FFD537F9E85C8216A7CD5F</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>EA3931D121EE165685E6E6C251F033C0</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>F06A4DB4F5F6BD06480F9EBE144C872D</key>
 		<dict>
 			<key>primary</key>
 			<true/>
