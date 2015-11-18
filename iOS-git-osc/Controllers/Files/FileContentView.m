@@ -42,12 +42,12 @@
     self.webView.delegate = self;
     
     [self.view addSubview:self.webView];
+    
+    [self fetchContent];
 }
 
-- (void)viewDidAppear:(BOOL)animated
+- (void)fetchContent
 {
-    [super viewDidAppear:animated];
-    
     self.revealController.frontViewController.revealController.recognizesPanningOnFrontView = NO;
     
     [self.view makeToastActivity];
