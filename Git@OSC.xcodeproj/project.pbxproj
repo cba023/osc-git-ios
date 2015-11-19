@@ -179,6 +179,7 @@
 		EE7C8C121BFC7E0A00A3671B /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EE7C8BF51BFC7E0A00A3671B /* libWeChatSDK.a */; };
 		EE7C8C131BFC7E0A00A3671B /* UMSocialSDKResourcesNew.bundle in Resources */ = {isa = PBXBuildFile; fileRef = EE7C8BF91BFC7E0A00A3671B /* UMSocialSDKResourcesNew.bundle */; };
 		EE82EDB11BFB2BC50006F18D /* UIImageView+Util.m in Sources */ = {isa = PBXBuildFile; fileRef = EE82EDB01BFB2BC50006F18D /* UIImageView+Util.m */; };
+		EE9923B51BFDAE83004499C5 /* AFHTTPRequestOperationManager+Util.m in Sources */ = {isa = PBXBuildFile; fileRef = EE9923B41BFDAE83004499C5 /* AFHTTPRequestOperationManager+Util.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -470,6 +471,9 @@
 		EE7C8BFA1BFC7E0A00A3671B /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/UMSocialLocalizable.strings"; sourceTree = "<group>"; };
 		EE82EDAF1BFB2BC50006F18D /* UIImageView+Util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+Util.h"; sourceTree = "<group>"; };
 		EE82EDB01BFB2BC50006F18D /* UIImageView+Util.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+Util.m"; sourceTree = "<group>"; };
+		EE9923AC1BFDA007004499C5 /* GITAPI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GITAPI.h; sourceTree = "<group>"; };
+		EE9923B31BFDAE83004499C5 /* AFHTTPRequestOperationManager+Util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AFHTTPRequestOperationManager+Util.h"; sourceTree = "<group>"; };
+		EE9923B41BFDAE83004499C5 /* AFHTTPRequestOperationManager+Util.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "AFHTTPRequestOperationManager+Util.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -549,13 +553,12 @@
 		0002D24F1916324B001FDED8 /* iOS-git-osc */ = {
 			isa = PBXGroup;
 			children = (
+				EE9923AB1BFD9EE9004499C5 /* Application */,
 				EE82EDA81BFB29D00006F18D /* Categories */,
 				38BB9B191A1E0CD900175F10 /* GitAPI */,
 				38BB9AFE1A1DF10D00175F10 /* Vendor */,
 				0057719619A6299500EAA606 /* Utils */,
 				0002D2B81916407B001FDED8 /* Controllers */,
-				0002D2581916324B001FDED8 /* AppDelegate.h */,
-				0002D2591916324B001FDED8 /* AppDelegate.m */,
 				0002D2D619188953001FDED8 /* Images.xcassets */,
 				0002D2501916324B001FDED8 /* Supporting Files */,
 			);
@@ -1129,10 +1132,30 @@
 		EE82EDA81BFB29D00006F18D /* Categories */ = {
 			isa = PBXGroup;
 			children = (
-				EE82EDAF1BFB2BC50006F18D /* UIImageView+Util.h */,
-				EE82EDB01BFB2BC50006F18D /* UIImageView+Util.m */,
+				EE9923B61BFDAEDA004499C5 /* Util */,
 			);
 			path = Categories;
+			sourceTree = "<group>";
+		};
+		EE9923AB1BFD9EE9004499C5 /* Application */ = {
+			isa = PBXGroup;
+			children = (
+				0002D2581916324B001FDED8 /* AppDelegate.h */,
+				0002D2591916324B001FDED8 /* AppDelegate.m */,
+				EE9923AC1BFDA007004499C5 /* GITAPI.h */,
+			);
+			path = Application;
+			sourceTree = "<group>";
+		};
+		EE9923B61BFDAEDA004499C5 /* Util */ = {
+			isa = PBXGroup;
+			children = (
+				EE82EDAF1BFB2BC50006F18D /* UIImageView+Util.h */,
+				EE82EDB01BFB2BC50006F18D /* UIImageView+Util.m */,
+				EE9923B31BFDAE83004499C5 /* AFHTTPRequestOperationManager+Util.h */,
+				EE9923B41BFDAE83004499C5 /* AFHTTPRequestOperationManager+Util.m */,
+			);
+			name = Util;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1363,6 +1386,7 @@
 				00D4ED34196FF88300F3A4A5 /* NotesView.m in Sources */,
 				00B75957196BEB90009C9C58 /* EventsView.m in Sources */,
 				38BB9B6F1A1E0CD900175F10 /* GLBranch.m in Sources */,
+				EE9923B51BFDAE83004499C5 /* AFHTTPRequestOperationManager+Util.m in Sources */,
 				0081D0D919BB090A00BF9FFA /* ProjectNameCell.m in Sources */,
 				38BB9B7F1A1E0CD900175F10 /* GLConstants.m in Sources */,
 				38BB9B881A1E0CD900175F10 /* GLGitlabApi+Projects.m in Sources */,

@@ -70,6 +70,8 @@
 // watched
 @property (nonatomic, assign, getter = isWatched) BOOL watched;
 
+@property (nonatomic, copy) NSString *nameSpace;
+
 
 #pragma mark - 奖品信息
 

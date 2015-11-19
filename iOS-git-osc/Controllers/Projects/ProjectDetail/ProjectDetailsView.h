@@ -16,5 +16,6 @@
 @property GLProject *parentProject;
 
 - (id)initWithProjectID:(int64_t)projectID;
+- (id)initWithProjectID:(int64_t)projectID projectNameSpace:(NSString *)nameSpace;
 
 @end

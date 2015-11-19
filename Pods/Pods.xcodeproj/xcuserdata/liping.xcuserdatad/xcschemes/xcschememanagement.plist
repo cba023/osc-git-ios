@@ -9,6 +9,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>Mantle.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>PKRevealController.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -42,11 +47,6 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>2A0FD02039534FB042E87BA8134ECEA5</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
 		<key>30041BA2C05F40F1081A70370B599E76</key>
 		<dict>
 			<key>primary</key>
@@ -62,17 +62,27 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>C57FC58EE9FFD537F9E85C8216A7CD5F</key>
+		<key>85EE8B4D6DB3085CBFF11DEE5C135B44</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>B14173B546780BEF542ABD346EC266B9</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>BD7D3E2916C712E55E7B4313CFFC11EF</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>D2C6EC2D7C62A52AEB3873CA86C0A85E</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
 		<key>EA3931D121EE165685E6E6C251F033C0</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>F06A4DB4F5F6BD06480F9EBE144C872D</key>
 		<dict>
 			<key>primary</key>
 			<true/>

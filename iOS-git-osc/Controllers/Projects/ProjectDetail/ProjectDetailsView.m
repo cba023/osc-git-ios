@@ -21,6 +21,9 @@
 #import "LoginViewController.h"
 #import "UMSocial.h"
 
+#import "GITAPI.h"
+#import <Mantle/MTLJSONAdapter.h>
+#import "AFHTTPRequestOperationManager+Util.h"
 
 static NSString * const ProjectDetailsCellID = @"ProjectDetailsCell";
 //static NSString * const ProjcetDescriptionCellID = @"ProjcetDescriptionCell";
@@ -28,6 +31,9 @@ static NSString * const ProjectDetailsCellID = @"ProjectDetailsCell";
 @interface ProjectDetailsView () <UIActionSheetDelegate>
 
 @property int64_t projectID;
+@property NSString *namsSpace;
+@property NSString *projectName;
+
 @property NSString *projectURL;
 
 @end
@@ -46,12 +52,14 @@ static NSString * const ProjectDetailsCellID = @"ProjectDetailsCell";
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:ProjectDetailsCellID];
     UIView *footer =[[UIView alloc] initWithFrame:CGRectZero];
     self.tableView.tableFooterView = footer;
+    
+    [self fetchProjectsDetail];
 }
 
-- (void)viewDidAppear:(BOOL)animated
+#pragma mark - 获取数据
+
+- (void)fetchProjectsDetail
 {
-    [super viewDidAppear:animated];
-    
     if (_project) {return;}
     if (![Tools isNetworkExist]) {
         [Tools toastNotification:@"网络连接失败，请检查网络设置" inView:self.view];
@@ -59,40 +67,46 @@ static NSString * const ProjectDetailsCellID = @"ProjectDetailsCell";
     }
     
     [self.view makeToastActivity];
-    NSString *privateToken = [Tools getPrivateToken];
-        
-    [[GLGitlabApi sharedInstance] getProjectWithId:_projectID
-                                      privateToken:privateToken
-                                           success:^(id responseObject) {
-                                               if (responseObject == nil) {
-                                                   [Tools toastNotification:@"网络错误" inView:self.view];
-                                               } else {
-                                                   _project = responseObject;
-                                                   self.title = _project.name;
-                                                   [self.view hideToastActivity];
-                                                   
-                                                   self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]
-                                                                                             initWithImage:[UIImage imageNamed:@"projectDetails_more"]
-                                                                                                     style:UIBarButtonItemStylePlain
-                                                                                                    target:self
-                                                                                                    action:@selector(moreChoice)];
-                                                   
-                                                   _projectURL = [NSString stringWithFormat:@"http://git.oschina.net/%@/%@", _project.owner.username, _project.path];
-                                                   
-                                                   dispatch_async(dispatch_get_main_queue(), ^{
-                                                       [self.tableView reloadData];
-                                                   });
-                                               }
-                                           }
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager GitManager];
+    NSString *strUrl = [NSString stringWithFormat:@"%@%@/%@", GITAPI_HTTPS_PREFIX, GITAPI_PROJECTS, _namsSpace];
+//    NSString *strUrl = [NSString stringWithFormat:@"%@%@/%lld", GITAPI_HTTPS_PREFIX, GITAPI_PROJECTS, _projectID];
+    [manager GET:strUrl
+      parameters:nil
+         success:^(AFHTTPRequestOperation *operation, id responseObject) {
+             
+             if (responseObject == nil) {
+                 [Tools toastNotification:@"网络错误" inView:self.view];
+             } else {
+                 _project = [[GLProject alloc] initWithJSON:responseObject];
+                 
+                 self.title = _project.name;
+                 [self.view hideToastActivity];
+                 
+                 self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]
+                                                           initWithImage:[UIImage imageNamed:@"projectDetails_more"]
+                                                           style:UIBarButtonItemStylePlain
+                                                           target:self
+                                                           action:@selector(moreChoice)];
+                 
+                 _projectURL = [NSString stringWithFormat:@"http://git.oschina.net/%@/%@", _project.owner.username, _project.path];
+                 
+                 dispatch_async(dispatch_get_main_queue(), ^{
+                     [self.tableView reloadData];
+                 });
 
-                                           failure:^(NSError *error) {
-                                               [self.view hideToastActivity];
-                                               if (error != nil) {
-                                                   [Tools toastNotification:[NSString stringWithFormat:@"网络异常，错误码：%ld", (long)error.code] inView:self.view];
-                                               } else {
-                                                   [Tools toastNotification:@"网络错误" inView:self.view];
-                                               }
-                                           }];
+             }
+         } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
+        
+             [self.view hideToastActivity];
+             if (error != nil) {
+                 [Tools toastNotification:[NSString stringWithFormat:@"网络异常，错误码：%ld", (long)error.code] inView:self.view];
+             } else {
+                 [Tools toastNotification:@"网络错误" inView:self.view];
+             }
+    }];
+    
+    [self.tableView reloadData];
 }
 
 - (void)didReceiveMemoryWarning
@@ -101,11 +115,22 @@ static NSString * const ProjectDetailsCellID = @"ProjectDetailsCell";
     // Dispose of any resources that can be recreated.
 }
 
-- (id)initWithProjectID:(int64_t)projectID;
+- (id)initWithProjectID:(int64_t)projectID
 {
     self = [super init];
     if (self) {
         _projectID = projectID;
+    }
+    
+    return self;
+}
+
+- (id)initWithProjectID:(int64_t)projectID projectNameSpace:(NSString *)nameSpace
+{
+    self = [super init];
+    if (self) {
+        _projectID = projectID;
+        _namsSpace = nameSpace;
     }
     
     return self;
