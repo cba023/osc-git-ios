@@ -14,8 +14,8 @@
 
 @property GLProject *project;
 @property GLProject *parentProject;
+@property (nonatomic, strong) NSUserDefaults *user;
 
-- (id)initWithProjectID:(int64_t)projectID;
 - (id)initWithProjectID:(int64_t)projectID projectNameSpace:(NSString *)nameSpace;
 
 @end

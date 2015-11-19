@@ -189,7 +189,7 @@ static NSString * const EventCellIdentifier = @"EventCell";
     
     if (row < self.events.count) {
         GLEvent *event = [self.events objectAtIndex:indexPath.row];
-        ProjectDetailsView *projectDetails = [[ProjectDetailsView alloc] initWithProjectID:event.projectId];
+        ProjectDetailsView *projectDetails = [[ProjectDetailsView alloc] initWithProjectID:event.projectId projectNameSpace:event.project.nameSpace];
         [self.navigationController pushViewController:projectDetails animated:YES];
     } else {
         if (!_isLoading) {

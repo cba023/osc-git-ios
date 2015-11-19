@@ -68,9 +68,14 @@ static NSString * const ProjectDetailsCellID = @"ProjectDetailsCell";
     
     [self.view makeToastActivity];
     
+    _user = [NSUserDefaults standardUserDefaults];
+    NSString *privateToken = [_user objectForKey:@"private_token"];
+        
+    NSString *strUrl = privateToken.length ? [NSString stringWithFormat:@"%@%@/%@?private_token=%@", GITAPI_HTTPS_PREFIX, GITAPI_PROJECTS, _namsSpace, [Tools getPrivateToken]] :
+                                             [NSString stringWithFormat:@"%@%@/%@", GITAPI_HTTPS_PREFIX, GITAPI_PROJECTS, _namsSpace];
+
+    
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager GitManager];
-    NSString *strUrl = [NSString stringWithFormat:@"%@%@/%@", GITAPI_HTTPS_PREFIX, GITAPI_PROJECTS, _namsSpace];
-//    NSString *strUrl = [NSString stringWithFormat:@"%@%@/%lld", GITAPI_HTTPS_PREFIX, GITAPI_PROJECTS, _projectID];
     [manager GET:strUrl
       parameters:nil
          success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -113,16 +118,6 @@ static NSString * const ProjectDetailsCellID = @"ProjectDetailsCell";
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
-}
-
-- (id)initWithProjectID:(int64_t)projectID
-{
-    self = [super init];
-    if (self) {
-        _projectID = projectID;
-    }
-    
-    return self;
 }
 
 - (id)initWithProjectID:(int64_t)projectID projectNameSpace:(NSString *)nameSpace

@@ -324,7 +324,7 @@
 
 - (void)tapProjectCell
 {
-    ProjectDetailsView *projectDetails = [[ProjectDetailsView alloc] initWithProjectID:_project.projectId];
+    ProjectDetailsView *projectDetails = [[ProjectDetailsView alloc] initWithProjectID:_project.projectId projectNameSpace:_project.nameSpace];
     [self.navigationController pushViewController:projectDetails animated:YES];
 }
 
