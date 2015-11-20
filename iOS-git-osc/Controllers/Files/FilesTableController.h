@@ -14,6 +14,7 @@
 @property NSString *projectName;
 @property NSString *ownerName;
 @property NSString *privateToken;
+@property NSString *projectNameSpace;
 
 @property NSMutableArray *filesArray;
 @property (strong, nonatomic) NSString *currentPath;

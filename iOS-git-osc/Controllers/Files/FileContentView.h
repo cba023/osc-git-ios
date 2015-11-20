@@ -11,6 +11,7 @@
 @interface FileContentView : UIViewController <UIWebViewDelegate>
 
 @property int64_t projectID;
+@property NSString *projectNameSpace;
 @property NSString *path;
 @property (strong, nonatomic) NSString *fileName;
 
@@ -18,6 +19,6 @@
 
 @property (strong, nonatomic) UIWebView *webView;
 
-- (id)initWithProjectID:(int64_t)projectID path:(NSString *)path fileName:(NSString *)fileName;
+- (id)initWithProjectID:(int64_t)projectID path:(NSString *)path fileName:(NSString *)fileName projectNameSpace:(NSString *)nameSpace;
 
 @end

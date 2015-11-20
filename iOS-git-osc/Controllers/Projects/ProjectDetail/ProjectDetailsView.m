@@ -269,6 +269,7 @@ static NSString * const ProjectDetailsCellID = @"ProjectDetailsCell";
                                                                                          ownerName:_project.owner.username];
                 filesTable.title = _project.name;
                 filesTable.currentPath = @"";
+                filesTable.projectNameSpace = _project.nameSpace;
                 filesTable.privateToken = [Tools getPrivateToken];
                 
                 [self.navigationController pushViewController:filesTable animated:YES];

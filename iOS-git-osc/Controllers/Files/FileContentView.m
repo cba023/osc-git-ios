@@ -12,19 +12,23 @@
 #import "UIView+Toast.h"
 #import "PKRevealController.h"
 
+#import "GITAPI.h"
+#import "AFHTTPRequestOperationManager+Util.h"
+
 @interface FileContentView ()
 
 @end
 
 @implementation FileContentView
 
-- (id)initWithProjectID:(int64_t)projectID path:(NSString *)path fileName:(NSString *)fileName
+- (id)initWithProjectID:(int64_t)projectID path:(NSString *)path fileName:(NSString *)fileName projectNameSpace:(NSString *)nameSpace
 {
     self = [super init];
     if (self) {
         _projectID = projectID;
         _path = path;
         _fileName = fileName;
+        _projectNameSpace = nameSpace;
     }
     
     return self;
@@ -43,40 +47,46 @@
     
     [self.view addSubview:self.webView];
     
-    [self fetchContent];
+    [self fetchFileContent];
 }
 
-- (void)fetchContent
+#pragma mark - 获取文件数据
+
+- (void)fetchFileContent
 {
     self.revealController.frontViewController.revealController.recognizesPanningOnFrontView = NO;
     
     [self.view makeToastActivity];
     
-    [[GLGitlabApi sharedInstance] getFileContentFromProject:_projectID
-                                               privateToken:[Tools getPrivateToken]
-                                                       path:[NSString stringWithFormat:@"%@%@", _path, _fileName]
-                                                 branchName:@"master"
-                                               successBlock:^(id responseObject) {
-                                                   if (responseObject == nil) {
-                                                       [self.view hideToastActivity];
-                                                       [Tools toastNotification:@"网络错误" inView:self.view];
-                                                   } else {
-                                                       _content = ((GLBlob *)responseObject).content;
-                                                       [self render];
-                                                   }
-                                               }
-                                               failureBlock:^(NSError *error) {
-                                                   [self.view hideToastActivity];
-                                                   
-                                                   if (![Tools isNetworkExist]) {
-                                                       [Tools toastNotification:@"错误 网络异常" inView:self.view];
-                                                   } else {
-                                                       [Tools toastNotification:@"网络错误" inView:self.view];
-                                                   }
-                                               }];
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager GitManager];
+    
+    NSString *strUrl = [NSString stringWithFormat:@"%@%@/%@/repository/files", GITAPI_HTTPS_PREFIX, GITAPI_PROJECTS, _projectNameSpace];
+    NSDictionary *parameters = @{
+                                 @"private_token" : [Tools getPrivateToken],
+                                 @"ref"           : @"master",
+                                 @"file_path"     : [NSString stringWithFormat:@"%@%@", _path, _fileName]
+                                 };
+    
+    [manager GET:strUrl
+      parameters:parameters
+         success:^(AFHTTPRequestOperation * operation, id responseObject) {
+             if (responseObject == nil) {
+                 [self.view hideToastActivity];
+                 [Tools toastNotification:@"网络错误" inView:self.view];
+             } else {
+                 _content = [[GLBlob alloc] initWithJSON:responseObject].content;
+                 [self render];
+             }
+         } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
+             [self.view hideToastActivity];
+             
+             if (![Tools isNetworkExist]) {
+                 [Tools toastNotification:@"错误 网络异常" inView:self.view];
+             } else {
+                 [Tools toastNotification:@"网络错误" inView:self.view];
+             }
+    }];
 }
-
-
 
 - (void)popBack
 {

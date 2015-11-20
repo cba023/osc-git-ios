@@ -15,6 +15,9 @@
 #import "Tools.h"
 #import "UIView+Toast.h"
 
+#import "GITAPI.h"
+#import "AFHTTPRequestOperationManager+Util.h"
+
 @interface FilesTableController ()
 
 @end
@@ -60,6 +63,8 @@ static NSString * const cellId = @"FileCell";
     
     _filesArray = [NSMutableArray new];
     
+    [self fetchForFiles];
+    
 #if 0
     self.refreshControl = [[UIRefreshControl alloc] init];
     [self.refreshControl setAttributedTitle:[[NSAttributedString alloc] initWithString:@"松手更新数据"]];
@@ -68,10 +73,15 @@ static NSString * const cellId = @"FileCell";
 #endif
 }
 
-- (void)viewDidAppear:(BOOL)animated
+- (void)didReceiveMemoryWarning
 {
-    [super viewDidAppear:animated];
-    
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+#pragma mark - 获取数据
+- (void)fetchForFiles
+{
     self.revealController.frontViewController.revealController.recognizesPanningOnFrontView = YES;
     
     if (_filesArray.count > 0) {return;}
@@ -83,40 +93,40 @@ static NSString * const cellId = @"FileCell";
     
     [self.view makeToastActivity];
     
-    GLGitlabSuccessBlock success = ^(id responseObject) {
-        [self.view hideToastActivity];
-        if (responseObject == nil){
-            [Tools toastNotification:@"请求失败，请稍后再试" inView:self.view];
-        } else {
-            [_filesArray addObjectsFromArray:responseObject];
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [self.tableView reloadData];
-            });
-        }
-    };
+    AFHTTPRequestOperationManager  *manager = [AFHTTPRequestOperationManager GitManager];
+    NSDictionary *parameters = @{
+                                 @"private_token" : _privateToken,
+                                 @"ref_name"      : @"master",
+                                 @"path"          : _currentPath
+                                 };
+    NSString *strUrl = [NSString stringWithFormat:@"%@%@/%@/repository/tree", GITAPI_HTTPS_PREFIX, GITAPI_PROJECTS, _projectNameSpace];
     
-    GLGitlabFailureBlock failure = ^(NSError *error) {
-        [self.view hideToastActivity];
-        
-        if (error != nil) {
-            [Tools toastNotification:[NSString stringWithFormat:@"网络异常，错误码：%ld", (long)error.code] inView:self.view];
-        } else {
-            [Tools toastNotification:@"网络错误" inView:self.view];
-        }
-    };
-    
-    [[GLGitlabApi sharedInstance] getRepositoryTreeForProjectId:_projectID
-                                                   privateToken:_privateToken
-                                                           path:_currentPath
-                                                     branchName:@"master"
-                                                   successBlock:success
-                                                   failureBlock:failure];
-}
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    [manager GET:strUrl
+      parameters:parameters
+         success:^(AFHTTPRequestOperation * operation, id responseObject) {
+             [self.view hideToastActivity];
+             
+             if (responseObject == nil){
+                 [Tools toastNotification:@"请求失败，请稍后再试" inView:self.view];
+             } else {
+                 [responseObject enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                     GLFile *file = [[GLFile alloc] initWithJSON:obj];
+                     [_filesArray addObject:file];
+                 }];
+                 
+                 dispatch_async(dispatch_get_main_queue(), ^{
+                     [self.tableView reloadData];
+                 });
+             }
+         } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
+             [self.view hideToastActivity];
+             
+             if (error != nil) {
+                 [Tools toastNotification:[NSString stringWithFormat:@"网络异常，错误码：%ld", (long)error.code] inView:self.view];
+             } else {
+                 [Tools toastNotification:@"网络错误" inView:self.view];
+             }
+    }];
 }
 
 #pragma mark - Table view data source
@@ -165,6 +175,7 @@ static NSString * const cellId = @"FileCell";
                                                                                       ownerName:_ownerName];
         innerFilesTable.title = file.name;
         innerFilesTable.currentPath = [NSString stringWithFormat:@"%@%@/", self.currentPath, file.name];
+        innerFilesTable.projectNameSpace = _projectNameSpace;
         innerFilesTable.privateToken = self.privateToken;
         
         [self.navigationController pushViewController:innerFilesTable animated:YES];
@@ -173,10 +184,12 @@ static NSString * const cellId = @"FileCell";
     }
 }
 
+#pragma mark - 打开文件
+
 - (void)openFile:(GLFile *)file
 {
     if ([File isCodeFile:file.name]) {
-        FileContentView *fileContentView = [[FileContentView alloc] initWithProjectID:_projectID path:_currentPath fileName:file.name];
+        FileContentView *fileContentView = [[FileContentView alloc] initWithProjectID:_projectID path:_currentPath fileName:file.name projectNameSpace:_projectNameSpace];
         
         [self.navigationController pushViewController:fileContentView animated:YES];
     } else if ([File isImage:file.name]) {
