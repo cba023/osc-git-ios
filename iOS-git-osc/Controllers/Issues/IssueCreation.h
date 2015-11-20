@@ -11,6 +11,7 @@
 @interface IssueCreation : UIViewController <UITextFieldDelegate, UITextViewDelegate>//<UIPickerViewDataSource, UIPickerViewAccessibilityDelegate>
 
 @property int64_t projectId;
+@property NSString *projectNameSpace;
 @property NSArray *members;
 //@property NSArray *milestones;
 

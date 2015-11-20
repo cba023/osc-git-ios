@@ -10,9 +10,10 @@
 #import "Issue.h"
 #import "Tools.h"
 #import "GLGitlab.h"
-#import "Issue.h"
 #import "UIView+Toast.h"
 
+#import "GITAPI.h"
+#import "AFHTTPRequestOperationManager+Util.h"
 @interface IssueCreation ()
 
 @end
@@ -117,42 +118,79 @@
     issue.projectId = _projectId;
     issue.title = _issueTitle.text;
     issue.issueDescription = _issueDescription.text;
-    [self createIssue:issue];
+//    [self createIssue:issue];
+    [self createNewIssue:issue];
 }
 
-- (void)createIssue:(GLIssue *)issue
+//- (void)createIssue:(GLIssue *)issue
+//{
+//    if (![Tools isNetworkExist]) {
+//         [Tools toastNotification:@"网络连接失败，请检查网络设置" inView:self.view];
+//        return;
+//    }
+//    
+//    [self.view makeToastActivity];
+//    NSString *privateToken = [Tools getPrivateToken];
+//    
+//    GLGitlabSuccessBlock success = ^(id responseObject) {
+//        if (responseObject == nil) {
+//            [Tools toastNotification:@"网络错误" inView:self.view];
+//        } else {
+//            [self.view hideToastActivity];
+//            [Tools toastNotification:@"Issue 创建成功" inView:self.view];
+//        }
+//    };
+//    
+//    GLGitlabFailureBlock failure = ^(NSError *error) {
+//        [self.view hideToastActivity];
+//        
+//        if (error != nil) {
+//            [Tools toastNotification:[NSString stringWithFormat:@"网络异常，错误码：%ld", (long)error.code] inView:self.view];
+//        } else {
+//            [Tools toastNotification:@"网络错误" inView:self.view];
+//        }
+//    };
+//    
+//    [[GLGitlabApi sharedInstance] createIssue:issue
+//                                 privateToken:privateToken
+//                             withSuccessBlock:success
+//                              andFailureBlock:failure];
+//}
+
+- (void)createNewIssue:(GLIssue *)issue
 {
     if (![Tools isNetworkExist]) {
-         [Tools toastNotification:@"网络连接失败，请检查网络设置" inView:self.view];
+        [Tools toastNotification:@"网络连接失败，请检查网络设置" inView:self.view];
         return;
     }
     
     [self.view makeToastActivity];
-    NSString *privateToken = [Tools getPrivateToken];
     
-    GLGitlabSuccessBlock success = ^(id responseObject) {
-        if (responseObject == nil) {
-            [Tools toastNotification:@"网络错误" inView:self.view];
-        } else {
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager GitManager];
+    
+    NSString *strUrl = [NSString stringWithFormat:@"%@%@/%@/issues", GITAPI_HTTPS_PREFIX, GITAPI_PROJECTS, _projectNameSpace];
+    
+    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:[issue jsonCreateRepresentation]];
+    [params setObject:[Tools getPrivateToken] forKey:@"private_token"];
+    
+    [manager POST:strUrl
+       parameters:params
+          success:^(AFHTTPRequestOperation * operation, id responseObject) {
+            if (responseObject == nil) {
+                [Tools toastNotification:@"网络错误" inView:self.view];
+            } else {
+                [self.view hideToastActivity];
+                [Tools toastNotification:@"Issue 创建成功" inView:self.view];
+            }
+          } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
             [self.view hideToastActivity];
-            [Tools toastNotification:@"Issue 创建成功" inView:self.view];
-        }
-    };
-    
-    GLGitlabFailureBlock failure = ^(NSError *error) {
-        [self.view hideToastActivity];
-        
-        if (error != nil) {
-            [Tools toastNotification:[NSString stringWithFormat:@"网络异常，错误码：%ld", (long)error.code] inView:self.view];
-        } else {
-            [Tools toastNotification:@"网络错误" inView:self.view];
-        }
-    };
-    
-    [[GLGitlabApi sharedInstance] createIssue:issue
-                                 privateToken:privateToken
-                             withSuccessBlock:success
-                              andFailureBlock:failure];
+            
+            if (error != nil) {
+                [Tools toastNotification:[NSString stringWithFormat:@"网络异常，错误码：%ld", (long)error.code] inView:self.view];
+            } else {
+                [Tools toastNotification:@"网络错误" inView:self.view];
+            }
+    }];
 }
 
 #pragma mark - 键盘操作

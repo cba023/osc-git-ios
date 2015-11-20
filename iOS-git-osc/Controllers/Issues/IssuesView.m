@@ -169,6 +169,7 @@ static NSString * const cellId = @"IssueCell";
 {
     IssueCreation *issueCreationView = [IssueCreation new];
     issueCreationView.projectId = self.projectId;
+    issueCreationView.projectNameSpace = self.projectNameSpace;
     [self.navigationController pushViewController:issueCreationView animated:YES];
 }
 
