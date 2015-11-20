@@ -12,6 +12,7 @@
 @interface NoteEditingView : UIViewController <UITextViewDelegate>
 
 @property GLIssue *issue;
+@property NSString *projectNameSpace;
 @property UITextView *noteContent;
 
 @end

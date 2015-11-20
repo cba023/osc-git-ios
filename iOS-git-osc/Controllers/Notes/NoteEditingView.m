@@ -11,6 +11,9 @@
 #import "Tools.h"
 #import "LoginViewController.h"
 
+#import "GITAPI.h"
+#import "AFHTTPRequestOperationManager+Util.h"
+
 @interface NoteEditingView ()
 
 @end
@@ -48,32 +51,42 @@
         return;
     }
     
-    GLGitlabSuccessBlock success = ^(id responseObject) {
-        if (responseObject == nil) {
-            [Tools toastNotification:@"评论失败" inView:self.view];
-        } else {
-            [Tools toastNotification:@"评论成功" inView:self.view];
-        }
-    };
-    
-    GLGitlabFailureBlock failure = ^(NSError *error) {
-        if (error != nil) {
-            [Tools toastNotification:[NSString stringWithFormat:@"评论失败，错误码：%ld", (long)error.code] inView:self.view];
-        } else {
-            [Tools toastNotification:@"评论失败" inView:self.view];
-        }
-    };
-    
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     if ([userDefaults objectForKey:@"private_token"]) {
-        [[GLGitlabApi sharedInstance] createNoteForIssue:_issue
-                                                withBody:_noteContent.text
-                                            successBlock:success
-                                         andFailureBlock:failure];
+        [self sendForComment];
     } else {
         LoginViewController *loginView = [LoginViewController new];
         [self.navigationController pushViewController:loginView animated:YES];
     }
+}
+
+- (void)sendForComment
+{
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager GitManager];
+    NSString *strUrl = [NSString stringWithFormat:@"%@%@/%@/issues/%lld/notes", GITAPI_HTTPS_PREFIX, GITAPI_PROJECTS, _projectNameSpace, _issue.issueId];
+    NSDictionary *parameters = @{
+                                 @"private_token" : [Tools getPrivateToken],
+                                 @"body"          :  _noteContent.text
+                                 };
+
+    [manager POST:strUrl
+       parameters:parameters
+          success:^(AFHTTPRequestOperation * operation, id responseObject) {
+              if (responseObject == nil) {
+                  [Tools toastNotification:@"评论失败" inView:self.view];
+              } else {
+                  [Tools toastNotification:@"评论成功" inView:self.view];
+                  
+                  [self.navigationController popViewControllerAnimated:YES];
+              }
+          } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
+              if (error != nil) {
+                  [Tools toastNotification:[NSString stringWithFormat:@"评论失败，错误码：%ld", (long)error.code] inView:self.view];
+              } else {
+                  [Tools toastNotification:@"评论失败" inView:self.view];
+              }
+    }];
+    
 }
 
 - (void)setLayout

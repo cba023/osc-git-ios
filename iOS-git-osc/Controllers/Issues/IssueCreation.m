@@ -181,6 +181,8 @@
             } else {
                 [self.view hideToastActivity];
                 [Tools toastNotification:@"Issue 创建成功" inView:self.view];
+                
+                [self.navigationController popViewControllerAnimated:YES];
             }
           } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
             [self.view hideToastActivity];

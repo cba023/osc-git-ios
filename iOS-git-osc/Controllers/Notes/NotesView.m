@@ -305,6 +305,7 @@ static NSString * const IssueDescriptionCellId = @"IssueDescriptionCell";
 {
     NoteEditingView *noteEditingView = [[NoteEditingView alloc] init];
     noteEditingView.issue = _issue;
+    noteEditingView.projectNameSpace = _projectNameSpace;
     [self.navigationController pushViewController:noteEditingView animated:YES];
 }
 
