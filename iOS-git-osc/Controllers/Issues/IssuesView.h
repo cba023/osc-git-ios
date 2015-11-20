@@ -13,6 +13,6 @@
 @property NSMutableArray *issues;
 @property int64_t projectId;
 
-- (id)initWithProjectId:(int64_t)projectId;
+- (id)initWithProjectId:(int64_t)projectId projectNameSpace:(NSString *)nameSpace;
 
 @end

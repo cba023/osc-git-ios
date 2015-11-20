@@ -15,12 +15,15 @@
 #import "Tools.h"
 #import "LastCell.h"
 
+#import "GITAPI.h"
+#import "AFHTTPRequestOperationManager+Util.h"
+
 @interface IssuesView ()
 
 @property BOOL isLoading;
 @property BOOL isFinishedLoad;
 @property LastCell *lastCell;
-
+@property NSString *projectNameSpace;
 @property NSString *privateToken;
 
 @end
@@ -38,6 +41,29 @@ static NSString * const cellId = @"IssueCell";
         // Custom initialization
     }
     return self;
+}
+
+- (id)initWithProjectId:(int64_t)projectId projectNameSpace:(NSString *)nameSpace
+{
+    self = [super init];
+    if (self) {
+        self.projectId = projectId;
+        self.projectNameSpace = nameSpace;
+    }
+    
+    return self;
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+    if (issues.count > 0 || _isFinishedLoad) {return;}
+    
+    [self.refreshControl beginRefreshing];
+    [self.tableView setContentOffset:CGPointMake(0, self.tableView.contentOffset.y-self.refreshControl.frame.size.height)
+                            animated:YES];
+    
 }
 
 - (void)viewDidLoad
@@ -62,35 +88,14 @@ static NSString * const cellId = @"IssueCell";
     issues = [NSMutableArray new];
     _privateToken = [Tools getPrivateToken];
     _lastCell = [[LastCell alloc] initCell];
-}
-
-- (void)viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
     
-    if (issues.count > 0 || _isFinishedLoad) {return;}
-    
-    [self.refreshControl beginRefreshing];
-    [self.tableView setContentOffset:CGPointMake(0, self.tableView.contentOffset.y-self.refreshControl.frame.size.height)
-                            animated:YES];
-    
-    [self loadIssuesOnPage:1 refresh:YES];
+    [self fetchIssuesOnPage:1 refresh:YES];
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
-}
-
-- (id)initWithProjectId:(int64_t)projectId
-{
-    self = [super init];
-    if (self) {
-        self.projectId = projectId;
-    }
-    
-    return self;
 }
 
 #pragma mark - tableview things
@@ -177,7 +182,7 @@ static NSString * const cellId = @"IssueCell";
         refreshInProgress = YES;
         
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-            [self loadIssuesOnPage:1 refresh:YES];
+            [self fetchIssuesOnPage:1 refresh:YES];
             refreshInProgress = NO;
         });
     }
@@ -202,10 +207,11 @@ static NSString * const cellId = @"IssueCell";
     
     _isLoading = YES;
     [_lastCell loading];
-    [self loadIssuesOnPage:issues.count/20 + 1 refresh:NO];
+    [self fetchIssuesOnPage:issues.count/20 + 2 refresh:NO];
 }
 
-- (void)loadIssuesOnPage:(NSUInteger)page refresh:(BOOL)refresh
+#pragma mark - 获取数据
+- (void)fetchIssuesOnPage:(NSUInteger)page refresh:(BOOL)refresh
 {
     if (![Tools isNetworkExist]) {
         if (refresh) {
@@ -223,71 +229,55 @@ static NSString * const cellId = @"IssueCell";
         return;
     }
     
-    GLGitlabSuccessBlock success = [self successBlockIfRefresh:refresh];
-    GLGitlabFailureBlock failure = [self failureBlockIfrefresh:refresh];
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager GitManager];
     
-    [[GLGitlabApi sharedInstance] getAllIssuesForProjectId:_projectId
-                                              privateToken:_privateToken
-                                                      page:page
-                                          withSuccessBlock:success
-                                           andFailureBlock:failure];
-}
-
-#pragma mark - issues request
-
-- (GLGitlabSuccessBlock)successBlockIfRefresh:(BOOL)refresh {
-    return
+    NSString *strUrl = [NSString stringWithFormat:@"%@%@/%@/issues?private_token=%@", GITAPI_HTTPS_PREFIX, GITAPI_PROJECTS, _projectNameSpace, [Tools getPrivateToken]];
     
-    ^(id responseObject) {
-        if (refresh) {
-            [self.refreshControl endRefreshing];
-            [issues removeAllObjects];
-        }
-        
-        if ([responseObject count] == 0) {
-            _isFinishedLoad = YES;
-            [_lastCell finishedLoad];
-        } else {
-            _isFinishedLoad = [(NSArray *)responseObject count] < 20;
-            
-            NSUInteger repeatedCount = [Tools numberOfRepeatedIssueds:issues issue:[responseObject objectAtIndex:0]];
-            NSUInteger length = [responseObject count] < 20 - repeatedCount? [responseObject count]: 20 - repeatedCount;
-            [issues addObjectsFromArray:[responseObject subarrayWithRange:NSMakeRange(repeatedCount, length)]];
-            
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [self.tableView reloadData];
-                if (refresh) {[self.refreshControl endRefreshing];}
-                _isFinishedLoad? [_lastCell finishedLoad]: [_lastCell normal];
-            });
-        }
-        _isLoading = NO;
-    };
+    [manager GET:strUrl
+      parameters:nil
+         success:^(AFHTTPRequestOperation *operation, id responseObject) {
+             if (refresh) {
+                 [self.refreshControl endRefreshing];
+                 [issues removeAllObjects];
+             }
+             
+             if ([responseObject count] == 0) {
+                 _isFinishedLoad = YES;
+                 [_lastCell finishedLoad];
+             } else {
+                 _isFinishedLoad = [(NSArray *)responseObject count] < 20;
+                 
+                 [responseObject enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                     GLIssue *issue = [[GLIssue alloc] initWithJSON:obj];
+                     [issues addObject:issue];
+                 }];
+                 
+                 dispatch_async(dispatch_get_main_queue(), ^{
+                     [self.tableView reloadData];
+                     if (refresh) {[self.refreshControl endRefreshing];}
+                     _isFinishedLoad? [_lastCell finishedLoad]: [_lastCell normal];
+                 });
+             }
+             _isLoading = NO;
+         } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
+             if (error != nil) {
+                 [Tools toastNotification:[NSString stringWithFormat:@"网络异常，错误码：%ld", (long)error.code] inView:self.view];
+             } else {
+                 [Tools toastNotification:@"网络错误" inView:self.view];
+             }
+             
+             dispatch_async(dispatch_get_main_queue(), ^{
+                 _lastCell.status = LastCellStatusVisible;
+                 [_lastCell errorStatus];
+                 [self.tableView reloadData];
+                 if (refresh) {
+                     [self.refreshControl endRefreshing];
+                 }
+             });
+             
+             _isLoading = NO;
+         }];
 }
-
-
-- (GLGitlabFailureBlock)failureBlockIfrefresh:(BOOL)refresh {
-    return
-    
-    ^(NSError *error) {
-        if (error != nil) {
-            [Tools toastNotification:[NSString stringWithFormat:@"网络异常，错误码：%ld", (long)error.code] inView:self.view];
-        } else {
-            [Tools toastNotification:@"网络错误" inView:self.view];
-        }
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
-            _lastCell.status = LastCellStatusVisible;
-            [_lastCell errorStatus];
-            [self.tableView reloadData];
-            if (refresh) {
-                [self.refreshControl endRefreshing];
-            }
-        });
-        
-        _isLoading = NO;
-    };
-}
-
 
 
 @end

@@ -275,7 +275,7 @@ static NSString * const ProjectDetailsCellID = @"ProjectDetailsCell";
                 break;
             }
             case 3: {
-                IssuesView *issuesView = [[IssuesView alloc] initWithProjectId:_project.projectId];
+                IssuesView *issuesView = [[IssuesView alloc] initWithProjectId:_project.projectId projectNameSpace:_project.nameSpace];
                 [self.navigationController pushViewController:issuesView animated:YES];
                 break;
             }
