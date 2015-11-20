@@ -39,6 +39,17 @@ static NSString * const ProjectDetailsCellID = @"ProjectDetailsCell";
 
 @implementation ProjectDetailsView
 
+- (id)initWithProjectID:(int64_t)projectID projectNameSpace:(NSString *)nameSpace
+{
+    self = [super init];
+    if (self) {
+        _projectID = projectID;
+        _namsSpace = nameSpace;
+    }
+    
+    return self;
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -55,6 +66,12 @@ static NSString * const ProjectDetailsCellID = @"ProjectDetailsCell";
     [self fetchProjectsDetail];
 }
 
+- (void)didReceiveMemoryWarning
+{
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
 #pragma mark - 获取数据
 
 - (void)fetchProjectsDetail
@@ -69,10 +86,10 @@ static NSString * const ProjectDetailsCellID = @"ProjectDetailsCell";
     
     _user = [NSUserDefaults standardUserDefaults];
     NSString *privateToken = [_user objectForKey:@"private_token"];
-        
+    
     NSString *strUrl = privateToken.length ? [NSString stringWithFormat:@"%@%@/%@?private_token=%@", GITAPI_HTTPS_PREFIX, GITAPI_PROJECTS, _namsSpace, [Tools getPrivateToken]] :
-                                             [NSString stringWithFormat:@"%@%@/%@", GITAPI_HTTPS_PREFIX, GITAPI_PROJECTS, _namsSpace];
-
+    [NSString stringWithFormat:@"%@%@/%@", GITAPI_HTTPS_PREFIX, GITAPI_PROJECTS, _namsSpace];
+    
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager GitManager];
     [manager GET:strUrl
@@ -98,38 +115,20 @@ static NSString * const ProjectDetailsCellID = @"ProjectDetailsCell";
                  dispatch_async(dispatch_get_main_queue(), ^{
                      [self.tableView reloadData];
                  });
-
+                 
              }
          } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
-        
+             
              [self.view hideToastActivity];
              if (error != nil) {
                  [Tools toastNotification:[NSString stringWithFormat:@"网络异常，错误码：%ld", (long)error.code] inView:self.view];
              } else {
                  [Tools toastNotification:@"网络错误" inView:self.view];
              }
-    }];
+         }];
     
     [self.tableView reloadData];
 }
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-- (id)initWithProjectID:(int64_t)projectID projectNameSpace:(NSString *)nameSpace
-{
-    self = [super init];
-    if (self) {
-        _projectID = projectID;
-        _namsSpace = nameSpace;
-    }
-    
-    return self;
-}
-
 
 #pragma mark - tableview things
 
@@ -168,8 +167,8 @@ static NSString * const ProjectDetailsCellID = @"ProjectDetailsCell";
                                                                                         isWatched:_project.isWatched
                                                                                       description:_project.projectDescription];
                 
-                [cell.starButton addTarget:self action:@selector(starButtonClicked) forControlEvents:UIControlEventTouchUpInside];
-                [cell.watchButton addTarget:self action:@selector(watchButtonClicked) forControlEvents:UIControlEventTouchUpInside];
+                [cell.starButton addTarget:self action:@selector(clickedStarOrUnstar) forControlEvents:UIControlEventTouchUpInside];
+                [cell.watchButton addTarget:self action:@selector(clickedWatchOrUnwatch) forControlEvents:UIControlEventTouchUpInside];
                 
                 return cell;
             }
@@ -286,10 +285,8 @@ static NSString * const ProjectDetailsCellID = @"ProjectDetailsCell";
     }
 }
 
-
-#pragma mark - button
-
-- (void)starButtonClicked
+#pragma mark - star or unstar
+- (void)clickedStarOrUnstar
 {
     if (![Tools isNetworkExist]) {
         [Tools toastNotification:@"网络连接失败，请检查网络设置" inView:self.view];
@@ -302,34 +299,38 @@ static NSString * const ProjectDetailsCellID = @"ProjectDetailsCell";
         return;
     }
     
-    GLGitlabSuccessBlock success = ^(id responseObject) {
-        _project.starred = !_project.starred;
-        _project.starsCount = [responseObject intValue];
-        NSIndexPath *path = [NSIndexPath indexPathForRow:1 inSection:0];
-        [self.tableView reloadRowsAtIndexPaths:@[path] withRowAnimation:UITableViewRowAnimationNone];
-    };
+    NSString *strUrl = _project.starred ? [NSString stringWithFormat:@"%@%@/%@/unstar?private_token=%@", GITAPI_HTTPS_PREFIX, GITAPI_PROJECTS, _namsSpace, [Tools getPrivateToken]] :
+    [NSString stringWithFormat:@"%@%@/%@/star?private_token=%@", GITAPI_HTTPS_PREFIX, GITAPI_PROJECTS, _namsSpace, [Tools getPrivateToken]];
     
-    GLGitlabFailureBlock failure = ^(NSError *error) {
-        if (error != nil) {
-            [Tools toastNotification:[NSString stringWithFormat:@"网络异常，错误码：%ld", (long)error.code] inView:self.view];
-        } else {
-            [Tools toastNotification:@"网络错误" inView:self.view];
-        }
-    };
     
-    if (_project.starred) {
-        [[GLGitlabApi sharedInstance] unstarProject:_project.projectId privateToken:privateToken success:success failure:failure];
-    } else {
-        [[GLGitlabApi sharedInstance] starProject:_project.projectId privateToken:privateToken success:success failure:failure];
-    }
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager GitManager];
+    [manager POST:strUrl
+      parameters:nil
+         success:^(AFHTTPRequestOperation *operation, id responseObject) {
+             
+             _project.starred = !_project.starred;
+             _project.starsCount = [[responseObject objectForKey:@"count"] intValue];
+             NSIndexPath *path = [NSIndexPath indexPathForRow:1 inSection:0];
+             [self.tableView reloadRowsAtIndexPaths:@[path] withRowAnimation:UITableViewRowAnimationNone];
+             
+         } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
+             
+             if (error != nil) {
+                 [Tools toastNotification:[NSString stringWithFormat:@"网络异常，错误码：%ld", (long)error.code] inView:self.view];
+             } else {
+                 [Tools toastNotification:@"网络错误" inView:self.view];
+             }
+         }];
 }
 
-- (void)watchButtonClicked
+#pragma mark - watch or unwatch
+
+- (void)clickedWatchOrUnwatch
 {
     if (![Tools isNetworkExist]) {
         [Tools toastNotification:@"网络连接失败，请检查网络设置" inView:self.view];
     }
-
+    
     NSString *privateToken = [Tools getPrivateToken];
     if (privateToken.length == 0) {
         LoginViewController *loginViewController = [LoginViewController new];
@@ -337,28 +338,29 @@ static NSString * const ProjectDetailsCellID = @"ProjectDetailsCell";
         return;
     }
     
-    GLGitlabSuccessBlock success = ^(id responseObject) {
-        _project.watched = !_project.watched;
-        _project.watchesCount = [responseObject intValue];
-        NSIndexPath *path = [NSIndexPath indexPathForRow:1 inSection:0];
-        [self.tableView reloadRowsAtIndexPaths:@[path] withRowAnimation:UITableViewRowAnimationNone];
-    };
+    NSString *strUrl = _project.watched ? [NSString stringWithFormat:@"%@%@/%@/unwatch?private_token=%@", GITAPI_HTTPS_PREFIX, GITAPI_PROJECTS, _namsSpace, [Tools getPrivateToken]] :
+    [NSString stringWithFormat:@"%@%@/%@/watch?private_token=%@", GITAPI_HTTPS_PREFIX, GITAPI_PROJECTS, _namsSpace, [Tools getPrivateToken]];
     
-    GLGitlabFailureBlock failure = ^(NSError *error) {
-        if (error != nil) {
-            [Tools toastNotification:[NSString stringWithFormat:@"网络异常，错误码：%ld", (long)error.code] inView:self.view];
-        } else {
-            [Tools toastNotification:@"网络错误" inView:self.view];
-        }
-    };
     
-    if (_project.watched) {
-        [[GLGitlabApi sharedInstance] unwatchProject:_project.projectId privateToken:privateToken success:success failure:failure];
-    } else {
-        [[GLGitlabApi sharedInstance] watchProject:_project.projectId privateToken:privateToken success:success failure:failure];
-    }
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager GitManager];
+    [manager POST:strUrl
+      parameters:nil
+         success:^(AFHTTPRequestOperation *operation, id responseObject) {
+             
+             _project.watched = !_project.watched;
+             _project.watchesCount = [[responseObject objectForKey:@"count"] intValue];
+             NSIndexPath *path = [NSIndexPath indexPathForRow:1 inSection:0];
+             [self.tableView reloadRowsAtIndexPaths:@[path] withRowAnimation:UITableViewRowAnimationNone];
+             
+         } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
+             
+             if (error != nil) {
+                 [Tools toastNotification:[NSString stringWithFormat:@"网络异常，错误码：%ld", (long)error.code] inView:self.view];
+             } else {
+                 [Tools toastNotification:@"网络错误" inView:self.view];
+             }
+         }];
 }
-
 
 #pragma mark - 导航栏右侧按键
 
