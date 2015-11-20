@@ -11,8 +11,9 @@
 @interface ReadmeView : UIViewController <UIWebViewDelegate>
 
 @property int64_t projectID;
+@property NSString *projectNameSpace;
 @property UIWebView *readme;
 
-- (id)initWithProjectID:(int64_t)projectID;
+- (id)initWithProjectID:(int64_t)projectID projectNameSpace:(NSString *)nameSpace;
 
 @end

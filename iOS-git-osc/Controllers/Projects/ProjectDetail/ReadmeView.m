@@ -12,6 +12,9 @@
 #import "UIView+Toast.h"
 #import "PKRevealController.h"
 
+#import "GITAPI.h"
+#import "AFHTTPRequestOperationManager+Util.h"
+
 @interface ReadmeView ()
 
 @property BOOL isFinishedLoading;
@@ -21,6 +24,16 @@
 
 @implementation ReadmeView
 
+- (id)initWithProjectID:(int64_t)projectID  projectNameSpace:(NSString *)nameSpace
+{
+    self = [super init];
+    if (self) {
+        _projectID = projectID;
+        _projectNameSpace = nameSpace;
+    }
+    return self;
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -28,9 +41,12 @@
     [self initSubviews];
     [self setAutoLayout];
     _isFinishedLoading = NO;
+    
+    [self fetchProjectReadMeDetail];
 }
 
-- (void)viewDidAppear:(BOOL)animated
+#pragma mark - 获取数据
+- (void)fetchProjectReadMeDetail
 {
     self.revealController.frontViewController.revealController.recognizesPanningOnFrontView = NO;
     
@@ -42,45 +58,35 @@
     
     [self.view makeToastActivity];
     
-    GLGitlabSuccessBlock success = ^(id responseObject) {
-        if (responseObject == nil || responseObject == [NSNull null]) {
-            _isFinishedLoading = YES;
-            [_readme loadHTMLString:@"该项目暂无Readme文件" baseURL:nil];
-        } else {
-            _html = responseObject;
-            [_readme loadHTMLString:_html baseURL:nil];
-        }
-    };
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager GitManager];
     
-    GLGitlabFailureBlock failure = ^(NSError *error) {
-        [self.view hideToastActivity];
-        
-        if (error != nil) {
-            [Tools toastNotification:[NSString stringWithFormat:@"网络异常，错误码：%ld", (long)error.code] inView:self.view];
-        } else {
-            [Tools toastNotification:@"网络错误" inView:self.view];
-        }
-    };
-
-    [[GLGitlabApi sharedInstance] loadReadmeForProjectID:_projectID
-                                            privateToken:[Tools getPrivateToken]
-                                                 success:success
-                                                 failure:failure];
+    NSString *strUrl = [NSString stringWithFormat:@"%@%@/%@/readme?private_token=%@", GITAPI_HTTPS_PREFIX, GITAPI_PROJECTS, _projectNameSpace, [Tools getPrivateToken]];
+    
+    [manager GET:strUrl
+      parameters:nil
+         success:^(AFHTTPRequestOperation *operation, id responseObject) {
+             if (responseObject == nil || responseObject == [NSNull null]) {
+                 _isFinishedLoading = YES;
+                 [_readme loadHTMLString:@"该项目暂无Readme文件" baseURL:nil];
+             } else {
+                 _html = [responseObject objectForKey:@"content"];
+                 [_readme loadHTMLString:_html baseURL:nil];
+             }
+         } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
+             [self.view hideToastActivity];
+             
+             if (error != nil) {
+                 [Tools toastNotification:[NSString stringWithFormat:@"网络异常，错误码：%ld", (long)error.code] inView:self.view];
+             } else {
+                 [Tools toastNotification:@"网络错误" inView:self.view];
+             }
+         }];
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
-}
-
-- (id)initWithProjectID:(int64_t)projectID
-{
-    self = [super init];
-    if (self) {
-        _projectID = projectID;
-    }
-    return self;
 }
 
 - (void)initSubviews

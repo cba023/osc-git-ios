@@ -22,7 +22,6 @@
 #import "UMSocial.h"
 
 #import "GITAPI.h"
-#import <Mantle/MTLJSONAdapter.h>
 #import "AFHTTPRequestOperationManager+Util.h"
 
 static NSString * const ProjectDetailsCellID = @"ProjectDetailsCell";
@@ -261,7 +260,7 @@ static NSString * const ProjectDetailsCellID = @"ProjectDetailsCell";
                 break;
             }
             case 1: {
-                ReadmeView *readme = [[ReadmeView alloc] initWithProjectID:_project.projectId];
+                ReadmeView *readme = [[ReadmeView alloc] initWithProjectID:_project.projectId projectNameSpace:_project.nameSpace];
                 [self.navigationController pushViewController:readme animated:YES];
                 break;
             }

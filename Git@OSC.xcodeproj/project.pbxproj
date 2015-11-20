@@ -690,11 +690,11 @@
 				00C3A4141961538B002A34AB /* ProjectsTableController.m */,
 				00C3A42019639F8D002A34AB /* ProjectCell.h */,
 				00C3A42119639F8D002A34AB /* ProjectCell.m */,
-				009567B019B8731000E9624E /* ProjectDetail */,
 				00A74FD319A59FD7009DACDF /* SearchView.h */,
 				00A74FD419A59FD7009DACDF /* SearchView.m */,
 				0057719719A73D6A00EAA606 /* LanguageSearchView.h */,
 				0057719819A73D6A00EAA606 /* LanguageSearchView.m */,
+				009567B019B8731000E9624E /* ProjectDetail */,
 			);
 			path = Projects;
 			sourceTree = "<group>";
