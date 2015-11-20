@@ -14,6 +14,7 @@
 @interface NotesView : UITableViewController <UIWebViewDelegate>
 
 @property GLIssue *issue;
+@property NSString *projectNameSpace;
 @property NSMutableArray *notes;
 
 @end

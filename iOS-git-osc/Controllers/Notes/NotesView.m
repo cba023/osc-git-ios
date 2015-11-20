@@ -14,6 +14,9 @@
 #import "CreationInfoCell.h"
 #import "IssueDescriptionCell.h"
 
+#import "GITAPI.h"
+#import "AFHTTPRequestOperationManager+Util.h"
+
 @interface NotesView ()
 
 @property BOOL isLoadingFinished;
@@ -56,6 +59,8 @@ static NSString * const IssueDescriptionCellId = @"IssueDescriptionCell";
                                                                               style:UIBarButtonItemStylePlain
                                                                              target:self
                                                                              action:@selector(editComment)];
+    
+    [self fetchIssueNotesOnPage:1];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -64,8 +69,6 @@ static NSString * const IssueDescriptionCellId = @"IssueDescriptionCell";
         [Tools toastNotification:@"网络连接失败，请检查网络设置" inView:self.parentViewController.view];
         return;
     }
-    
-    [self fetchNotesOnPage:1];
 }
 
 - (void)didReceiveMemoryWarning
@@ -218,40 +221,40 @@ static NSString * const IssueDescriptionCellId = @"IssueDescriptionCell";
 
 #pragma mark - 获取评论
 
-- (void)fetchNotesOnPage:(NSUInteger)page
+- (void)fetchIssueNotesOnPage:(NSUInteger)page
 {
     if (![Tools isNetworkExist]) {
         [Tools toastNotification:@"网络连接失败，请检查网络设置" inView:self.parentViewController.view];
         return;
     }
     
-    GLGitlabSuccessBlock success = ^(id responseObject) {
-        if (responseObject == nil) {
-            [Tools toastNotification:@"网络错误" inView:self.tableView];
-        } else {
-            [_notes addObjectsFromArray:responseObject];
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [self.tableView reloadData];
-            });
-        }
-    };
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager GitManager];
     
-    GLGitlabFailureBlock failure = ^(NSError *error) {
-        if (error != nil) {
-            [Tools toastNotification:[NSString stringWithFormat:@"网络异常，错误码：%ld", (long)error.code] inView:self.tableView];
-        } else {
-            [Tools toastNotification:@"网络错误" inView:self.tableView];
-        }
-    };
+    NSString *strUrl = [NSString stringWithFormat:@"%@%@/%@/issues/%lld/notes?private_token=%@&&pageIndex=%lu", GITAPI_HTTPS_PREFIX, GITAPI_PROJECTS, _projectNameSpace, _issue.issueId, [Tools getPrivateToken], page];
     
-    [[GLGitlabApi sharedInstance] getAllNotesForIssue:_issue
-                                         privateToken:[Tools getPrivateToken]
-                                                 page:page
-                                     withSuccessBlock:success
-                                      andFailureBlock:failure];
+    [manager GET:strUrl
+      parameters:nil
+         success:^(AFHTTPRequestOperation * operation, id responseObject) {
+             if (responseObject == nil) {
+                 [Tools toastNotification:@"网络错误" inView:self.tableView];
+             } else {
+                 [responseObject enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                     GLNote *note = [[GLNote alloc] initWithJSON:obj];
+                     [_notes addObject:note];
+                 }];
+                
+                 dispatch_async(dispatch_get_main_queue(), ^{
+                     [self.tableView reloadData];
+                 });
+             }
+         } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
+             if (error != nil) {
+                 [Tools toastNotification:[NSString stringWithFormat:@"网络异常，错误码：%ld", (long)error.code] inView:self.tableView];
+             } else {
+                 [Tools toastNotification:@"网络错误" inView:self.tableView];
+             }
+         }];
 }
-
-
 
 #pragma mark - UIWebView things
 

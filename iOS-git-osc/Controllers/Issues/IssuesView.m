@@ -154,6 +154,7 @@ static NSString * const cellId = @"IssueCell";
         GLIssue *issue = [issues objectAtIndex:indexPath.row];
         NotesView *notesView = [[NotesView alloc] init];
         notesView.issue = issue;
+        notesView.projectNameSpace = _projectNameSpace;
         notesView.title = [NSString stringWithFormat:@"#%lld", issue.issueIid];
         
         [self.navigationController pushViewController:notesView animated:YES];
@@ -231,7 +232,7 @@ static NSString * const cellId = @"IssueCell";
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager GitManager];
     
-    NSString *strUrl = [NSString stringWithFormat:@"%@%@/%@/issues?private_token=%@", GITAPI_HTTPS_PREFIX, GITAPI_PROJECTS, _projectNameSpace, [Tools getPrivateToken]];
+    NSString *strUrl = [NSString stringWithFormat:@"%@%@/%@/issues?private_token=%@&pageIndex=%lu", GITAPI_HTTPS_PREFIX, GITAPI_PROJECTS, _projectNameSpace, [Tools getPrivateToken], (unsigned long)page];
     
     [manager GET:strUrl
       parameters:nil
