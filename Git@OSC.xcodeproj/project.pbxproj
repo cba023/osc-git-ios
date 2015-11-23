@@ -35,7 +35,6 @@
 		00B3CF9619CBDDE000747373 /* ShakingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 00B3CF9519CBDDE000747373 /* ShakingView.m */; };
 		00B3CF9A19CC0A6600747373 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00B3CF9919CC0A6600747373 /* AudioToolbox.framework */; };
 		00B3CF9C19CC0D2E00747373 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00B3CF9B19CC0D2E00747373 /* CoreMotion.framework */; };
-		00B481B819AED592001F3B2D /* LastCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 00B481B719AED592001F3B2D /* LastCell.m */; };
 		00B685B619ADCF2A00705534 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 00B685B519ADCF2A00705534 /* Reachability.m */; };
 		00B685B819ADCF7D00705534 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00B685B719ADCF7D00705534 /* SystemConfiguration.framework */; };
 		00B75954196BEB6F009C9C58 /* EventCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 00B75953196BEB6F009C9C58 /* EventCell.m */; };
@@ -179,6 +178,8 @@
 		EE7C8C121BFC7E0A00A3671B /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EE7C8BF51BFC7E0A00A3671B /* libWeChatSDK.a */; };
 		EE7C8C131BFC7E0A00A3671B /* UMSocialSDKResourcesNew.bundle in Resources */ = {isa = PBXBuildFile; fileRef = EE7C8BF91BFC7E0A00A3671B /* UMSocialSDKResourcesNew.bundle */; };
 		EE82EDB11BFB2BC50006F18D /* UIImageView+Util.m in Sources */ = {isa = PBXBuildFile; fileRef = EE82EDB01BFB2BC50006F18D /* UIImageView+Util.m */; };
+		EE9018521C030F12006A0909 /* LastCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EE9018511C030F12006A0909 /* LastCell.m */; };
+		EE9018551C030F5A006A0909 /* UIColor+Util.m in Sources */ = {isa = PBXBuildFile; fileRef = EE9018541C030F5A006A0909 /* UIColor+Util.m */; };
 		EE9923B51BFDAE83004499C5 /* AFHTTPRequestOperationManager+Util.m in Sources */ = {isa = PBXBuildFile; fileRef = EE9923B41BFDAE83004499C5 /* AFHTTPRequestOperationManager+Util.m */; };
 /* End PBXBuildFile section */
 
@@ -234,8 +235,6 @@
 		00B3CF9519CBDDE000747373 /* ShakingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShakingView.m; sourceTree = "<group>"; };
 		00B3CF9919CC0A6600747373 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		00B3CF9B19CC0D2E00747373 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
-		00B481B619AED592001F3B2D /* LastCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LastCell.h; sourceTree = "<group>"; };
-		00B481B719AED592001F3B2D /* LastCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LastCell.m; sourceTree = "<group>"; };
 		00B685B419ADCF2A00705534 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		00B685B519ADCF2A00705534 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		00B685B719ADCF7D00705534 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
@@ -471,6 +470,10 @@
 		EE7C8BFA1BFC7E0A00A3671B /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/UMSocialLocalizable.strings"; sourceTree = "<group>"; };
 		EE82EDAF1BFB2BC50006F18D /* UIImageView+Util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+Util.h"; sourceTree = "<group>"; };
 		EE82EDB01BFB2BC50006F18D /* UIImageView+Util.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+Util.m"; sourceTree = "<group>"; };
+		EE9018501C030F12006A0909 /* LastCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LastCell.h; path = Share/LastCell.h; sourceTree = "<group>"; };
+		EE9018511C030F12006A0909 /* LastCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LastCell.m; path = Share/LastCell.m; sourceTree = "<group>"; };
+		EE9018531C030F5A006A0909 /* UIColor+Util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Util.h"; sourceTree = "<group>"; };
+		EE9018541C030F5A006A0909 /* UIColor+Util.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Util.m"; sourceTree = "<group>"; };
 		EE9923AC1BFDA007004499C5 /* GITAPI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GITAPI.h; sourceTree = "<group>"; };
 		EE9923B31BFDAE83004499C5 /* AFHTTPRequestOperationManager+Util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AFHTTPRequestOperationManager+Util.h"; sourceTree = "<group>"; };
 		EE9923B41BFDAE83004499C5 /* AFHTTPRequestOperationManager+Util.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "AFHTTPRequestOperationManager+Util.m"; sourceTree = "<group>"; };
@@ -553,6 +556,7 @@
 		0002D24F1916324B001FDED8 /* iOS-git-osc */ = {
 			isa = PBXGroup;
 			children = (
+				EE90184F1C030EFD006A0909 /* Share */,
 				EE9923AB1BFD9EE9004499C5 /* Application */,
 				EE82EDA81BFB29D00006F18D /* Categories */,
 				38BB9B191A1E0CD900175F10 /* GitAPI */,
@@ -596,14 +600,14 @@
 		0057719619A6299500EAA606 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				EE9018531C030F5A006A0909 /* UIColor+Util.h */,
+				EE9018541C030F5A006A0909 /* UIColor+Util.m */,
 				0079C03519B56521005EF089 /* UIView+Toast.h */,
 				0079C03619B56521005EF089 /* UIView+Toast.m */,
 				00B685B419ADCF2A00705534 /* Reachability.h */,
 				00B685B519ADCF2A00705534 /* Reachability.m */,
 				0041FA99191C87AF00E1F237 /* Tools.h */,
 				0041FA9A191C87AF00E1F237 /* Tools.m */,
-				00B481B619AED592001F3B2D /* LastCell.h */,
-				00B481B719AED592001F3B2D /* LastCell.m */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -1137,6 +1141,15 @@
 			path = Categories;
 			sourceTree = "<group>";
 		};
+		EE90184F1C030EFD006A0909 /* Share */ = {
+			isa = PBXGroup;
+			children = (
+				EE9018501C030F12006A0909 /* LastCell.h */,
+				EE9018511C030F12006A0909 /* LastCell.m */,
+			);
+			name = Share;
+			sourceTree = "<group>";
+		};
 		EE9923AB1BFD9EE9004499C5 /* Application */ = {
 			isa = PBXGroup;
 			children = (
@@ -1335,12 +1348,12 @@
 				00B01FE919221EB40095D488 /* User.m in Sources */,
 				38BB9B891A1E0CD900175F10 /* GLGitlabApi+Repositories.m in Sources */,
 				38BB9B7B1A1E0CD900175F10 /* GLProject.m in Sources */,
+				EE9018551C030F5A006A0909 /* UIColor+Util.m in Sources */,
 				00A74FD519A59FD7009DACDF /* SearchView.m in Sources */,
 				EE82EDB11BFB2BC50006F18D /* UIImageView+Util.m in Sources */,
 				38BB9B701A1E0CD900175F10 /* GLCommit.m in Sources */,
 				00D4ED26196F9B9900F3A4A5 /* IssueCell.m in Sources */,
 				38BB9B7C1A1E0CD900175F10 /* GLSnippet.m in Sources */,
-				00B481B819AED592001F3B2D /* LastCell.m in Sources */,
 				38BB9B761A1E0CD900175F10 /* GLLanguage.m in Sources */,
 				00D4ED23196F97FE00F3A4A5 /* Issue.m in Sources */,
 				009B5231199CAA4100E7F575 /* AccountManagement.m in Sources */,
@@ -1405,6 +1418,7 @@
 				0057719919A73D6A00EAA606 /* LanguageSearchView.m in Sources */,
 				005D05D119CEF6A100439874 /* ReceivingInfoView.m in Sources */,
 				38BB9B831A1E0CD900175F10 /* GLGitlabApi+Groups.m in Sources */,
+				EE9018521C030F12006A0909 /* LastCell.m in Sources */,
 				009567AC19B8430100E9624E /* ProjectDescriptionCell.m in Sources */,
 				38BB9B871A1E0CD900175F10 /* GLGitlabApi+Notes.m in Sources */,
 				00C3A4151961538B002A34AB /* ProjectsTableController.m in Sources */,
