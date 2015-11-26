@@ -10,4 +10,9 @@
 
 @interface UIColor (Util)
 
++ (UIColor *)colorWithHex:(int)hexValue alpha:(CGFloat)alpha;
++ (UIColor *)colorWithHex:(int)hexValue;
+
++ (UIColor *)navigationbarColor;
+
 @end
