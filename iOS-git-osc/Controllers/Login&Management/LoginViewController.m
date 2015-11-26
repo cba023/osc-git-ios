@@ -215,7 +215,7 @@
     CGFloat width = self.view.frame.size.width;
     CGFloat height = self.view.frame.size.height;
     
-    CGFloat y = -50;
+    CGFloat y = -30;
     CGRect rect = CGRectMake(0.0f, y, width, height);
     self.view.frame = rect;
     

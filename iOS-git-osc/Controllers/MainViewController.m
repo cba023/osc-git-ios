@@ -79,19 +79,14 @@
 
 #pragma mark - 检查是否登录
 
-- (void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController
+- (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController
 {
-    if (tabBarController.selectedIndex == 2 && _privateToken == nil) {
+    if (viewController == tabBarController.viewControllers[2]  && _privateToken == nil) {
+        
         LoginViewController *loginViewController = [LoginViewController new];
         UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:loginViewController];
         [((UINavigationController *)tabBarController.selectedViewController) presentViewController:nav animated:YES completion:nil];
-
-    }
-}
-
-- (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController
-{
-    if (tabBarController.selectedIndex == 2 && _privateToken == nil) {
+        
         return NO;
     } else {
         return YES;
