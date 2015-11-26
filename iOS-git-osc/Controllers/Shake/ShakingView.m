@@ -53,10 +53,6 @@
     [self.navigationController.navigationBar setTranslucent:NO];
     self.view.backgroundColor = [UIColor whiteColor];
     self.view.backgroundColor = UIColorFromRGB(0x111111);
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"three_lines"]
-                                                                             style:UIBarButtonItemStylePlain
-                                                                            target:self
-                                                                            action:@selector(showMenu)];
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"收货信息"
                                                                               style:UIBarButtonItemStylePlain
@@ -75,11 +71,6 @@
     AudioServicesCreateSystemSoundID((CFURLRef)CFBridgingRetain([NSURL fileURLWithPath:matchMusicPath]), &_matchSoundID);
     
     _privateToken = [Tools getPrivateToken];
-}
-
-- (void)showMenu
-{
-    [self.navigationController.revealController showViewController:self.navigationController.revealController.leftViewController];
 }
 
 - (void)viewDidAppear:(BOOL)animated

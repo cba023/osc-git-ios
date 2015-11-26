@@ -62,8 +62,6 @@ static NSString * const EventCellIdentifier = @"EventCell";
 {
     [super viewDidLoad];
     
-    self.title = @"动态";
-    
     UIBarButtonItem *backItem = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStyleBordered target:nil action:nil];
     [self.navigationItem setBackBarButtonItem:backItem];
     
@@ -190,6 +188,7 @@ static NSString * const EventCellIdentifier = @"EventCell";
     if (row < self.events.count) {
         GLEvent *event = [self.events objectAtIndex:indexPath.row];
         ProjectDetailsView *projectDetails = [[ProjectDetailsView alloc] initWithProjectID:event.projectId projectNameSpace:event.project.nameSpace];
+        [projectDetails setHidesBottomBarWhenPushed:YES];
         [self.navigationController pushViewController:projectDetails animated:YES];
     } else {
         if (!_isLoading) {

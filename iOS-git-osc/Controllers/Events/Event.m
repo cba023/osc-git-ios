@@ -195,7 +195,7 @@ enum action {
     } else if (actionType == COMMENTED) {
         textView.backgroundColor = [Tools uniformColor];
         NSString *comment = [Tools flattenHTML:[[event.events objectForKey:@"note"] objectForKey:@"note"]];
-        comment = [comment stringByTrimmingCharactersInSet: [NSCharacterSet newlineCharacterSet]];
+        comment = comment.length ? [comment stringByTrimmingCharactersInSet: [NSCharacterSet newlineCharacterSet]] : @"";
         [textView setAttributedText:[[NSAttributedString alloc] initWithString:comment attributes:digestAttributes]];
     } else if (actionType == MERGED) {
         textView.backgroundColor = [Tools uniformColor];

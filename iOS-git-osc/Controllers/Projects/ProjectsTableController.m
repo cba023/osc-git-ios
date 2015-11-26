@@ -165,9 +165,13 @@ static NSString * const cellId = @"ProjectCell";
         
         if (project) {
             ProjectDetailsView *projectDetails = [[ProjectDetailsView alloc] initWithProjectID:project.projectId projectNameSpace:project.nameSpace];
+            [projectDetails setHidesBottomBarWhenPushed:YES];
+            
             if (_projectsType > 2) {
+
                 [self.navigationController pushViewController:projectDetails animated:YES];
             } else {
+                
                 [self.parentViewController.navigationController pushViewController:projectDetails animated:YES];
             }
         }

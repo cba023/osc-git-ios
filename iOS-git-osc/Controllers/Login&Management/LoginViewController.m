@@ -18,6 +18,9 @@
 #import "TTTAttributedLabel.h"
 #import "SSKeychain.h"
 
+#import "AppDelegate.h"
+#import "MainViewController.h"
+
 @interface LoginViewController () <UIGestureRecognizerDelegate, UIActionSheetDelegate, TTTAttributedLabelDelegate>
 
 @property UIButton *submit;
@@ -33,6 +36,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"返回" style:UIBarButtonItemStylePlain target:self action:@selector(backMainController)];
     
     self.title = @"登录";
     
@@ -52,13 +57,6 @@
         self.parentViewController.automaticallyAdjustsScrollViewInsets = NO;
     }
 #endif
-    
-    if (self.navigationController.viewControllers.count <= 1) {
-        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"three_lines"]
-                                                                                 style:UIBarButtonItemStylePlain
-                                                                                target:self
-                                                                                action:@selector(showMenu)];
-    }
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -77,9 +75,11 @@
     }
 }
 
-- (void)showMenu
+#pragma mark - 返回按钮
+- (void)backMainController
 {
-    [self.navigationController.revealController showViewController:self.navigationController.revealController.leftViewController];
+    AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+    appDelegate.window.rootViewController = [MainViewController new];
 }
 
 - (void)didReceiveMemoryWarning
@@ -311,10 +311,8 @@
             [User saveUserInformation:user];
             [User saveAccount:user.email andPassword:_passwordTextField.text];
             
-            UserDetailsView *ownDetailsView = [[UserDetailsView alloc] initWithPrivateToken:user.private_token userID:user.userId];
-            UINavigationController *front = [[UINavigationController alloc] initWithRootViewController:ownDetailsView];
-            [self.revealController setFrontViewController:front];
-            [self.revealController showViewController:self.revealController.frontViewController];
+            AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+            appDelegate.window.rootViewController = [MainViewController new];
         }
     };
     

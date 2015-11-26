@@ -12,6 +12,7 @@
 #import "UIView+Toast.h"
 #import "Tools.h"
 #import "PKRevealController.h"
+#import "SearchView.h"
 
 @interface LanguageSearchView ()
 
@@ -34,11 +35,10 @@ static NSString * const LanguageCellID = @"LanguageCell";
 {
     [super viewDidLoad];
     
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"three_lines"]
-                                                                             style:UIBarButtonItemStylePlain
-                                                                            target:self
-                                                                            action:@selector(showMenu)];
-    self.title = @"编程语言";
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSearch
+                                                                                           target:self
+                                                                                           action:@selector(showMenu)];
+    self.title = @"发现";
     self.revealController.frontViewController.revealController.recognizesPanningOnFrontView = YES;
     
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:LanguageCellID];
@@ -49,7 +49,10 @@ static NSString * const LanguageCellID = @"LanguageCell";
 
 - (void)showMenu
 {
-    [self.navigationController.revealController showViewController:self.navigationController.revealController.leftViewController];
+    SearchView *searchView = [SearchView new];
+    
+    [searchView setHidesBottomBarWhenPushed:YES];
+    [self.navigationController pushViewController:searchView animated:YES];
 }
 
 - (void)didReceiveMemoryWarning
@@ -157,6 +160,7 @@ static NSString * const LanguageCellID = @"LanguageCell";
     projectsTC.title = language.name;
     projectsTC.languageID = language.languageID;
     
+    [projectsTC setHidesBottomBarWhenPushed:YES];
     [self.navigationController pushViewController:projectsTC animated:YES];
 }
 

@@ -20,6 +20,7 @@
 #import "UIView+Toast.h"
 #import "LoginViewController.h"
 #import "UMSocial.h"
+#import "TitleScrollViewController.h"
 
 #import "GITAPI.h"
 #import "AFHTTPRequestOperationManager+Util.h"
@@ -254,8 +255,16 @@ static NSString * const ProjectDetailsCellID = @"ProjectDetailsCell";
     if (section == 1) {
         switch (row) {
             case 0: {
-                UserDetailsView *userDetails = [[UserDetailsView alloc] initWithPrivateToken:nil userID:_project.owner.userId];
-                [self.navigationController pushViewController:userDetails animated:YES];
+                TitleScrollViewController *ownDetailsView = [TitleScrollViewController new];
+                ownDetailsView.titleName = _project.owner.name;
+                ownDetailsView.subTitles = @[@"动态", @"项目", @"Star", @"Watch"];
+                ownDetailsView.isProject = NO;
+                ownDetailsView.userID = _project.owner.userId;
+                ownDetailsView.privateToken = nil;
+                ownDetailsView.portrait = _project.owner.portrait;
+                ownDetailsView.name = _project.owner.name;
+                
+                [self.navigationController pushViewController:ownDetailsView animated:YES];
                 break;
             }
             case 1: {

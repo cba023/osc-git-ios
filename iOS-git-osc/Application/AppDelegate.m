@@ -7,11 +7,11 @@
 //
 
 #import "AppDelegate.h"
-#import "ProjectsViewController.h"
 #import "UMSocial.h"
 #import "UMSocialWechatHandler.h"
 #import "UMSocialQQHandler.h"
 #import "UMSocialSinaHandler.h"
+#import "MainViewController.h"
 
 @implementation AppDelegate
 
@@ -24,16 +24,11 @@
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.backgroundColor=UIColorFromRGB(0x272727);
-    MenuViewController *leftFaceController = [MenuViewController new];
-    ProjectsViewController *projectsView = [ProjectsViewController new];
     
-    //构造PKRevealController对象
-    UINavigationController *frontViewController = [[UINavigationController alloc] initWithRootViewController:projectsView];
-    PKRevealController *revealController = [PKRevealController revealControllerWithFrontViewController:frontViewController leftViewController:leftFaceController];
     
     //将其PKRevealController对象作为RootViewController
  //   self.window.backgroundColor = [UIColor whiteColor];
-    self.window.rootViewController = revealController;
+    self.window.rootViewController = [MainViewController new];
     [self.window makeKeyAndVisible];
     
     if([[[UIDevice currentDevice] systemVersion] floatValue]>=7.0) {

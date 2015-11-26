@@ -157,6 +157,9 @@
 		38C136031A5FC19B00E74C97 /* xcode.css in Resources */ = {isa = PBXBuildFile; fileRef = 38C135891A5FC19B00E74C97 /* xcode.css */; };
 		38C136041A5FC19B00E74C97 /* zenburn.css in Resources */ = {isa = PBXBuildFile; fileRef = 38C1358A1A5FC19B00E74C97 /* zenburn.css */; };
 		811BA39B38156B53A7E3E07E /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3EBA2F84F7B58B70DE5599BC /* libPods.a */; };
+		EE0606E31C040080001825A7 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EE0606E21C040080001825A7 /* MainViewController.m */; };
+		EE0606E61C0406C3001825A7 /* HMSegmentedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = EE0606E51C0406C3001825A7 /* HMSegmentedControl.m */; };
+		EE0606E91C040755001825A7 /* TitleScrollViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EE0606E81C040755001825A7 /* TitleScrollViewController.m */; };
 		EE7C8C001BFC7E0A00A3671B /* UMSocialLocalizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = EE7C8BC31BFC7E0A00A3671B /* UMSocialLocalizable.strings */; };
 		EE7C8C011BFC7E0A00A3671B /* libUMSocial_Sdk_4.2.5.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EE7C8BD11BFC7E0A00A3671B /* libUMSocial_Sdk_4.2.5.a */; };
 		EE7C8C021BFC7E0A00A3671B /* UMSCommentDetailController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EE7C8BD31BFC7E0A00A3671B /* UMSCommentDetailController.xib */; };
@@ -181,6 +184,8 @@
 		EE9018521C030F12006A0909 /* LastCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EE9018511C030F12006A0909 /* LastCell.m */; };
 		EE9018551C030F5A006A0909 /* UIColor+Util.m in Sources */ = {isa = PBXBuildFile; fileRef = EE9018541C030F5A006A0909 /* UIColor+Util.m */; };
 		EE9923B51BFDAE83004499C5 /* AFHTTPRequestOperationManager+Util.m in Sources */ = {isa = PBXBuildFile; fileRef = EE9923B41BFDAE83004499C5 /* AFHTTPRequestOperationManager+Util.m */; };
+		EEA1E36E1C06DF2B001EAE25 /* SetUpsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EEA1E36D1C06DF2B001EAE25 /* SetUpsViewController.m */; };
+		EEA1E3711C06E334001EAE25 /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EEA1E3701C06E334001EAE25 /* AboutViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -420,6 +425,12 @@
 		3EBA2F84F7B58B70DE5599BC /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		C52966EE4CD358ED820DFDD3 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		D87FAE8F0EAE3FD7CEC7C6C8 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		EE0606E11C040080001825A7 /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
+		EE0606E21C040080001825A7 /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
+		EE0606E41C0406C3001825A7 /* HMSegmentedControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HMSegmentedControl.h; sourceTree = "<group>"; };
+		EE0606E51C0406C3001825A7 /* HMSegmentedControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HMSegmentedControl.m; sourceTree = "<group>"; };
+		EE0606E71C040755001825A7 /* TitleScrollViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TitleScrollViewController.h; sourceTree = "<group>"; };
+		EE0606E81C040755001825A7 /* TitleScrollViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TitleScrollViewController.m; sourceTree = "<group>"; };
 		EE7C8BC41BFC7E0A00A3671B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/UMSocialLocalizable.strings; sourceTree = "<group>"; };
 		EE7C8BC61BFC7E0A00A3671B /* UMSocial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMSocial.h; sourceTree = "<group>"; };
 		EE7C8BC71BFC7E0A00A3671B /* UMSocialAccountManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMSocialAccountManager.h; sourceTree = "<group>"; };
@@ -477,6 +488,10 @@
 		EE9923AC1BFDA007004499C5 /* GITAPI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GITAPI.h; sourceTree = "<group>"; };
 		EE9923B31BFDAE83004499C5 /* AFHTTPRequestOperationManager+Util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AFHTTPRequestOperationManager+Util.h"; sourceTree = "<group>"; };
 		EE9923B41BFDAE83004499C5 /* AFHTTPRequestOperationManager+Util.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "AFHTTPRequestOperationManager+Util.m"; sourceTree = "<group>"; };
+		EEA1E36C1C06DF2B001EAE25 /* SetUpsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SetUpsViewController.h; sourceTree = "<group>"; };
+		EEA1E36D1C06DF2B001EAE25 /* SetUpsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SetUpsViewController.m; sourceTree = "<group>"; };
+		EEA1E36F1C06E334001EAE25 /* AboutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutViewController.h; sourceTree = "<group>"; };
+		EEA1E3701C06E334001EAE25 /* AboutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -556,8 +571,8 @@
 		0002D24F1916324B001FDED8 /* iOS-git-osc */ = {
 			isa = PBXGroup;
 			children = (
-				EE90184F1C030EFD006A0909 /* Share */,
 				EE9923AB1BFD9EE9004499C5 /* Application */,
+				EE90184F1C030EFD006A0909 /* Share */,
 				EE82EDA81BFB29D00006F18D /* Categories */,
 				38BB9B191A1E0CD900175F10 /* GitAPI */,
 				38BB9AFE1A1DF10D00175F10 /* Vendor */,
@@ -585,6 +600,9 @@
 			children = (
 				0002D2BC19164716001FDED8 /* MenuViewController.h */,
 				0002D2BD19164716001FDED8 /* MenuViewController.m */,
+				EE0606E11C040080001825A7 /* MainViewController.h */,
+				EE0606E21C040080001825A7 /* MainViewController.m */,
+				EEA1E3681C06DC65001EAE25 /* SetUp */,
 				006391C41987924100689FAD /* Login&Management */,
 				00B7AF0E198BADCC0025C868 /* User */,
 				00B75960196CE5EB009C9C58 /* Projects */,
@@ -1146,6 +1164,10 @@
 			children = (
 				EE9018501C030F12006A0909 /* LastCell.h */,
 				EE9018511C030F12006A0909 /* LastCell.m */,
+				EE0606E41C0406C3001825A7 /* HMSegmentedControl.h */,
+				EE0606E51C0406C3001825A7 /* HMSegmentedControl.m */,
+				EE0606E71C040755001825A7 /* TitleScrollViewController.h */,
+				EE0606E81C040755001825A7 /* TitleScrollViewController.m */,
 			);
 			name = Share;
 			sourceTree = "<group>";
@@ -1169,6 +1191,17 @@
 				EE9923B41BFDAE83004499C5 /* AFHTTPRequestOperationManager+Util.m */,
 			);
 			name = Util;
+			sourceTree = "<group>";
+		};
+		EEA1E3681C06DC65001EAE25 /* SetUp */ = {
+			isa = PBXGroup;
+			children = (
+				EEA1E36C1C06DF2B001EAE25 /* SetUpsViewController.h */,
+				EEA1E36D1C06DF2B001EAE25 /* SetUpsViewController.m */,
+				EEA1E36F1C06E334001EAE25 /* AboutViewController.h */,
+				EEA1E3701C06E334001EAE25 /* AboutViewController.m */,
+			);
+			name = SetUp;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1357,6 +1390,7 @@
 				38BB9B761A1E0CD900175F10 /* GLLanguage.m in Sources */,
 				00D4ED23196F97FE00F3A4A5 /* Issue.m in Sources */,
 				009B5231199CAA4100E7F575 /* AccountManagement.m in Sources */,
+				EE0606E91C040755001825A7 /* TitleScrollViewController.m in Sources */,
 				00D4ED30196FF85E00F3A4A5 /* NoteCell.m in Sources */,
 				38BB9B821A1E0CD900175F10 /* GLGitlabApi+Files.m in Sources */,
 				38BB9B721A1E0CD900175F10 /* GLEvent.m in Sources */,
@@ -1402,6 +1436,7 @@
 				EE9923B51BFDAE83004499C5 /* AFHTTPRequestOperationManager+Util.m in Sources */,
 				0081D0D919BB090A00BF9FFA /* ProjectNameCell.m in Sources */,
 				38BB9B7F1A1E0CD900175F10 /* GLConstants.m in Sources */,
+				EE0606E61C0406C3001825A7 /* HMSegmentedControl.m in Sources */,
 				38BB9B881A1E0CD900175F10 /* GLGitlabApi+Projects.m in Sources */,
 				38BB9B781A1E0CD900175F10 /* GLMilestone.m in Sources */,
 				38BB9B711A1E0CD900175F10 /* GLDiff.m in Sources */,
@@ -1410,11 +1445,14 @@
 				38BB9B7E1A1E0CD900175F10 /* GLUser.m in Sources */,
 				0002D2BE19164716001FDED8 /* MenuViewController.m in Sources */,
 				38BB9B8C1A1E0CD900175F10 /* GLGitlabApi+Users.m in Sources */,
+				EE0606E31C040080001825A7 /* MainViewController.m in Sources */,
 				38BB9B811A1E0CD900175F10 /* GLGitLabApi+Events.m in Sources */,
 				009567B319B8746200E9624E /* ProjectBasicInfoCell.m in Sources */,
 				38BB9B741A1E0CD900175F10 /* GLGroup.m in Sources */,
 				00B7595C196C065E009C9C58 /* Event.m in Sources */,
+				EEA1E3711C06E334001EAE25 /* AboutViewController.m in Sources */,
 				00F0177D1994CDD10076BE43 /* IssueDescriptionCell.m in Sources */,
+				EEA1E36E1C06DF2B001EAE25 /* SetUpsViewController.m in Sources */,
 				0057719919A73D6A00EAA606 /* LanguageSearchView.m in Sources */,
 				005D05D119CEF6A100439874 /* ReceivingInfoView.m in Sources */,
 				38BB9B831A1E0CD900175F10 /* GLGitlabApi+Groups.m in Sources */,
