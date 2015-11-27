@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ProjectsMembersViewController : UITableViewController
+@interface ProjectsCommitsViewController : UITableViewController
+
+- (id)initWithProjectID:(int64_t)projectID projectNameSpace:(NSString *)nameSpace;
 
 @end

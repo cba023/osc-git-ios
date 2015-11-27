@@ -183,7 +183,8 @@
 		EE9923B51BFDAE83004499C5 /* AFHTTPRequestOperationManager+Util.m in Sources */ = {isa = PBXBuildFile; fileRef = EE9923B41BFDAE83004499C5 /* AFHTTPRequestOperationManager+Util.m */; };
 		EEA1E36E1C06DF2B001EAE25 /* SetUpsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EEA1E36D1C06DF2B001EAE25 /* SetUpsViewController.m */; };
 		EEA1E3711C06E334001EAE25 /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EEA1E3701C06E334001EAE25 /* AboutViewController.m */; };
-		EEB00EF81C07F80F00DEDF73 /* ProjectsMembersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EEB00EF71C07F80F00DEDF73 /* ProjectsMembersViewController.m */; };
+		EEB00EF81C07F80F00DEDF73 /* ProjectsCommitsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EEB00EF71C07F80F00DEDF73 /* ProjectsCommitsViewController.m */; };
+		EEB00EFB1C080A2D00DEDF73 /* ProjectsCommitCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EEB00EFA1C080A2D00DEDF73 /* ProjectsCommitCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -484,8 +485,10 @@
 		EEA1E36D1C06DF2B001EAE25 /* SetUpsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SetUpsViewController.m; sourceTree = "<group>"; };
 		EEA1E36F1C06E334001EAE25 /* AboutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutViewController.h; sourceTree = "<group>"; };
 		EEA1E3701C06E334001EAE25 /* AboutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutViewController.m; sourceTree = "<group>"; };
-		EEB00EF61C07F80F00DEDF73 /* ProjectsMembersViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProjectsMembersViewController.h; sourceTree = "<group>"; };
-		EEB00EF71C07F80F00DEDF73 /* ProjectsMembersViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProjectsMembersViewController.m; sourceTree = "<group>"; };
+		EEB00EF61C07F80F00DEDF73 /* ProjectsCommitsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProjectsCommitsViewController.h; sourceTree = "<group>"; };
+		EEB00EF71C07F80F00DEDF73 /* ProjectsCommitsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProjectsCommitsViewController.m; sourceTree = "<group>"; };
+		EEB00EF91C080A2D00DEDF73 /* ProjectsCommitCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProjectsCommitCell.h; sourceTree = "<group>"; };
+		EEB00EFA1C080A2D00DEDF73 /* ProjectsCommitCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProjectsCommitCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -596,7 +599,7 @@
 				EE0606E21C040080001825A7 /* MainViewController.m */,
 				EEA1E3681C06DC65001EAE25 /* SetUp */,
 				006391C41987924100689FAD /* Login&Management */,
-				00B7AF0E198BADCC0025C868 /* User */,
+				00B7AF0E198BADCC0025C868 /* Commit */,
 				00B75960196CE5EB009C9C58 /* Projects */,
 				00B7595F196CE5DA009C9C58 /* Files */,
 				00B7595D196CE575009C9C58 /* Events */,
@@ -711,13 +714,15 @@
 			path = Projects;
 			sourceTree = "<group>";
 		};
-		00B7AF0E198BADCC0025C868 /* User */ = {
+		00B7AF0E198BADCC0025C868 /* Commit */ = {
 			isa = PBXGroup;
 			children = (
-				EEB00EF61C07F80F00DEDF73 /* ProjectsMembersViewController.h */,
-				EEB00EF71C07F80F00DEDF73 /* ProjectsMembersViewController.m */,
+				EEB00EF61C07F80F00DEDF73 /* ProjectsCommitsViewController.h */,
+				EEB00EF71C07F80F00DEDF73 /* ProjectsCommitsViewController.m */,
+				EEB00EF91C080A2D00DEDF73 /* ProjectsCommitCell.h */,
+				EEB00EFA1C080A2D00DEDF73 /* ProjectsCommitCell.m */,
 			);
-			path = User;
+			path = Commit;
 			sourceTree = "<group>";
 		};
 		00D4ED20196F97CF00F3A4A5 /* Issues */ = {
@@ -1406,6 +1411,7 @@
 				00A502D019BE970200EF057B /* ImageView.m in Sources */,
 				00F017771994BB040076BE43 /* CreationInfoCell.m in Sources */,
 				008AB6D119BDD5BC00DF31B0 /* File.m in Sources */,
+				EEB00EFB1C080A2D00DEDF73 /* ProjectsCommitCell.m in Sources */,
 				0002D25A1916324B001FDED8 /* AppDelegate.m in Sources */,
 				38BB9B841A1E0CD900175F10 /* GLGitlabApi+Issues.m in Sources */,
 				00C7C679196A85B70006B2E4 /* FileContentView.m in Sources */,
@@ -1446,7 +1452,7 @@
 				EE9018521C030F12006A0909 /* LastCell.m in Sources */,
 				009567AC19B8430100E9624E /* ProjectDescriptionCell.m in Sources */,
 				38BB9B871A1E0CD900175F10 /* GLGitlabApi+Notes.m in Sources */,
-				EEB00EF81C07F80F00DEDF73 /* ProjectsMembersViewController.m in Sources */,
+				EEB00EF81C07F80F00DEDF73 /* ProjectsCommitsViewController.m in Sources */,
 				00C3A4151961538B002A34AB /* ProjectsTableController.m in Sources */,
 				38BB9B8B1A1E0CD900175F10 /* GLGitlabApi+Snippets.m in Sources */,
 				00B75954196BEB6F009C9C58 /* EventCell.m in Sources */,

@@ -14,5 +14,6 @@
 + (UIColor *)colorWithHex:(int)hexValue;
 
 + (UIColor *)navigationbarColor;
++ (UIColor *)uniformColor;
 
 @end

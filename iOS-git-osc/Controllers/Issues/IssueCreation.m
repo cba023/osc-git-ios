@@ -118,44 +118,9 @@
     issue.projectId = _projectId;
     issue.title = _issueTitle.text;
     issue.issueDescription = _issueDescription.text;
-//    [self createIssue:issue];
+
     [self createNewIssue:issue];
 }
-
-//- (void)createIssue:(GLIssue *)issue
-//{
-//    if (![Tools isNetworkExist]) {
-//         [Tools toastNotification:@"网络连接失败，请检查网络设置" inView:self.view];
-//        return;
-//    }
-//    
-//    [self.view makeToastActivity];
-//    NSString *privateToken = [Tools getPrivateToken];
-//    
-//    GLGitlabSuccessBlock success = ^(id responseObject) {
-//        if (responseObject == nil) {
-//            [Tools toastNotification:@"网络错误" inView:self.view];
-//        } else {
-//            [self.view hideToastActivity];
-//            [Tools toastNotification:@"Issue 创建成功" inView:self.view];
-//        }
-//    };
-//    
-//    GLGitlabFailureBlock failure = ^(NSError *error) {
-//        [self.view hideToastActivity];
-//        
-//        if (error != nil) {
-//            [Tools toastNotification:[NSString stringWithFormat:@"网络异常，错误码：%ld", (long)error.code] inView:self.view];
-//        } else {
-//            [Tools toastNotification:@"网络错误" inView:self.view];
-//        }
-//    };
-//    
-//    [[GLGitlabApi sharedInstance] createIssue:issue
-//                                 privateToken:privateToken
-//                             withSuccessBlock:success
-//                              andFailureBlock:failure];
-//}
 
 - (void)createNewIssue:(GLIssue *)issue
 {

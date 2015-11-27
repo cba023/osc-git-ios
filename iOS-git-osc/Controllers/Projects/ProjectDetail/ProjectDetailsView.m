@@ -20,6 +20,7 @@
 #import "LoginViewController.h"
 #import "UMSocial.h"
 #import "TitleScrollViewController.h"
+#import "ProjectsCommitsViewController.h"
 
 #import "GITAPI.h"
 #import "AFHTTPRequestOperationManager+Util.h"
@@ -90,8 +91,6 @@ static NSString * const ProjectDetailsCellID = @"ProjectDetailsCell";
     NSString *strUrl = privateToken.length ? [NSString stringWithFormat:@"%@%@/%@?private_token=%@", GITAPI_HTTPS_PREFIX, GITAPI_PROJECTS, _namsSpace, [Tools getPrivateToken]] :
     [NSString stringWithFormat:@"%@%@/%@", GITAPI_HTTPS_PREFIX, GITAPI_PROJECTS, _namsSpace];
     
-    NSLog(@"strUrl = %@", strUrl);
-    
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager GitManager];
     [manager GET:strUrl
       parameters:nil
@@ -147,7 +146,7 @@ static NSString * const ProjectDetailsCellID = @"ProjectDetailsCell";
         case 0:
             return 3;
         case 1:
-            return 4;       //return 4;
+            return 5;       //return 4;
         default:
             return 0;
     }
@@ -204,10 +203,10 @@ static NSString * const ProjectDetailsCellID = @"ProjectDetailsCell";
             
             return cell;
         }
-        NSArray *rowTitle = @[@"Readme", @"代码", @"问题"];             //@"提交"
+        NSArray *rowTitle = @[@"Readme", @"代码", @"问题", @"提交"];             //@"提交"
         [cell.textLabel setText:rowTitle[indexPath.row - 1]];
         
-        NSArray *imageName = @[@"projectDetails_readme", @"projectDetails_code", @"projectDetails_issue"];
+        NSArray *imageName = @[@"projectDetails_readme", @"projectDetails_code", @"projectDetails_issue", @"projectDetails_readme"];
         [cell.imageView setImage:[UIImage imageNamed:imageName[indexPath.row - 1]]];
         
         return cell;
@@ -287,6 +286,11 @@ static NSString * const ProjectDetailsCellID = @"ProjectDetailsCell";
             case 3: {
                 IssuesView *issuesView = [[IssuesView alloc] initWithProjectId:_project.projectId projectNameSpace:_project.nameSpace];
                 [self.navigationController pushViewController:issuesView animated:YES];
+                break;
+            }
+            case 4: {
+                ProjectsCommitsViewController *commitController = [[ProjectsCommitsViewController alloc] initWithProjectID:_project.projectId projectNameSpace:_project.nameSpace];
+                [self.navigationController pushViewController:commitController animated:YES];
                 break;
             }
             default:
