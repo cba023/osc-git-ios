@@ -12,9 +12,9 @@
 #import "Event.h"
 #import "Tools.h"
 #import "UIImageView+WebCache.h"
-#import "UserDetailsView.h"
 #import "ProjectDetailsView.h"
 #import "LastCell.h"
+#import "TitleScrollViewController.h"
 
 static NSString * const kKeyPrivate_token = @"private_token";
 static NSString * const EventCellIdentifier = @"EventCell";
@@ -200,9 +200,20 @@ static NSString * const EventCellIdentifier = @"EventCell";
 #pragma mark - recognizer
 - (void)tapPortrait:(UITapGestureRecognizer *)sender
 {
-    GLUser *user = [events objectAtIndex:((UIImageView *)sender.view).tag];
-    UserDetailsView *userDetails = [[UserDetailsView alloc] initWithPrivateToken:nil userID:user.userId];
-    [self.navigationController pushViewController:userDetails animated:YES];
+    GLEvent *event = [self.events objectAtIndex:((UIImageView *)sender.view).tag];
+    
+//    GLUser *user = [events objectAtIndex:((UIImageView *)sender.view).tag];
+    
+    TitleScrollViewController *ownDetailsView = [TitleScrollViewController new];
+    ownDetailsView.titleName = event.project.owner.name;
+    ownDetailsView.subTitles = @[@"动态", @"项目", @"Star", @"Watch"];
+    ownDetailsView.isProject = NO;
+    ownDetailsView.userID = event.project.owner.userId;
+    ownDetailsView.privateToken = nil;
+    ownDetailsView.portrait = event.project.owner.portrait;
+    ownDetailsView.name = event.project.owner.name;
+    
+    [self.navigationController pushViewController:ownDetailsView animated:YES];
 }
 
 #pragma mark - 上拉加载更多

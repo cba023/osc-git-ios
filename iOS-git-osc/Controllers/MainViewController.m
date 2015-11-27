@@ -8,7 +8,6 @@
 
 #import "MainViewController.h"
 #import "LoginViewController.h"
-#import "UserDetailsView.h"
 #import "LanguageSearchView.h"
 #import "TitleScrollViewController.h"
 

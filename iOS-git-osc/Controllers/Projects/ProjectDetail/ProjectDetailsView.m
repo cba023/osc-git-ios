@@ -11,7 +11,6 @@
 #import "FilesTableController.h"
 #import "Tools.h"
 #import "GLGitlab.h"
-#import "UserDetailsView.h"
 #import "IssuesView.h"
 #import "ReadmeView.h"
 #import "ProjectDescriptionCell.h"
@@ -91,6 +90,7 @@ static NSString * const ProjectDetailsCellID = @"ProjectDetailsCell";
     NSString *strUrl = privateToken.length ? [NSString stringWithFormat:@"%@%@/%@?private_token=%@", GITAPI_HTTPS_PREFIX, GITAPI_PROJECTS, _namsSpace, [Tools getPrivateToken]] :
     [NSString stringWithFormat:@"%@%@/%@", GITAPI_HTTPS_PREFIX, GITAPI_PROJECTS, _namsSpace];
     
+    NSLog(@"strUrl = %@", strUrl);
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager GitManager];
     [manager GET:strUrl

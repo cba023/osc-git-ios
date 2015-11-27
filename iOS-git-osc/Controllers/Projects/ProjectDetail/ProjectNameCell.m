@@ -8,7 +8,6 @@
 
 #import "ProjectNameCell.h"
 #import "Tools.h"
-#import "UserDetailsView.h"
 #import "GLProject.h"
 
 @implementation ProjectNameCell

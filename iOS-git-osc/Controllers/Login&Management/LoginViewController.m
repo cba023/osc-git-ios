@@ -12,7 +12,6 @@
 #import "EventsView.h"
 #import "Event.h"
 #import "GLGitlab.h"
-#import "UserDetailsView.h"
 #import "PKRevealController.h"
 #import "UIView+Toast.h"
 #import "TTTAttributedLabel.h"

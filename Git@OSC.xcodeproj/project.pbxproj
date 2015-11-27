@@ -13,7 +13,6 @@
 		0002D2541916324B001FDED8 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0002D2521916324B001FDED8 /* InfoPlist.strings */; };
 		0002D2561916324B001FDED8 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0002D2551916324B001FDED8 /* main.m */; };
 		0002D25A1916324B001FDED8 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0002D2591916324B001FDED8 /* AppDelegate.m */; };
-		0002D2BE19164716001FDED8 /* MenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0002D2BD19164716001FDED8 /* MenuViewController.m */; };
 		0002D2D719188953001FDED8 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0002D2D619188953001FDED8 /* Images.xcassets */; };
 		0021BAF41923608200626A2C /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0021BAF31923608200626A2C /* Security.framework */; };
 		0041FA9B191C87AF00E1F237 /* Tools.m in Sources */ = {isa = PBXBuildFile; fileRef = 0041FA9A191C87AF00E1F237 /* Tools.m */; };
@@ -40,9 +39,7 @@
 		00B75954196BEB6F009C9C58 /* EventCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 00B75953196BEB6F009C9C58 /* EventCell.m */; };
 		00B75957196BEB90009C9C58 /* EventsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 00B75956196BEB90009C9C58 /* EventsView.m */; };
 		00B7595C196C065E009C9C58 /* Event.m in Sources */ = {isa = PBXBuildFile; fileRef = 00B7595B196C065E009C9C58 /* Event.m */; };
-		00B7AF11198BAE0D0025C868 /* UserDetailsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 00B7AF10198BAE0D0025C868 /* UserDetailsView.m */; };
 		00B8125519D0356D0017FCFA /* AwardView.m in Sources */ = {isa = PBXBuildFile; fileRef = 00B8125419D0356D0017FCFA /* AwardView.m */; };
-		00C3A40F196113E7002A34AB /* ProjectsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 00C3A40E196113E7002A34AB /* ProjectsViewController.m */; };
 		00C3A4151961538B002A34AB /* ProjectsTableController.m in Sources */ = {isa = PBXBuildFile; fileRef = 00C3A4141961538B002A34AB /* ProjectsTableController.m */; };
 		00C3A4181962AABC002A34AB /* FilesTableController.m in Sources */ = {isa = PBXBuildFile; fileRef = 00C3A4171962AABC002A34AB /* FilesTableController.m */; };
 		00C3A41B1962BC5D002A34AB /* FileCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 00C3A41A1962BC5D002A34AB /* FileCell.m */; };
@@ -186,6 +183,7 @@
 		EE9923B51BFDAE83004499C5 /* AFHTTPRequestOperationManager+Util.m in Sources */ = {isa = PBXBuildFile; fileRef = EE9923B41BFDAE83004499C5 /* AFHTTPRequestOperationManager+Util.m */; };
 		EEA1E36E1C06DF2B001EAE25 /* SetUpsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EEA1E36D1C06DF2B001EAE25 /* SetUpsViewController.m */; };
 		EEA1E3711C06E334001EAE25 /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EEA1E3701C06E334001EAE25 /* AboutViewController.m */; };
+		EEB00EF81C07F80F00DEDF73 /* ProjectsMembersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EEB00EF71C07F80F00DEDF73 /* ProjectsMembersViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -200,8 +198,6 @@
 		0002D2581916324B001FDED8 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		0002D2591916324B001FDED8 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		0002D2681916324B001FDED8 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
-		0002D2BC19164716001FDED8 /* MenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuViewController.h; sourceTree = "<group>"; };
-		0002D2BD19164716001FDED8 /* MenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuViewController.m; sourceTree = "<group>"; };
 		0002D2D619188953001FDED8 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		0021BAF31923608200626A2C /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		0041FA99191C87AF00E1F237 /* Tools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tools.h; sourceTree = "<group>"; };
@@ -249,12 +245,8 @@
 		00B75956196BEB90009C9C58 /* EventsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventsView.m; sourceTree = "<group>"; };
 		00B7595A196C065E009C9C58 /* Event.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Event.h; sourceTree = "<group>"; };
 		00B7595B196C065E009C9C58 /* Event.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Event.m; sourceTree = "<group>"; };
-		00B7AF0F198BAE0D0025C868 /* UserDetailsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserDetailsView.h; sourceTree = "<group>"; };
-		00B7AF10198BAE0D0025C868 /* UserDetailsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserDetailsView.m; sourceTree = "<group>"; };
 		00B8125319D0356D0017FCFA /* AwardView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AwardView.h; sourceTree = "<group>"; };
 		00B8125419D0356D0017FCFA /* AwardView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AwardView.m; sourceTree = "<group>"; };
-		00C3A40D196113E7002A34AB /* ProjectsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProjectsViewController.h; sourceTree = "<group>"; };
-		00C3A40E196113E7002A34AB /* ProjectsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProjectsViewController.m; sourceTree = "<group>"; };
 		00C3A4131961538B002A34AB /* ProjectsTableController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProjectsTableController.h; sourceTree = "<group>"; };
 		00C3A4141961538B002A34AB /* ProjectsTableController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProjectsTableController.m; sourceTree = "<group>"; };
 		00C3A4161962AABB002A34AB /* FilesTableController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FilesTableController.h; sourceTree = "<group>"; };
@@ -492,6 +484,8 @@
 		EEA1E36D1C06DF2B001EAE25 /* SetUpsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SetUpsViewController.m; sourceTree = "<group>"; };
 		EEA1E36F1C06E334001EAE25 /* AboutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutViewController.h; sourceTree = "<group>"; };
 		EEA1E3701C06E334001EAE25 /* AboutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutViewController.m; sourceTree = "<group>"; };
+		EEB00EF61C07F80F00DEDF73 /* ProjectsMembersViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProjectsMembersViewController.h; sourceTree = "<group>"; };
+		EEB00EF71C07F80F00DEDF73 /* ProjectsMembersViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProjectsMembersViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -598,8 +592,6 @@
 		0002D2B81916407B001FDED8 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				0002D2BC19164716001FDED8 /* MenuViewController.h */,
-				0002D2BD19164716001FDED8 /* MenuViewController.m */,
 				EE0606E11C040080001825A7 /* MainViewController.h */,
 				EE0606E21C040080001825A7 /* MainViewController.m */,
 				EEA1E3681C06DC65001EAE25 /* SetUp */,
@@ -706,8 +698,6 @@
 		00B75960196CE5EB009C9C58 /* Projects */ = {
 			isa = PBXGroup;
 			children = (
-				00C3A40D196113E7002A34AB /* ProjectsViewController.h */,
-				00C3A40E196113E7002A34AB /* ProjectsViewController.m */,
 				00C3A4131961538B002A34AB /* ProjectsTableController.h */,
 				00C3A4141961538B002A34AB /* ProjectsTableController.m */,
 				00C3A42019639F8D002A34AB /* ProjectCell.h */,
@@ -724,8 +714,8 @@
 		00B7AF0E198BADCC0025C868 /* User */ = {
 			isa = PBXGroup;
 			children = (
-				00B7AF0F198BAE0D0025C868 /* UserDetailsView.h */,
-				00B7AF10198BAE0D0025C868 /* UserDetailsView.m */,
+				EEB00EF61C07F80F00DEDF73 /* ProjectsMembersViewController.h */,
+				EEB00EF71C07F80F00DEDF73 /* ProjectsMembersViewController.m */,
 			);
 			path = User;
 			sourceTree = "<group>";
@@ -1427,7 +1417,6 @@
 				00C3A4181962AABC002A34AB /* FilesTableController.m in Sources */,
 				0002D2561916324B001FDED8 /* main.m in Sources */,
 				00D4ED29196F9BCA00F3A4A5 /* IssuesView.m in Sources */,
-				00B7AF11198BAE0D0025C868 /* UserDetailsView.m in Sources */,
 				00B685B619ADCF2A00705534 /* Reachability.m in Sources */,
 				38BB9B6E1A1E0CD900175F10 /* GLBlob.m in Sources */,
 				00D4ED34196FF88300F3A4A5 /* NotesView.m in Sources */,
@@ -1441,9 +1430,7 @@
 				38BB9B781A1E0CD900175F10 /* GLMilestone.m in Sources */,
 				38BB9B711A1E0CD900175F10 /* GLDiff.m in Sources */,
 				38BB9B731A1E0CD900175F10 /* GLFile.m in Sources */,
-				00C3A40F196113E7002A34AB /* ProjectsViewController.m in Sources */,
 				38BB9B7E1A1E0CD900175F10 /* GLUser.m in Sources */,
-				0002D2BE19164716001FDED8 /* MenuViewController.m in Sources */,
 				38BB9B8C1A1E0CD900175F10 /* GLGitlabApi+Users.m in Sources */,
 				EE0606E31C040080001825A7 /* MainViewController.m in Sources */,
 				38BB9B811A1E0CD900175F10 /* GLGitLabApi+Events.m in Sources */,
@@ -1459,6 +1446,7 @@
 				EE9018521C030F12006A0909 /* LastCell.m in Sources */,
 				009567AC19B8430100E9624E /* ProjectDescriptionCell.m in Sources */,
 				38BB9B871A1E0CD900175F10 /* GLGitlabApi+Notes.m in Sources */,
+				EEB00EF81C07F80F00DEDF73 /* ProjectsMembersViewController.m in Sources */,
 				00C3A4151961538B002A34AB /* ProjectsTableController.m in Sources */,
 				38BB9B8B1A1E0CD900175F10 /* GLGitlabApi+Snippets.m in Sources */,
 				00B75954196BEB6F009C9C58 /* EventCell.m in Sources */,
