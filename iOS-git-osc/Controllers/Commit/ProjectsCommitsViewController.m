@@ -9,21 +9,30 @@
 #import "ProjectsCommitsViewController.h"
 #import "ProjectsCommitCell.h"
 #import "UIView+Toast.h"
+#import "UIColor+Util.h"
 #import "Tools.h"
 #import "GITAPI.h"
 #import "AFHTTPRequestOperationManager+Util.h"
 #import "GLCommit.h"
 #import "LastCell.h"
+#import "HCDropdownView.h"
 
-@interface ProjectsCommitsViewController ()
+@interface ProjectsCommitsViewController () <HCDropdownViewDelegate>
 
-@property int64_t projectID;
-@property NSString *projectNameSpace;
-@property NSMutableArray *commits;
+@property (nonatomic, assign) int64_t projectID;
+@property (nonatomic, copy) NSString *projectNameSpace;
+@property (nonatomic, strong) NSMutableArray *commits;
 
-@property BOOL isLoading;
-@property BOOL isFinishedLoad;
-@property LastCell *lastCell;
+@property (nonatomic, assign) BOOL isLoading;
+@property (nonatomic, assign) BOOL isFinishedLoad;
+@property (nonatomic, strong) LastCell *lastCell;
+
+@property (nonatomic, strong) HCDropdownView *branchTableView;
+@property (nonatomic, strong) NSMutableArray *branchs;
+@property (nonatomic, assign) NSInteger selectedRow;
+@property (nonatomic, assign) BOOL didChangeSelecteItem;
+@property (nonatomic) CGPoint origin;
+@property (nonatomic, copy) NSString *branchName;
 
 @end
 
@@ -53,12 +62,15 @@ static NSString * const cellId = @"ProjectsCommitCell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    _branchs = [NSMutableArray new];
+    _branchName = @"master";
+    
     self.clearsSelectionOnViewWillAppear = NO;
     self.tableView.backgroundColor = [UIColor whiteColor];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     
-    self.navigationItem.title = @"提交";
+    self.navigationItem.title = @"master";
     _commits = [NSMutableArray new];
     
     [self.tableView registerClass:[ProjectsCommitCell class] forCellReuseIdentifier:cellId];
@@ -73,11 +85,48 @@ static NSString * const cellId = @"ProjectsCommitCell";
     _lastCell = [[LastCell alloc] initCell];
     
     [self fetchForCommitDataOnPage:1 refresh:YES];
+    [self fetchbranchs:@"branches"];
+    [self fetchbranchs:@"tags"];
+    
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"分支" style:UIBarButtonItemStylePlain target:self action:@selector(clickBranch)];
+    
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+#pragma mark - 侧栏列表
+- (void)initBranchTableView
+{
+    self.branchTableView = [HCDropdownView dropdownView];
+    self.branchTableView.delegate = self;
+
+    self.branchTableView.menuRowHeight = 50;
+    self.branchTableView.titles = _branchs;
+    self.branchTableView.imageNameStr = @"projectDetails_fork";
+    self.branchTableView.menuTabelView.frame = CGRectMake(CGRectGetWidth([[UIScreen mainScreen]bounds])/2, 0, CGRectGetWidth([[UIScreen mainScreen]bounds])/2, MIN(CGRectGetHeight([[UIScreen mainScreen]bounds])/2, self.branchTableView.menuRowHeight * self.branchTableView.titles.count));
+    self.branchTableView.menuTabelView.rowHeight = self.branchTableView.menuRowHeight;
+    _origin = _branchTableView.menuTabelView.frame.origin;
+}
+
+#pragma mark - 分支
+- (void)clickBranch
+{
+    [self initBranchTableView];
+    
+    BOOL isOpenedState;
+    if ([self.branchTableView isOpen]) {
+        [self.branchTableView hide];
+        isOpenedState = NO;
+    }
+    else {
+        [self.branchTableView showFromNavigationController:self.navigationController menuTabelViewOrigin:_origin];
+        isOpenedState = YES;
+    }
+    
+    NSLog(@"branch");
 }
 
 #pragma mark - 获取数据
@@ -106,7 +155,7 @@ static NSString * const cellId = @"ProjectsCommitCell";
     NSUserDefaults *user = [NSUserDefaults standardUserDefaults];
     NSString *privateToken = [user objectForKey:@"private_token"];
     
-    NSString *strUrl = privateToken.length ? [NSString stringWithFormat:@"%@%@/%@/repository/commits?private_token=%@&page=%lu", GITAPI_HTTPS_PREFIX, GITAPI_PROJECTS, _projectNameSpace, [Tools getPrivateToken], (unsigned long)page] : [NSString stringWithFormat:@"%@%@/%@/repository/commits?page=%lu", GITAPI_HTTPS_PREFIX, GITAPI_PROJECTS, _projectNameSpace, (unsigned long)page];
+    NSString *strUrl = privateToken.length ? [NSString stringWithFormat:@"%@%@/%@/repository/commits?private_token=%@&page=%lu&ref_name=%@", GITAPI_HTTPS_PREFIX, GITAPI_PROJECTS, _projectNameSpace, [Tools getPrivateToken], (unsigned long)page, _branchName] : [NSString stringWithFormat:@"%@%@/%@/repository/commits?page=%lu&ref_name=%@", GITAPI_HTTPS_PREFIX, GITAPI_PROJECTS, _projectNameSpace, (unsigned long)page, _branchName];
 
     [manager GET:strUrl
       parameters:nil
@@ -154,6 +203,60 @@ static NSString * const cellId = @"ProjectsCommitCell";
              
              _isLoading = NO;
     }];
+}
+
+- (void)fetchbranchs:(NSString *)branch
+{
+    if (![Tools isNetworkExist]) {
+        [Tools toastNotification:@"网络连接失败，请检查网络设置" inView:self.view];
+        return;
+    }
+    
+    [self.view makeToastActivity];
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager GitManager];
+    
+    NSUserDefaults *user = [NSUserDefaults standardUserDefaults];
+    NSString *privateToken = [user objectForKey:@"private_token"];
+    
+    NSString *strUrl = privateToken.length ? [NSString stringWithFormat:@"%@%@/%@/repository/%@?private_token=%@", GITAPI_HTTPS_PREFIX, GITAPI_PROJECTS, _projectNameSpace, branch, [Tools getPrivateToken]] : [NSString stringWithFormat:@"%@%@/%@/repository/%@", GITAPI_HTTPS_PREFIX, GITAPI_PROJECTS, _projectNameSpace, branch];
+    
+    [manager GET:strUrl
+      parameters:nil
+         success:^(AFHTTPRequestOperation * operation, id responseObject) {
+             [self.view hideToastActivity];
+             
+             if ([responseObject count] == 0) {
+
+             } else {
+                 [responseObject enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                     NSString *name = [obj objectForKey:@"name"];
+                    
+                     [_branchs addObject:name];
+                 }];
+                 
+                 dispatch_async(dispatch_get_main_queue(), ^{
+                     [self.tableView reloadData];
+                     
+                 });
+             }
+
+         } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
+             [self.view hideToastActivity];
+             
+             if (error != nil) {
+                 [Tools toastNotification:[NSString stringWithFormat:@"网络异常，错误码：%ld", (long)error.code] inView:self.view];
+             } else {
+                 [Tools toastNotification:@"网络错误" inView:self.view];
+             }
+             dispatch_async(dispatch_get_main_queue(), ^{
+
+                 [self.tableView reloadData];
+        
+             });
+             
+             _isLoading = NO;
+         }];
 }
 
 #pragma mark - 刷新
@@ -240,6 +343,35 @@ static NSString * const cellId = @"ProjectsCommitCell";
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+}
+
+#pragma mark -- HCDropdownViewDelegate
+- (void)dropdownViewWillHide:(HCDropdownView *)dropdownView {
+    _didChangeSelecteItem = NO;
+}
+- (void)dropdownViewDidHide:(HCDropdownView *)dropdownView {
+    if (_didChangeSelecteItem) {
+
+        _branchName = _branchs[_selectedRow];
+        [self fetchForCommitDataOnPage:1 refresh:YES];
+        
+        self.navigationItem.title = _branchName;
+        
+        [self.tableView reloadData];
+    }
+}
+-(void)didSelectItemAtRow:(NSInteger)row {
+    if (_selectedRow != row) {
+        _didChangeSelecteItem = YES;
+        _selectedRow = row;
+    }
+
+}
+
+-(void)viewWillDisappear:(BOOL)animated {
+    if (self.branchTableView) {
+        [self.branchTableView hide];
+    }
 }
 
 @end

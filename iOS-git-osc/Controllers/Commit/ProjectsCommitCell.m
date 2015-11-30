@@ -38,6 +38,7 @@
 {
     _memberImageView = [UIImageView new];
     _memberImageView.layer.cornerRadius = 5;
+    _memberImageView.clipsToBounds = YES;
     _memberImageView.contentMode = UIViewContentModeScaleAspectFit;
     [self.contentView addSubview:_memberImageView];
     
