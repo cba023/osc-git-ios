@@ -69,6 +69,8 @@ static NSString * const cellId = @"ProjectsCommitCell";
     self.tableView.delegate = self;
     [self.view addSubview:self.tableView];
     [self.tableView registerClass:[ProjectsCommitCell class] forCellReuseIdentifier:cellId];
+    UIView *footer =[[UIView alloc] initWithFrame:CGRectZero];
+    self.tableView.tableFooterView = footer;
     
     [self fetchForCommitDataOnRefresh:YES];
     [self fetchbranchs:@"branches"];
