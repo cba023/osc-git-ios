@@ -14,18 +14,21 @@
 #import "GITAPI.h"
 #import "AFHTTPRequestOperationManager+Util.h"
 #import "GLCommit.h"
-#import "LastCell.h"
+//#import "LastCell.h"
 #import "HCDropdownView.h"
 
-@interface ProjectsCommitsViewController () <HCDropdownViewDelegate>
+#import "MJRefresh.h"
+
+@interface ProjectsCommitsViewController () <HCDropdownViewDelegate, UITableViewDataSource, UITableViewDelegate>
+
+@property (nonatomic, strong) UITableView *tableView;
 
 @property (nonatomic, assign) int64_t projectID;
 @property (nonatomic, copy) NSString *projectNameSpace;
 @property (nonatomic, strong) NSMutableArray *commits;
+@property (nonatomic, assign) NSInteger page;
 
-@property (nonatomic, assign) BOOL isLoading;
-@property (nonatomic, assign) BOOL isFinishedLoad;
-@property (nonatomic, strong) LastCell *lastCell;
+@property (nonatomic, assign) BOOL needRefresh;
 
 @property (nonatomic, strong) HCDropdownView *branchTableView;
 @property (nonatomic, strong) NSMutableArray *branchs;
@@ -50,46 +53,42 @@ static NSString * const cellId = @"ProjectsCommitCell";
     return self;
 }
 
-- (void)viewDidAppear:(BOOL)animated
-{
-    if (_commits.count > 0 || _isFinishedLoad) {return;}
-    
-    [self.refreshControl beginRefreshing];
-    [self.tableView setContentOffset:CGPointMake(0, self.tableView.contentOffset.y-self.refreshControl.frame.size.height)
-                            animated:YES];
-}
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     
     _branchs = [NSMutableArray new];
     _branchName = @"master";
     
-    self.clearsSelectionOnViewWillAppear = NO;
-    self.tableView.backgroundColor = [UIColor whiteColor];
-    self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
-    self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+    _page = 1;
     
     self.navigationItem.title = @"master";
     _commits = [NSMutableArray new];
     
+    self.edgesForExtendedLayout = UIRectEdgeNone;
+    self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.frame), CGRectGetHeight(self.view.frame)-64)];
+    self.tableView.dataSource = self;
+    self.tableView.delegate = self;
+    [self.view addSubview:self.tableView];
     [self.tableView registerClass:[ProjectsCommitCell class] forCellReuseIdentifier:cellId];
     
-    UIView *footer = [[UIView alloc] initWithFrame:CGRectZero];
-    self.tableView.tableFooterView = footer;
-    
-    self.refreshControl = [UIRefreshControl new];
-    [self.refreshControl addTarget:self action:@selector(refresh) forControlEvents:UIControlEventValueChanged];
-    [self.tableView addSubview:self.refreshControl];
-    
-    _lastCell = [[LastCell alloc] initCell];
-    
-    [self fetchForCommitDataOnPage:1 refresh:YES];
+    [self fetchForCommitDataOnRefresh:YES];
     [self fetchbranchs:@"branches"];
     [self fetchbranchs:@"tags"];
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"分支" style:UIBarButtonItemStylePlain target:self action:@selector(clickBranch)];
     
+    //下拉刷新
+    self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        [self fetchForCommitDataOnRefresh:YES];
+    }];
+    //上拉刷新
+    self.tableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
+        [self fetchForCommitDataOnRefresh:NO];
+    }];
+    [(MJRefreshAutoNormalFooter *)self.tableView.mj_footer setTitle:@"已全部加载完毕" forState:MJRefreshStateNoMoreData];
+    // 默认先隐藏footer
+    self.tableView.mj_footer.hidden = YES;
+    [self.tableView.mj_header beginRefreshing];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -130,22 +129,22 @@ static NSString * const cellId = @"ProjectsCommitCell";
 }
 
 #pragma mark - 获取数据
-- (void)fetchForCommitDataOnPage:(NSInteger)page refresh:(BOOL)refresh
+- (void)fetchForCommitDataOnRefresh:(BOOL)refresh
 {
     if (![Tools isNetworkExist]) {
-        if (refresh) {
-            [self.refreshControl endRefreshing];
-            _lastCell.status = LastCellStatusVisible;
-        } else {
-            _isLoading = NO;
-            if (_isFinishedLoad) {
-                [_lastCell finishedLoad];
-            } else {
-                [_lastCell normal];
-            }
-        }
+        
         [Tools toastNotification:@"网络连接失败，请检查网络设置" inView:self.view];
         return;
+    }
+    if (refresh) {
+        _page = 1;
+    } else {
+        _page++;
+        _needRefresh = NO;
+    }
+    
+    if (_needRefresh) {
+        [_commits removeAllObjects];
     }
     
     [self.view makeToastActivity];
@@ -155,7 +154,24 @@ static NSString * const cellId = @"ProjectsCommitCell";
     NSUserDefaults *user = [NSUserDefaults standardUserDefaults];
     NSString *privateToken = [user objectForKey:@"private_token"];
     
-    NSString *strUrl = privateToken.length ? [NSString stringWithFormat:@"%@%@/%@/repository/commits?private_token=%@&page=%lu&ref_name=%@", GITAPI_HTTPS_PREFIX, GITAPI_PROJECTS, _projectNameSpace, [Tools getPrivateToken], (unsigned long)page, _branchName] : [NSString stringWithFormat:@"%@%@/%@/repository/commits?page=%lu&ref_name=%@", GITAPI_HTTPS_PREFIX, GITAPI_PROJECTS, _projectNameSpace, (unsigned long)page, _branchName];
+    NSString *strUrl;
+    if (privateToken.length > 0) {
+        strUrl = [NSString stringWithFormat:@"%@%@/%@/repository/commits?private_token=%@&page=%ld&ref_name=%@",
+                  GITAPI_HTTPS_PREFIX,
+                  GITAPI_PROJECTS,
+                  _projectNameSpace,
+                  [Tools getPrivateToken],
+                  _page,
+                  _branchName];
+    } else {
+        strUrl = [NSString stringWithFormat:@"%@%@/%@/repository/commits?page=%ld&ref_name=%@",
+                  GITAPI_HTTPS_PREFIX,
+                  GITAPI_PROJECTS,
+                  _projectNameSpace,
+                  _page,
+                  _branchName];
+    }
+
 
     [manager GET:strUrl
       parameters:nil
@@ -163,27 +179,29 @@ static NSString * const cellId = @"ProjectsCommitCell";
              [self.view hideToastActivity];
              
              if (refresh) {
-                 [self.refreshControl endRefreshing];
                  [_commits removeAllObjects];
              }
              
-             if ([responseObject count] == 0) {
-                 _isFinishedLoad = YES;
-                 [_lastCell finishedLoad];
-             } else {
-                 _isFinishedLoad = [(NSArray *)responseObject count] < 20;
-                 [responseObject enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+             if ([responseObject count]) {
+
+                 [responseObject enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL * stop) {
                      GLCommit *commit = [[GLCommit alloc] initWithJSON:obj];
                      [_commits addObject:commit];
                  }];
                  
+                 if (_commits.count < 20) {
+                     [self.tableView.mj_footer endRefreshingWithNoMoreData];
+                 } else {
+                     [self.tableView.mj_footer endRefreshing];
+                 }
+                 
                  dispatch_async(dispatch_get_main_queue(), ^{
                      [self.tableView reloadData];
-                     if (refresh) {[self.refreshControl endRefreshing];}
-                     _isFinishedLoad? [_lastCell finishedLoad]: [_lastCell normal];
+                     [self.tableView.mj_header endRefreshing];
                  });
+                 
              }
-             _isLoading = NO;
+
          } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
              [self.view hideToastActivity];
              
@@ -193,17 +211,15 @@ static NSString * const cellId = @"ProjectsCommitCell";
                  [Tools toastNotification:@"网络错误" inView:self.view];
              }
              dispatch_async(dispatch_get_main_queue(), ^{
-                 _lastCell.status = LastCellStatusVisible;
-                 [_lastCell errorStatus];
                  [self.tableView reloadData];
-                 if (refresh) {
-                     [self.refreshControl endRefreshing];
-                 }
+                 [self.tableView.mj_header endRefreshing];
+                 [self.tableView.mj_footer endRefreshing];
              });
              
-             _isLoading = NO;
     }];
 }
+
+#pragma mark - 获取分支信息
 
 - (void)fetchbranchs:(NSString *)branch
 {
@@ -255,56 +271,14 @@ static NSString * const cellId = @"ProjectsCommitCell";
         
              });
              
-             _isLoading = NO;
          }];
 }
-
-#pragma mark - 刷新
-
-- (void)refresh
-{
-    static BOOL refreshInProgress = NO;
-    
-    if (!refreshInProgress)
-    {
-        refreshInProgress = YES;
-        
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-            [self fetchForCommitDataOnPage:1 refresh:YES];
-            refreshInProgress = NO;
-        });
-    }
-}
-
-#pragma mark - 下拉操作
-
-- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
-{
-    // 下拉到最底部时显示更多数据
-    if(scrollView.contentOffset.y > ((scrollView.contentSize.height - scrollView.frame.size.height)))
-    {
-        [self loadMore];
-    }
-}
-
-#pragma mark - 加载
-
-- (void)loadMore
-{
-    if (_isFinishedLoad || _isLoading) {return;}
-    
-    _isLoading = YES;
-    [_lastCell loading];
-    [self fetchForCommitDataOnPage:_commits.count/20 + 2 refresh:NO];
-}
-
 
 #pragma mark - Table view data source
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    if (_lastCell.status == LastCellStatusNotVisible) {return _commits.count;}
-    return _commits.count+1;
+    return _commits.count;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -335,14 +309,13 @@ static NSString * const cellId = @"ProjectsCommitCell";
         [cell contentForProjectsCommit:commit];
         
         return cell;
-    } else {
-        return _lastCell;
     }
+    return [UITableViewCell new];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 #pragma mark -- HCDropdownViewDelegate
@@ -351,9 +324,9 @@ static NSString * const cellId = @"ProjectsCommitCell";
 }
 - (void)dropdownViewDidHide:(HCDropdownView *)dropdownView {
     if (_didChangeSelecteItem) {
-
+        _needRefresh = YES;
         _branchName = _branchs[_selectedRow];
-        [self fetchForCommitDataOnPage:1 refresh:YES];
+        [self fetchForCommitDataOnRefresh:YES];
         
         self.navigationItem.title = _branchName;
         

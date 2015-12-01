@@ -23,6 +23,7 @@ PODS:
   - Mantle (2.0.5):
     - Mantle/extobjc (= 2.0.5)
   - Mantle/extobjc (2.0.5)
+  - MJRefresh (3.0.7)
   - PKRevealController (2.0.6)
   - SDWebImage (3.7.1):
     - SDWebImage/Core (= 3.7.1)
@@ -34,6 +35,7 @@ PODS:
 DEPENDENCIES:
   - AFNetworking
   - Mantle
+  - MJRefresh
   - PKRevealController
   - SDWebImage (~> 3.6)
   - SSKeychain
@@ -43,6 +45,7 @@ DEPENDENCIES:
 SPEC CHECKSUMS:
   AFNetworking: cb8d14a848e831097108418f5d49217339d4eb60
   Mantle: 1912395033f601de5adc8ee91e48f46e4c7051ad
+  MJRefresh: f3e1228ec3d38c7ba5208d58032631a52f39f495
   PKRevealController: ffb45a16f5a5032ad90a3d16e5cbb0d8e035bd58
   SDWebImage: ed3095af2ff88b436426037444979b917f6c5575
   SSKeychain: 88767e903ee8d274ed380e364d96b7a101235286

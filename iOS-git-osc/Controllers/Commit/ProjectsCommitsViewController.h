@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ProjectsCommitsViewController : UITableViewController
+@interface ProjectsCommitsViewController : UIViewController
 
 - (id)initWithProjectID:(int64_t)projectID projectNameSpace:(NSString *)nameSpace;
 
