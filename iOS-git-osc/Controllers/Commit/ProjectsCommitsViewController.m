@@ -14,7 +14,6 @@
 #import "GITAPI.h"
 #import "AFHTTPRequestOperationManager+Util.h"
 #import "GLCommit.h"
-//#import "LastCell.h"
 #import "HCDropdownView.h"
 
 #import "MJRefresh.h"
@@ -124,8 +123,6 @@ static NSString * const cellId = @"ProjectsCommitCell";
         [self.branchTableView showFromNavigationController:self.navigationController menuTabelViewOrigin:_origin];
         isOpenedState = YES;
     }
-    
-    NSLog(@"branch");
 }
 
 #pragma mark - 获取数据
@@ -333,12 +330,10 @@ static NSString * const cellId = @"ProjectsCommitCell";
         [self.tableView reloadData];
     }
 }
--(void)didSelectItemAtRow:(NSInteger)row {
-    if (_selectedRow != row) {
-        _didChangeSelecteItem = YES;
-        _selectedRow = row;
-    }
-
+-(void)didSelectItemAtRow:(NSInteger)row
+{
+    _didChangeSelecteItem = YES;
+    _selectedRow = row;
 }
 
 -(void)viewWillDisappear:(BOOL)animated {
