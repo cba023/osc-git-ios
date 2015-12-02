@@ -185,6 +185,8 @@
 		EE8983E41C0C1FDF005CF5AB /* UIImage+LMExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = EE8983E01C0C1FDF005CF5AB /* UIImage+LMExtension.m */; };
 		EE9018551C030F5A006A0909 /* UIColor+Util.m in Sources */ = {isa = PBXBuildFile; fileRef = EE9018541C030F5A006A0909 /* UIColor+Util.m */; };
 		EE9923B51BFDAE83004499C5 /* AFHTTPRequestOperationManager+Util.m in Sources */ = {isa = PBXBuildFile; fileRef = EE9923B41BFDAE83004499C5 /* AFHTTPRequestOperationManager+Util.m */; };
+		EE9D346D1C0E92AC00BE5704 /* CommitDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EE9D346C1C0E92AC00BE5704 /* CommitDetailViewController.m */; };
+		EE9D34701C0EEA1600BE5704 /* DiffHeaderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EE9D346F1C0EEA1600BE5704 /* DiffHeaderCell.m */; };
 		EEA1E36E1C06DF2B001EAE25 /* SetUpsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EEA1E36D1C06DF2B001EAE25 /* SetUpsViewController.m */; };
 		EEA1E3711C06E334001EAE25 /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EEA1E3701C06E334001EAE25 /* AboutViewController.m */; };
 		EEB00EF81C07F80F00DEDF73 /* ProjectsCommitsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EEB00EF71C07F80F00DEDF73 /* ProjectsCommitsViewController.m */; };
@@ -492,6 +494,10 @@
 		EE9923AC1BFDA007004499C5 /* GITAPI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GITAPI.h; sourceTree = "<group>"; };
 		EE9923B31BFDAE83004499C5 /* AFHTTPRequestOperationManager+Util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AFHTTPRequestOperationManager+Util.h"; sourceTree = "<group>"; };
 		EE9923B41BFDAE83004499C5 /* AFHTTPRequestOperationManager+Util.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "AFHTTPRequestOperationManager+Util.m"; sourceTree = "<group>"; };
+		EE9D346B1C0E92AC00BE5704 /* CommitDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommitDetailViewController.h; sourceTree = "<group>"; };
+		EE9D346C1C0E92AC00BE5704 /* CommitDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommitDetailViewController.m; sourceTree = "<group>"; };
+		EE9D346E1C0EEA1600BE5704 /* DiffHeaderCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DiffHeaderCell.h; sourceTree = "<group>"; };
+		EE9D346F1C0EEA1600BE5704 /* DiffHeaderCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DiffHeaderCell.m; sourceTree = "<group>"; };
 		EEA1E36C1C06DF2B001EAE25 /* SetUpsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SetUpsViewController.h; sourceTree = "<group>"; };
 		EEA1E36D1C06DF2B001EAE25 /* SetUpsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SetUpsViewController.m; sourceTree = "<group>"; };
 		EEA1E36F1C06E334001EAE25 /* AboutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutViewController.h; sourceTree = "<group>"; };
@@ -732,6 +738,10 @@
 				EEB00EF71C07F80F00DEDF73 /* ProjectsCommitsViewController.m */,
 				EEB00EF91C080A2D00DEDF73 /* ProjectsCommitCell.h */,
 				EEB00EFA1C080A2D00DEDF73 /* ProjectsCommitCell.m */,
+				EE9D346B1C0E92AC00BE5704 /* CommitDetailViewController.h */,
+				EE9D346C1C0E92AC00BE5704 /* CommitDetailViewController.m */,
+				EE9D346E1C0EEA1600BE5704 /* DiffHeaderCell.h */,
+				EE9D346F1C0EEA1600BE5704 /* DiffHeaderCell.m */,
 			);
 			path = Commit;
 			sourceTree = "<group>";
@@ -1439,6 +1449,7 @@
 				00B3CF9619CBDDE000747373 /* ShakingView.m in Sources */,
 				38BB9B931A1E0CD900175F10 /* GLGitlabApi+Private.m in Sources */,
 				0079C03719B56521005EF089 /* UIView+Toast.m in Sources */,
+				EE9D34701C0EEA1600BE5704 /* DiffHeaderCell.m in Sources */,
 				38BB9B7A1A1E0CD900175F10 /* GLNote.m in Sources */,
 				38BB9B8D1A1E0CD900175F10 /* GLGitlabApi.m in Sources */,
 				38BB9B7D1A1E0CD900175F10 /* GLTag.m in Sources */,
@@ -1468,6 +1479,7 @@
 				EE9923B51BFDAE83004499C5 /* AFHTTPRequestOperationManager+Util.m in Sources */,
 				0081D0D919BB090A00BF9FFA /* ProjectNameCell.m in Sources */,
 				38BB9B7F1A1E0CD900175F10 /* GLConstants.m in Sources */,
+				EE9D346D1C0E92AC00BE5704 /* CommitDetailViewController.m in Sources */,
 				EE0606E61C0406C3001825A7 /* HMSegmentedControl.m in Sources */,
 				38BB9B881A1E0CD900175F10 /* GLGitlabApi+Projects.m in Sources */,
 				38BB9B781A1E0CD900175F10 /* GLMilestone.m in Sources */,

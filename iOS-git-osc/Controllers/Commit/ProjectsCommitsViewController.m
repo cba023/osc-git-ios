@@ -15,6 +15,7 @@
 #import "AFHTTPRequestOperationManager+Util.h"
 #import "GLCommit.h"
 #import "HCDropdownView.h"
+#import "CommitDetailViewController.h"
 
 #import "MJRefresh.h"
 
@@ -315,6 +316,15 @@ static NSString * const cellId = @"ProjectsCommitCell";
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+    GLCommit *commit = _commits[indexPath.row];
+    
+    if (self.tableView == tableView) {
+        CommitDetailViewController *commitDetailController = [CommitDetailViewController new];
+        commitDetailController.projectNameSpace = _projectNameSpace;
+        commitDetailController.commit = commit;
+        [self.navigationController pushViewController:commitDetailController animated:YES];
+    }
 }
 
 #pragma mark -- HCDropdownViewDelegate
