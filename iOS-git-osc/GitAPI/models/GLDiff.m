@@ -16,6 +16,11 @@ static NSString * const kKeyBMode = @"b_mode";
 static NSString * const kKeyNewFile = @"new_file";
 static NSString * const kKeyRenamedFile = @"renamed_file";
 static NSString * const kKeyDeletedFile = @"deleted_file";
+static NSString * const kKeyType = @"type";
+
+// File Type Values
+static NSString * const kTextType = @"text";
+static NSString * const kBinaryType = @"binary";
 
 @implementation GLDiff
 
@@ -30,6 +35,13 @@ static NSString * const kKeyDeletedFile = @"deleted_file";
         _newFile = [json[kKeyNewFile] boolValue];
         _renamedFile = [json[kKeyRenamedFile] boolValue];
         _deletedFile = [json[kKeyDeletedFile] boolValue];
+        
+        if ([json[kKeyType] isEqualToString:kTextType]) {
+            _type = GLDiffTypeText;
+        }
+        else if ([json[kKeyType] isEqualToString:kBinaryType]) {
+            _type = GLDiffTypeBinary;
+        }
     }
     return self;
 }

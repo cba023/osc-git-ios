@@ -14,6 +14,7 @@
 #import "UIColor+Util.h"
 
 #import "DiffHeaderCell.h"
+#import "CommitFileViewController.h"
 
 @interface CommitDetailViewController ()
 
@@ -181,6 +182,20 @@ static NSString * const cellId = @"DiffHeaderCell";
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+    if (indexPath.section == 1) {
+        GLDiff *diff = _commitDiffs[indexPath.row];
+        
+        if (diff.type == GLDiffTypeText) {
+            CommitFileViewController *commitFileController = [CommitFileViewController new];
+            commitFileController.projectNameSpace = _projectNameSpace;
+            commitFileController.commitIDStr = _commit.sha;
+            commitFileController.commitFilePath = diff.updatedPath;
+            [self.navigationController pushViewController:commitFileController animated:YES];
+        }
+        
+    }
+    
 }
 
 @end
