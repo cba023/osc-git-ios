@@ -18,6 +18,7 @@
 #import "CommitDetailViewController.h"
 
 #import "MJRefresh.h"
+#import "DataSetObject.h"
 
 @interface ProjectsCommitsViewController () <HCDropdownViewDelegate, UITableViewDataSource, UITableViewDelegate>
 
@@ -36,6 +37,8 @@
 @property (nonatomic, assign) BOOL didChangeSelecteItem;
 @property (nonatomic) CGPoint origin;
 @property (nonatomic, copy) NSString *branchName;
+
+@property (nonatomic,strong) DataSetObject *emptyDataSet;
 
 @end
 
@@ -73,12 +76,6 @@ static NSString * const cellId = @"ProjectsCommitCell";
     UIView *footer =[[UIView alloc] initWithFrame:CGRectZero];
     self.tableView.tableFooterView = footer;
     
-    [self fetchForCommitDataOnRefresh:YES];
-    [self fetchbranchs:@"branches"];
-    [self fetchbranchs:@"tags"];
-    
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"分支" style:UIBarButtonItemStylePlain target:self action:@selector(clickBranch)];
-    
     //下拉刷新
     self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
         [self fetchForCommitDataOnRefresh:YES];
@@ -90,7 +87,21 @@ static NSString * const cellId = @"ProjectsCommitCell";
     [(MJRefreshAutoNormalFooter *)self.tableView.mj_footer setTitle:@"已全部加载完毕" forState:MJRefreshStateNoMoreData];
     // 默认先隐藏footer
     self.tableView.mj_footer.hidden = YES;
+    
+    [self fetchForCommitDataOnRefresh:YES];
+    [self fetchbranchs:@"branches"];
+    [self fetchbranchs:@"tags"];
+    
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"分支" style:UIBarButtonItemStylePlain target:self action:@selector(clickBranch)];
+    
     [self.tableView.mj_header beginRefreshing];
+    
+    self.emptyDataSet = [[DataSetObject alloc]initWithSuperScrollView:self.tableView];
+    __weak ProjectsCommitsViewController *weakSelf = self;
+    self.emptyDataSet.reloading = ^{
+        [weakSelf fetchForCommitDataOnRefresh:YES];
+    };
+    self.tableView.tableFooterView = [UIView new];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -131,21 +142,11 @@ static NSString * const cellId = @"ProjectsCommitCell";
 #pragma mark - 获取数据
 - (void)fetchForCommitDataOnRefresh:(BOOL)refresh
 {
-    if (![Tools isNetworkExist]) {
-        
-        [Tools toastNotification:@"网络连接失败，请检查网络设置" inView:self.view];
-        return;
-    }
+    self.emptyDataSet.state = loadingState;
     if (refresh) {
         _page = 1;
     } else {
         _page++;
-        _needRefresh = NO;
-    }
-    
-    if (_needRefresh) {
-        [self.view makeToastActivity];
-        [_commits removeAllObjects];
     }
         
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager GitManager];
@@ -175,7 +176,6 @@ static NSString * const cellId = @"ProjectsCommitCell";
     [manager GET:strUrl
       parameters:nil
          success:^(AFHTTPRequestOperation * operation, id responseObject) {
-             [self.view hideToastActivity];
              
              if (refresh) {
                  [_commits removeAllObjects];
@@ -187,33 +187,33 @@ static NSString * const cellId = @"ProjectsCommitCell";
                      GLCommit *commit = [[GLCommit alloc] initWithJSON:obj];
                      [_commits addObject:commit];
                  }];
-                 
-                 if (_commits.count < 20) {
-                     [self.tableView.mj_footer endRefreshingWithNoMoreData];
-                 } else {
-                     [self.tableView.mj_footer endRefreshing];
-                 }
-                 
-                 dispatch_async(dispatch_get_main_queue(), ^{
-                     [self.tableView reloadData];
-                     [self.tableView.mj_header endRefreshing];
-                 });
-                 
+  
+             }
+             
+             if (_commits.count < 20) {
+                 [self.tableView.mj_footer endRefreshingWithNoMoreData];
+             } else {
+                 [self.tableView.mj_footer endRefreshing];
              }
 
-         } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
-             [self.view hideToastActivity];
              
-             if (error != nil) {
-                 [Tools toastNotification:[NSString stringWithFormat:@"网络异常，错误码：%ld", (long)error.code] inView:self.view];
-             } else {
-                 [Tools toastNotification:@"网络错误" inView:self.view];
+             if (_commits.count == 0) {
+                 self.emptyDataSet.state = noDataState;
+                 self.emptyDataSet.respondString = @"您还没有提交记录";
              }
+             
              dispatch_async(dispatch_get_main_queue(), ^{
                  [self.tableView reloadData];
                  [self.tableView.mj_header endRefreshing];
-                 [self.tableView.mj_footer endRefreshing];
              });
+
+         } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                     self.emptyDataSet.state = netWorkingErrorState;
+                     [self.tableView reloadData];
+                     [self.tableView.mj_header endRefreshing];
+                     [self.tableView.mj_footer endRefreshing];
+                 });
              
     }];
 }

@@ -178,6 +178,7 @@
 		EE7C8C121BFC7E0A00A3671B /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EE7C8BF51BFC7E0A00A3671B /* libWeChatSDK.a */; };
 		EE7C8C131BFC7E0A00A3671B /* UMSocialSDKResourcesNew.bundle in Resources */ = {isa = PBXBuildFile; fileRef = EE7C8BF91BFC7E0A00A3671B /* UMSocialSDKResourcesNew.bundle */; };
 		EE82EDB11BFB2BC50006F18D /* UIImageView+Util.m in Sources */ = {isa = PBXBuildFile; fileRef = EE82EDB01BFB2BC50006F18D /* UIImageView+Util.m */; };
+		EE8612D51C1194010073F457 /* DataSetObject.m in Sources */ = {isa = PBXBuildFile; fileRef = EE8612D41C1194010073F457 /* DataSetObject.m */; };
 		EE8983D71C0C1F48005CF5AB /* LastCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EE8983D61C0C1F48005CF5AB /* LastCell.m */; };
 		EE8983E11C0C1FDF005CF5AB /* HCDropdownView.m in Sources */ = {isa = PBXBuildFile; fileRef = EE8983DA1C0C1FDF005CF5AB /* HCDropdownView.m */; };
 		EE8983E21C0C1FDF005CF5AB /* HCDropdownMenuCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EE8983DD1C0C1FDF005CF5AB /* HCDropdownMenuCell.m */; };
@@ -481,6 +482,8 @@
 		EE7C8BFA1BFC7E0A00A3671B /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/UMSocialLocalizable.strings"; sourceTree = "<group>"; };
 		EE82EDAF1BFB2BC50006F18D /* UIImageView+Util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+Util.h"; sourceTree = "<group>"; };
 		EE82EDB01BFB2BC50006F18D /* UIImageView+Util.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+Util.m"; sourceTree = "<group>"; };
+		EE8612D31C1194010073F457 /* DataSetObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataSetObject.h; sourceTree = "<group>"; };
+		EE8612D41C1194010073F457 /* DataSetObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataSetObject.m; sourceTree = "<group>"; };
 		EE8983D51C0C1F48005CF5AB /* LastCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LastCell.h; sourceTree = "<group>"; };
 		EE8983D61C0C1F48005CF5AB /* LastCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LastCell.m; sourceTree = "<group>"; };
 		EE8983D91C0C1FDF005CF5AB /* HCDropdownView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HCDropdownView.h; sourceTree = "<group>"; };
@@ -1180,6 +1183,15 @@
 			path = Categories;
 			sourceTree = "<group>";
 		};
+		EE8612D21C1193550073F457 /* EmptyViews */ = {
+			isa = PBXGroup;
+			children = (
+				EE8612D31C1194010073F457 /* DataSetObject.h */,
+				EE8612D41C1194010073F457 /* DataSetObject.m */,
+			);
+			name = EmptyViews;
+			sourceTree = "<group>";
+		};
 		EE8983D81C0C1FDF005CF5AB /* HCDropdownView */ = {
 			isa = PBXGroup;
 			children = (
@@ -1205,6 +1217,7 @@
 		EE90184F1C030EFD006A0909 /* Share */ = {
 			isa = PBXGroup;
 			children = (
+				EE8612D21C1193550073F457 /* EmptyViews */,
 				EE8983D81C0C1FDF005CF5AB /* HCDropdownView */,
 				EE8983D51C0C1F48005CF5AB /* LastCell.h */,
 				EE8983D61C0C1F48005CF5AB /* LastCell.m */,
@@ -1428,6 +1441,7 @@
 				38BB9B7B1A1E0CD900175F10 /* GLProject.m in Sources */,
 				EE9018551C030F5A006A0909 /* UIColor+Util.m in Sources */,
 				00A74FD519A59FD7009DACDF /* SearchView.m in Sources */,
+				EE8612D51C1194010073F457 /* DataSetObject.m in Sources */,
 				EE82EDB11BFB2BC50006F18D /* UIImageView+Util.m in Sources */,
 				38BB9B701A1E0CD900175F10 /* GLCommit.m in Sources */,
 				00D4ED26196F9B9900F3A4A5 /* IssueCell.m in Sources */,

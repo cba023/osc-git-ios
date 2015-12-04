@@ -20,6 +20,7 @@ PODS:
   - AFNetworking/UIKit (2.6.3):
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
+  - DZNEmptyDataSet (1.7.2)
   - Mantle (2.0.5):
     - Mantle/extobjc (= 2.0.5)
   - Mantle/extobjc (2.0.5)
@@ -35,6 +36,7 @@ PODS:
 
 DEPENDENCIES:
   - AFNetworking
+  - DZNEmptyDataSet
   - Mantle
   - MBProgressHUD
   - MJRefresh
@@ -46,6 +48,7 @@ DEPENDENCIES:
 
 SPEC CHECKSUMS:
   AFNetworking: cb8d14a848e831097108418f5d49217339d4eb60
+  DZNEmptyDataSet: 0ec00bfc230d7450997b60c127afdd0b9f24f3b6
   Mantle: 1912395033f601de5adc8ee91e48f46e4c7051ad
   MBProgressHUD: c47f2c166c126cf2ce36498d80f33e754d4e93ad
   MJRefresh: f3e1228ec3d38c7ba5208d58032631a52f39f495
