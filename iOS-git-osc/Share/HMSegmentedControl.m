@@ -131,7 +131,7 @@ typedef enum {
     
     self.selectionIndicatorBoxLayer = [CALayer layer];
     self.selectionIndicatorBoxLayer.opacity = 0.2;
-    self.selectionIndicatorBoxLayer.borderWidth = 1.0f;
+    self.selectionIndicatorBoxLayer.borderWidth = 0.0f; //滚动的左右两边的竖线宽度
 }
 
 - (void)setFrame:(CGRect)frame {
@@ -165,8 +165,8 @@ typedef enum {
     UIRectFill([self bounds]);
 
     self.selectionIndicatorStripLayer.backgroundColor = self.selectionIndicatorColor.CGColor;
-    self.selectionIndicatorBoxLayer.backgroundColor = self.selectionIndicatorColor.CGColor;
-    self.selectionIndicatorBoxLayer.borderColor = self.selectionIndicatorColor.CGColor;
+//    self.selectionIndicatorBoxLayer.backgroundColor = self.selectionIndicatorColor.CGColor; //滚动选中时的整个淡颜色
+//    self.selectionIndicatorBoxLayer.borderColor = self.selectionIndicatorColor.CGColor;
     
     // Remove all sublayers to avoid drawing images over existing ones
     self.scrollView.layer.sublayers = nil;
