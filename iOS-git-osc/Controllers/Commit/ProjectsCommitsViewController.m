@@ -144,11 +144,10 @@ static NSString * const cellId = @"ProjectsCommitCell";
     }
     
     if (_needRefresh) {
+        [self.view makeToastActivity];
         [_commits removeAllObjects];
     }
-    
-    [self.view makeToastActivity];
-    
+        
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager GitManager];
     
     NSUserDefaults *user = [NSUserDefaults standardUserDefaults];
@@ -290,9 +289,9 @@ static NSString * const cellId = @"ProjectsCommitCell";
         label.lineBreakMode = NSLineBreakByWordWrapping;
         label.font = [UIFont boldSystemFontOfSize:14];
         label.text = commit.title;
-        CGFloat height = [label sizeThatFits:CGSizeMake(tableView.frame.size.width - 68, MAXFLOAT)].height;
+        CGFloat height = [label sizeThatFits:CGSizeMake(tableView.frame.size.width - 60, MAXFLOAT)].height;
         
-        return height + 69;
+        return height + 58;
     } else {
         return 60;
     }

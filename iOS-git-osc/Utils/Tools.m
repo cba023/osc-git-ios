@@ -141,7 +141,7 @@
 {
     NSAttributedString *intervalAttrStr = [self grayString:[self intervalSinceNow:dateStr]
                                                   fontName:nil
-                                                  fontSize:15];
+                                                  fontSize:12];
     
     return intervalAttrStr;
 }

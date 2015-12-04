@@ -51,10 +51,9 @@
     _contentLabel = [UILabel new];
     _contentLabel.backgroundColor = [UIColor uniformColor];
     _contentLabel.lineBreakMode = NSLineBreakByWordWrapping | NSLineBreakByTruncatingTail;
-    _contentLabel.numberOfLines = 4;
+    _contentLabel.numberOfLines = 0;
     _contentLabel.font = [UIFont systemFontOfSize:14];
     _contentLabel.textColor = [UIColor colorWithHex:0x515151];
-    [_contentLabel setPreferredMaxLayoutWidth:200];
     [self.contentView addSubview:_contentLabel];
     
     _createtimeLabel = [UILabel new];
@@ -78,7 +77,7 @@
                                                                              metrics:nil
                                                                                views:viewsDictionary]];
     
-    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-8-[_nameLabel]->=6-[_contentLabel]-6-[_createtimeLabel]-8-|"
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-8-[_nameLabel]-5-[_contentLabel]-5-[_createtimeLabel]"
                                                                              options:NSLayoutFormatAlignAllLeft | NSLayoutFormatAlignAllRight
                                                                              metrics:nil
                                                                                views:viewsDictionary]];
