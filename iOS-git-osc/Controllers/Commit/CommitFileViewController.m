@@ -9,6 +9,7 @@
 #import "CommitFileViewController.h"
 #import "GITAPI.h"
 #import "Tools.h"
+#import "UIView+Toast.h"
 #import "AFHTTPRequestOperationManager+Util.h"
 
 @interface CommitFileViewController () <UIWebViewDelegate>
@@ -24,8 +25,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    NSArray *array = [_commitFilePath componentsSeparatedByString:@"/"];
-    _fileName = array[array.count-1];
+    if ([_commitFilePath rangeOfString:@"/"].location !=NSNotFound) {
+        NSArray *array = [_commitFilePath componentsSeparatedByString:@"/"];
+        _fileName = array[array.count-1];
+    } else {
+        _fileName = _commitFilePath;
+    }
     
     self.navigationItem.title = _fileName;
     self.view.backgroundColor = [UIColor whiteColor];
@@ -48,28 +53,53 @@
 #pragma mark - 获取数据
 - (void)fetchCommitFile
 {
-    NSString *strUrl = [NSString stringWithFormat:@"%@%@/%@/repository/commits/%@/blob?filepath=%@",
+    if (![Tools isNetworkExist]) {
+        
+        [Tools toastNotification:@"网络连接失败，请检查网络设置" inView:self.view];
+        return;
+    }
+    
+    NSString *strUrl = [NSString stringWithFormat:@"%@%@/%@/repository/commits/%@/blob",
                         GITAPI_HTTPS_PREFIX,
                         GITAPI_PROJECTS,
                         _projectNameSpace,
-                        _commitIDStr,
-                        _commitFilePath];
+                        _commitIDStr];
+    
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionaryWithDictionary:@{@"filepath"      : _commitFilePath,
+                                                                                      @"private_token" : [Tools getPrivateToken]
+                                                                                      }];
+    
+    if ([Tools getPrivateToken].length == 0) {
+        [parameters removeObjectForKey:@"private_token"];
+    }
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
     
+    [self.view makeToastActivity];
+    
     [manager GET:strUrl
-      parameters:nil
+      parameters:parameters
          success:^(AFHTTPRequestOperation * operation, id responseObject) {
+             
+             
              if (responseObject == nil) {} else {
                  NSString *resStr = [[NSString alloc]initWithData:responseObject encoding:NSUTF8StringEncoding];
                  _content = resStr;
                  [self render];
+                 [self.view hideToastActivity];
              }
              
          } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
-
+             NSLog(@"%@", error);
+             [self.view hideToastActivity];
+             
+             if (error != nil) {
+                 [Tools toastNotification:[NSString stringWithFormat:@"网络异常，错误码：%ld", (long)error.code] inView:self.view];
+             } else {
+                 [Tools toastNotification:@"网络错误" inView:self.view];
+             }
          }];
     
 }

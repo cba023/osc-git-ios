@@ -12,6 +12,7 @@
 #import "AFHTTPRequestOperationManager+Util.h"
 #import "GLDiff.h"
 #import "UIColor+Util.h"
+#import "UIView+Toast.h"
 
 #import "DiffHeaderCell.h"
 #import "CommitFileViewController.h"
@@ -47,6 +48,12 @@ static NSString * const cellId = @"DiffHeaderCell";
 #pragma mark - 获取数据
 - (void)fetchForCommitDiff
 {
+    if (![Tools isNetworkExist]) {
+        
+        [Tools toastNotification:@"网络连接失败，请检查网络设置" inView:self.view];
+        return;
+    }
+    
     NSString *strUrl = [NSString stringWithFormat:@"%@%@/%@/repository/commits/%@/diff",
                        GITAPI_HTTPS_PREFIX,
                        GITAPI_PROJECTS,
@@ -56,11 +63,15 @@ static NSString * const cellId = @"DiffHeaderCell";
         strUrl = [NSString stringWithFormat:@"%@?private_token=%@", strUrl, [Tools getPrivateToken]];
     }
     
+    [self.view makeToastActivity];
+    
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager GitManager];
     
     [manager GET:strUrl
       parameters:nil
          success:^(AFHTTPRequestOperation * operation, id responseObject) {
+             [self.view hideToastActivity];
+             
              if ([responseObject count] > 0) {
                  [responseObject enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL * _Nonnull stop) {
                      GLDiff *diff = [[GLDiff alloc] initWithJSON:obj];
@@ -74,7 +85,17 @@ static NSString * const cellId = @"DiffHeaderCell";
              }
              
          } failure:^(AFHTTPRequestOperation * operation, NSError * error) {
+             [self.view hideToastActivity];
+             
+             if (error != nil) {
+                 [Tools toastNotification:[NSString stringWithFormat:@"网络异常，错误码：%ld", (long)error.code] inView:self.view];
+             } else {
+                 [Tools toastNotification:@"网络错误" inView:self.view];
+             }
              NSLog(@"%@", error);
+             dispatch_async(dispatch_get_main_queue(), ^{
+                 [self.tableView reloadData];
+             });
     }];
     
     
@@ -95,7 +116,7 @@ static NSString * const cellId = @"DiffHeaderCell";
         }
         return _commitDiffs.count;
     }
-    return 10;
+    return 0;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -162,15 +183,22 @@ static NSString * const cellId = @"DiffHeaderCell";
         }
         
         cell.backgroundColor = [UIColor uniformColor];
+        cell.textLabel.textColor = [UIColor colorWithHex:0x515151];
+        cell.detailTextLabel.textColor = [UIColor colorWithHex:0xb6b6b6];
         
         if (_commitDiffs.count > 0) {
             GLDiff *diff = _commitDiffs[indexPath.row];
-            NSArray *array = [diff.updatedPath componentsSeparatedByString:@"/"];
-            NSString *lastString = array[array.count-1];
-            cell.textLabel.textColor = [UIColor colorWithHex:0x515151];
-            cell.detailTextLabel.textColor = [UIColor colorWithHex:0xb6b6b6];
-            cell.textLabel.text = lastString;
-            cell.detailTextLabel.text = [diff.updatedPath substringToIndex:diff.updatedPath.length-lastString.length-1];
+            if ([diff.updatedPath rangeOfString:@"/"].location != NSNotFound) {
+                NSArray *array = [diff.updatedPath componentsSeparatedByString:@"/"];
+                NSString *lastString = array[array.count-1];
+                
+                cell.textLabel.text = diff.updatedPath;
+                cell.detailTextLabel.text = [diff.updatedPath substringToIndex:diff.updatedPath.length-lastString.length-1];
+            } else {
+                cell.textLabel.text = diff.updatedPath;
+                cell.detailTextLabel.text = diff.updatedPath;
+            }
+            
         }
         
         return cell;
