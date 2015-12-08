@@ -94,7 +94,6 @@ static NSString * const cellId = @"ProjectsCommitCell";
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"分支" style:UIBarButtonItemStylePlain target:self action:@selector(clickBranch)];
     
-    [self.tableView.mj_header beginRefreshing];
     
     self.emptyDataSet = [[DataSetObject alloc]initWithSuperScrollView:self.tableView];
     __weak ProjectsCommitsViewController *weakSelf = self;
@@ -222,13 +221,6 @@ static NSString * const cellId = @"ProjectsCommitCell";
 
 - (void)fetchbranchs:(NSString *)branch
 {
-    if (![Tools isNetworkExist]) {
-        [Tools toastNotification:@"网络连接失败，请检查网络设置" inView:self.view];
-        return;
-    }
-    
-    [self.view makeToastActivity];
-    
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager GitManager];
     
     NSUserDefaults *user = [NSUserDefaults standardUserDefaults];
@@ -239,7 +231,6 @@ static NSString * const cellId = @"ProjectsCommitCell";
     [manager GET:strUrl
       parameters:nil
          success:^(AFHTTPRequestOperation * operation, id responseObject) {
-             [self.view hideToastActivity];
              
              if ([responseObject count] == 0) {
 
@@ -257,13 +248,6 @@ static NSString * const cellId = @"ProjectsCommitCell";
              }
 
          } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
-             [self.view hideToastActivity];
-             
-             if (error != nil) {
-                 [Tools toastNotification:[NSString stringWithFormat:@"网络异常，错误码：%ld", (long)error.code] inView:self.view];
-             } else {
-                 [Tools toastNotification:@"网络错误" inView:self.view];
-             }
              dispatch_async(dispatch_get_main_queue(), ^{
 
                  [self.tableView reloadData];

@@ -82,15 +82,13 @@
     [manager GET:strUrl
       parameters:parameters
          success:^(AFHTTPRequestOperation * operation, id responseObject) {
-             
-             
-             if (responseObject == nil) {} else {
+            if (responseObject == nil) {} else {
                  NSString *resStr = [[NSString alloc]initWithData:responseObject encoding:NSUTF8StringEncoding];
                  _content = resStr;
                  [self render];
-                 [self.view hideToastActivity];
+                
              }
-             
+             [self.view hideToastActivity];
          } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
              NSLog(@"%@", error);
              [self.view hideToastActivity];

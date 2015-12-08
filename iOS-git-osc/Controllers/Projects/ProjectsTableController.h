@@ -10,7 +10,7 @@
 
 @interface ProjectsTableController : UITableViewController
 
-@property NSMutableArray *projects;
+@property (nonatomic, strong) NSMutableArray *projects;
 @property NSInteger languageID;
 @property NSString *query;
 

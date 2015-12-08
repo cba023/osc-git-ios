@@ -13,6 +13,7 @@
 
 
 #define GITAPI_PROJECTS         @"projects"
-
+#define GITAPI_USER             @"user"
+#define GITAPI_EVENTS           @"events"
 
 #endif /* GITAPI_h */
