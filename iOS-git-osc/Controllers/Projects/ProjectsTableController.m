@@ -12,7 +12,7 @@
 #import "ProjectDetailsView.h"
 #import "GLGitlab.h"
 #import "Tools.h"
-//#import "LastCell.h"
+
 #import "PKRevealController.h"
 
 #import "AFHTTPRequestOperationManager+Util.h"
@@ -23,24 +23,20 @@
 
 @interface ProjectsTableController ()
 
-@property NSString *privateToken;
-@property int64_t userID;
-@property NSUInteger projectsType;
-//@property NSUInteger pageSize;
+@property (nonatomic, copy) NSString *privateToken;
+@property (nonatomic, assign) int64_t userID;
+@property (nonatomic, assign) NSUInteger projectsType;
 
-@property BOOL isFinishedLoad;
-@property BOOL isLoading;
-@property BOOL isFirstRequest;
-//@property LastCell *lastCell;
+@property (nonatomic, assign) BOOL isFinishedLoad;
+@property (nonatomic, assign) BOOL isLoading;
+@property (nonatomic, assign) BOOL isFirstRequest;
 
 @property (nonatomic, assign) NSInteger page;
-@property (nonatomic,strong) DataSetObject *emptyDataSet;
+@property (nonatomic, strong) DataSetObject *emptyDataSet;
 
 @end
 
 @implementation ProjectsTableController
-
-//@synthesize projects;
 
 static NSString * const cellId = @"ProjectCell";
 
@@ -49,7 +45,6 @@ static NSString * const cellId = @"ProjectCell";
     self = [super init];
     if (self) {
         _projectsType = projectsType;
-//        _pageSize = projectsType != 7? 20: 15;
     }
     
     return self;
@@ -91,9 +86,7 @@ static NSString * const cellId = @"ProjectCell";
     self.tableView.tableFooterView = footer;
     
     _projects = [NSMutableArray new];
-//    _lastCell = [[LastCell alloc] initCell];
     _isFinishedLoad = NO;
-    
     _page = 1;
     //下拉刷新
     self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
@@ -107,6 +100,12 @@ static NSString * const cellId = @"ProjectCell";
     // 默认先隐藏footer
     self.tableView.mj_footer.hidden = YES;
     
+    if ([self needCache] && [Tools isPageCacheExist:_projectsType]) {
+        [self loadFromCache];
+        return;
+    }
+    _isFirstRequest = YES;
+    
     /* 设置空页面状态 */
     [self fetchProject:YES];
     self.emptyDataSet = [[DataSetObject alloc]initWithSuperScrollView:self.tableView];
@@ -114,28 +113,11 @@ static NSString * const cellId = @"ProjectCell";
     self.emptyDataSet.reloading = ^{
         [weakSelf fetchProject:YES];
     };
-    self.tableView.tableFooterView = [UIView new];
-    
-    [self viewForWeatherCache];
-    
-    _isFirstRequest = YES;
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
-}
-
-- (void)viewForWeatherCache
-{
-    if (_projects.count > 0 || _isFinishedLoad) {
-        return;
-    }
-    
-    if ([self needCache] && [Tools isPageCacheExist:_projectsType]) {
-        [self loadFromCache];
-        return;
-    }
 }
 
 #pragma mark - 获取数据
@@ -255,10 +237,10 @@ static NSString * const cellId = @"ProjectCell";
                      [_projects addObject:project];
                  }];
                  
-//                 if ((refresh || _isFirstRequest) && [self needCache]) {
-//                     [Tools savePageCache:responseObject type:_projectsType];
-//                     _isFirstRequest = NO;
-//                 }
+                 if ((refresh || _isFirstRequest) && [self needCache]) {
+                     [Tools savePageCache:_projects type:_projectsType];
+                     _isFirstRequest = NO;
+                 }
                  
              }
              
@@ -289,6 +271,17 @@ static NSString * const cellId = @"ProjectCell";
     
 }
 
+#pragma mark - 刷新
+- (void)reload
+{
+    [_projects removeAllObjects];
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.tableView reloadData];
+    });
+    
+    [self fetchProject:YES];
+}
 
 #pragma mark - 表格显示及操作
 
@@ -379,7 +372,6 @@ static NSString * const cellId = @"ProjectCell";
     [_projects addObjectsFromArray:[Tools getPageCache:_projectsType]];
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.tableView reloadData];
-        [self.refreshControl endRefreshing];
     });
 }
 

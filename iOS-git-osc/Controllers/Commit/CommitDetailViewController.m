@@ -13,6 +13,7 @@
 #import "GLDiff.h"
 #import "UIColor+Util.h"
 #import "UIView+Toast.h"
+#import "DataSetObject.h"
 
 #import "DiffHeaderCell.h"
 #import "CommitFileViewController.h"
@@ -20,6 +21,7 @@
 @interface CommitDetailViewController ()
 
 @property (nonatomic, strong) NSMutableArray *commitDiffs;
+@property (nonatomic,strong) DataSetObject *emptyDataSet;
 
 @end
 
@@ -38,6 +40,12 @@ static NSString * const cellId = @"DiffHeaderCell";
     [self fetchForCommitDiff];
     
     [self.tableView registerClass:[DiffHeaderCell class] forCellReuseIdentifier:cellId];
+    
+    self.emptyDataSet = [[DataSetObject alloc]initWithSuperScrollView:self.tableView];
+    __weak CommitDetailViewController *weakSelf = self;
+    self.emptyDataSet.reloading = ^{
+        [weakSelf fetchForCommitDiff];
+    };
 }
 
 - (void)didReceiveMemoryWarning {
@@ -48,6 +56,8 @@ static NSString * const cellId = @"DiffHeaderCell";
 #pragma mark - 获取数据
 - (void)fetchForCommitDiff
 {
+    self.emptyDataSet.state = loadingState;
+    
     if (![Tools isNetworkExist]) {
         
         [Tools toastNotification:@"网络连接失败，请检查网络设置" inView:self.view];
@@ -78,11 +88,18 @@ static NSString * const cellId = @"DiffHeaderCell";
                      
                      [_commitDiffs addObject:diff];
                      
-                     dispatch_async(dispatch_get_main_queue(), ^{
-                         [self.tableView reloadData];
-                     });
+                     
                  }];
              }
+             
+             if (_commitDiffs.count == 0) {
+                 self.emptyDataSet.state = noDataState;
+                 self.emptyDataSet.respondString = @"您还没有提交文件";
+             }
+             
+             dispatch_async(dispatch_get_main_queue(), ^{
+                 [self.tableView reloadData];
+             });
              
          } failure:^(AFHTTPRequestOperation * operation, NSError * error) {
              [self.view hideToastActivity];
@@ -94,6 +111,7 @@ static NSString * const cellId = @"DiffHeaderCell";
              }
              NSLog(@"%@", error);
              dispatch_async(dispatch_get_main_queue(), ^{
+                 self.emptyDataSet.state = netWorkingErrorState;
                  [self.tableView reloadData];
              });
     }];

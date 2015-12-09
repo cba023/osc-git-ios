@@ -11,12 +11,15 @@
 #import "Tools.h"
 #import "UIView+Toast.h"
 #import "AFHTTPRequestOperationManager+Util.h"
+#import "DataSetObject.h"
 
 @interface CommitFileViewController () <UIWebViewDelegate>
 
 @property (nonatomic, strong) UIWebView *webView;
 @property (nonatomic, copy) NSString *content;
 @property (nonatomic, copy) NSString *fileName;
+
+@property (nonatomic,strong) DataSetObject *emptyDataSet;
 
 @end
 
@@ -43,6 +46,11 @@
     [self.view addSubview:self.webView];
     
     [self fetchCommitFile];
+    self.emptyDataSet = [[DataSetObject alloc]initWithSuperScrollView:self.webView.scrollView];
+    __weak CommitFileViewController *weakSelf = self;
+    self.emptyDataSet.reloading = ^{
+        [weakSelf fetchCommitFile];
+    };
 }
 
 - (void)didReceiveMemoryWarning {
@@ -53,6 +61,8 @@
 #pragma mark - 获取数据
 - (void)fetchCommitFile
 {
+    self.emptyDataSet.state = loadingState;
+    
     if (![Tools isNetworkExist]) {
         
         [Tools toastNotification:@"网络连接失败，请检查网络设置" inView:self.view];
@@ -87,11 +97,17 @@
                  _content = resStr;
                  [self render];
                 
+                if (_content.length == 0) {
+                    self.emptyDataSet.state = noDataState;
+                    self.emptyDataSet.respondString = @"您还没有相应文件";
+                }
              }
              [self.view hideToastActivity];
+             
          } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
              NSLog(@"%@", error);
              [self.view hideToastActivity];
+             self.emptyDataSet.state = netWorkingErrorState;
              
              if (error != nil) {
                  [Tools toastNotification:[NSString stringWithFormat:@"网络异常，错误码：%ld", (long)error.code] inView:self.view];

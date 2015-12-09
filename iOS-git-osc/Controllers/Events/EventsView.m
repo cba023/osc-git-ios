@@ -13,7 +13,6 @@
 #import "Tools.h"
 #import "UIImageView+WebCache.h"
 #import "ProjectDetailsView.h"
-//#import "LastCell.h"
 #import "TitleScrollViewController.h"
 
 #import "AFHTTPRequestOperationManager+Util.h"
@@ -26,13 +25,13 @@ static NSString * const EventCellIdentifier = @"EventCell";
 
 @interface EventsView ()
 
-@property int64_t userID;
-@property NSString *privateToken;
+@property (nonatomic, assign) int64_t userID;
+@property (nonatomic, copy) NSString *privateToken;
+@property (nonatomic, strong) NSMutableArray *events;
 
-@property BOOL isFinishedLoad;
-@property BOOL isLoading;
-@property BOOL isFirstRequest;
-//@property LastCell *lastCell;
+@property (nonatomic, assign) BOOL isFinishedLoad;
+@property (nonatomic, assign) BOOL isLoading;
+@property (nonatomic, assign) BOOL isFirstRequest;
 
 @property (nonatomic, assign) NSInteger page;
 @property (nonatomic,strong) DataSetObject *emptyDataSet;
@@ -40,8 +39,6 @@ static NSString * const EventCellIdentifier = @"EventCell";
 @end
 
 @implementation EventsView
-
-@synthesize events;
 
 - (id)initWithPrivateToken:(NSString *)privateToken
 {
@@ -80,15 +77,10 @@ static NSString * const EventCellIdentifier = @"EventCell";
     UIView *footer =[[UIView alloc] initWithFrame:CGRectZero];
     self.tableView.tableFooterView = footer;
     
-//    self.refreshControl = [UIRefreshControl new];
-//    [self.refreshControl addTarget:self action:@selector(refresh) forControlEvents:UIControlEventValueChanged];
-//    [self.tableView addSubview:self.refreshControl];
-    
-    events = [NSMutableArray new];
-//    _lastCell = [[LastCell alloc] initCell];
+    _events = [NSMutableArray new];
     _isFinishedLoad = NO;
-    
     _page = 1;
+    
     //下拉刷新
     self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
         [self fetchEvents:YES];
@@ -97,11 +89,17 @@ static NSString * const EventCellIdentifier = @"EventCell";
     self.tableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
         [self fetchEvents:NO];
     }];
+    
     [(MJRefreshAutoNormalFooter *)self.tableView.mj_footer setTitle:@"已全部加载完毕" forState:MJRefreshStateNoMoreData];
     // 默认先隐藏footer
     self.tableView.mj_footer.hidden = YES;
     
-    //    [self.tableView.mj_header beginRefreshing];
+    if (_privateToken && [Tools isPageCacheExist:9]) {
+        [self loadFromCache];
+        return;
+    }
+    _isFirstRequest = YES;
+    
     /* 设置空页面状态 */
     [self fetchEvents:YES];
     self.emptyDataSet = [[DataSetObject alloc]initWithSuperScrollView:self.tableView];
@@ -110,6 +108,15 @@ static NSString * const EventCellIdentifier = @"EventCell";
         [weakSelf fetchEvents:YES];
     };
 }
+
+//- (void)viewDidAppear:(BOOL)animated
+//{
+//    if (_privateToken && [Tools isPageCacheExist:9]) {
+//        [self loadFromCache];
+//        return;
+//    }
+//    _isFirstRequest = YES;
+//}
 
 - (void)didReceiveMemoryWarning
 {
@@ -121,8 +128,6 @@ static NSString * const EventCellIdentifier = @"EventCell";
 - (void)tapPortrait:(UITapGestureRecognizer *)sender
 {
     GLEvent *event = [self.events objectAtIndex:((UIImageView *)sender.view).tag];
-    
-//    GLUser *user = [events objectAtIndex:((UIImageView *)sender.view).tag];
     
     TitleScrollViewController *ownDetailsView = [TitleScrollViewController new];
     ownDetailsView.titleName = event.project.owner.name;
@@ -168,28 +173,28 @@ static NSString * const EventCellIdentifier = @"EventCell";
       parameters:nil
          success:^(AFHTTPRequestOperation * operation, id responseObject) {
              if (refresh) {
-                 [events removeAllObjects];
+                 [_events removeAllObjects];
              }
              
              if ([responseObject count] > 0) {
                  [responseObject enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
                      GLEvent *event = [[GLEvent alloc] initWithJSON:obj];
-                     [events addObject:event];
+                     [_events addObject:event];
                  }];
                  
-//                 if (_privateToken && (refresh || _isFirstRequest)) {
-//                     [Tools savePageCache:responseObject type:9];
-//                     _isFirstRequest = NO;
-//                 }
+                 if (_privateToken && (refresh || _isFirstRequest)) {
+                     [Tools savePageCache:_events type:9];
+                     _isFirstRequest = NO;
+                 }
              }
              
-             if (events.count < 20) {
+             if (_events.count < 20) {
                  [self.tableView.mj_footer endRefreshingWithNoMoreData];
              } else {
                  [self.tableView.mj_footer endRefreshing];
              }
              
-             if (events.count == 0) {
+             if (_events.count == 0) {
                  self.emptyDataSet.state = noDataState;
                  self.emptyDataSet.respondString = @"您还没有相关动态";
              }
@@ -210,11 +215,23 @@ static NSString * const EventCellIdentifier = @"EventCell";
 
 }
 
+#pragma mark - 从缓存加载
+- (void)loadFromCache
+{
+    [_events removeAllObjects];
+    
+    [_events addObjectsFromArray:[Tools getPageCache:9]];
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.tableView reloadData];
+    });
+}
+
 #pragma mark - Table view data source
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.row < events.count) {
+    if (indexPath.row < _events.count) {
         GLEvent *event = [self.events objectAtIndex:indexPath.row];
         
         UILabel *label = [UILabel new];
@@ -247,12 +264,12 @@ static NSString * const EventCellIdentifier = @"EventCell";
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
 
-    return events.count;
+    return _events.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.row < events.count) {
+    if (indexPath.row < _events.count) {
         EventCell *cell = [tableView dequeueReusableCellWithIdentifier:EventCellIdentifier forIndexPath:indexPath];
         
         GLEvent *event = [self.events objectAtIndex:indexPath.row];
