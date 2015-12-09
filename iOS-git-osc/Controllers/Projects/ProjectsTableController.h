@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Tools.h"
 
 @interface ProjectsTableController : UITableViewController
 
@@ -14,8 +15,8 @@
 @property NSInteger languageID;
 @property NSString *query;
 
-- (id)initWithProjectsType:(NSUInteger)projectsType;
-- (id)initWithUserID:(int64_t)userID andProjectsType:(NSUInteger)projectsType;
+- (id)initWithProjectsType:(ProjectsType)projectsType;
+- (id)initWithUserID:(int64_t)userID andProjectsType:(ProjectsType)projectsType;
 - (id)initWithPrivateToken:(NSString *)privateToken;
 
 - (void)reload;

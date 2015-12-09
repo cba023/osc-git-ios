@@ -109,15 +109,6 @@ static NSString * const EventCellIdentifier = @"EventCell";
     };
 }
 
-//- (void)viewDidAppear:(BOOL)animated
-//{
-//    if (_privateToken && [Tools isPageCacheExist:9]) {
-//        [self loadFromCache];
-//        return;
-//    }
-//    _isFirstRequest = YES;
-//}
-
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];

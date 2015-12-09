@@ -154,7 +154,7 @@ static NSString * const LanguageCellID = @"LanguageCell";
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    ProjectsTableController *projectsTC = [[ProjectsTableController alloc] initWithProjectsType:6];
+    ProjectsTableController *projectsTC = [[ProjectsTableController alloc] initWithProjectsType:ProjectsTypeLanguage];
     GLLanguage *language = [_languages objectAtIndex:indexPath.row];
     
     projectsTC.title = language.name;

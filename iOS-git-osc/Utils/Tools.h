@@ -8,6 +8,19 @@
 
 #import <Foundation/Foundation.h>
 
+typedef enum : NSUInteger {
+    ProjectsTypeFeatured = 0,
+    ProjectsTypePopular,
+    ProjectsTypeLatest,
+    ProjectsTypeEventForUser,
+    ProjectsTypeStared,
+    ProjectsTypeWatched,
+    ProjectsTypeLanguage,
+    ProjectsTypeSearch,
+    ProjectsTypeUserProjects,
+} ProjectsType;
+
+
 @class GLUser;
 @class GLEvent;
 @class GLIssue;
@@ -36,9 +49,9 @@
 + (NSInteger)networkStatus;
 + (BOOL)isNetworkExist;
 
-+ (BOOL)isPageCacheExist:(NSInteger)type;
-+ (NSArray *)getPageCache:(NSInteger)type;
-+ (void)savePageCache:(NSArray *)page type:(NSInteger)type;
++ (BOOL)isPageCacheExist:(ProjectsType)type;
++ (NSArray *)getPageCache:(ProjectsType)type;
++ (void)savePageCache:(NSArray *)page type:(ProjectsType)type;
 
 + (NSUInteger)numberOfRepeatedEvents:(NSArray *)events event:(GLEvent *)event;
 + (NSUInteger)numberOfRepeatedIssueds:(NSArray *)issues issue:(GLIssue *)issue;

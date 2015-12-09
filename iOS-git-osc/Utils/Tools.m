@@ -224,7 +224,7 @@
     return [self networkStatus] > 0;
 }
 
-+ (BOOL)isPageCacheExist:(NSInteger)type
++ (BOOL)isPageCacheExist:(ProjectsType)type
 {
     NSUserDefaults *cache = [NSUserDefaults standardUserDefaults];
     NSArray *cachePage = [cache arrayForKey:[NSString stringWithFormat:@"type-%ld", (long)type]];
@@ -232,7 +232,7 @@
     return cachePage != nil;
 }
 
-+ (NSArray *)getPageCache:(NSInteger)type
++ (NSArray *)getPageCache:(ProjectsType)type
 {
     NSUserDefaults *cache = [NSUserDefaults standardUserDefaults];
     //NSArray *cachePage = [cache arrayForKey:[NSString stringWithFormat:@"type-%ld", (long)type]];
@@ -252,7 +252,7 @@
     return page;
 }
 
-+ (void)savePageCache:(NSArray *)page type:(NSInteger)type
++ (void)savePageCache:(NSArray *)page type:(ProjectsType)type
 {
     NSMutableArray *jsonCache = [NSMutableArray arrayWithCapacity:page.count];
     NSString *key = [NSString stringWithFormat:@"type-%ld", (long)type];

@@ -108,7 +108,7 @@
             switch (i) {
                 case 0:
                 {
-                    _recommendedProjects = [[ProjectsTableController alloc] initWithProjectsType:0];
+                    _recommendedProjects = [[ProjectsTableController alloc] initWithProjectsType:ProjectsTypeFeatured];
                     _recommendedProjects.view.frame = CGRectMake(_sizeWidth*i, 0, _sizeWidth, _sizeHeight-30);
                     _recommendedProjects.view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
                     [_scrollView addSubview:_recommendedProjects.view];
@@ -117,7 +117,7 @@
                 }
                 case 1:
                 {
-                    _hotProjects = [[ProjectsTableController alloc] initWithProjectsType:1];
+                    _hotProjects = [[ProjectsTableController alloc] initWithProjectsType:ProjectsTypePopular];
                     _hotProjects.view.frame = CGRectMake(_sizeWidth*i, 0, _sizeWidth, _sizeHeight-30);
                     _hotProjects.view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
                     [_scrollView addSubview:_hotProjects.view];
@@ -126,7 +126,7 @@
                 }
                 case 2:
                 {
-                    _recentUpdatedProjects = [[ProjectsTableController alloc] initWithProjectsType:2];
+                    _recentUpdatedProjects = [[ProjectsTableController alloc] initWithProjectsType:ProjectsTypeLatest];
                     _recentUpdatedProjects.view.frame = CGRectMake(_sizeWidth*i, 0, _sizeWidth, _sizeHeight-30);
                     _recentUpdatedProjects.view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
                     [_scrollView addSubview:_recentUpdatedProjects.view];
@@ -159,7 +159,7 @@
                     if (_privateToken) {
                         _ownProjects = [[ProjectsTableController alloc] initWithPrivateToken:_privateToken];
                     } else {
-                        _ownProjects = [[ProjectsTableController alloc] initWithUserID:_userID andProjectsType:8];
+                        _ownProjects = [[ProjectsTableController alloc] initWithUserID:_userID andProjectsType:ProjectsTypeUserProjects];
                     }
                     _ownProjects.view.frame = CGRectMake(_sizeWidth*i, 0, _sizeWidth, _sizeHeight-30);
                     _ownProjects.view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
@@ -169,7 +169,7 @@
                 }
                 case 2:
                 {
-                    _starredProjects = [[ProjectsTableController alloc] initWithUserID:_userID andProjectsType:4];
+                    _starredProjects = [[ProjectsTableController alloc] initWithUserID:_userID andProjectsType:ProjectsTypeStared];
                     _starredProjects.view.frame = CGRectMake(_sizeWidth*i, 0, _sizeWidth, _sizeHeight-30);
                     _starredProjects.view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
                     [_scrollView addSubview:_starredProjects.view];
@@ -178,7 +178,7 @@
                 }
                 case 3:
                 {
-                    _watchedProjects = [[ProjectsTableController alloc] initWithUserID:_userID andProjectsType:5];
+                    _watchedProjects = [[ProjectsTableController alloc] initWithUserID:_userID andProjectsType:ProjectsTypeWatched];
                     _watchedProjects.view.frame = CGRectMake(_sizeWidth*i, 0, _sizeWidth, _sizeHeight-30);
                     _watchedProjects.view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
                     [_scrollView addSubview:_watchedProjects.view];

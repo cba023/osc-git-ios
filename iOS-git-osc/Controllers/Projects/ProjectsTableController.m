@@ -11,7 +11,6 @@
 #import "FilesTableController.h"
 #import "ProjectDetailsView.h"
 #import "GLGitlab.h"
-#import "Tools.h"
 
 #import "PKRevealController.h"
 
@@ -25,7 +24,7 @@
 
 @property (nonatomic, copy) NSString *privateToken;
 @property (nonatomic, assign) int64_t userID;
-@property (nonatomic, assign) NSUInteger projectsType;
+@property (nonatomic, assign) ProjectsType projectsType;
 
 @property (nonatomic, assign) BOOL isFinishedLoad;
 @property (nonatomic, assign) BOOL isLoading;
@@ -40,7 +39,7 @@
 
 static NSString * const cellId = @"ProjectCell";
 
-- (id)initWithProjectsType:(NSUInteger)projectsType
+- (id)initWithProjectsType:(ProjectsType)projectsType
 {
     self = [super init];
     if (self) {
@@ -51,7 +50,7 @@ static NSString * const cellId = @"ProjectCell";
 
 }
 
-- (id)initWithUserID:(int64_t)userID andProjectsType:(NSUInteger)projectsType
+- (id)initWithUserID:(int64_t)userID andProjectsType:(ProjectsType)projectsType
 {
     self = [self initWithProjectsType:projectsType];
     _userID = userID;
@@ -61,7 +60,7 @@ static NSString * const cellId = @"ProjectCell";
 
 - (id)initWithPrivateToken:(NSString *)privateToken
 {
-    self = [self initWithProjectsType:3];
+    self = [self initWithProjectsType:ProjectsTypeEventForUser];
     _privateToken = privateToken;
     
     return self;
@@ -122,6 +121,70 @@ static NSString * const cellId = @"ProjectCell";
 
 #pragma mark - 获取数据
 
+- (NSString *)stringUrl
+{
+    NSMutableString *strUrl = [[NSMutableString alloc] initWithFormat:@"%@", GITAPI_HTTPS_PREFIX];
+    
+    switch (_projectsType) {
+        case ProjectsTypeFeatured:
+        case ProjectsTypePopular:
+        case ProjectsTypeLatest:
+        {
+            NSString *string = @[@"featured", @"popular", @"latest"][_projectsType];
+            [strUrl appendFormat:@"/%@/%@?",
+            GITAPI_PROJECTS,
+            string];
+            
+            break;
+        }
+        case ProjectsTypeStared:
+        case ProjectsTypeWatched:
+        {
+            NSString *string = @[@"stared_projects", @"watched_projects"][_projectsType-4];
+            [strUrl appendFormat:@"/%@/%lld/%@?",
+             GITAPI_USER,
+             _userID,
+             string];
+            
+            break;
+        }
+        case ProjectsTypeUserProjects:
+        {
+            [strUrl appendFormat:@"/%@/%lld/projects?",
+                    GITAPI_USER,
+                    _userID];
+            break;
+        }
+        case ProjectsTypeLanguage:
+        {
+            [strUrl appendFormat:@"/%@/languages/%ld?",
+                      GITAPI_PROJECTS,
+                      (long)_languageID];
+            break;
+        }
+        case ProjectsTypeSearch:
+        {
+           [strUrl appendFormat:@"/%@/search/%@?private_token=%@&",
+                      GITAPI_PROJECTS,
+                      _query,
+                      _privateToken];
+            break;
+        }
+        case ProjectsTypeEventForUser:
+        {
+            [strUrl appendFormat:@"/%@/%@/%lld?",
+                    GITAPI_EVENTS,
+                    GITAPI_USER,
+                    _userID];
+            break;
+        }
+
+    }
+    [strUrl appendFormat:@"page=%ld", (long)_page];
+    
+    return strUrl;
+}
+
 - (void)fetchProject:(BOOL)refresh
 {
     self.emptyDataSet.state = loadingState;
@@ -131,97 +194,10 @@ static NSString * const cellId = @"ProjectCell";
     } else {
         _page++;
     }
-    
-    NSString *strUrl;
-    
-    switch (_projectsType) {
-        case 0:
-        {
-            strUrl = [NSString stringWithFormat:@"%@/%@/featured?page=%ld",
-                                                GITAPI_HTTPS_PREFIX,
-                                                GITAPI_PROJECTS,
-                                                (long)_page];
-            break;
-        }
-        case 1:
-        {
-            strUrl = [NSString stringWithFormat:@"%@/%@/popular?page=%ld",
-                                                GITAPI_HTTPS_PREFIX,
-                                                GITAPI_PROJECTS,
-                                                (long)_page];
-            break;
-        }
-        case 2:
-        {
-            strUrl = [NSString stringWithFormat:@"%@/%@/latest?page=%ld",
-                                                GITAPI_HTTPS_PREFIX,
-                                                GITAPI_PROJECTS,
-                                                (long)_page];
-            break;
-        }
-        case 3:
-        {
-            strUrl = [NSString stringWithFormat:@"%@/%@/%@/%lld?page=%ld",
-                                                GITAPI_HTTPS_PREFIX,
-                                                GITAPI_EVENTS,
-                                                GITAPI_USER,
-                                                _userID,
-                                                (long)_page];
-            break;
-        }
-        case 4:
-        {
-            strUrl = [NSString stringWithFormat:@"%@/%@/%lld/stared_projects?page=%ld",
-                                                GITAPI_HTTPS_PREFIX,
-                                                GITAPI_USER,
-                                                _userID,
-                                                (long)_page];
-            break;
-        }
-        case 5:
-        {
-            strUrl = [NSString stringWithFormat:@"%@/%@/%lld/watched_projects?page=%ld",
-                                                GITAPI_HTTPS_PREFIX,
-                                                GITAPI_USER,
-                                                _userID,
-                                                (long)_page];
-            break;
-        }
-        case 6:
-        {
-            strUrl = [NSString stringWithFormat:@"%@/%@/languages/%ld?page=%ld",
-                                                GITAPI_HTTPS_PREFIX,
-                                                GITAPI_PROJECTS,
-                                                (long)_languageID,
-                                                (long)_page];
-            break;
-        }
-        case 7:
-        {
-            strUrl = [NSString stringWithFormat:@"%@/%@/search/%@?private_token=%@&page=%ld",
-                                                GITAPI_HTTPS_PREFIX,
-                                                GITAPI_PROJECTS,
-                                                _query,
-                                                _privateToken,
-                                                (long)_page];
-            break;
-        }
-        case 8:
-        {
-            strUrl = [NSString stringWithFormat:@"%@/%@/%lld/projects?page=%ld",
-                                                GITAPI_HTTPS_PREFIX,
-                                                GITAPI_USER,
-                                                _userID,
-                                                (long)_page];
-            break;
-        }
-        default:
-            break;
-    }
-    
+
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager GitManager];
     
-    [manager GET:strUrl
+    [manager GET:[self stringUrl]
       parameters:nil
          success:^(AFHTTPRequestOperation * operation, id responseObject) {
              if (refresh) {
