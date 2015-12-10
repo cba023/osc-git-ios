@@ -10,6 +10,4 @@
 
 @interface LanguageSearchView : UITableViewController
 
-@property NSArray *languages;
-
 @end

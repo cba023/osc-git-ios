@@ -15,5 +15,6 @@
 #define GITAPI_PROJECTS         @"projects"
 #define GITAPI_USER             @"user"
 #define GITAPI_EVENTS           @"events"
+#define GITAPI_LANGUAGE         @"languages"
 
 #endif /* GITAPI_h */

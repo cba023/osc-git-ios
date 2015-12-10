@@ -14,7 +14,12 @@
 #import "PKRevealController.h"
 #import "SearchView.h"
 
+#import "AFHTTPRequestOperationManager+Util.h"
+#import "GITAPI.h"
+
 @interface LanguageSearchView ()
+
+@property (nonatomic, strong) NSMutableArray *languages;
 
 @end
 
@@ -35,6 +40,8 @@ static NSString * const LanguageCellID = @"LanguageCell";
 {
     [super viewDidLoad];
     
+    _languages = [NSMutableArray new];
+    
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSearch
                                                                                            target:self
                                                                                            action:@selector(showMenu)];
@@ -45,6 +52,13 @@ static NSString * const LanguageCellID = @"LanguageCell";
     UIView *footer = [[UIView alloc] initWithFrame:CGRectZero];
     self.tableView.tableFooterView = footer;
     self.tableView.bounces = NO;
+    
+    if ([Tools isPageCacheExist:10]) {
+        [self loadFromCache];
+        return;
+    }
+ 
+    [self fetchForLanguage];
 }
 
 - (void)showMenu
@@ -61,47 +75,35 @@ static NSString * const LanguageCellID = @"LanguageCell";
     // Dispose of any resources that can be recreated.
 }
 
-- (void)viewDidAppear:(BOOL)animated
+#pragma mark - 获取数据
+- (void)fetchForLanguage
 {
-    [super viewDidAppear:animated];
+    NSString *StrUrl = [NSString stringWithFormat:@"%@/%@/%@", GITAPI_HTTPS_PREFIX, GITAPI_PROJECTS, GITAPI_LANGUAGE];
     
-    if (_languages.count > 0) {
-        return;
-    }
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager GitManager];
     
-    if ([Tools isPageCacheExist:10]) {
-        [self loadFromCache];
-        [self.view hideToastActivity];
-        return;
-    }
-    
-    [self.view makeToastActivity];
-    
-    GLGitlabSuccessBlock success = ^(id responseObject) {
-        [self.view hideToastActivity];
-        if (responseObject == nil) {
-            NSLog(@"Request failed");
-        } else {
-            _languages = responseObject;
-            [Tools savePageCache:_languages type:10];
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [self.tableView reloadData];
-            });
-        }
-    };
-    
-    GLGitlabFailureBlock failure = ^(NSError *error) {
-        [self.view hideToastActivity];
-        
-        if (error != nil) {
-            [Tools toastNotification:[NSString stringWithFormat:@"网络异常，错误码：%ld", (long)error.code] inView:self.view];
-        } else {
-            [Tools toastNotification:@"网络错误" inView:self.view];
-        }
-    };
-    
-    [[GLGitlabApi sharedInstance] getLanguagesListSuccess:success failure:failure];
+    [manager GET:StrUrl
+      parameters:nil
+         success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+             if ([responseObject count] > 0) {
+                 [responseObject enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                     GLEvent *event = [[GLEvent alloc] initWithJSON:obj];
+                     [_languages addObject:event];
+                 }];
+                 
+                 [Tools savePageCache:_languages type:10];
+             }
+             
+             dispatch_async(dispatch_get_main_queue(), ^{
+                 [self.tableView reloadData];
+             });
 
+         } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
+             NSLog(@"error = %@", error);
+             dispatch_async(dispatch_get_main_queue(), ^{
+                 [self.tableView reloadData];
+             });
+    }];
 }
 
 #pragma mark - Table view data source
@@ -169,13 +171,10 @@ static NSString * const LanguageCellID = @"LanguageCell";
 
 - (void)loadFromCache
 {
-    _languages = [Tools getPageCache:10];
+    [_languages addObjectsFromArray:[Tools getPageCache:10]];
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.tableView reloadData];
     });
 }
-
-
-
 
 @end
