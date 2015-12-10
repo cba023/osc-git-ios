@@ -8,8 +8,8 @@
 
 #import <Foundation/Foundation.h>
 #import "GLBaseObject.h"
-
-@class GLNamespace, GLUser;
+#import "GLUser.h"
+#import "GLNamespace.h"
 
 @interface GLProject : GLBaseObject
 

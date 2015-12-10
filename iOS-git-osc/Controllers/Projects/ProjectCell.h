@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "GLProject.h"
 
 @interface ProjectCell : UITableViewCell
 
@@ -17,5 +18,7 @@
 @property UILabel *starsCount;
 @property UILabel *forksCount;
 //@property UILabel *updatetimeField;
+
+- (void)contentForProjects:(GLProject *)project;
 
 @end

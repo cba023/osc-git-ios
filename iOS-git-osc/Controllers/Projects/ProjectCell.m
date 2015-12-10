@@ -148,5 +148,15 @@
                                                                                views:viewsDictionary]];
 }
 
+- (void)contentForProjects:(GLProject *)project
+{
+    [Tools setPortraitForUser:project.owner view:self.portrait cornerRadius:5.0];
+    self.projectNameField.text = [NSString stringWithFormat:@"%@ / %@", project.owner.name, project.name];
+    self.projectDescriptionField.text = project.projectDescription.length > 0? project.projectDescription: @"暂无项目介绍";
+    self.languageField.text = project.language? project.language: @"Unknown";
+    self.forksCount.text = [NSString stringWithFormat:@"%i", project.forksCount];
+    self.starsCount.text = [NSString stringWithFormat:@"%i", project.starsCount];
+}
+
 
 @end

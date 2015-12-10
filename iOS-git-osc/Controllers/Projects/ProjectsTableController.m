@@ -268,12 +268,7 @@ static NSString * const cellId = @"ProjectCell";
         
         GLProject *project = [self.projects objectAtIndex:indexPath.row];
         
-        [Tools setPortraitForUser:project.owner view:cell.portrait cornerRadius:5.0];
-        cell.projectNameField.text = [NSString stringWithFormat:@"%@ / %@", project.owner.name, project.name];
-        cell.projectDescriptionField.text = project.projectDescription.length > 0? project.projectDescription: @"暂无项目介绍";
-        cell.languageField.text = project.language? project.language: @"Unknown";
-        cell.forksCount.text = [NSString stringWithFormat:@"%i", project.forksCount];
-        cell.starsCount.text = [NSString stringWithFormat:@"%i", project.starsCount];
+        [cell contentForProjects:project];
         
         return cell;
     } else {
