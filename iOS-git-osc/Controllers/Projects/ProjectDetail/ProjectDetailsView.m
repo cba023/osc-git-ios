@@ -24,17 +24,20 @@
 
 #import "GITAPI.h"
 #import "AFHTTPRequestOperationManager+Util.h"
+#import "DataSetObject.h"
 
 static NSString * const ProjectDetailsCellID = @"ProjectDetailsCell";
 //static NSString * const ProjcetDescriptionCellID = @"ProjcetDescriptionCell";
 
 @interface ProjectDetailsView () <UIActionSheetDelegate>
 
-@property int64_t projectID;
-@property NSString *namsSpace;
-@property NSString *projectName;
+@property (nonatomic, assign) int64_t projectID;
+@property (nonatomic, copy) NSString *namsSpace;
+@property (nonatomic, copy) NSString *projectName;
 
-@property NSString *projectURL;
+@property (nonatomic, copy) NSString *projectURL;
+
+@property (nonatomic, strong) DataSetObject *emptyDataSet;
 
 @end
 
@@ -64,7 +67,14 @@ static NSString * const ProjectDetailsCellID = @"ProjectDetailsCell";
     UIView *footer =[[UIView alloc] initWithFrame:CGRectZero];
     self.tableView.tableFooterView = footer;
     
+    
+    /* 设置空页面状态 */
     [self fetchProjectsDetail];
+    self.emptyDataSet = [[DataSetObject alloc]initWithSuperScrollView:self.tableView];
+    __weak ProjectDetailsView *weakSelf = self;
+    self.emptyDataSet.reloading = ^{
+        [weakSelf fetchProjectsDetail];
+    };
 }
 
 - (void)didReceiveMemoryWarning
@@ -77,13 +87,9 @@ static NSString * const ProjectDetailsCellID = @"ProjectDetailsCell";
 
 - (void)fetchProjectsDetail
 {
-    if (_project) {return;}
-    if (![Tools isNetworkExist]) {
-        [Tools toastNotification:@"网络连接失败，请检查网络设置" inView:self.view];
-        return;
-    }
+    self.emptyDataSet.state = loadingState;
     
-    [self.view makeToastActivity];
+    if (_project) {return;}
     
     _user = [NSUserDefaults standardUserDefaults];
     NSString *privateToken = [_user objectForKey:@"private_token"];
@@ -96,13 +102,9 @@ static NSString * const ProjectDetailsCellID = @"ProjectDetailsCell";
       parameters:nil
          success:^(AFHTTPRequestOperation *operation, id responseObject) {
              
-             if (responseObject == nil) {
-                 [Tools toastNotification:@"网络错误" inView:self.view];
-             } else {
+             if (responseObject == nil) { } else {
                  _project = [[GLProject alloc] initWithJSON:responseObject];
-                 
                  self.title = _project.name;
-                 [self.view hideToastActivity];
                  
                  self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]
                                                            initWithImage:[UIImage imageNamed:@"projectDetails_more"]
@@ -112,22 +114,22 @@ static NSString * const ProjectDetailsCellID = @"ProjectDetailsCell";
                  
                  _projectURL = [NSString stringWithFormat:@"http://git.oschina.net/%@/%@", _project.owner.username, _project.path];
                  
-                 dispatch_async(dispatch_get_main_queue(), ^{
-                     [self.tableView reloadData];
-                 });
-                 
              }
-         } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
              
-             [self.view hideToastActivity];
-             if (error != nil) {
-                 [Tools toastNotification:[NSString stringWithFormat:@"网络异常，错误码：%ld", (long)error.code] inView:self.view];
-             } else {
-                 [Tools toastNotification:@"网络错误" inView:self.view];
+             if (_project.name.length == 0) {
+                 self.emptyDataSet.state = noDataState;
+                 self.emptyDataSet.respondString = @"还没有相关项目详情";
              }
+             
+             dispatch_async(dispatch_get_main_queue(), ^{
+                 [self.tableView reloadData];
+             });
+         } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
+             self.emptyDataSet.state = netWorkingErrorState;
+             dispatch_async(dispatch_get_main_queue(), ^{
+                 [self.tableView reloadData];
+             });
          }];
-    
-    [self.tableView reloadData];
 }
 
 #pragma mark - tableview things

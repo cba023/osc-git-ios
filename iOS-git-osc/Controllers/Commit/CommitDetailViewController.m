@@ -17,11 +17,13 @@
 
 #import "DiffHeaderCell.h"
 #import "CommitFileViewController.h"
+#import <MBProgressHUD.h>
 
 @interface CommitDetailViewController ()
 
 @property (nonatomic, strong) NSMutableArray *commitDiffs;
 @property (nonatomic,strong) DataSetObject *emptyDataSet;
+@property (nonatomic, strong) MBProgressHUD *hud;
 
 @end
 
@@ -58,11 +60,8 @@ static NSString * const cellId = @"DiffHeaderCell";
 {
     self.emptyDataSet.state = loadingState;
     
-    if (![Tools isNetworkExist]) {
-        
-        [Tools toastNotification:@"网络连接失败，请检查网络设置" inView:self.view];
-        return;
-    }
+    _hud = [MBProgressHUD showHUDAddedTo:[[UIApplication sharedApplication].windows lastObject] animated:YES];
+    _hud.userInteractionEnabled = NO;
     
     NSString *strUrl = [NSString stringWithFormat:@"%@%@/%@/repository/commits/%@/diff",
                        GITAPI_HTTPS_PREFIX,
@@ -73,22 +72,18 @@ static NSString * const cellId = @"DiffHeaderCell";
         strUrl = [NSString stringWithFormat:@"%@?private_token=%@", strUrl, [Tools getPrivateToken]];
     }
     
-    [self.view makeToastActivity];
-    
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager GitManager];
     
     [manager GET:strUrl
       parameters:nil
          success:^(AFHTTPRequestOperation * operation, id responseObject) {
-             [self.view hideToastActivity];
+             [_hud hide:YES afterDelay:1];
              
              if ([responseObject count] > 0) {
                  [responseObject enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL * _Nonnull stop) {
                      GLDiff *diff = [[GLDiff alloc] initWithJSON:obj];
                      
                      [_commitDiffs addObject:diff];
-                     
-                     
                  }];
              }
              
@@ -102,14 +97,12 @@ static NSString * const cellId = @"DiffHeaderCell";
              });
              
          } failure:^(AFHTTPRequestOperation * operation, NSError * error) {
-             [self.view hideToastActivity];
-             
              if (error != nil) {
-                 [Tools toastNotification:[NSString stringWithFormat:@"网络异常，错误码：%ld", (long)error.code] inView:self.view];
+                 _hud.detailsLabelText = [NSString stringWithFormat:@"网络异常，错误码：%ld", (long)error.code];
              } else {
-                 [Tools toastNotification:@"网络错误" inView:self.view];
+                 _hud.detailsLabelText = @"网络错误";
              }
-             NSLog(@"%@", error);
+             [_hud hide:YES afterDelay:1];
              dispatch_async(dispatch_get_main_queue(), ^{
                  self.emptyDataSet.state = netWorkingErrorState;
                  [self.tableView reloadData];

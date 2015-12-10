@@ -14,11 +14,13 @@
 
 #import "GITAPI.h"
 #import "AFHTTPRequestOperationManager+Util.h"
+#import <MBProgressHUD.h>
 
 @interface ReadmeView ()
 
-@property BOOL isFinishedLoading;
-@property NSString *html;
+@property (nonatomic, assign) BOOL isFinishedLoading;
+@property (nonatomic, copy) NSString *html;
+@property (nonatomic, strong) MBProgressHUD *hud;
 
 @end
 
@@ -48,15 +50,11 @@
 #pragma mark - 获取数据
 - (void)fetchProjectReadMeDetail
 {
-    self.revealController.frontViewController.revealController.recognizesPanningOnFrontView = NO;
-    
     if (_isFinishedLoading) {return;}
-    if (![Tools isNetworkExist]) {
-        [Tools toastNotification:@"网络连接失败，请检查网络设置" inView:self.view];
-        return;
-    }
     
-    [self.view makeToastActivity];
+    _hud = [MBProgressHUD showHUDAddedTo:[[UIApplication sharedApplication].windows lastObject] animated:YES];
+    _hud.userInteractionEnabled = NO;
+    
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager GitManager];
     
@@ -65,6 +63,8 @@
     [manager GET:strUrl
       parameters:nil
          success:^(AFHTTPRequestOperation *operation, id responseObject) {
+             [_hud hide:YES afterDelay:1];
+             
              if (responseObject == nil || responseObject == [NSNull null]) {
                  _isFinishedLoading = YES;
                  [_readme loadHTMLString:@"该项目暂无Readme文件" baseURL:nil];
@@ -73,13 +73,12 @@
                  [_readme loadHTMLString:_html baseURL:nil];
              }
          } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
-             [self.view hideToastActivity];
-             
              if (error != nil) {
-                 [Tools toastNotification:[NSString stringWithFormat:@"网络异常，错误码：%ld", (long)error.code] inView:self.view];
+                 _hud.detailsLabelText = [NSString stringWithFormat:@"网络异常，错误码：%ld", (long)error.code];
              } else {
-                 [Tools toastNotification:@"网络错误" inView:self.view];
+                 _hud.detailsLabelText = @"网络错误";
              }
+             [_hud hide:YES afterDelay:1];
          }];
 }
 

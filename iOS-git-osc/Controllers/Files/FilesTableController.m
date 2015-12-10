@@ -17,8 +17,12 @@
 
 #import "GITAPI.h"
 #import "AFHTTPRequestOperationManager+Util.h"
+#import "DataSetObject.h"
 
 @interface FilesTableController ()
+
+@property (nonatomic, strong) NSMutableArray *filesArray;
+@property (nonatomic, strong) DataSetObject *emptyDataSet;
 
 @end
 
@@ -63,14 +67,13 @@ static NSString * const cellId = @"FileCell";
     
     _filesArray = [NSMutableArray new];
     
+    /* 设置空页面状态 */
     [self fetchForFiles];
-    
-#if 0
-    self.refreshControl = [[UIRefreshControl alloc] init];
-    [self.refreshControl setAttributedTitle:[[NSAttributedString alloc] initWithString:@"松手更新数据"]];
-    [self.refreshControl addTarget:self action:@selector(refreshView) forControlEvents:UIControlEventValueChanged];
-    //[self setRefreshControl:self.refreshControl];
-#endif
+    self.emptyDataSet = [[DataSetObject alloc]initWithSuperScrollView:self.tableView];
+    __weak FilesTableController *weakSelf = self;
+    self.emptyDataSet.reloading = ^{
+        [weakSelf fetchForFiles];
+    };
 }
 
 - (void)didReceiveMemoryWarning
@@ -82,16 +85,9 @@ static NSString * const cellId = @"FileCell";
 #pragma mark - 获取数据
 - (void)fetchForFiles
 {
-    self.revealController.frontViewController.revealController.recognizesPanningOnFrontView = YES;
-    
     if (_filesArray.count > 0) {return;}
     
-    if (![Tools isNetworkExist]) {
-        [Tools toastNotification:@"网络连接失败，请检查网络设置" inView:self.view];
-        return;
-    }
-    
-    [self.view makeToastActivity];
+    self.emptyDataSet.state = loadingState;
     
     AFHTTPRequestOperationManager  *manager = [AFHTTPRequestOperationManager GitManager];
     NSDictionary *parameters = @{
@@ -104,28 +100,27 @@ static NSString * const cellId = @"FileCell";
     [manager GET:strUrl
       parameters:parameters
          success:^(AFHTTPRequestOperation * operation, id responseObject) {
-             [self.view hideToastActivity];
-             
-             if (responseObject == nil){
-                 [Tools toastNotification:@"请求失败，请稍后再试" inView:self.view];
-             } else {
+             if (responseObject == nil){ } else {
                  [responseObject enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
                      GLFile *file = [[GLFile alloc] initWithJSON:obj];
                      [_filesArray addObject:file];
                  }];
-                 
-                 dispatch_async(dispatch_get_main_queue(), ^{
-                     [self.tableView reloadData];
-                 });
              }
-         } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
-             [self.view hideToastActivity];
              
-             if (error != nil) {
-                 [Tools toastNotification:[NSString stringWithFormat:@"网络异常，错误码：%ld", (long)error.code] inView:self.view];
-             } else {
-                 [Tools toastNotification:@"网络错误" inView:self.view];
+             if (_filesArray.count == 0) {
+                 self.emptyDataSet.state = noDataState;
+                 self.emptyDataSet.respondString = @"还没有相关文件";
              }
+             
+             dispatch_async(dispatch_get_main_queue(), ^{
+                 [self.tableView reloadData];
+             });
+             
+         } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
+             self.emptyDataSet.state = netWorkingErrorState;
+             dispatch_async(dispatch_get_main_queue(), ^{
+                 [self.tableView reloadData];
+             });
     }];
 }
 

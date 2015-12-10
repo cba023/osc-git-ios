@@ -16,12 +16,14 @@
 
 #import "GITAPI.h"
 #import "AFHTTPRequestOperationManager+Util.h"
+#import <MBProgressHUD.h>
 
 @interface NotesView ()
 
-@property BOOL isLoadingFinished;
-@property CGFloat webViewHeight;
-@property NSString *issueContentHTML;
+@property (nonatomic, assign) BOOL isLoadingFinished;
+@property (nonatomic) CGFloat webViewHeight;
+@property (nonatomic, copy) NSString *issueContentHTML;
+@property (nonatomic, strong) MBProgressHUD *hud;
 
 @end
 
@@ -61,14 +63,6 @@ static NSString * const IssueDescriptionCellId = @"IssueDescriptionCell";
                                                                              action:@selector(editComment)];
     
     [self fetchIssueNotesOnPage:1];
-}
-
-- (void)viewDidAppear:(BOOL)animated
-{
-    if (![Tools isNetworkExist]) {
-        [Tools toastNotification:@"网络连接失败，请检查网络设置" inView:self.parentViewController.view];
-        return;
-    }
 }
 
 - (void)didReceiveMemoryWarning
@@ -223,10 +217,8 @@ static NSString * const IssueDescriptionCellId = @"IssueDescriptionCell";
 
 - (void)fetchIssueNotesOnPage:(NSUInteger)page
 {
-    if (![Tools isNetworkExist]) {
-        [Tools toastNotification:@"网络连接失败，请检查网络设置" inView:self.parentViewController.view];
-        return;
-    }
+    _hud = [MBProgressHUD showHUDAddedTo:[[UIApplication sharedApplication].windows lastObject] animated:YES];
+    _hud.userInteractionEnabled = NO;
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager GitManager];
     
@@ -235,9 +227,9 @@ static NSString * const IssueDescriptionCellId = @"IssueDescriptionCell";
     [manager GET:strUrl
       parameters:nil
          success:^(AFHTTPRequestOperation * operation, id responseObject) {
-             if (responseObject == nil) {
-                 [Tools toastNotification:@"网络错误" inView:self.tableView];
-             } else {
+             [_hud hide:YES afterDelay:1];
+             
+             if (responseObject == nil) { } else {
                  [responseObject enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
                      GLNote *note = [[GLNote alloc] initWithJSON:obj];
                      [_notes addObject:note];
@@ -249,10 +241,11 @@ static NSString * const IssueDescriptionCellId = @"IssueDescriptionCell";
              }
          } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
              if (error != nil) {
-                 [Tools toastNotification:[NSString stringWithFormat:@"网络异常，错误码：%ld", (long)error.code] inView:self.tableView];
+                 _hud.detailsLabelText = [NSString stringWithFormat:@"网络异常，错误码：%ld", (long)error.code];
              } else {
-                 [Tools toastNotification:@"网络错误" inView:self.tableView];
+                 _hud.detailsLabelText = @"网络错误";
              }
+             [_hud hide:YES afterDelay:1];
          }];
 }
 

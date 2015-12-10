@@ -12,6 +12,7 @@
 #import "UIView+Toast.h"
 #import "AFHTTPRequestOperationManager+Util.h"
 #import "DataSetObject.h"
+#import <MBProgressHUD.h>
 
 @interface CommitFileViewController () <UIWebViewDelegate>
 
@@ -20,6 +21,7 @@
 @property (nonatomic, copy) NSString *fileName;
 
 @property (nonatomic,strong) DataSetObject *emptyDataSet;
+@property (nonatomic, strong) MBProgressHUD *hud;
 
 @end
 
@@ -63,11 +65,8 @@
 {
     self.emptyDataSet.state = loadingState;
     
-    if (![Tools isNetworkExist]) {
-        
-        [Tools toastNotification:@"网络连接失败，请检查网络设置" inView:self.view];
-        return;
-    }
+    _hud = [MBProgressHUD showHUDAddedTo:[[UIApplication sharedApplication].windows lastObject] animated:YES];
+    _hud.userInteractionEnabled = NO;
     
     NSString *strUrl = [NSString stringWithFormat:@"%@%@/%@/repository/commits/%@/blob",
                         GITAPI_HTTPS_PREFIX,
@@ -87,11 +86,11 @@
     manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
     
-    [self.view makeToastActivity];
-    
     [manager GET:strUrl
       parameters:parameters
          success:^(AFHTTPRequestOperation * operation, id responseObject) {
+             [_hud hide:YES afterDelay:1];
+             
             if (responseObject == nil) {} else {
                  NSString *resStr = [[NSString alloc]initWithData:responseObject encoding:NSUTF8StringEncoding];
                  _content = resStr;
@@ -102,18 +101,15 @@
                     self.emptyDataSet.respondString = @"您还没有相应文件";
                 }
              }
-             [self.view hideToastActivity];
              
          } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
-             NSLog(@"%@", error);
-             [self.view hideToastActivity];
              self.emptyDataSet.state = netWorkingErrorState;
-             
              if (error != nil) {
-                 [Tools toastNotification:[NSString stringWithFormat:@"网络异常，错误码：%ld", (long)error.code] inView:self.view];
+                 _hud.detailsLabelText = [NSString stringWithFormat:@"网络异常，错误码：%ld", (long)error.code];
              } else {
-                 [Tools toastNotification:@"网络错误" inView:self.view];
+                 _hud.detailsLabelText = @"网络错误";
              }
+             [_hud hide:YES afterDelay:1];
          }];
     
 }

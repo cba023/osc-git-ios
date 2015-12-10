@@ -10,9 +10,9 @@
 
 @interface FileContentView : UIViewController <UIWebViewDelegate>
 
-@property int64_t projectID;
-@property NSString *projectNameSpace;
-@property NSString *path;
+@property (nonatomic, assign) int64_t projectID;
+@property (nonatomic, copy) NSString *projectNameSpace;
+@property (nonatomic, copy) NSString *path;
 @property (strong, nonatomic) NSString *fileName;
 
 @property (strong, nonatomic) NSString *content;

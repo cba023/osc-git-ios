@@ -428,13 +428,8 @@
             
             [alertView show];
         } else {
-            [Tools setPortraitForUser:_project.owner view:_projectCell.portrait cornerRadius:5.0];
-            _projectCell.projectNameField.text = [NSString stringWithFormat:@"%@ / %@", _project.owner.name, _project.name];
-            _projectCell.projectDescriptionField.text = _project.projectDescription.length > 0? _project.projectDescription: @"暂无项目介绍";
-            _projectCell.languageField.text = _project.language ?: @"Unknown";
-            _projectCell.forksCount.text = [NSString stringWithFormat:@"%i", _project.forksCount];
-            _projectCell.starsCount.text = [NSString stringWithFormat:@"%i", _project.starsCount];
             
+            [_projectCell contentForProjects:_project];           
             [_projectCell setHidden:NO];
             
             [self startAccelerometer];
