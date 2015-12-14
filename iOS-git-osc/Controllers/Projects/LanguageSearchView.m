@@ -87,8 +87,8 @@ static NSString * const LanguageCellID = @"LanguageCell";
          success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
              if ([responseObject count] > 0) {
                  [responseObject enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-                     GLEvent *event = [[GLEvent alloc] initWithJSON:obj];
-                     [_languages addObject:event];
+                     GLLanguage *language =[[GLLanguage alloc] initWithJSON:obj];
+                     [_languages addObject:language];
                  }];
                  
                  [Tools savePageCache:_languages type:10];
