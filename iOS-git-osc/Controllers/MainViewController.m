@@ -41,6 +41,7 @@
     titleScrollCtl.titleName = @"项目";
     titleScrollCtl.subTitles = @[@"推荐", @"热门", @"最近更新"];
     titleScrollCtl.isProject = YES;
+    titleScrollCtl.isFirstLayer = YES;
     titleScrollCtl.tabBarItem.title = _titles[0];
     titleScrollCtl.tabBarItem.image = [UIImage imageNamed:_images[0]];
     UINavigationController *projectsNavigationController = [[UINavigationController alloc] initWithRootViewController:titleScrollCtl];
@@ -63,6 +64,7 @@
     ownDetailsView.portrait = [_user objectForKey:@"new_portrait"];
     ownDetailsView.name = [_user objectForKey:@"name"];
     ownDetailsView.isTabbarItem = YES;
+    ownDetailsView.isFirstLayer = YES;
     ownDetailsView.tabBarItem.title = _titles[2];
     ownDetailsView.tabBarItem.image = [UIImage imageNamed:_images[2]];
     UINavigationController *ownNavigationController = [[UINavigationController alloc] initWithRootViewController:ownDetailsView];

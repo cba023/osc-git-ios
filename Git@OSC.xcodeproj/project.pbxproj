@@ -1734,7 +1734,7 @@
 					"$(PROJECT_DIR)/iOS-git-osc/Vendor/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_Extra_Frameworks/Wechat",
 				);
 				PRODUCT_NAME = "Git@OSC";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "8ff6edc2-8636-49e2-94e6-2269a186d027";
 				TARGETED_DEVICE_FAMILY = 1;
 				VALID_ARCHS = "arm64 armv7  armv7s";
 				WRAPPER_EXTENSION = app;
@@ -1849,7 +1849,7 @@
 					"$(PROJECT_DIR)/iOS-git-osc/Vendor/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_Extra_Frameworks/Wechat",
 				);
 				PRODUCT_NAME = "Git@OSC";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "8ff6edc2-8636-49e2-94e6-2269a186d027";
 				TARGETED_DEVICE_FAMILY = 1;
 				VALID_ARCHS = "arm64 armv7  armv7s";
 				WRAPPER_EXTENSION = app;

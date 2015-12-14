@@ -60,9 +60,6 @@ static NSString * const cellId = @"DiffHeaderCell";
 {
     self.emptyDataSet.state = loadingState;
     
-    _hud = [MBProgressHUD showHUDAddedTo:[[UIApplication sharedApplication].windows lastObject] animated:YES];
-    _hud.userInteractionEnabled = NO;
-    
     NSString *strUrl = [NSString stringWithFormat:@"%@%@/%@/repository/commits/%@/diff",
                        GITAPI_HTTPS_PREFIX,
                        GITAPI_PROJECTS,
@@ -77,8 +74,6 @@ static NSString * const cellId = @"DiffHeaderCell";
     [manager GET:strUrl
       parameters:nil
          success:^(AFHTTPRequestOperation * operation, id responseObject) {
-             [_hud hide:YES afterDelay:1];
-             
              if ([responseObject count] > 0) {
                  [responseObject enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL * _Nonnull stop) {
                      GLDiff *diff = [[GLDiff alloc] initWithJSON:obj];
@@ -97,12 +92,6 @@ static NSString * const cellId = @"DiffHeaderCell";
              });
              
          } failure:^(AFHTTPRequestOperation * operation, NSError * error) {
-             if (error != nil) {
-                 _hud.detailsLabelText = [NSString stringWithFormat:@"网络异常，错误码：%ld", (long)error.code];
-             } else {
-                 _hud.detailsLabelText = @"网络错误";
-             }
-             [_hud hide:YES afterDelay:1];
              dispatch_async(dispatch_get_main_queue(), ^{
                  self.emptyDataSet.state = netWorkingErrorState;
                  [self.tableView reloadData];

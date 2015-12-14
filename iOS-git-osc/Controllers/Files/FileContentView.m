@@ -47,11 +47,17 @@
     self.webView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
     self.webView.scrollView.bounces = NO;
     self.webView.delegate = self;
+    self.webView.dataDetectorTypes = UIDataDetectorTypeAll;
     
     [self.view addSubview:self.webView];
     
     [self fetchFileContent];
 }
+- (BOOL)shouldAutomaticallyForwardRotationMethods
+{
+    return UIInterfaceOrientationMaskAll;
+}
+
 
 #pragma mark - 获取文件数据
 

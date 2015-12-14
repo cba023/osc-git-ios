@@ -21,5 +21,6 @@
 @property (nonatomic, copy) NSString *name;
 
 @property (nonatomic, assign) BOOL isTabbarItem;
+@property (nonatomic, assign) BOOL isFirstLayer;
 
 @end
