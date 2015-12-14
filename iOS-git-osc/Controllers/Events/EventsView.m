@@ -187,7 +187,7 @@ static NSString * const EventCellIdentifier = @"EventCell";
              
              if (_events.count == 0) {
                  self.emptyDataSet.state = noDataState;
-                 self.emptyDataSet.respondString = @"您还没有相关动态";
+                 self.emptyDataSet.respondString = @"还没有相关动态";
              }
              
              dispatch_async(dispatch_get_main_queue(), ^{

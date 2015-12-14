@@ -105,7 +105,6 @@
     _timeLabel.attributedText = [Tools getIntervalAttrStr:commit.createdAtString];
 }
 
-
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
 

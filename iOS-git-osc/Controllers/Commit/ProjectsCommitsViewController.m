@@ -100,7 +100,6 @@ static NSString * const cellId = @"ProjectsCommitCell";
     self.emptyDataSet.reloading = ^{
         [weakSelf fetchForCommitDataOnRefresh:YES];
     };
-    self.tableView.tableFooterView = [UIView new];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -198,7 +197,7 @@ static NSString * const cellId = @"ProjectsCommitCell";
              
              if (_commits.count == 0) {
                  self.emptyDataSet.state = noDataState;
-                 self.emptyDataSet.respondString = @"您还没有提交记录";
+                 self.emptyDataSet.respondString = @"还没有提交记录";
              }
              
              dispatch_async(dispatch_get_main_queue(), ^{
@@ -306,6 +305,7 @@ static NSString * const cellId = @"ProjectsCommitCell";
         CommitDetailViewController *commitDetailController = [CommitDetailViewController new];
         commitDetailController.projectNameSpace = _projectNameSpace;
         commitDetailController.commit = commit;
+        commitDetailController.projectID = _projectID;
         [self.navigationController pushViewController:commitDetailController animated:YES];
     }
 }

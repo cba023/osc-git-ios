@@ -7,6 +7,9 @@
 //
 
 #import "NoteCell.h"
+#import "Tools.h"
+#import "UIColor+Util.h"
+#import "UIImageView+Util.h"
 
 @implementation NoteCell
 
@@ -89,6 +92,14 @@
                                                                              metrics:nil
                                                                                views:NSDictionaryOfVariableBindings(_time, _body)]];
 #endif
+}
+
+- (void)contentForProjectsComment:(GLComment *)comment
+{
+    [Tools setPortraitForUser:comment.author view:_portrait cornerRadius:2.0];
+    _author.text = comment.author.name;
+    _body.text = [Tools flattenHTML:comment.noteString];
+    _time.attributedText = [Tools getIntervalAttrStr:comment.creatTime];
 }
 
 

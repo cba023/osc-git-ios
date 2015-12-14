@@ -224,7 +224,7 @@ static NSString * const cellId = @"IssueCell";
              
              if (issues.count == 0) {
                  self.emptyDataSet.state = noDataState;
-                 self.emptyDataSet.respondString = @"您还没有相关Issue";
+                 self.emptyDataSet.respondString = @"还没有相关Issue";
              }
              
              dispatch_async(dispatch_get_main_queue(), ^{

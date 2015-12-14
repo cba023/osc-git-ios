@@ -154,6 +154,8 @@
 		38C136031A5FC19B00E74C97 /* xcode.css in Resources */ = {isa = PBXBuildFile; fileRef = 38C135891A5FC19B00E74C97 /* xcode.css */; };
 		38C136041A5FC19B00E74C97 /* zenburn.css in Resources */ = {isa = PBXBuildFile; fileRef = 38C1358A1A5FC19B00E74C97 /* zenburn.css */; };
 		811BA39B38156B53A7E3E07E /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3EBA2F84F7B58B70DE5599BC /* libPods.a */; };
+		EE028F191C1EA731004FB1FB /* CommitDiscussesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EE028F181C1EA731004FB1FB /* CommitDiscussesViewController.m */; };
+		EE028F1C1C1EBCEE004FB1FB /* GLComment.m in Sources */ = {isa = PBXBuildFile; fileRef = EE028F1B1C1EBCEE004FB1FB /* GLComment.m */; };
 		EE0606E31C040080001825A7 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EE0606E21C040080001825A7 /* MainViewController.m */; };
 		EE0606E61C0406C3001825A7 /* HMSegmentedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = EE0606E51C0406C3001825A7 /* HMSegmentedControl.m */; };
 		EE0606E91C040755001825A7 /* TitleScrollViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EE0606E81C040755001825A7 /* TitleScrollViewController.m */; };
@@ -426,6 +428,10 @@
 		3EBA2F84F7B58B70DE5599BC /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		C52966EE4CD358ED820DFDD3 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		D87FAE8F0EAE3FD7CEC7C6C8 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		EE028F171C1EA731004FB1FB /* CommitDiscussesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommitDiscussesViewController.h; sourceTree = "<group>"; };
+		EE028F181C1EA731004FB1FB /* CommitDiscussesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommitDiscussesViewController.m; sourceTree = "<group>"; };
+		EE028F1A1C1EBCEE004FB1FB /* GLComment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLComment.h; sourceTree = "<group>"; };
+		EE028F1B1C1EBCEE004FB1FB /* GLComment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GLComment.m; sourceTree = "<group>"; };
 		EE0606E11C040080001825A7 /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
 		EE0606E21C040080001825A7 /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
 		EE0606E41C0406C3001825A7 /* HMSegmentedControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HMSegmentedControl.h; sourceTree = "<group>"; };
@@ -750,6 +756,8 @@
 				EE9D346F1C0EEA1600BE5704 /* DiffHeaderCell.m */,
 				EEA04AE61C0FE63F00A5C50F /* CommitFileViewController.h */,
 				EEA04AE71C0FE63F00A5C50F /* CommitFileViewController.m */,
+				EE028F171C1EA731004FB1FB /* CommitDiscussesViewController.h */,
+				EE028F181C1EA731004FB1FB /* CommitDiscussesViewController.m */,
 			);
 			path = Commit;
 			sourceTree = "<group>";
@@ -818,6 +826,8 @@
 				38BB9B231A1E0CD900175F10 /* GLCommit.m */,
 				38BB9B241A1E0CD900175F10 /* GLDiff.h */,
 				38BB9B251A1E0CD900175F10 /* GLDiff.m */,
+				EE028F1A1C1EBCEE004FB1FB /* GLComment.h */,
+				EE028F1B1C1EBCEE004FB1FB /* GLComment.m */,
 				38BB9B261A1E0CD900175F10 /* GLEvent.h */,
 				38BB9B271A1E0CD900175F10 /* GLEvent.m */,
 				38BB9B281A1E0CD900175F10 /* GLFile.h */,
@@ -1457,6 +1467,7 @@
 				38BB9B771A1E0CD900175F10 /* GLMergeRequest.m in Sources */,
 				00B8125519D0356D0017FCFA /* AwardView.m in Sources */,
 				38BB9B851A1E0CD900175F10 /* GLGitlabApi+MergeRequest.m in Sources */,
+				EE028F191C1EA731004FB1FB /* CommitDiscussesViewController.m in Sources */,
 				009018C71921D1B90050197D /* LoginViewController.m in Sources */,
 				38BB9B6D1A1E0CD900175F10 /* GLBaseObject.m in Sources */,
 				006391C71988848800689FAD /* ProjectDetailsView.m in Sources */,
@@ -1477,6 +1488,7 @@
 				00A502D019BE970200EF057B /* ImageView.m in Sources */,
 				00F017771994BB040076BE43 /* CreationInfoCell.m in Sources */,
 				EE8983E21C0C1FDF005CF5AB /* HCDropdownMenuCell.m in Sources */,
+				EE028F1C1C1EBCEE004FB1FB /* GLComment.m in Sources */,
 				008AB6D119BDD5BC00DF31B0 /* File.m in Sources */,
 				EEB00EFB1C080A2D00DEDF73 /* ProjectsCommitCell.m in Sources */,
 				0002D25A1916324B001FDED8 /* AppDelegate.m in Sources */,

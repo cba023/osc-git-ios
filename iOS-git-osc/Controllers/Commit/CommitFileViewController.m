@@ -98,7 +98,7 @@
                 
                 if (_content.length == 0) {
                     self.emptyDataSet.state = noDataState;
-                    self.emptyDataSet.respondString = @"您还没有相应文件";
+                    self.emptyDataSet.respondString = @"还没有相应文件";
                 }
              }
              

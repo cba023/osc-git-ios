@@ -12,6 +12,7 @@
 @interface CommitDetailViewController : UITableViewController
 
 @property (nonatomic, strong) GLCommit *commit;
+@property (nonatomic, assign) int64_t projectID;
 @property (nonatomic, copy) NSString *projectNameSpace;
 
 @end

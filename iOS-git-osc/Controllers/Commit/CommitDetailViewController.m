@@ -14,6 +14,7 @@
 #import "UIColor+Util.h"
 #import "UIView+Toast.h"
 #import "DataSetObject.h"
+#import "CommitDiscussesViewController.h"
 
 #import "DiffHeaderCell.h"
 #import "CommitFileViewController.h"
@@ -48,11 +49,24 @@ static NSString * const cellId = @"DiffHeaderCell";
     self.emptyDataSet.reloading = ^{
         [weakSelf fetchForCommitDiff];
     };
+    
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"评论" style:UIBarButtonItemStylePlain target:self action:@selector(commitForDiscuss)];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
 
+}
+
+
+#pragma mark - 讨论页面
+- (void)commitForDiscuss
+{
+    CommitDiscussesViewController *commitDiscussViewController = [CommitDiscussesViewController new];
+    commitDiscussViewController.projectNameSpace = _projectNameSpace;
+    commitDiscussViewController.commitID = _commit.sha;
+    commitDiscussViewController.projectID = _projectID;
+    [self.navigationController pushViewController:commitDiscussViewController animated:YES];
 }
 
 #pragma mark - 获取数据
@@ -84,7 +98,7 @@ static NSString * const cellId = @"DiffHeaderCell";
              
              if (_commitDiffs.count == 0) {
                  self.emptyDataSet.state = noDataState;
-                 self.emptyDataSet.respondString = @"您还没有提交文件";
+                 self.emptyDataSet.respondString = @"还没有提交文件";
              }
              
              dispatch_async(dispatch_get_main_queue(), ^{
