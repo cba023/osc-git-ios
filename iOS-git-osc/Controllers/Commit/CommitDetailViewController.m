@@ -88,6 +88,7 @@ static NSString * const cellId = @"DiffHeaderCell";
     [manager GET:strUrl
       parameters:nil
          success:^(AFHTTPRequestOperation * operation, id responseObject) {
+             
              if ([responseObject count] > 0) {
                  [responseObject enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL * _Nonnull stop) {
                      GLDiff *diff = [[GLDiff alloc] initWithJSON:obj];

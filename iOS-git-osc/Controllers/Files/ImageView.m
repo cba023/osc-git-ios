@@ -13,10 +13,13 @@
 #import "UIImageView+WebCache.h"
 #import "PKRevealController.h"
 
+#import <MBProgressHUD.h>
+
 @interface ImageView ()
 
-@property UIScrollView *scrollView;
-@property NSString *imageURL;
+@property (nonatomic, strong) UIScrollView *scrollView;
+@property (nonatomic, copy) NSString *imageURL;
+@property (nonatomic, strong) MBProgressHUD *hud;
 
 @end
 
@@ -44,19 +47,19 @@
 {
     [super viewDidAppear:animated];
     
-    self.revealController.frontViewController.revealController.recognizesPanningOnFrontView = NO;
-    
-    [self.view makeToastActivity];
+    _hud = [MBProgressHUD showHUDAddedTo:[[UIApplication sharedApplication].windows lastObject] animated:YES];
+    _hud.userInteractionEnabled = NO;
     
     [[SDWebImageDownloader sharedDownloader] downloadImageWithURL:[NSURL URLWithString:_imageURL]
                                                           options:0
                                                          progress:nil
                                                         completed:^(UIImage *image, NSData *data, NSError *error, BOOL finished) {
-                                                            [self.view hideToastActivity];
+                                                            [_hud hide:YES afterDelay:1];
                                                             if (image && finished) {
                                                                 [_imageView setImage:image];
                                                             } else {
-                                                                [Tools toastNotification:@"抱歉，图片加载出错" inView:self.view];
+                                                                _hud.detailsLabelText = @"抱歉，图片加载出错";
+                                                                [_hud hide:YES afterDelay:1];
                                                             }
                                                         }];
 }

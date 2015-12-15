@@ -60,7 +60,7 @@ static NSString * const cellId = @"ProjectCell";
 
 - (id)initWithPrivateToken:(NSString *)privateToken
 {
-    self = [self initWithProjectsType:ProjectsTypeEventForUser];
+    self = [self initWithProjectsType:ProjectsTypeUserProjects];
     _privateToken = privateToken;
     
     return self;
@@ -131,7 +131,7 @@ static NSString * const cellId = @"ProjectCell";
         case ProjectsTypeLatest:
         {
             NSString *string = @[@"featured", @"popular", @"latest"][_projectsType];
-            [strUrl appendFormat:@"/%@/%@?",
+            [strUrl appendFormat:@"%@/%@?",
             GITAPI_PROJECTS,
             string];
             
@@ -141,7 +141,7 @@ static NSString * const cellId = @"ProjectCell";
         case ProjectsTypeWatched:
         {
             NSString *string = @[@"stared_projects", @"watched_projects"][_projectsType-4];
-            [strUrl appendFormat:@"/%@/%lld/%@?",
+            [strUrl appendFormat:@"%@/%lld/%@?",
              GITAPI_USER,
              _userID,
              string];
@@ -150,21 +150,29 @@ static NSString * const cellId = @"ProjectCell";
         }
         case ProjectsTypeUserProjects:
         {
-            [strUrl appendFormat:@"/%@/%lld/projects?",
-                    GITAPI_USER,
-                    _userID];
+            if (_privateToken.length) {
+                [strUrl appendFormat:@"%@?private_token=%@&",
+                 GITAPI_PROJECTS,
+                 _privateToken];
+            } else {
+                [strUrl appendFormat:@"%@/%lld/%@?",
+                 GITAPI_USER,
+                 _userID,
+                 GITAPI_PROJECTS];
+            }
+            
             break;
         }
         case ProjectsTypeLanguage:
         {
-            [strUrl appendFormat:@"/%@/languages/%ld?",
+            [strUrl appendFormat:@"%@/languages/%ld?",
                       GITAPI_PROJECTS,
                       (long)_languageID];
             break;
         }
         case ProjectsTypeSearch:
         {
-           [strUrl appendFormat:@"/%@/search/%@?private_token=%@&",
+           [strUrl appendFormat:@"%@/search/%@?private_token=%@&",
                       GITAPI_PROJECTS,
                       _query,
                       _privateToken];
@@ -172,7 +180,7 @@ static NSString * const cellId = @"ProjectCell";
         }
         case ProjectsTypeEventForUser:
         {
-            [strUrl appendFormat:@"/%@/%@/%lld?",
+            [strUrl appendFormat:@"%@/%@/%lld?",
                     GITAPI_EVENTS,
                     GITAPI_USER,
                     _userID];
