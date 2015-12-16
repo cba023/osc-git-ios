@@ -12,15 +12,20 @@
 #import "GITAPI.h"
 #import "GLComment.h"
 #import "NoteCell.h"
+#import "UIColor+Util.h"
 
 #import "MJRefresh.h"
 #import "DataSetObject.h"
+#import <MBProgressHUD.h>
 
-@interface CommitDiscussesViewController ()
+@interface CommitDiscussesViewController () <UIAlertViewDelegate>
 
 @property (nonatomic, strong) NSMutableArray *comments;
 @property (nonatomic,strong) DataSetObject *emptyDataSet;
 @property (nonatomic, assign) NSInteger page;
+
+@property (nonatomic, strong) UITextField *commentField;
+@property (nonatomic, strong) MBProgressHUD *hud;
 
 @end
 
@@ -36,6 +41,7 @@ static NSString * const NoteCellId = @"NoteCell";
     self.edgesForExtendedLayout = UIRectEdgeNone;
     UIView *footer =[[UIView alloc] initWithFrame:CGRectZero];
     self.tableView.tableFooterView = footer;
+    self.view.backgroundColor = UIColorFromRGB(0xf0f0f0);
     
     //下拉刷新
     self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
@@ -58,6 +64,8 @@ static NSString * const NoteCellId = @"NoteCell";
     self.emptyDataSet.reloading = ^{
         [weakSelf fetchForDiscuss:YES];
     };
+    
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"发表" style:UIBarButtonItemStylePlain target:self action:@selector(feedComment)];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -76,10 +84,11 @@ static NSString * const NoteCellId = @"NoteCell";
         _page++;
     }
     
-    NSString *strUrl = [NSString stringWithFormat:@"%@%@/%@/repository/commits/%@/comment", GITAPI_HTTPS_PREFIX,
-                                                                                            GITAPI_PROJECTS,
-                                                                                            _projectNameSpace,
-                                                                                            _commitID];
+    NSString *strUrl = [NSString stringWithFormat:@"%@%@/%@/repository/commits/%@/comment",
+                                                   GITAPI_HTTPS_PREFIX,
+                                                   GITAPI_PROJECTS,
+                                                   _projectNameSpace,
+                                                   _commitID];
     
     NSMutableDictionary *parameters = [NSMutableDictionary dictionaryWithDictionary:@{
                                                                                       @"projectid"     : @(_projectID),
@@ -133,6 +142,65 @@ static NSString * const NoteCellId = @"NoteCell";
     
 }
 
+#pragma mark - 发表评论
+- (void)feedComment
+{
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"发表" message:nil delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"发表", nil];
+    [alertView setAlertViewStyle:UIAlertViewStylePlainTextInput];
+    _commentField = [alertView textFieldAtIndex:0];
+    _commentField.placeholder = @"请填写您的评价";
+    [alertView show];
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == 1) {
+        [self postForComment];
+    }
+}
+
+- (void)postForComment
+{
+    _hud = [MBProgressHUD showHUDAddedTo:[[UIApplication sharedApplication].windows lastObject] animated:YES];
+    _hud.userInteractionEnabled = NO;
+    NSString *strUrl = [NSString stringWithFormat:@"%@%@/%@/commits/%@/comment",
+                                                  GITAPI_HTTPS_PREFIX,
+                                                  GITAPI_PROJECTS,
+                                                  _projectNameSpace,
+                                                  _commitID];
+    
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionaryWithDictionary:@{
+                                                                                      @"note"          : _commentField.text,
+                                                                                      @"private_token" : [Tools getPrivateToken]
+                                                                                      }];
+    if ([Tools getPrivateToken].length == 0) {
+        [parameters removeObjectForKey:@"private_token"];
+    }
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager GitManager];
+    
+    [manager POST:strUrl
+       parameters:parameters
+          success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+              _hud.mode = MBProgressHUDModeCustomView;
+              
+              if ([responseObject count] > 0) {
+                  _hud.labelText = @"发表成功";
+                  [_hud hide:YES afterDelay:1.0];
+              }
+              GLComment *comment = [[GLComment alloc] initWithJSON:responseObject];
+              
+              [_comments addObject:comment];
+              
+              dispatch_async(dispatch_get_main_queue(), ^{
+                  [self.tableView reloadData];
+              });
+          } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
+              _hud.labelText = @"发表失败";
+              [_hud hide:YES afterDelay:1.0];
+        }];
+}
+
 #pragma mark - Table view data source
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -162,6 +230,7 @@ static NSString * const NoteCellId = @"NoteCell";
     if (_comments.count > 0) {
         NoteCell *cell = [tableView dequeueReusableCellWithIdentifier:NoteCellId forIndexPath:indexPath];
         
+        cell.backgroundColor = [UIColor uniformColor];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         GLComment *comment = _comments[indexPath.row];
         [cell contentForProjectsComment:comment];

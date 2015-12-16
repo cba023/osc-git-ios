@@ -222,7 +222,7 @@ static NSString * const IssueDescriptionCellId = @"IssueDescriptionCell";
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager GitManager];
     
-    NSString *strUrl = [NSString stringWithFormat:@"%@%@/%@/issues/%lld/notes?private_token=%@&&pageIndex=%lu", GITAPI_HTTPS_PREFIX, GITAPI_PROJECTS, _projectNameSpace, _issue.issueId, [Tools getPrivateToken], page];
+    NSString *strUrl = [NSString stringWithFormat:@"%@%@/%@/issues/%lld/notes?private_token=%@&&page=%lu", GITAPI_HTTPS_PREFIX, GITAPI_PROJECTS, _projectNameSpace, _issue.issueId, [Tools getPrivateToken], page];
     
     [manager GET:strUrl
       parameters:nil

@@ -65,6 +65,7 @@ static NSString * const cellId = @"ProjectsCommitCell";
     _page = 1;
     
     self.navigationItem.title = @"master";
+    self.view.backgroundColor = UIColorFromRGB(0xf0f0f0);
     _commits = [NSMutableArray new];
     
     self.edgesForExtendedLayout = UIRectEdgeNone;
