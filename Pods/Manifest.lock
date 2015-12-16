@@ -27,6 +27,13 @@ PODS:
   - MBProgressHUD (0.9.1)
   - MJRefresh (3.0.7)
   - PKRevealController (2.0.6)
+  - ReactiveCocoa (2.5):
+    - ReactiveCocoa/UI (= 2.5)
+  - ReactiveCocoa/Core (2.5):
+    - ReactiveCocoa/no-arc
+  - ReactiveCocoa/no-arc (2.5)
+  - ReactiveCocoa/UI (2.5):
+    - ReactiveCocoa/Core
   - SDWebImage (3.7.1):
     - SDWebImage/Core (= 3.7.1)
   - SDWebImage/Core (3.7.1)
@@ -41,6 +48,7 @@ DEPENDENCIES:
   - MBProgressHUD
   - MJRefresh
   - PKRevealController
+  - ReactiveCocoa
   - SDWebImage (~> 3.6)
   - SSKeychain
   - Toast (~> 2.3)
@@ -53,6 +61,7 @@ SPEC CHECKSUMS:
   MBProgressHUD: c47f2c166c126cf2ce36498d80f33e754d4e93ad
   MJRefresh: f3e1228ec3d38c7ba5208d58032631a52f39f495
   PKRevealController: ffb45a16f5a5032ad90a3d16e5cbb0d8e035bd58
+  ReactiveCocoa: e2db045570aa97c695e7aa97c2bcab222ae51f4a
   SDWebImage: ed3095af2ff88b436426037444979b917f6c5575
   SSKeychain: 88767e903ee8d274ed380e364d96b7a101235286
   Toast: 0773b8fc0e97352ca6054517bec7ebdd4110029d

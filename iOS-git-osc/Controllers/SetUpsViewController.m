@@ -8,13 +8,14 @@
 
 #import "SetUpsViewController.h"
 #import "ShakingView.h"
+#import "FeedBackViewController.h"
 #import "AboutViewController.h"
 
 #import "UIColor+Util.h"
 
 @interface SetUpsViewController ()
 
-@property (nonatomic, strong) NSArray *titlesCell;
+@property (nonatomic, strong) NSArray *titles;
 
 @end
 
@@ -25,7 +26,7 @@
     
     self.navigationItem.title = @"设置";
     
-    _titlesCell = @[@"摇一摇", @"关于"];
+    _titles = @[@"意见反馈", @"关于"];
     
     self.navigationItem.title = @"设置";
     self.clearsSelectionOnViewWillAppear = NO;
@@ -45,20 +46,26 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
 
-    return _titlesCell.count;
+    return 2;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 1;
+    if (section == 0) {
+        return 1;
+    } else{
+        return _titles.count;
+    }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell = [UITableViewCell new];
-    
-    cell.textLabel.text = _titlesCell[indexPath.section];
-    
+    if (indexPath.section == 0) {
+        cell.textLabel.text = @"摇一摇";
+    } else {
+        cell.textLabel.text = _titles[indexPath.row];
+    }
     return cell;
 }
 
@@ -71,29 +78,36 @@
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    switch (indexPath.section) {
-        case 0:
-        {
-            ShakingView *shakingView = [ShakingView new];
-            [self.navigationController pushViewController:shakingView animated:YES];
-            
-            break;
+    if (indexPath.section == 0) {
+        ShakingView *shakingView = [ShakingView new];
+        [self.navigationController pushViewController:shakingView animated:YES];
+    } else {
+        switch (indexPath.row) {
+            case 0:
+            {
+                FeedBackViewController *feedBackViewController = [FeedBackViewController new];
+                [self.navigationController pushViewController:feedBackViewController animated:YES];
+                
+                break;
+            }
+            case 1:
+            {
+                AboutViewController *aboutViewController = [AboutViewController new];
+                [self.navigationController pushViewController:aboutViewController animated:YES];
+                
+                break;
+            }
+            case 2:
+            {
+                break;
+            }
+                
+            default:
+                break;
         }
-        case 1:
-        {
-            AboutViewController *aboutViewController = [AboutViewController new];
-            [self.navigationController pushViewController:aboutViewController animated:YES];
-            
-            break;
-        }
-        case 2:
-        {
-            break;
-        }
-           
-        default:
-            break;
+
     }
+    
 }
 
 @end

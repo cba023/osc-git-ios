@@ -193,6 +193,8 @@
 		EEA04AE81C0FE63F00A5C50F /* CommitFileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EEA04AE71C0FE63F00A5C50F /* CommitFileViewController.m */; };
 		EEA1E36E1C06DF2B001EAE25 /* SetUpsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EEA1E36D1C06DF2B001EAE25 /* SetUpsViewController.m */; };
 		EEA1E3711C06E334001EAE25 /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EEA1E3701C06E334001EAE25 /* AboutViewController.m */; };
+		EEAE14741C200401000BFC37 /* FeedBackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EEAE14731C200401000BFC37 /* FeedBackViewController.m */; };
+		EEAE14761C20170E000BFC37 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EEAE14751C20170E000BFC37 /* MessageUI.framework */; };
 		EEB00EF81C07F80F00DEDF73 /* ProjectsCommitsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EEB00EF71C07F80F00DEDF73 /* ProjectsCommitsViewController.m */; };
 		EEB00EFB1C080A2D00DEDF73 /* ProjectsCommitCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EEB00EFA1C080A2D00DEDF73 /* ProjectsCommitCell.m */; };
 /* End PBXBuildFile section */
@@ -514,6 +516,9 @@
 		EEA1E36D1C06DF2B001EAE25 /* SetUpsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SetUpsViewController.m; sourceTree = "<group>"; };
 		EEA1E36F1C06E334001EAE25 /* AboutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutViewController.h; sourceTree = "<group>"; };
 		EEA1E3701C06E334001EAE25 /* AboutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutViewController.m; sourceTree = "<group>"; };
+		EEAE14721C200401000BFC37 /* FeedBackViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedBackViewController.h; sourceTree = "<group>"; };
+		EEAE14731C200401000BFC37 /* FeedBackViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedBackViewController.m; sourceTree = "<group>"; };
+		EEAE14751C20170E000BFC37 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		EEB00EF61C07F80F00DEDF73 /* ProjectsCommitsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProjectsCommitsViewController.h; sourceTree = "<group>"; };
 		EEB00EF71C07F80F00DEDF73 /* ProjectsCommitsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProjectsCommitsViewController.m; sourceTree = "<group>"; };
 		EEB00EF91C080A2D00DEDF73 /* ProjectsCommitCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProjectsCommitCell.h; sourceTree = "<group>"; };
@@ -525,6 +530,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EEAE14761C20170E000BFC37 /* MessageUI.framework in Frameworks */,
 				EE7C8C011BFC7E0A00A3671B /* libUMSocial_Sdk_4.2.5.a in Frameworks */,
 				00D0852919D99D9600E2EA0E /* libz.dylib in Frameworks */,
 				00D0852719D99D8400E2EA0E /* libstdc++.dylib in Frameworks */,
@@ -575,6 +581,7 @@
 		0002D2481916324B001FDED8 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				EEAE14751C20170E000BFC37 /* MessageUI.framework */,
 				00D0852819D99D9600E2EA0E /* libz.dylib */,
 				00D0852619D99D8400E2EA0E /* libstdc++.dylib */,
 				00D0852419D99D7100E2EA0E /* CoreTelephony.framework */,
@@ -1267,6 +1274,8 @@
 				EEA1E36D1C06DF2B001EAE25 /* SetUpsViewController.m */,
 				EEA1E36F1C06E334001EAE25 /* AboutViewController.h */,
 				EEA1E3701C06E334001EAE25 /* AboutViewController.m */,
+				EEAE14721C200401000BFC37 /* FeedBackViewController.h */,
+				EEAE14731C200401000BFC37 /* FeedBackViewController.m */,
 			);
 			name = SetUp;
 			sourceTree = "<group>";
@@ -1484,6 +1493,7 @@
 				38BB9B8D1A1E0CD900175F10 /* GLGitlabApi.m in Sources */,
 				38BB9B7D1A1E0CD900175F10 /* GLTag.m in Sources */,
 				38BB9B911A1E0CD900175F10 /* GLVoidNetworkOperation.m in Sources */,
+				EEAE14741C200401000BFC37 /* FeedBackViewController.m in Sources */,
 				38BB9B751A1E0CD900175F10 /* GLIssue.m in Sources */,
 				00A502D019BE970200EF057B /* ImageView.m in Sources */,
 				00F017771994BB040076BE43 /* CreationInfoCell.m in Sources */,
@@ -1746,7 +1756,7 @@
 					"$(PROJECT_DIR)/iOS-git-osc/Vendor/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_Extra_Frameworks/Wechat",
 				);
 				PRODUCT_NAME = "Git@OSC";
-				PROVISIONING_PROFILE = "8ff6edc2-8636-49e2-94e6-2269a186d027";
+				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;
 				VALID_ARCHS = "arm64 armv7  armv7s";
 				WRAPPER_EXTENSION = app;
@@ -1861,7 +1871,7 @@
 					"$(PROJECT_DIR)/iOS-git-osc/Vendor/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_Extra_Frameworks/Wechat",
 				);
 				PRODUCT_NAME = "Git@OSC";
-				PROVISIONING_PROFILE = "8ff6edc2-8636-49e2-94e6-2269a186d027";
+				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;
 				VALID_ARCHS = "arm64 armv7  armv7s";
 				WRAPPER_EXTENSION = app;
