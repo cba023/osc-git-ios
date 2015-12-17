@@ -34,8 +34,8 @@
     [super viewDidLoad];
     
     _titles = @[@"项目", @"发现", @"我的"];
-    _images = @[@"sidebar_language", @"sidebar_find", @"sidebar_mine"];
-    _selectedImages = @[@"", @"", @""];
+    _images = @[@"projects", @"discover", @"mine"];
+    _selectedImages = @[@"projects_selected", @"discover_selected", @"mine_selected"];
     
     TitleScrollViewController *titleScrollCtl = [TitleScrollViewController new];
     titleScrollCtl.titleName = @"项目";
@@ -43,12 +43,16 @@
     titleScrollCtl.isProject = YES;
     titleScrollCtl.isFirstLayer = YES;
     titleScrollCtl.tabBarItem.title = _titles[0];
-    titleScrollCtl.tabBarItem.image = [UIImage imageNamed:_images[0]];
+
+    titleScrollCtl.tabBarItem.image = [[UIImage imageNamed:_images[0]] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    titleScrollCtl.tabBarItem.selectedImage = [[UIImage imageNamed:[NSString stringWithFormat:@"%@_selected", _images[0]]] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     UINavigationController *projectsNavigationController = [[UINavigationController alloc] initWithRootViewController:titleScrollCtl];
     
     LanguageSearchView *languageSearchView = [LanguageSearchView new];
     languageSearchView.tabBarItem.title = _titles[1];
-    languageSearchView.tabBarItem.image = [UIImage imageNamed:_images[1]];
+
+    languageSearchView.tabBarItem.image = [[UIImage imageNamed:_images[1]] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    languageSearchView.tabBarItem.selectedImage = [[UIImage imageNamed:[NSString stringWithFormat:@"%@_selected", _images[1]]] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     UINavigationController *languageNavigationController = [[UINavigationController alloc] initWithRootViewController:languageSearchView];
 
     
@@ -66,7 +70,8 @@
     ownDetailsView.isTabbarItem = YES;
     ownDetailsView.isFirstLayer = YES;
     ownDetailsView.tabBarItem.title = _titles[2];
-    ownDetailsView.tabBarItem.image = [UIImage imageNamed:_images[2]];
+    ownDetailsView.tabBarItem.image = [[UIImage imageNamed:_images[2]] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    ownDetailsView.tabBarItem.selectedImage = [[UIImage imageNamed:[NSString stringWithFormat:@"%@_selected", _images[2]]] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     UINavigationController *ownNavigationController = [[UINavigationController alloc] initWithRootViewController:ownDetailsView];
     
     self.viewControllers = @[projectsNavigationController, languageNavigationController, ownNavigationController];
