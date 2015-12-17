@@ -11,7 +11,6 @@
 
 #define GITAPI_HTTPS_PREFIX     @"http://git.oschina.net/api/v3/"
 
-
 #define GITAPI_PROJECTS         @"projects"
 #define GITAPI_USER             @"user"
 #define GITAPI_EVENTS           @"events"

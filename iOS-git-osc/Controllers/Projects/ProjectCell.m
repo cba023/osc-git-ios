@@ -101,7 +101,8 @@
 - (void)contentForProjects:(GLProject *)project
 {
     [Tools setPortraitForUser:project.owner view:self.portrait cornerRadius:5.0];
-    self.projectNameField.text = [NSString stringWithFormat:@"%@ / %@", project.owner.name, project.name];
+    self.projectNameField.attributedText = project.attributedProjectName;
+//    self.projectNameField.text = [NSString stringWithFormat:@"%@ / %@", project.owner.name, project.name];
     self.projectDescriptionField.text = project.projectDescription.length > 0? project.projectDescription: @"暂无项目介绍";
     self.lSFWLabel.attributedText = project.attributedLanguage;
 }

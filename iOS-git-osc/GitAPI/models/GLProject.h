@@ -69,10 +69,13 @@
 @property (nonatomic, assign, getter = isStarred) BOOL starred;
 // watched
 @property (nonatomic, assign, getter = isWatched) BOOL watched;
+// recomm
+@property (nonatomic, assign, getter = isRecomm) BOOL recomm;
 
 @property (nonatomic, copy) NSString *nameSpace;
 
 @property (nonatomic, strong) NSMutableAttributedString *attributedLanguage;
+@property (nonatomic, strong) NSMutableAttributedString *attributedProjectName;
 
 
 #pragma mark - 奖品信息

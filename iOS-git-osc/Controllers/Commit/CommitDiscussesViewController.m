@@ -163,7 +163,9 @@ static NSString * const NoteCellId = @"NoteCell";
 {
     _hud = [MBProgressHUD showHUDAddedTo:[[UIApplication sharedApplication].windows lastObject] animated:YES];
     _hud.userInteractionEnabled = NO;
-    NSString *strUrl = [NSString stringWithFormat:@"%@%@/%@/commits/%@/comment",
+    _hud.mode = MBProgressHUDModeCustomView;
+    
+    NSString *strUrl = [NSString stringWithFormat:@"%@%@/%@/repository/commits/%@/comment",
                                                   GITAPI_HTTPS_PREFIX,
                                                   GITAPI_PROJECTS,
                                                   _projectNameSpace,
@@ -182,8 +184,6 @@ static NSString * const NoteCellId = @"NoteCell";
     [manager POST:strUrl
        parameters:parameters
           success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
-              _hud.mode = MBProgressHUDModeCustomView;
-              
               if ([responseObject count] > 0) {
                   _hud.labelText = @"发表成功";
                   [_hud hide:YES afterDelay:1.0];

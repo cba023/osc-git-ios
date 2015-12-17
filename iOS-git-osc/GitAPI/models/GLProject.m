@@ -41,6 +41,7 @@ static NSString * const kKeyWatchesCount = @"watches_count";
 static NSString * const kKeyLanguage = @"language";
 static NSString * const kKeyStarred = @"stared";
 static NSString * const kKeyWatched = @"watched";
+static NSString * const kKeyRecomm = @"recomm";
 
 static NSString * const kKeyRandNumber = @"rand_num";
 static NSString * const kKeyMessage = @"msg";
@@ -84,6 +85,7 @@ static NSString * const kKeyImage = @"img";
         _watchesCount = [json[kKeyWatchesCount] intValue];
         _starred = [[self checkForNull:json[kKeyStarred]] boolValue];
         _watched = [[self checkForNull:json[kKeyWatched]] boolValue];
+        _recomm = [[self checkForNull:json[kKeyRecomm]] boolValue];
         
         //_randNum = [[self checkForNull:json[kKeyRandNumber]] intValue];
         _message = [self checkForNull:json[kKeyMessage]];
@@ -136,6 +138,26 @@ static NSString * const kKeyImage = @"img";
     }
     
     return _attributedLanguage;
+}
+
+- (NSMutableAttributedString *)attributedProjectName
+{
+    if (!_attributedProjectName) {
+        NSTextAttachment *textAttachment = [NSTextAttachment new];
+        if (_recomm) {
+            UIImage *image = [UIImage imageNamed:@"recommend"];
+            textAttachment.image = image;
+            textAttachment.bounds = CGRectMake(0, -2, image.size.width, image.size.height);
+            NSAttributedString *attachmentString = [NSAttributedString attributedStringWithAttachment:textAttachment];
+            _attributedProjectName = [[NSMutableAttributedString alloc] initWithAttributedString:attachmentString];
+            [_attributedProjectName appendAttributedString:[[NSAttributedString alloc] initWithString:@" "]];
+        } else {
+            _attributedProjectName = [[NSMutableAttributedString alloc] init];
+        }
+        [_attributedProjectName appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@ / %@", self.owner.name, self.name]]];
+        
+    }
+    return _attributedProjectName;
 }
 
 
@@ -298,7 +320,8 @@ static NSString * const kKeyImage = @"img";
              kKeyWatchesCount: @(_watchesCount),
              kKeyLanguage: _language ?: null,
              kKeyStarred: @(_starred),
-             kKeyWatched: @(_watched)
+             kKeyWatched: @(_watched),
+             kKeyRecomm : @(_recomm),
              };
 }
 
