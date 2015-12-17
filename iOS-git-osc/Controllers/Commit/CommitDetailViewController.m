@@ -37,7 +37,7 @@ static NSString * const cellId = @"DiffHeaderCell";
     
     _commitDiffs = [NSMutableArray new];
     self.edgesForExtendedLayout = UIRectEdgeNone;
-    self.view.backgroundColor = UIColorFromRGB(0xf0f0f0);
+    self.tableView.backgroundColor = [Tools uniformColor];
     UIView *footer =[[UIView alloc] initWithFrame:CGRectZero];
     self.tableView.tableFooterView = footer;
     

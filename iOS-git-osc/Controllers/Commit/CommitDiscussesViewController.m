@@ -41,7 +41,7 @@ static NSString * const NoteCellId = @"NoteCell";
     self.edgesForExtendedLayout = UIRectEdgeNone;
     UIView *footer =[[UIView alloc] initWithFrame:CGRectZero];
     self.tableView.tableFooterView = footer;
-    self.view.backgroundColor = UIColorFromRGB(0xf0f0f0);
+    self.tableView.backgroundColor = [Tools uniformColor];
     
     //下拉刷新
     self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{

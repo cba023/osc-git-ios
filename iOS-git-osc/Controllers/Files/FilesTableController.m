@@ -153,10 +153,6 @@ static NSString * const cellId = @"FileCell";
     }
     cell.fileName.text = file.name;
     
-    UIView *selectedBackground = [UIView new];
-    selectedBackground.backgroundColor = UIColorFromRGB(0xdadbdc);
-    [cell setSelectedBackgroundView:selectedBackground];
-    
     return cell;
 }
 

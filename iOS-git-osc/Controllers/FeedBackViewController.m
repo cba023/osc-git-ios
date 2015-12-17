@@ -107,7 +107,7 @@
 {
     NSMutableString *mailUrl = [NSMutableString new];
     //收件人
-    NSArray *toRecipients = [NSArray arrayWithObject:@"apposchina@163.com"];
+    NSArray *toRecipients = [NSArray arrayWithObject:@"app@oschina.cn"];
     [mailUrl appendFormat:@"mailto:%@",[toRecipients componentsJoinedByString:@","]];
     //主题
     [mailUrl appendString:@"?subject=用户反馈－git@osc iPhone客户端"];

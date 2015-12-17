@@ -65,7 +65,7 @@ static NSString * const cellId = @"ProjectsCommitCell";
     _page = 1;
     
     self.navigationItem.title = @"master";
-    self.view.backgroundColor = UIColorFromRGB(0xf0f0f0);
+    self.view.backgroundColor = [UIColor uniformColor];
     _commits = [NSMutableArray new];
     
     self.edgesForExtendedLayout = UIRectEdgeNone;
@@ -73,6 +73,7 @@ static NSString * const cellId = @"ProjectsCommitCell";
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
     [self.view addSubview:self.tableView];
+    self.tableView.backgroundColor = [Tools uniformColor];
     [self.tableView registerClass:[ProjectsCommitCell class] forCellReuseIdentifier:cellId];
     UIView *footer =[[UIView alloc] initWithFrame:CGRectZero];
     self.tableView.tableFooterView = footer;
@@ -290,6 +291,10 @@ static NSString * const cellId = @"ProjectsCommitCell";
         
         GLCommit *commit = _commits[indexPath.row];
         [cell contentForProjectsCommit:commit];
+        
+        UIView *selectedBackground = [UIView new];
+        selectedBackground.backgroundColor = UIColorFromRGB(0xdadbdc);
+        [cell setSelectedBackgroundView:selectedBackground];
         
         return cell;
     }
