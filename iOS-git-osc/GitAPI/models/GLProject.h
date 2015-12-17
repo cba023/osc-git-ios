@@ -72,6 +72,8 @@
 
 @property (nonatomic, copy) NSString *nameSpace;
 
+@property (nonatomic, strong) NSMutableAttributedString *attributedLanguage;
+
 
 #pragma mark - 奖品信息
 

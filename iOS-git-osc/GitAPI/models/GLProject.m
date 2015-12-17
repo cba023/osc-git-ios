@@ -92,6 +92,53 @@ static NSString * const kKeyImage = @"img";
     return self;
 }
 
+- (NSMutableAttributedString *)attributedLanguage
+{
+    if (!_attributedLanguage) {
+        
+        if (_language.length > 0) {
+            NSTextAttachment *textAttachment = [NSTextAttachment new];
+            UIImage *langImag = [UIImage imageNamed:@"language"];
+            textAttachment.image = langImag;
+            textAttachment.bounds = CGRectMake(0, -2, langImag.size.width, langImag.size.height);
+            NSAttributedString *attachmentString = [NSAttributedString attributedStringWithAttachment:textAttachment];
+            _attributedLanguage = [[NSMutableAttributedString alloc] initWithAttributedString:attachmentString];
+            
+            [_attributedLanguage appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@" %@   ", _language]]];
+        } else {
+            _attributedLanguage = [[NSMutableAttributedString alloc] init];
+        }
+        
+        NSTextAttachment *textAttachment1 = [NSTextAttachment new];
+        UIImage *langImag = [UIImage imageNamed:@"fork"];
+        textAttachment1.image = langImag;
+        textAttachment1.bounds = CGRectMake(0, -2, langImag.size.width, langImag.size.height);
+        NSAttributedString *attachmentStr = [NSAttributedString attributedStringWithAttachment:textAttachment1];
+        [_attributedLanguage appendAttributedString:attachmentStr];
+        [_attributedLanguage appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@" %i   ", _forksCount]]];
+        
+        NSTextAttachment *textAttachment2 = [NSTextAttachment new];
+        langImag = [UIImage imageNamed:@"star"];
+        textAttachment2.image = langImag;
+        textAttachment2.bounds = CGRectMake(0, -2, langImag.size.width, langImag.size.height);
+        NSAttributedString *attachmentString = [NSAttributedString attributedStringWithAttachment:textAttachment2];
+        [_attributedLanguage appendAttributedString:attachmentString];
+        [_attributedLanguage appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@" %i   ", _starsCount]]];
+        
+        NSTextAttachment *textAttachment3 = [NSTextAttachment new];
+        langImag = [UIImage imageNamed:@"watch"];
+        textAttachment3.image = langImag;
+        textAttachment3.bounds = CGRectMake(0, -2, langImag.size.width, langImag.size.height);
+        NSAttributedString *attachmentStrings = [NSAttributedString attributedStringWithAttachment:textAttachment3];
+        [_attributedLanguage appendAttributedString:attachmentStrings];
+        [_attributedLanguage appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@" %i", _watchesCount]]];
+        
+    }
+    
+    return _attributedLanguage;
+}
+
+
 #if 0
 - (BOOL)isEqual:(id)other {
     if (other == self)

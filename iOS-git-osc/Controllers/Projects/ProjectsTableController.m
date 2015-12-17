@@ -333,9 +333,9 @@ static NSString * const cellId = @"ProjectCell";
         descriptionLabel.font = [UIFont systemFontOfSize:14];
         descriptionLabel.text = project.projectDescription.length > 0? project.projectDescription: @"暂无项目介绍";
         
-        CGSize size = [descriptionLabel sizeThatFits:CGSizeMake(tableView.frame.size.width - 60, MAXFLOAT)];
+        CGFloat height = [descriptionLabel sizeThatFits:CGSizeMake(tableView.frame.size.width - 57, MAXFLOAT)].height;
         
-        return size.height + 64;
+        return height + 64;
     } else {
         return 60;
     }

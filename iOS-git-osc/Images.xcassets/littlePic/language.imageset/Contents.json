@@ -2,16 +2,16 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "star-1.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "star@2x.png",
+      "filename" : "language-1.png",
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
+      "filename" : "language@2x.png",
       "scale" : "3x"
     }
   ],
