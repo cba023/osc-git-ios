@@ -13,7 +13,7 @@
 
 #import "UIColor+Util.h"
 
-@interface SetUpsViewController ()
+@interface SetUpsViewController () <UIAlertViewDelegate>
 
 @property (nonatomic, strong) NSArray *titles;
 
@@ -26,7 +26,7 @@
     
     self.navigationItem.title = @"设置";
     
-    _titles = @[@"意见反馈", @"关于"];
+    _titles = @[@"清除缓存", @"意见反馈", @"关于"];
     
     self.navigationItem.title = @"设置";
     self.clearsSelectionOnViewWillAppear = NO;
@@ -63,8 +63,10 @@
     UITableViewCell *cell = [UITableViewCell new];
     if (indexPath.section == 0) {
         cell.textLabel.text = @"摇一摇";
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
     } else {
         cell.textLabel.text = _titles[indexPath.row];
+        cell.selectionStyle = UITableViewCellSelectionStyleDefault;
     }
     return cell;
 }
@@ -85,20 +87,24 @@
         switch (indexPath.row) {
             case 0:
             {
-                FeedBackViewController *feedBackViewController = [FeedBackViewController new];
-                [self.navigationController pushViewController:feedBackViewController animated:YES];
+                UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:@"确定清除缓存？" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"清除", nil];
+                
+                [alertView show];
                 
                 break;
             }
             case 1:
             {
-                AboutViewController *aboutViewController = [AboutViewController new];
-                [self.navigationController pushViewController:aboutViewController animated:YES];
+                FeedBackViewController *feedBackViewController = [FeedBackViewController new];
+                [self.navigationController pushViewController:feedBackViewController animated:YES];
                 
                 break;
             }
             case 2:
             {
+                AboutViewController *aboutViewController = [AboutViewController new];
+                [self.navigationController pushViewController:aboutViewController animated:YES];
+                
                 break;
             }
                 
@@ -108,6 +114,14 @@
 
     }
     
+}
+
+#pragma mark - UIAlertViewDelegate
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == 1) {
+        [[NSURLCache sharedURLCache] removeAllCachedResponses];
+    }
 }
 
 @end

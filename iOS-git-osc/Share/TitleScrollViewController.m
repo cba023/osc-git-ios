@@ -28,6 +28,7 @@
 @property (nonatomic, assign) CGFloat  sizeWidth;
 @property (nonatomic, assign) CGFloat  sizeHeight;
 @property (nonatomic, assign) CGFloat  heightForTopView;
+@property (nonatomic, assign) CGFloat  heightForTitle;
 
 @property ProjectsTableController *recommendedProjects;
 @property ProjectsTableController *hotProjects;
@@ -49,6 +50,7 @@
     
     _sizeWidth = self.view.frame.size.width;
     _sizeHeight = self.view.frame.size.height-64;
+    _heightForTitle = 35; //滚动标题高度
 
     if (_isTabbarItem) {
         
@@ -71,7 +73,7 @@
                                                                                            action:@selector(setUp)];
     }
     if (_isFirstLayer) {
-        _heightForTopView = 48;
+        _heightForTopView = 48; //底部工具栏高度
     } else {
         _heightForTopView = 0;
     }
@@ -79,7 +81,7 @@
     [self fetchForTopView];
     
     self.edgesForExtendedLayout = UIRectEdgeNone;
-    _titleSegment = [[HMSegmentedControl alloc] initWithFrame:CGRectMake(0, 0, _sizeWidth, 30)];//
+    _titleSegment = [[HMSegmentedControl alloc] initWithFrame:CGRectMake(0, 0, _sizeWidth, _heightForTitle)];//
     [_titleSegment setSectionTitles:_subTitles];
     [_titleSegment setSelectedSegmentIndex:0];
     
@@ -95,16 +97,16 @@
     __weak typeof(self) weakSelf = self;//点击滚动标题的动作
     [_titleSegment setIndexChangeBlock:^(NSInteger index) {
 
-        [weakSelf.scrollView scrollRectToVisible:CGRectMake(weakSelf.sizeWidth * index, 30, weakSelf.sizeWidth, weakSelf.sizeHeight-30-_heightForTopView) animated:YES];
+        [weakSelf.scrollView scrollRectToVisible:CGRectMake(weakSelf.sizeWidth * index, weakSelf.heightForTitle, weakSelf.sizeWidth, weakSelf.sizeHeight-_heightForTitle-_heightForTopView) animated:YES];
     }];
     
     
-    _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 30, self.sizeWidth, self.sizeHeight-30-_heightForTopView)];//
+    _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, _heightForTitle, self.sizeWidth, self.sizeHeight-_heightForTitle-_heightForTopView)];//
     [_scrollView setPagingEnabled:YES];
     [_scrollView setShowsHorizontalScrollIndicator:NO];
     [_scrollView setBounces:NO];
-    [_scrollView setContentSize:CGSizeMake(_sizeWidth*_subTitles.count, _sizeHeight-30-_heightForTopView)];
-    [_scrollView scrollRectToVisible:CGRectMake(0, 30, _sizeWidth, _sizeHeight-30-_heightForTopView) animated:YES];
+    [_scrollView setContentSize:CGSizeMake(_sizeWidth*_subTitles.count, _sizeHeight-_heightForTitle-_heightForTopView)];
+    [_scrollView scrollRectToVisible:CGRectMake(0, _heightForTitle, _sizeWidth, _sizeHeight-_heightForTitle-_heightForTopView) animated:YES];
     _scrollView.delegate = self;
     [self.view addSubview:_scrollView];
     
@@ -114,7 +116,7 @@
                 case 0:
                 {
                     _recommendedProjects = [[ProjectsTableController alloc] initWithProjectsType:ProjectsTypeFeatured];
-                    _recommendedProjects.view.frame = CGRectMake(_sizeWidth*i, 0, _sizeWidth, _sizeHeight-30-_heightForTopView);
+                    _recommendedProjects.view.frame = CGRectMake(_sizeWidth*i, 0, _sizeWidth, _sizeHeight-_heightForTitle-_heightForTopView);
                     _recommendedProjects.view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
                     [_scrollView addSubview:_recommendedProjects.view];
                     [self addChildViewController:_recommendedProjects];
@@ -123,7 +125,7 @@
                 case 1:
                 {
                     _hotProjects = [[ProjectsTableController alloc] initWithProjectsType:ProjectsTypePopular];
-                    _hotProjects.view.frame = CGRectMake(_sizeWidth*i, 0, _sizeWidth, _sizeHeight-30-_heightForTopView);
+                    _hotProjects.view.frame = CGRectMake(_sizeWidth*i, 0, _sizeWidth, _sizeHeight-_heightForTitle-_heightForTopView);
                     _hotProjects.view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
                     [_scrollView addSubview:_hotProjects.view];
                     [self addChildViewController:_hotProjects];
@@ -132,7 +134,7 @@
                 case 2:
                 {
                     _recentUpdatedProjects = [[ProjectsTableController alloc] initWithProjectsType:ProjectsTypeLatest];
-                    _recentUpdatedProjects.view.frame = CGRectMake(_sizeWidth*i, 0, _sizeWidth, _sizeHeight-30-_heightForTopView);
+                    _recentUpdatedProjects.view.frame = CGRectMake(_sizeWidth*i, 0, _sizeWidth, _sizeHeight-_heightForTitle-_heightForTopView);
                     _recentUpdatedProjects.view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
                     [_scrollView addSubview:_recentUpdatedProjects.view];
                     [self addChildViewController:_recentUpdatedProjects];
@@ -153,7 +155,7 @@
                     } else {
                         _eventsView = [[EventsView alloc] initWithUserID:_userID];
                     }
-                    _eventsView.view.frame = CGRectMake(_sizeWidth*i, 0, _sizeWidth, _sizeHeight-30-_heightForTopView);
+                    _eventsView.view.frame = CGRectMake(_sizeWidth*i, 0, _sizeWidth, _sizeHeight-_heightForTitle-_heightForTopView);
                     _eventsView.view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
                     [_scrollView addSubview:_eventsView.view];
                     [self addChildViewController:_eventsView];
@@ -166,7 +168,7 @@
                     } else {
                         _ownProjects = [[ProjectsTableController alloc] initWithUserID:_userID andProjectsType:ProjectsTypeUserProjects];
                     }
-                    _ownProjects.view.frame = CGRectMake(_sizeWidth*i, 0, _sizeWidth, _sizeHeight-30-_heightForTopView);
+                    _ownProjects.view.frame = CGRectMake(_sizeWidth*i, 0, _sizeWidth, _sizeHeight-_heightForTitle-_heightForTopView);
                     _ownProjects.view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
                     [_scrollView addSubview:_ownProjects.view];
                     [self addChildViewController:_ownProjects];
@@ -175,7 +177,7 @@
                 case 2:
                 {
                     _starredProjects = [[ProjectsTableController alloc] initWithUserID:_userID andProjectsType:ProjectsTypeStared];
-                    _starredProjects.view.frame = CGRectMake(_sizeWidth*i, 0, _sizeWidth, _sizeHeight-30-_heightForTopView);
+                    _starredProjects.view.frame = CGRectMake(_sizeWidth*i, 0, _sizeWidth, _sizeHeight-_heightForTitle-_heightForTopView);
                     _starredProjects.view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
                     [_scrollView addSubview:_starredProjects.view];
                     [self addChildViewController:_starredProjects];
@@ -184,7 +186,7 @@
                 case 3:
                 {
                     _watchedProjects = [[ProjectsTableController alloc] initWithUserID:_userID andProjectsType:ProjectsTypeWatched];
-                    _watchedProjects.view.frame = CGRectMake(_sizeWidth*i, 0, _sizeWidth, _sizeHeight-30-_heightForTopView);
+                    _watchedProjects.view.frame = CGRectMake(_sizeWidth*i, 0, _sizeWidth, _sizeHeight-_heightForTitle-_heightForTopView);
                     _watchedProjects.view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
                     [_scrollView addSubview:_watchedProjects.view];
                     [self addChildViewController:_watchedProjects];

@@ -51,6 +51,7 @@ static NSString * const LanguageCellID = @"LanguageCell";
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:LanguageCellID];
     UIView *footer = [[UIView alloc] initWithFrame:CGRectZero];
     self.tableView.tableFooterView = footer;
+    self.tableView.backgroundColor = [Tools uniformColor];
     self.tableView.bounces = NO;
     
     if ([Tools isPageCacheExist:10]) {
