@@ -145,13 +145,13 @@ static NSString * const EventCellIdentifier = @"EventCell";
     
     NSString *strUrl;
     if (_privateToken) {
-        strUrl = [NSString stringWithFormat:@"%@/%@?private_token=%@&page=%ld",
+        strUrl = [NSString stringWithFormat:@"%@%@?private_token=%@&page=%ld",
                   GITAPI_HTTPS_PREFIX,
                   GITAPI_EVENTS,
                   _privateToken,
                   (long)_page];
     } else {
-        strUrl = [NSString stringWithFormat:@"%@/%@/user/%lld?page=%ld",
+        strUrl = [NSString stringWithFormat:@"%@%@/user/%lld?page=%ld",
                   GITAPI_HTTPS_PREFIX,
                   GITAPI_EVENTS,
                   _userID,

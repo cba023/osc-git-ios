@@ -13,6 +13,7 @@
 
 static NSString * const kKeyProjectId = @"id";
 static NSString * const kKeyName = @"name";
+static NSString * const kKeyPathWithNamespace = @"path_with_namespace";
 static NSString * const kKeyDescription = @"description";
 static NSString * const kKeyDefaultBranch = @"default_branch";
 static NSString * const kKeyOwner = @"owner";
@@ -66,10 +67,11 @@ static NSString * const kKeyImage = @"img";
         _wallEnabled = [json[kKeyWallEnabled] boolValue];
         _snippetsEnabled = [json[kKeySnippetsEnabled] boolValue];
 #endif
+        _nameSpace = [self checkForNull:json[kKeyPathWithNamespace]];
         _owner = [[GLUser alloc] initWithJSON:json[kKeyOwner]];
         _name = [self checkForNull:json[kKeyName]];
         _path = [self checkForNull:json[kKeyPath]];
-        _nameSpace = [[NSString stringWithFormat:@"%@%%2F%@", _owner.username, _path] stringByReplacingOccurrencesOfString:@"." withString:@"+"];
+        _nameSpace = [[NSString stringWithFormat:@"%@%%2F%@", _owner.username, [_nameSpace componentsSeparatedByString:@"/"][1]] stringByReplacingOccurrencesOfString:@"." withString:@"+"];
         _issuesEnabled = [json[kKeyIssuesEnabled] boolValue];
         _pullRequestsEnabled = [json[kKeyPullRequestsEnabled] boolValue];
         _wikiEnabled = [json[kKeyWikiEnabled] boolValue];
