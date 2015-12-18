@@ -37,6 +37,7 @@
 @property (nonatomic, assign) BOOL didChangeSelecteItem;
 @property (nonatomic) CGPoint origin;
 @property (nonatomic, copy) NSString *branchName;
+@property (nonatomic, assign) BOOL isClickBranch;
 
 @property (nonatomic,strong) DataSetObject *emptyDataSet;
 
@@ -102,6 +103,7 @@ static NSString * const cellId = @"ProjectsCommitCell";
     self.emptyDataSet.reloading = ^{
         [weakSelf fetchForCommitDataOnRefresh:YES];
     };
+    _isClickBranch = YES;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -126,16 +128,16 @@ static NSString * const cellId = @"ProjectsCommitCell";
 #pragma mark - 分支
 - (void)clickBranch
 {
-    [self initBranchTableView];
-    
-    BOOL isOpenedState;
-    if ([self.branchTableView isOpen]) {
-        [self.branchTableView hide];
-        isOpenedState = NO;
-    }
-    else {
+    if (_isClickBranch) {
+        [self initBranchTableView];
+
         [self.branchTableView showFromNavigationController:self.navigationController menuTabelViewOrigin:_origin];
-        isOpenedState = YES;
+        _isClickBranch = NO;
+        
+    } else {
+        if ([self.branchTableView isOpen]) {
+            [self.branchTableView hide];
+        }
     }
 }
 
@@ -319,6 +321,7 @@ static NSString * const cellId = @"ProjectsCommitCell";
 #pragma mark -- HCDropdownViewDelegate
 - (void)dropdownViewWillHide:(HCDropdownView *)dropdownView {
     _didChangeSelecteItem = NO;
+    _isClickBranch = YES;
 }
 - (void)dropdownViewDidHide:(HCDropdownView *)dropdownView {
     if (_didChangeSelecteItem) {
