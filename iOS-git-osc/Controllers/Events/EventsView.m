@@ -275,7 +275,11 @@ static NSString * const EventCellIdentifier = @"EventCell";
         
         [cell.time setAttributedText:[Tools getIntervalAttrStr:event.createdAt]];
         
+        cell.eventAbstract.userInteractionEnabled = YES;
+        UITapGestureRecognizer *tapsEventAbstract = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickToDetailProject:)];
+        [cell.eventAbstract addGestureRecognizer:tapsEventAbstract];
         [Event setAbstractContent:cell.eventAbstract forEvent:event];
+        cell.eventAbstract.tag = indexPath.row * 10;
         
         return cell;
     } else {
@@ -296,5 +300,13 @@ static NSString * const EventCellIdentifier = @"EventCell";
     }
 }
 
+#pragma mark - 同cell点击事件一致
+- (void)clickToDetailProject:(UITapGestureRecognizer *)sender
+{
+    GLEvent *event = [self.events objectAtIndex:(((UITextView *)sender.view).tag/10)];
+    ProjectDetailsView *projectDetails = [[ProjectDetailsView alloc] initWithProjectID:event.projectId projectNameSpace:event.project.nameSpace];
+    [projectDetails setHidesBottomBarWhenPushed:YES];
+    [self.navigationController pushViewController:projectDetails animated:YES];
+}
 
 @end
