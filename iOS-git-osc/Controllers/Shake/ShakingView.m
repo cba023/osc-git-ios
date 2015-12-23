@@ -19,6 +19,7 @@
 #import "LoginViewController.h"
 #import "TTTAttributedLabel.h"
 #import "UMSocial.h"
+#import "GITAPI.h"
 
 #define accelerationThreshold  2.0f
 
@@ -479,7 +480,7 @@
 
 - (void)showShareView
 {
-    NSString *projectURL = @"https://git.oschina.net";
+    NSString *projectURL = [GITAPI_HTTPS_PREFIX componentsSeparatedByString:@"/api/v3/"][0];;
     
     // 微信相关设置
     

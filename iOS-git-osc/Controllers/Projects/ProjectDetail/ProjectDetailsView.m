@@ -105,14 +105,14 @@ static NSString * const ProjectDetailsCellID = @"ProjectDetailsCell";
              if (responseObject == nil) { } else {
                  _project = [[GLProject alloc] initWithJSON:responseObject];
                  self.title = _project.name;
-                 
+                 NSString *httpStr = [GITAPI_HTTPS_PREFIX componentsSeparatedByString:@"/api/v3/"][0];
                  self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]
                                                            initWithImage:[UIImage imageNamed:@"projectDetails_more"]
                                                            style:UIBarButtonItemStylePlain
                                                            target:self
                                                            action:@selector(moreChoice)];
                  
-                 _projectURL = [NSString stringWithFormat:@"http://git.oschina.net/%@/%@", _project.owner.username, _project.path];
+                 _projectURL = [NSString stringWithFormat:@"%@%@/%@", httpStr, _project.owner.username, _project.path];
                  
              }
              

@@ -9,7 +9,8 @@
 #ifndef GITAPI_h
 #define GITAPI_h
 
-#define GITAPI_HTTPS_PREFIX     @"http://git.oschina.net/api/v3/"
+#define GITAPI_HTTPS_PREFIX     @"https://git.oschina.net/api/v3/"
+//#define GITAPI_HTTPS_PREFIX     @"http://192.168.1.14/api/v3/"
 
 #define GITAPI_PROJECTS         @"projects"
 #define GITAPI_USER             @"user"

@@ -13,6 +13,7 @@
 #import "UIImageView+WebCache.h"
 #import "Reachability.h"
 #import "UIView+Toast.h"
+#import "GITAPI.h"
 
 #import "UIImageView+Util.h"
 
@@ -215,7 +216,10 @@
 
 + (NSInteger)networkStatus
 {
-    Reachability *reach = [Reachability reachabilityWithHostName:@"git.oschina.net"];
+    NSString *httpStr = [GITAPI_HTTPS_PREFIX componentsSeparatedByString:@"/api/v3/"][0];
+    httpStr = [httpStr componentsSeparatedByString:@"//"][1];
+    
+    Reachability *reach = [Reachability reachabilityWithHostName:httpStr];
     return [reach currentReachabilityStatus];
 }
 

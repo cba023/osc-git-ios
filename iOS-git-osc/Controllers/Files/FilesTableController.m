@@ -194,18 +194,20 @@ static NSString * const cellId = @"FileCell";
 
 - (void)openFile:(GLFile *)file
 {
+    NSString *httpStr = [GITAPI_HTTPS_PREFIX componentsSeparatedByString:@"/api/v3/"][0];
+    
     if ([File isCodeFile:file.name]) {
         FileContentView *fileContentView = [[FileContentView alloc] initWithProjectID:_projectID path:_currentPath fileName:file.name projectNameSpace:_projectNameSpace];
         
         [self.navigationController pushViewController:fileContentView animated:YES];
     } else if ([File isImage:file.name]) {
-        NSString *imageURL = [NSString stringWithFormat:@"https://git.oschina.net/%@/%@/raw/master/%@/%@?private_token=%@", _ownerName, _projectName, _currentPath, file.name, [Tools getPrivateToken]];
+        NSString *imageURL = [NSString stringWithFormat:@"%@%@/%@/raw/master/%@/%@?private_token=%@", httpStr, _ownerName, _projectName, _currentPath, file.name, [Tools getPrivateToken]];
         ImageView *imageView = [[ImageView alloc] initWithImageURL:imageURL];
         imageView.title = file.name;
         
         [self.navigationController pushViewController:imageView animated:YES];
     } else {
-        NSString *urlString = [NSString stringWithFormat:@"https://git.oschina.net/%@/%@/blob/master/%@%@?private_token=%@", _ownerName, _projectName, _currentPath, file.name, [Tools getPrivateToken]];
+        NSString *urlString = [NSString stringWithFormat:@"%@%@/%@/blob/master/%@%@?private_token=%@", httpStr, _ownerName, _projectName, _currentPath, file.name, [Tools getPrivateToken]];
         NSURL *url = [NSURL URLWithString:urlString];
         [[UIApplication sharedApplication] openURL:url];
     }

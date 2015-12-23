@@ -16,6 +16,7 @@
 #import "UIView+Toast.h"
 #import "TTTAttributedLabel.h"
 #import "SSKeychain.h"
+#import "GITAPI.h"
 
 #import "AppDelegate.h"
 #import "MainViewController.h"
@@ -309,7 +310,7 @@
         } else {
             [User saveUserInformation:user];
             [User saveAccount:user.email andPassword:_passwordTextField.text];
-            
+            [self hidenKeyboard];
             AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
             appDelegate.window.rootViewController = [MainViewController new];
         }

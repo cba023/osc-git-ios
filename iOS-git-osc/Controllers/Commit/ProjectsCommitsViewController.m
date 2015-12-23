@@ -39,7 +39,8 @@
 @property (nonatomic, copy) NSString *branchName;
 @property (nonatomic, assign) BOOL isClickBranch;
 
-@property (nonatomic,strong) DataSetObject *emptyDataSet;
+@property (nonatomic, strong) DataSetObject *emptyDataSet;
+@property (nonatomic, assign) NSInteger branchMasters;
 
 @end
 
@@ -243,12 +244,14 @@ static NSString * const cellId = @"ProjectsCommitCell";
                     
                      [_branchs addObject:name];
                  }];
-                 
-                 dispatch_async(dispatch_get_main_queue(), ^{
-                     [self.tableView reloadData];
-                     
-                 });
              }
+             if ([branch isEqualToString:@"branches"]) {
+                 _branchMasters = _branchs.count;
+             }
+             dispatch_async(dispatch_get_main_queue(), ^{
+                 [self.tableView reloadData];
+                 
+             });
 
          } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
              dispatch_async(dispatch_get_main_queue(), ^{
