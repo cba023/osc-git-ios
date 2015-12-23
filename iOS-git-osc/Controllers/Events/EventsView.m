@@ -94,10 +94,6 @@ static NSString * const EventCellIdentifier = @"EventCell";
     // 默认先隐藏footer
     self.tableView.mj_footer.hidden = YES;
     
-    if (_privateToken && [Tools isPageCacheExist:9]) {
-        [self loadFromCache];
-        return;
-    }
     _isFirstRequest = YES;
     
     /* 设置空页面状态 */
@@ -174,10 +170,6 @@ static NSString * const EventCellIdentifier = @"EventCell";
                      [_events addObject:event];
                  }];
                  
-                 if (_privateToken && (refresh || _isFirstRequest)) {
-                     [Tools savePageCache:_events type:9];
-                     _isFirstRequest = NO;
-                 }
              }
              
              if (_events.count < 20) {
@@ -205,18 +197,6 @@ static NSString * const EventCellIdentifier = @"EventCell";
              });
          }];
 
-}
-
-#pragma mark - 从缓存加载
-- (void)loadFromCache
-{
-    [_events removeAllObjects];
-    
-    [_events addObjectsFromArray:[Tools getPageCache:9]];
-    
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [self.tableView reloadData];
-    });
 }
 
 #pragma mark - Table view data source
@@ -298,6 +278,21 @@ static NSString * const EventCellIdentifier = @"EventCell";
         ProjectDetailsView *projectDetails = [[ProjectDetailsView alloc] initWithProjectID:event.projectId projectNameSpace:event.project.nameSpace];
         [projectDetails setHidesBottomBarWhenPushed:YES];
         [self.navigationController pushViewController:projectDetails animated:YES];
+    }
+}
+
+#pragma mark - 设置分割线对齐
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if ([tableView respondsToSelector:@selector(setSeparatorInset:)]) {
+        [tableView setSeparatorInset:UIEdgeInsetsZero];
+    }
+    if ([tableView respondsToSelector:@selector(setLayoutMargins:)]) {
+        [tableView setLayoutMargins:UIEdgeInsetsZero];
+    }
+    if ([cell respondsToSelector:@selector(setLayoutMargins:)])
+    {
+        [cell setLayoutMargins:UIEdgeInsetsZero];
     }
 }
 

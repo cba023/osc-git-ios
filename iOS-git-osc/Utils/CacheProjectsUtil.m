@@ -131,7 +131,6 @@ static NSString * const insertLanguage = @"INSERT OR IGNORE INTO Language"
 -(NSArray *)readProjectListWithProjectType:(ProjectsType)projectType
 {
     NSMutableArray *projects = [NSMutableArray new];
-    NSLog(@"projects = %lu", (unsigned long)projectType);
     
     if ([_dataBase open]) {
         NSString *sql = [NSString stringWithFormat:
@@ -146,7 +145,7 @@ static NSString * const insertLanguage = @"INSERT OR IGNORE INTO Language"
             project.name = [result stringForColumn:@"name"];
             project.projectDescription = [result stringForColumn:@"description"];
             
-            project.nameSpace = [[result stringForColumn:@"path_with_namespace"] componentsSeparatedByString:@"%2F"][1];
+            project.nameSpace = [result stringForColumn:@"path_with_namespace"];// componentsSeparatedByString:@"%2F"][1]
             project.language = [result stringForColumn:@"language"];
             project.forksCount = [result intForColumn:@"forks_count"];
             
