@@ -33,6 +33,7 @@
 
 @property (nonatomic, strong) HCDropdownView *branchTableView;
 @property (nonatomic, strong) NSMutableArray *branchs;
+@property (nonatomic, strong) NSMutableArray *images;
 @property (nonatomic, assign) NSInteger selectedRow;
 @property (nonatomic, assign) BOOL didChangeSelecteItem;
 @property (nonatomic) CGPoint origin;
@@ -40,7 +41,6 @@
 @property (nonatomic, assign) BOOL isClickBranch;
 
 @property (nonatomic, strong) DataSetObject *emptyDataSet;
-@property (nonatomic, assign) NSInteger branchMasters;
 
 @end
 
@@ -62,6 +62,7 @@ static NSString * const cellId = @"ProjectsCommitCell";
     [super viewDidLoad];
     
     _branchs = [NSMutableArray new];
+    _images = [NSMutableArray new];
     _branchName = @"master";
     
     _page = 1;
@@ -120,7 +121,7 @@ static NSString * const cellId = @"ProjectsCommitCell";
 
     self.branchTableView.menuRowHeight = 50;
     self.branchTableView.titles = _branchs;
-    self.branchTableView.imageNameStr = @"projectDetails_fork";
+    self.branchTableView.images = _images;
     self.branchTableView.menuTabelView.frame = CGRectMake(CGRectGetWidth([[UIScreen mainScreen]bounds])/2, 0, CGRectGetWidth([[UIScreen mainScreen]bounds])/2, MIN(CGRectGetHeight([[UIScreen mainScreen]bounds])/2, self.branchTableView.menuRowHeight * self.branchTableView.titles.count));
     self.branchTableView.menuTabelView.rowHeight = self.branchTableView.menuRowHeight;
     _origin = _branchTableView.menuTabelView.frame.origin;
@@ -243,11 +244,14 @@ static NSString * const cellId = @"ProjectsCommitCell";
                      NSString *name = [obj objectForKey:@"name"];
                     
                      [_branchs addObject:name];
+                     if ([branch isEqualToString:@"branches"]) {
+                         [_images addObject:@"projectDetails_fork"];
+                     } else {
+                         [_images addObject:@"projectDetails_language"];
+                     }
                  }];
              }
-             if ([branch isEqualToString:@"branches"]) {
-                 _branchMasters = _branchs.count;
-             }
+             
              dispatch_async(dispatch_get_main_queue(), ^{
                  [self.tableView reloadData];
                  

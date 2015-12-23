@@ -373,8 +373,8 @@
     HCDropdownMenuCell *cell = [tableView dequeueReusableCellWithIdentifier:@"HCCell" forIndexPath:indexPath];
     cell.backgroundColor = _contentBackgroundColor;
     cell.titleLabel.text = [_titles objectAtIndex:indexPath.row];
-    cell.imageView.image = [UIImage imageNamed:_imageNameStr];
-    
+//    cell.imageView.image = [UIImage imageNamed:_imageNameStr];
+    cell.imageView.image = [UIImage imageNamed:_images[indexPath.row]];
     return cell;
 }
 #pragma mark -- UITableViewDelegate
