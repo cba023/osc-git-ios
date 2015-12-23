@@ -159,6 +159,7 @@ static NSString * const EventCellIdentifier = @"EventCell";
     }
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager GitManager];
+    manager.requestSerializer.cachePolicy = NSURLRequestReturnCacheDataElseLoad;
     
     [manager GET:strUrl
       parameters:nil

@@ -13,6 +13,7 @@
 #import "Tools.h"
 #import "PKRevealController.h"
 #import "SearchView.h"
+#import "CacheProjectsUtil.h"
 
 #import "AFHTTPRequestOperationManager+Util.h"
 #import "GITAPI.h"
@@ -40,7 +41,7 @@ static NSString * const LanguageCellID = @"LanguageCell";
 {
     [super viewDidLoad];
     
-    _languages = [NSMutableArray new];
+    
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSearch
                                                                                            target:self
@@ -53,13 +54,15 @@ static NSString * const LanguageCellID = @"LanguageCell";
     self.tableView.tableFooterView = footer;
     self.tableView.backgroundColor = [Tools uniformColor];
     self.tableView.bounces = NO;
-    
-    if ([Tools isPageCacheExist:10]) {
-        [self loadFromCache];
-        return;
-    }
  
-    [self fetchForLanguage];
+    _languages = (NSMutableArray *)[[CacheProjectsUtil shareInstance] readLanguageList];
+    if (!_languages || _languages.count < 1) {
+        _languages = [NSMutableArray new];
+        [self fetchForLanguage];
+    } else {
+        [self.tableView reloadData];
+    }
+    
 }
 
 - (void)showMenu
@@ -91,8 +94,7 @@ static NSString * const LanguageCellID = @"LanguageCell";
                      GLLanguage *language =[[GLLanguage alloc] initWithJSON:obj];
                      [_languages addObject:language];
                  }];
-                 
-                 [Tools savePageCache:_languages type:10];
+                 [[CacheProjectsUtil shareInstance] insertLanguageList:_languages];
              }
              
              dispatch_async(dispatch_get_main_queue(), ^{

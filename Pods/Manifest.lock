@@ -21,6 +21,11 @@ PODS:
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
   - DZNEmptyDataSet (1.7.2)
+  - FMDB (2.5):
+    - FMDB/standard (= 2.5)
+  - FMDB/common (2.5)
+  - FMDB/standard (2.5):
+    - FMDB/common
   - Mantle (2.0.6):
     - Mantle/extobjc (= 2.0.6)
   - Mantle/extobjc (2.0.6)
@@ -44,6 +49,7 @@ PODS:
 DEPENDENCIES:
   - AFNetworking (~> 2.6)
   - DZNEmptyDataSet
+  - FMDB
   - Mantle
   - MBProgressHUD
   - MJRefresh
@@ -57,6 +63,7 @@ DEPENDENCIES:
 SPEC CHECKSUMS:
   AFNetworking: cb8d14a848e831097108418f5d49217339d4eb60
   DZNEmptyDataSet: 0ec00bfc230d7450997b60c127afdd0b9f24f3b6
+  FMDB: 96e8f1bcc1329e269330f99770ad4285d9003e52
   Mantle: 299966b00759634931699f69cb6a30b9239b944d
   MBProgressHUD: c47f2c166c126cf2ce36498d80f33e754d4e93ad
   MJRefresh: f3e1228ec3d38c7ba5208d58032631a52f39f495

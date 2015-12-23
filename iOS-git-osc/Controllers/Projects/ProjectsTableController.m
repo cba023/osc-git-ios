@@ -16,6 +16,7 @@
 
 #import "AFHTTPRequestOperationManager+Util.h"
 #import "GITAPI.h"
+#import "CacheProjectsUtil.h"
 
 #import "MJRefresh.h"
 #import "DataSetObject.h"
@@ -84,7 +85,6 @@ static NSString * const cellId = @"ProjectCell";
     UIView *footer =[[UIView alloc] initWithFrame:CGRectZero];
     self.tableView.tableFooterView = footer;
     
-    _projects = [NSMutableArray new];
     _isFinishedLoad = NO;
     _page = 1;
     //下拉刷新
@@ -98,15 +98,17 @@ static NSString * const cellId = @"ProjectCell";
     [(MJRefreshAutoNormalFooter *)self.tableView.mj_footer setTitle:@"已全部加载完毕" forState:MJRefreshStateNoMoreData];
     // 默认先隐藏footer
     self.tableView.mj_footer.hidden = YES;
-    
-    if ([self needCache] && [Tools isPageCacheExist:_projectsType]) {
-        [self loadFromCache];
-        return;
-    }
     _isFirstRequest = YES;
     
+    _projects = (NSMutableArray *)[[CacheProjectsUtil shareInstance] readProjectListWithProjectType:_projectsType];
+    if (!_projects || _projects.count < 1) {
+        _projects = [NSMutableArray new];
+        [self fetchProject:YES];
+    } else {
+        [self.tableView reloadData];
+    }
+    
     /* 设置空页面状态 */
-    [self fetchProject:YES];
     self.emptyDataSet = [[DataSetObject alloc]initWithSuperScrollView:self.tableView];
     __weak ProjectsTableController *weakSelf = self;
     self.emptyDataSet.reloading = ^{
@@ -221,9 +223,8 @@ static NSString * const cellId = @"ProjectCell";
                      [_projects addObject:project];
                  }];
                  
-                 if ((refresh || _isFirstRequest) && [self needCache]) {
-                     [Tools savePageCache:_projects type:_projectsType];
-                     _isFirstRequest = NO;
+                 if (refresh) {
+                     [[CacheProjectsUtil shareInstance] insertProjectList:_projects andProjectType:_projectsType];
                  }
                  
              }
@@ -253,18 +254,6 @@ static NSString * const cellId = @"ProjectCell";
              });
          }];
     
-}
-
-#pragma mark - 刷新
-- (void)reload
-{
-    [_projects removeAllObjects];
-    
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [self.tableView reloadData];
-    });
-    
-    [self fetchProject:YES];
 }
 
 #pragma mark - 表格显示及操作
@@ -340,33 +329,5 @@ static NSString * const cellId = @"ProjectCell";
         return 60;
     }
 }
-
-
-#pragma mark - 从缓存加载
-
-- (void)loadFromCache
-{
-    [_projects removeAllObjects];
-    
-    [_projects addObjectsFromArray:[Tools getPageCache:_projectsType]];
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [self.tableView reloadData];
-    });
-}
-
-#pragma mark - 缓存
-
-- (BOOL)needCache
-{
-    if (_projectsType <= 3) {return YES;}
-    
-    NSUserDefaults *user = [NSUserDefaults standardUserDefaults];
-    int64_t userID = [[user objectForKey:@"id"] longLongValue];
-    
-    if (_projectsType <= 5 && _userID == userID) {return YES;}
-    
-    return NO;
-}
-
 
 @end

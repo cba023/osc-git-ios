@@ -71,7 +71,9 @@ static NSString * const kKeyImage = @"img";
         _owner = [[GLUser alloc] initWithJSON:json[kKeyOwner]];
         _name = [self checkForNull:json[kKeyName]];
         _path = [self checkForNull:json[kKeyPath]];
-        _nameSpace = [[NSString stringWithFormat:@"%@%%2F%@", _owner.username, [_nameSpace componentsSeparatedByString:@"/"][1]] stringByReplacingOccurrencesOfString:@"." withString:@"+"];
+        
+        NSArray *names = [_nameSpace componentsSeparatedByString:@"/"];
+        _nameSpace = [[NSString stringWithFormat:@"%@%%2F%@", _owner.username, names[names.count-1]] stringByReplacingOccurrencesOfString:@"." withString:@"+"];
         _issuesEnabled = [json[kKeyIssuesEnabled] boolValue];
         _pullRequestsEnabled = [json[kKeyPullRequestsEnabled] boolValue];
         _wikiEnabled = [json[kKeyWikiEnabled] boolValue];

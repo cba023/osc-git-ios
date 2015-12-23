@@ -69,8 +69,8 @@ enum action {
             break;
         case PUSHED:
             action = [action initWithString:@" 推送到了项目  的分支" attributes:actionAttributes];
-            [action insertAttributedString:project atIndex:8];
-            [action insertAttributedString:[[NSAttributedString alloc] initWithString:[[event.data objectForKey:@"ref"] lastPathComponent]
+            [action insertAttributedString:project atIndex:8];//event.eventData.ref
+            [action insertAttributedString:[[NSAttributedString alloc] initWithString:[[event.data valueForKey:@"ref"] lastPathComponent]
                                                                            attributes:projectAttributes]
                                    atIndex:action.length-2];
             break;
@@ -152,14 +152,16 @@ enum action {
                                        NSFontAttributeName:[UIFont systemFontOfSize:14]
                                        };
     NSMutableAttributedString *digest = [NSMutableAttributedString new];
-    int totalCommitsCount = [[event.data objectForKey:@"total_commits_count"] intValue];
+    int totalCommitsCount = [[event.data objectForKey:@"total_commits_count"] intValue];//(int)event.eventData.totalCommitCount;//
     
     int digestsCount = 0;
     while (totalCommitsCount > 0) {
-        NSString *commitId = [[[[[event data] objectForKey:@"commits"] objectAtIndex:digestsCount] objectForKey:@"id"] substringToIndex:9];
-        NSString *message = [[[[event data] objectForKey:@"commits"] objectAtIndex:digestsCount] objectForKey:@"message"];
+//        GLCommit * commit = [event.eventData.dataCommits objectAtIndex:digestsCount];
         
-        NSString *commitAuthorName = [[[[event.data objectForKey:@"commits"] objectAtIndex:digestsCount] objectForKey:@"author"] objectForKey:@"name"];
+        NSString *commitId = [[[[event.data objectForKey:@"commits"] objectAtIndex:digestsCount] valueForKey:@"id"] substringToIndex:9];
+        NSString *message = [[[event.data objectForKey:@"commits"] objectAtIndex:digestsCount] valueForKey:@"message"];
+        
+        NSString *commitAuthorName = [[[[event.data objectForKey:@"commits"] objectAtIndex:digestsCount] objectForKey:@"author"] objectForKey:@"name"];//commit.author.name;//
         message = [NSString stringWithFormat:@" %@ - %@", commitAuthorName, message];
         [digest appendAttributedString:[[NSAttributedString alloc] initWithString:commitId attributes:idStrAttributes]];
         [digest appendAttributedString:[[NSAttributedString alloc] initWithString:message attributes:digestAttributes]];
@@ -187,7 +189,7 @@ enum action {
 
     int totalCommitsCount = 0;
     if (event.data.count > 0) {
-        totalCommitsCount = [[event.data objectForKey:@"total_commits_count"] intValue];
+        totalCommitsCount = [[event.data objectForKey:@"total_commits_count"] intValue];//(int)event.eventData.totalCommitCount;
     }
     if (totalCommitsCount > 0) {
         textView.backgroundColor = [UIColor whiteColor];

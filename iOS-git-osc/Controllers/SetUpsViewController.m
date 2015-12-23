@@ -10,6 +10,7 @@
 #import "ShakingView.h"
 #import "FeedBackViewController.h"
 #import "AboutViewController.h"
+#import "CacheProjectsUtil.h"
 
 #import "UIColor+Util.h"
 
@@ -121,6 +122,8 @@
 {
     if (buttonIndex == 1) {
         [[NSURLCache sharedURLCache] removeAllCachedResponses];
+        
+        [[CacheProjectsUtil shareInstance] removeCache];
     }
 }
 
