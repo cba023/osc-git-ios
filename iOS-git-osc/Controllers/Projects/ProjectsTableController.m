@@ -11,9 +11,6 @@
 #import "FilesTableController.h"
 #import "ProjectDetailsView.h"
 #import "GLGitlab.h"
-
-#import "PKRevealController.h"
-
 #import "AFHTTPRequestOperationManager+Util.h"
 #import "GITAPI.h"
 #import "CacheProjectsUtil.h"

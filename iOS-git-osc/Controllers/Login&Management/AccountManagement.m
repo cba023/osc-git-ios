@@ -10,7 +10,6 @@
 #import "GLGitlab.h"
 #import "Tools.h"
 #import "UIImageView+WebCache.h"
-#import "PKRevealController.h"
 
 #import "AppDelegate.h"
 #import "MainViewController.h"

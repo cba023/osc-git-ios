@@ -10,7 +10,6 @@
 #import "Tools.h"
 #import "GLGitlab.h"
 #import "UIView+Toast.h"
-#import "PKRevealController.h"
 
 #define PLACE_HOLDER @"T恤（ S、M、L、XL ）或内裤（ L、XL、2XL、3XL ）请备注码数\n如未填写，我们将随机寄出"
 
@@ -51,7 +50,6 @@ static NSString * const kKeyExtroInfo = @"extraInfo";
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    self.revealController.frontViewController.revealController.recognizesPanningOnFrontView = NO;
     
     if (![Tools isNetworkExist]) {
         return;

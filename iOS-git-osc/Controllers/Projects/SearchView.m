@@ -12,7 +12,6 @@
 #import "GLGitlab.h"
 #import "Tools.h"
 #import "ProjectDetailsView.h"
-#import "PKRevealController.h"
 #import "LastCell.h"
 
 @interface SearchView ()
@@ -43,13 +42,6 @@ static NSString * const LastCellID = @"LastCell";
         self.edgesForExtendedLayout = UIRectEdgeNone;
         self.automaticallyAdjustsScrollViewInsets = NO;
     }
-}
-
-- (void)viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
-    
-    self.revealController.frontViewController.revealController.recognizesPanningOnFrontView = YES;
 }
 
 - (void)viewDidUnload

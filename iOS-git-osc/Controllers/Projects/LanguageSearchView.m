@@ -11,7 +11,6 @@
 #import "ProjectsTableController.h"
 #import "UIView+Toast.h"
 #import "Tools.h"
-#import "PKRevealController.h"
 #import "SearchView.h"
 #import "CacheProjectsUtil.h"
 
@@ -47,13 +46,11 @@ static NSString * const LanguageCellID = @"LanguageCell";
                                                                                            target:self
                                                                                            action:@selector(showMenu)];
     self.title = @"发现";
-    self.revealController.frontViewController.revealController.recognizesPanningOnFrontView = YES;
     
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:LanguageCellID];
     UIView *footer = [[UIView alloc] initWithFrame:CGRectZero];
     self.tableView.tableFooterView = footer;
     self.tableView.backgroundColor = [Tools uniformColor];
-    self.tableView.bounces = NO;
  
     _languages = (NSMutableArray *)[[CacheProjectsUtil shareInstance] readLanguageList];
     if (!_languages || _languages.count < 1) {
@@ -124,6 +121,7 @@ static NSString * const LanguageCellID = @"LanguageCell";
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:LanguageCellID forIndexPath:indexPath];
+    cell.backgroundColor = [Tools uniformColor];
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     for (UIView *subview in [cell.contentView subviews]) {
         [subview removeFromSuperview];
