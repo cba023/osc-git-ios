@@ -7,8 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "MenuViewController.h"
-#import "ProjectsViewController.h"
 #import "PKRevealController.h"
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>

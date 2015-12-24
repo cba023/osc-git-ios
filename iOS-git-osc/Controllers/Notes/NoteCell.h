@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "GLComment.h"
 
 @interface NoteCell : UITableViewCell
 
@@ -14,5 +15,7 @@
 @property UILabel *author;
 @property UILabel *body;
 @property UILabel *time;
+
+- (void)contentForProjectsComment:(GLComment *)comment;
 
 @end

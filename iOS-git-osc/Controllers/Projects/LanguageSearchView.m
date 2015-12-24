@@ -12,8 +12,15 @@
 #import "UIView+Toast.h"
 #import "Tools.h"
 #import "PKRevealController.h"
+#import "SearchView.h"
+#import "CacheProjectsUtil.h"
+
+#import "AFHTTPRequestOperationManager+Util.h"
+#import "GITAPI.h"
 
 @interface LanguageSearchView ()
+
+@property (nonatomic, strong) NSMutableArray *languages;
 
 @end
 
@@ -34,22 +41,36 @@ static NSString * const LanguageCellID = @"LanguageCell";
 {
     [super viewDidLoad];
     
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"three_lines"]
-                                                                             style:UIBarButtonItemStylePlain
-                                                                            target:self
-                                                                            action:@selector(showMenu)];
-    self.title = @"编程语言";
+    
+    
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSearch
+                                                                                           target:self
+                                                                                           action:@selector(showMenu)];
+    self.title = @"发现";
     self.revealController.frontViewController.revealController.recognizesPanningOnFrontView = YES;
     
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:LanguageCellID];
     UIView *footer = [[UIView alloc] initWithFrame:CGRectZero];
     self.tableView.tableFooterView = footer;
+    self.tableView.backgroundColor = [Tools uniformColor];
     self.tableView.bounces = NO;
+ 
+    _languages = (NSMutableArray *)[[CacheProjectsUtil shareInstance] readLanguageList];
+    if (!_languages || _languages.count < 1) {
+        _languages = [NSMutableArray new];
+        [self fetchForLanguage];
+    } else {
+        [self.tableView reloadData];
+    }
+    
 }
 
 - (void)showMenu
 {
-    [self.navigationController.revealController showViewController:self.navigationController.revealController.leftViewController];
+    SearchView *searchView = [SearchView new];
+    
+    [searchView setHidesBottomBarWhenPushed:YES];
+    [self.navigationController pushViewController:searchView animated:YES];
 }
 
 - (void)didReceiveMemoryWarning
@@ -58,47 +79,34 @@ static NSString * const LanguageCellID = @"LanguageCell";
     // Dispose of any resources that can be recreated.
 }
 
-- (void)viewDidAppear:(BOOL)animated
+#pragma mark - 获取数据
+- (void)fetchForLanguage
 {
-    [super viewDidAppear:animated];
+    NSString *StrUrl = [NSString stringWithFormat:@"%@/%@/%@", GITAPI_HTTPS_PREFIX, GITAPI_PROJECTS, GITAPI_LANGUAGE];
     
-    if (_languages.count > 0) {
-        return;
-    }
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager GitManager];
     
-    if ([Tools isPageCacheExist:10]) {
-        [self loadFromCache];
-        [self.view hideToastActivity];
-        return;
-    }
-    
-    [self.view makeToastActivity];
-    
-    GLGitlabSuccessBlock success = ^(id responseObject) {
-        [self.view hideToastActivity];
-        if (responseObject == nil) {
-            NSLog(@"Request failed");
-        } else {
-            _languages = responseObject;
-            [Tools savePageCache:_languages type:10];
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [self.tableView reloadData];
-            });
-        }
-    };
-    
-    GLGitlabFailureBlock failure = ^(NSError *error) {
-        [self.view hideToastActivity];
-        
-        if (error != nil) {
-            [Tools toastNotification:[NSString stringWithFormat:@"网络异常，错误码：%ld", (long)error.code] inView:self.view];
-        } else {
-            [Tools toastNotification:@"网络错误" inView:self.view];
-        }
-    };
-    
-    [[GLGitlabApi sharedInstance] getLanguagesListSuccess:success failure:failure];
+    [manager GET:StrUrl
+      parameters:nil
+         success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+             if ([responseObject count] > 0) {
+                 [responseObject enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                     GLLanguage *language =[[GLLanguage alloc] initWithJSON:obj];
+                     [_languages addObject:language];
+                 }];
+                 [[CacheProjectsUtil shareInstance] insertLanguageList:_languages];
+             }
+             
+             dispatch_async(dispatch_get_main_queue(), ^{
+                 [self.tableView reloadData];
+             });
 
+         } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
+             NSLog(@"error = %@", error);
+             dispatch_async(dispatch_get_main_queue(), ^{
+                 [self.tableView reloadData];
+             });
+    }];
 }
 
 #pragma mark - Table view data source
@@ -151,27 +159,39 @@ static NSString * const LanguageCellID = @"LanguageCell";
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    ProjectsTableController *projectsTC = [[ProjectsTableController alloc] initWithProjectsType:6];
+    ProjectsTableController *projectsTC = [[ProjectsTableController alloc] initWithProjectsType:ProjectsTypeLanguage];
     GLLanguage *language = [_languages objectAtIndex:indexPath.row];
     
     projectsTC.title = language.name;
     projectsTC.languageID = language.languageID;
     
+    [projectsTC setHidesBottomBarWhenPushed:YES];
     [self.navigationController pushViewController:projectsTC animated:YES];
 }
 
+#pragma mark - 设置分割线对齐
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if ([tableView respondsToSelector:@selector(setSeparatorInset:)]) {
+        [tableView setSeparatorInset:UIEdgeInsetsZero];
+    }
+    if ([tableView respondsToSelector:@selector(setLayoutMargins:)]) {
+        [tableView setLayoutMargins:UIEdgeInsetsZero];
+    }
+    if ([cell respondsToSelector:@selector(setLayoutMargins:)])
+    {
+        [cell setLayoutMargins:UIEdgeInsetsZero];
+    }
+}
 
 #pragma mark - 从缓存加载
 
 - (void)loadFromCache
 {
-    _languages = [Tools getPageCache:10];
+    [_languages addObjectsFromArray:[Tools getPageCache:10]];
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.tableView reloadData];
     });
 }
-
-
-
 
 @end

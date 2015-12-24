@@ -14,7 +14,12 @@
 
 #import "GITAPI.h"
 #import "AFHTTPRequestOperationManager+Util.h"
+
+#import <MBProgressHUD.h>
+
 @interface IssueCreation ()
+
+@property (nonatomic, strong) MBProgressHUD *hud;
 
 @end
 
@@ -118,53 +123,15 @@
     issue.projectId = _projectId;
     issue.title = _issueTitle.text;
     issue.issueDescription = _issueDescription.text;
-//    [self createIssue:issue];
+
     [self createNewIssue:issue];
 }
 
-//- (void)createIssue:(GLIssue *)issue
-//{
-//    if (![Tools isNetworkExist]) {
-//         [Tools toastNotification:@"网络连接失败，请检查网络设置" inView:self.view];
-//        return;
-//    }
-//    
-//    [self.view makeToastActivity];
-//    NSString *privateToken = [Tools getPrivateToken];
-//    
-//    GLGitlabSuccessBlock success = ^(id responseObject) {
-//        if (responseObject == nil) {
-//            [Tools toastNotification:@"网络错误" inView:self.view];
-//        } else {
-//            [self.view hideToastActivity];
-//            [Tools toastNotification:@"Issue 创建成功" inView:self.view];
-//        }
-//    };
-//    
-//    GLGitlabFailureBlock failure = ^(NSError *error) {
-//        [self.view hideToastActivity];
-//        
-//        if (error != nil) {
-//            [Tools toastNotification:[NSString stringWithFormat:@"网络异常，错误码：%ld", (long)error.code] inView:self.view];
-//        } else {
-//            [Tools toastNotification:@"网络错误" inView:self.view];
-//        }
-//    };
-//    
-//    [[GLGitlabApi sharedInstance] createIssue:issue
-//                                 privateToken:privateToken
-//                             withSuccessBlock:success
-//                              andFailureBlock:failure];
-//}
-
 - (void)createNewIssue:(GLIssue *)issue
 {
-    if (![Tools isNetworkExist]) {
-        [Tools toastNotification:@"网络连接失败，请检查网络设置" inView:self.view];
-        return;
-    }
-    
-    [self.view makeToastActivity];
+    _hud = [MBProgressHUD showHUDAddedTo:[[UIApplication sharedApplication].windows lastObject] animated:YES];
+    _hud.userInteractionEnabled = NO;
+    _hud.mode = MBProgressHUDModeCustomView;
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager GitManager];
     
@@ -177,21 +144,20 @@
        parameters:params
           success:^(AFHTTPRequestOperation * operation, id responseObject) {
             if (responseObject == nil) {
-                [Tools toastNotification:@"网络错误" inView:self.view];
+                _hud.detailsLabelText = @"网络错误";
             } else {
-                [self.view hideToastActivity];
-                [Tools toastNotification:@"Issue 创建成功" inView:self.view];
+                _hud.detailsLabelText = @"Issue 创建成功";
                 
                 [self.navigationController popViewControllerAnimated:YES];
             }
+              [_hud hide:YES afterDelay:1];
           } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
-            [self.view hideToastActivity];
-            
-            if (error != nil) {
-                [Tools toastNotification:[NSString stringWithFormat:@"网络异常，错误码：%ld", (long)error.code] inView:self.view];
-            } else {
-                [Tools toastNotification:@"网络错误" inView:self.view];
-            }
+              if (error != nil) {
+                  _hud.detailsLabelText = [NSString stringWithFormat:@"网络异常，错误码：%ld", (long)error.code];
+              } else {
+                  _hud.detailsLabelText = @"网络错误";
+              }
+              [_hud hide:YES afterDelay:1];
     }];
 }
 

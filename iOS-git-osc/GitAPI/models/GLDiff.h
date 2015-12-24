@@ -9,6 +9,11 @@
 #import <Foundation/Foundation.h>
 #import "GLBaseObject.h"
 
+typedef NS_ENUM(NSInteger, GLDiffType) {
+    GLDiffTypeText,
+    GLDiffTypeBinary
+};
+
 @interface GLDiff : GLBaseObject
 
 // diff
@@ -27,6 +32,8 @@
 @property (nonatomic, getter = isRenamedFile) BOOL renamedFile;
 // deleted_file
 @property (nonatomic, getter = isDeletedFile) BOOL deletedFile;
+// type
+@property (nonatomic) GLDiffType type;
 
 - (BOOL)isEqualToDiff:(GLDiff *)diff;
 

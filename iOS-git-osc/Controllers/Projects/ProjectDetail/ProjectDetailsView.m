@@ -11,7 +11,6 @@
 #import "FilesTableController.h"
 #import "Tools.h"
 #import "GLGitlab.h"
-#import "UserDetailsView.h"
 #import "IssuesView.h"
 #import "ReadmeView.h"
 #import "ProjectDescriptionCell.h"
@@ -20,20 +19,25 @@
 #import "UIView+Toast.h"
 #import "LoginViewController.h"
 #import "UMSocial.h"
+#import "TitleScrollViewController.h"
+#import "ProjectsCommitsViewController.h"
 
 #import "GITAPI.h"
 #import "AFHTTPRequestOperationManager+Util.h"
+#import "DataSetObject.h"
 
 static NSString * const ProjectDetailsCellID = @"ProjectDetailsCell";
 //static NSString * const ProjcetDescriptionCellID = @"ProjcetDescriptionCell";
 
 @interface ProjectDetailsView () <UIActionSheetDelegate>
 
-@property int64_t projectID;
-@property NSString *namsSpace;
-@property NSString *projectName;
+@property (nonatomic, assign) int64_t projectID;
+@property (nonatomic, copy) NSString *namsSpace;
+@property (nonatomic, copy) NSString *projectName;
 
-@property NSString *projectURL;
+@property (nonatomic, copy) NSString *projectURL;
+
+@property (nonatomic, strong) DataSetObject *emptyDataSet;
 
 @end
 
@@ -63,7 +67,14 @@ static NSString * const ProjectDetailsCellID = @"ProjectDetailsCell";
     UIView *footer =[[UIView alloc] initWithFrame:CGRectZero];
     self.tableView.tableFooterView = footer;
     
+    
+    /* 设置空页面状态 */
     [self fetchProjectsDetail];
+    self.emptyDataSet = [[DataSetObject alloc]initWithSuperScrollView:self.tableView];
+    __weak ProjectDetailsView *weakSelf = self;
+    self.emptyDataSet.reloading = ^{
+        [weakSelf fetchProjectsDetail];
+    };
 }
 
 - (void)didReceiveMemoryWarning
@@ -76,13 +87,9 @@ static NSString * const ProjectDetailsCellID = @"ProjectDetailsCell";
 
 - (void)fetchProjectsDetail
 {
-    if (_project) {return;}
-    if (![Tools isNetworkExist]) {
-        [Tools toastNotification:@"网络连接失败，请检查网络设置" inView:self.view];
-        return;
-    }
+    self.emptyDataSet.state = loadingState;
     
-    [self.view makeToastActivity];
+    if (_project) {return;}
     
     _user = [NSUserDefaults standardUserDefaults];
     NSString *privateToken = [_user objectForKey:@"private_token"];
@@ -90,44 +97,39 @@ static NSString * const ProjectDetailsCellID = @"ProjectDetailsCell";
     NSString *strUrl = privateToken.length ? [NSString stringWithFormat:@"%@%@/%@?private_token=%@", GITAPI_HTTPS_PREFIX, GITAPI_PROJECTS, _namsSpace, [Tools getPrivateToken]] :
     [NSString stringWithFormat:@"%@%@/%@", GITAPI_HTTPS_PREFIX, GITAPI_PROJECTS, _namsSpace];
     
-    
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager GitManager];
     [manager GET:strUrl
       parameters:nil
          success:^(AFHTTPRequestOperation *operation, id responseObject) {
              
-             if (responseObject == nil) {
-                 [Tools toastNotification:@"网络错误" inView:self.view];
-             } else {
+             if (responseObject == nil) { } else {
                  _project = [[GLProject alloc] initWithJSON:responseObject];
-                 
                  self.title = _project.name;
-                 [self.view hideToastActivity];
-                 
+                 NSString *httpStr = [GITAPI_HTTPS_PREFIX componentsSeparatedByString:@"/api/v3/"][0];
                  self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]
                                                            initWithImage:[UIImage imageNamed:@"projectDetails_more"]
                                                            style:UIBarButtonItemStylePlain
                                                            target:self
                                                            action:@selector(moreChoice)];
                  
-                 _projectURL = [NSString stringWithFormat:@"http://git.oschina.net/%@/%@", _project.owner.username, _project.path];
-                 
-                 dispatch_async(dispatch_get_main_queue(), ^{
-                     [self.tableView reloadData];
-                 });
+                 _projectURL = [NSString stringWithFormat:@"%@%@/%@", httpStr, _project.owner.username, _project.path];
                  
              }
-         } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
              
-             [self.view hideToastActivity];
-             if (error != nil) {
-                 [Tools toastNotification:[NSString stringWithFormat:@"网络异常，错误码：%ld", (long)error.code] inView:self.view];
-             } else {
-                 [Tools toastNotification:@"网络错误" inView:self.view];
+             if (_project.name.length == 0) {
+                 self.emptyDataSet.state = noDataState;
+                 self.emptyDataSet.respondString = @"还没有相关项目详情";
              }
+             
+             dispatch_async(dispatch_get_main_queue(), ^{
+                 [self.tableView reloadData];
+             });
+         } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
+             self.emptyDataSet.state = netWorkingErrorState;
+             dispatch_async(dispatch_get_main_queue(), ^{
+                 [self.tableView reloadData];
+             });
          }];
-    
-    [self.tableView reloadData];
 }
 
 #pragma mark - tableview things
@@ -146,7 +148,7 @@ static NSString * const ProjectDetailsCellID = @"ProjectDetailsCell";
         case 0:
             return 3;
         case 1:
-            return 4;       //return 4;
+            return 5;       //return 4;
         default:
             return 0;
     }
@@ -203,10 +205,10 @@ static NSString * const ProjectDetailsCellID = @"ProjectDetailsCell";
             
             return cell;
         }
-        NSArray *rowTitle = @[@"Readme", @"代码", @"问题"];             //@"提交"
+        NSArray *rowTitle = @[@"Readme", @"代码", @"问题", @"提交"];             //@"提交"
         [cell.textLabel setText:rowTitle[indexPath.row - 1]];
         
-        NSArray *imageName = @[@"projectDetails_readme", @"projectDetails_code", @"projectDetails_issue"];
+        NSArray *imageName = @[@"projectDetails_readme", @"projectDetails_code", @"projectDetails_issue", @"projectDetails_branch"];
         [cell.imageView setImage:[UIImage imageNamed:imageName[indexPath.row - 1]]];
         
         return cell;
@@ -254,8 +256,16 @@ static NSString * const ProjectDetailsCellID = @"ProjectDetailsCell";
     if (section == 1) {
         switch (row) {
             case 0: {
-                UserDetailsView *userDetails = [[UserDetailsView alloc] initWithPrivateToken:nil userID:_project.owner.userId];
-                [self.navigationController pushViewController:userDetails animated:YES];
+                TitleScrollViewController *ownDetailsView = [TitleScrollViewController new];
+                ownDetailsView.titleName = _project.owner.name;
+                ownDetailsView.subTitles = @[@"动态", @"项目", @"Star", @"Watch"];
+                ownDetailsView.isProject = NO;
+                ownDetailsView.userID = _project.owner.userId;
+                ownDetailsView.privateToken = nil;
+                ownDetailsView.portrait = _project.owner.portrait;
+                ownDetailsView.name = _project.owner.name;
+                
+                [self.navigationController pushViewController:ownDetailsView animated:YES];
                 break;
             }
             case 1: {
@@ -278,6 +288,11 @@ static NSString * const ProjectDetailsCellID = @"ProjectDetailsCell";
             case 3: {
                 IssuesView *issuesView = [[IssuesView alloc] initWithProjectId:_project.projectId projectNameSpace:_project.nameSpace];
                 [self.navigationController pushViewController:issuesView animated:YES];
+                break;
+            }
+            case 4: {
+                ProjectsCommitsViewController *commitController = [[ProjectsCommitsViewController alloc] initWithProjectID:_project.projectId projectNameSpace:_project.nameSpace];
+                [self.navigationController pushViewController:commitController animated:YES];
                 break;
             }
             default:

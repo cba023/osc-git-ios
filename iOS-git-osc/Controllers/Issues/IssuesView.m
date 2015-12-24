@@ -13,18 +13,21 @@
 #import "NotesView.h"
 #import "IssueCreation.h"
 #import "Tools.h"
-#import "LastCell.h"
+#import "UIView+Toast.h"
 
 #import "GITAPI.h"
 #import "AFHTTPRequestOperationManager+Util.h"
 
+#import "MJRefresh.h"
+#import "DataSetObject.h"
+
 @interface IssuesView ()
 
-@property BOOL isLoading;
-@property BOOL isFinishedLoad;
-@property LastCell *lastCell;
+@property (nonatomic, assign) NSInteger page;
 @property NSString *projectNameSpace;
 @property NSString *privateToken;
+
+@property (nonatomic,strong) DataSetObject *emptyDataSet;
 
 @end
 
@@ -58,8 +61,6 @@ static NSString * const cellId = @"IssueCell";
 {
     [super viewDidAppear:animated];
     
-    if (issues.count > 0 || _isFinishedLoad) {return;}
-    
     [self.refreshControl beginRefreshing];
     [self.tableView setContentOffset:CGPointMake(0, self.tableView.contentOffset.y-self.refreshControl.frame.size.height)
                             animated:YES];
@@ -81,15 +82,31 @@ static NSString * const cellId = @"IssueCell";
     UIView *footer = [[UIView alloc] initWithFrame:CGRectZero];
     self.tableView.tableFooterView = footer;
     
-    self.refreshControl = [UIRefreshControl new];
-    [self.refreshControl addTarget:self action:@selector(refresh) forControlEvents:UIControlEventValueChanged];
-    [self.tableView addSubview:self.refreshControl];
-    
     issues = [NSMutableArray new];
     _privateToken = [Tools getPrivateToken];
-    _lastCell = [[LastCell alloc] initCell];
+    _page = 1;
     
-    [self fetchIssuesOnPage:1 refresh:YES];
+    //下拉刷新
+    self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        [self fetchIssuesRefresh:YES];
+    }];
+    //上拉刷新
+    self.tableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
+        [self fetchIssuesRefresh:NO];
+    }];
+    [(MJRefreshAutoNormalFooter *)self.tableView.mj_footer setTitle:@"已全部加载完毕" forState:MJRefreshStateNoMoreData];
+    // 默认先隐藏footer
+    self.tableView.mj_footer.hidden = YES;
+    
+//    [self.tableView.mj_header beginRefreshing];
+    /* 设置空页面状态 */
+    [self fetchIssuesRefresh:YES];
+    self.emptyDataSet = [[DataSetObject alloc]initWithSuperScrollView:self.tableView];
+    __weak IssuesView *weakSelf = self;
+    self.emptyDataSet.reloading = ^{
+        [weakSelf fetchIssuesRefresh:YES];
+    };
+    self.tableView.tableFooterView = [UIView new];
 }
 
 - (void)didReceiveMemoryWarning
@@ -107,8 +124,7 @@ static NSString * const cellId = @"IssueCell";
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    if (_lastCell.status == LastCellStatusNotVisible) {return issues.count;}
-    return issues.count + 1;
+    return issues.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -124,7 +140,7 @@ static NSString * const cellId = @"IssueCell";
         
         return cell;
     } else {
-        return _lastCell;
+        return [UITableViewCell new];
     }
 }
 
@@ -158,8 +174,21 @@ static NSString * const cellId = @"IssueCell";
         notesView.title = [NSString stringWithFormat:@"#%lld", issue.issueIid];
         
         [self.navigationController pushViewController:notesView animated:YES];
-    } else {
-        [self loadMore];
+    }
+}
+
+#pragma mark - 设置分割线对齐
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if ([tableView respondsToSelector:@selector(setSeparatorInset:)]) {
+        [tableView setSeparatorInset:UIEdgeInsetsZero];
+    }
+    if ([tableView respondsToSelector:@selector(setLayoutMargins:)]) {
+        [tableView setLayoutMargins:UIEdgeInsetsZero];
+    }
+    if ([cell respondsToSelector:@selector(setLayoutMargins:)])
+    {
+        [cell setLayoutMargins:UIEdgeInsetsZero];
     }
 }
 
@@ -173,111 +202,58 @@ static NSString * const cellId = @"IssueCell";
     [self.navigationController pushViewController:issueCreationView animated:YES];
 }
 
-#pragma mark - 刷新
-
-- (void)refresh
-{
-    static BOOL refreshInProgress = NO;
-    
-    if (!refreshInProgress)
-    {
-        refreshInProgress = YES;
-        
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-            [self fetchIssuesOnPage:1 refresh:YES];
-            refreshInProgress = NO;
-        });
-    }
-}
-
-#pragma mark - 下拉操作
-
-- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
-{
-    // 下拉到最底部时显示更多数据
-	if(scrollView.contentOffset.y > ((scrollView.contentSize.height - scrollView.frame.size.height)))
-	{
-        [self loadMore];
-	}
-}
-
-#pragma mark - 加载
-
-- (void)loadMore
-{
-    if (_isFinishedLoad || _isLoading) {return;}
-    
-    _isLoading = YES;
-    [_lastCell loading];
-    [self fetchIssuesOnPage:issues.count/20 + 2 refresh:NO];
-}
-
 #pragma mark - 获取数据
-- (void)fetchIssuesOnPage:(NSUInteger)page refresh:(BOOL)refresh
+- (void)fetchIssuesRefresh:(BOOL)refresh
 {
-    if (![Tools isNetworkExist]) {
-        if (refresh) {
-            [self.refreshControl endRefreshing];
-            _lastCell.status = LastCellStatusVisible;
-        } else {
-            _isLoading = NO;
-            if (_isFinishedLoad) {
-                [_lastCell finishedLoad];
-            } else {
-                [_lastCell normal];
-            }
-        }
-        [Tools toastNotification:@"网络连接失败，请检查网络设置" inView:self.view];
-        return;
+    self.emptyDataSet.state = loadingState;
+
+    if (refresh) {
+        _page = 1;
+    } else {
+        _page++;
     }
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager GitManager];
     
-    NSString *strUrl = [NSString stringWithFormat:@"%@%@/%@/issues?private_token=%@&pageIndex=%lu", GITAPI_HTTPS_PREFIX, GITAPI_PROJECTS, _projectNameSpace, [Tools getPrivateToken], (unsigned long)page];
+    NSString *strUrl = [NSString stringWithFormat:@"%@%@/%@/issues?private_token=%@&page=%lu", GITAPI_HTTPS_PREFIX, GITAPI_PROJECTS, _projectNameSpace, [Tools getPrivateToken], (unsigned long)_page];
     
     [manager GET:strUrl
       parameters:nil
          success:^(AFHTTPRequestOperation *operation, id responseObject) {
              if (refresh) {
-                 [self.refreshControl endRefreshing];
                  [issues removeAllObjects];
              }
              
-             if ([responseObject count] == 0) {
-                 _isFinishedLoad = YES;
-                 [_lastCell finishedLoad];
-             } else {
-                 _isFinishedLoad = [(NSArray *)responseObject count] < 20;
-                 
+             if ([responseObject count] > 0) {
                  [responseObject enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
                      GLIssue *issue = [[GLIssue alloc] initWithJSON:obj];
                      [issues addObject:issue];
                  }];
-                 
-                 dispatch_async(dispatch_get_main_queue(), ^{
-                     [self.tableView reloadData];
-                     if (refresh) {[self.refreshControl endRefreshing];}
-                     _isFinishedLoad? [_lastCell finishedLoad]: [_lastCell normal];
-                 });
              }
-             _isLoading = NO;
-         } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
-             if (error != nil) {
-                 [Tools toastNotification:[NSString stringWithFormat:@"网络异常，错误码：%ld", (long)error.code] inView:self.view];
+             
+             if (issues.count < 20) {
+                 [self.tableView.mj_footer endRefreshingWithNoMoreData];
              } else {
-                 [Tools toastNotification:@"网络错误" inView:self.view];
+                 [self.tableView.mj_footer endRefreshing];
+             }
+             
+             if (issues.count == 0) {
+                 self.emptyDataSet.state = noDataState;
+                 self.emptyDataSet.respondString = @"还没有相关Issue";
              }
              
              dispatch_async(dispatch_get_main_queue(), ^{
-                 _lastCell.status = LastCellStatusVisible;
-                 [_lastCell errorStatus];
                  [self.tableView reloadData];
-                 if (refresh) {
-                     [self.refreshControl endRefreshing];
-                 }
+                 [self.tableView.mj_header endRefreshing];
              });
              
-             _isLoading = NO;
+         } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
+             dispatch_async(dispatch_get_main_queue(), ^{
+                 self.emptyDataSet.state = netWorkingErrorState;
+                 [self.tableView reloadData];
+                 [self.tableView.mj_header endRefreshing];
+                 [self.tableView.mj_footer endRefreshing];
+             });
          }];
 }
 

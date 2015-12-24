@@ -14,6 +14,7 @@
 static NSString * const kApiRoutePrefix = @"/api/v3";
 static NSString * const kPrivateTokenHeaderKey = @"PRIVATE-TOKEN";
 static NSString * const hostName = @"https://git.oschina.net";        //@"http://192.168.1.117"
+//static NSString * const hostName = @"http://192.168.1.14";
 
 @implementation GLGitlabApi (Private)
 

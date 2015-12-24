@@ -16,6 +16,7 @@ static NSString * const kKeyForShortId = @"short_id";
 static NSString * const kKeyForAuthor = @"author";
 static NSString * const kKeyForName = @"name";
 static NSString * const kKeyForEmail = @"email";
+static NSString * const kKeyForPortrait = @"new_portrait";
 static NSString * const kKeyForAuthorName = @"author_name";
 static NSString * const kKeyForAuthorEmail = @"author_email";
 static NSString * const kKeyForCreatedAt = @"created_at";
@@ -28,6 +29,7 @@ static NSString * const kKeyForParents = @"parents";
 {
     if (self = [super init]) {
         _sha = [self checkForNull:json[kKeyForSha]];
+        _author = [self checkForNull:json[kKeyForAuthor]] ? [[GLUser alloc] initWithJSON:json[kKeyForAuthor]] : nil;
         
         if (json[kKeyForTitle]) {
             _title = [self checkForNull:json[kKeyForTitle]];
@@ -47,15 +49,19 @@ static NSString * const kKeyForParents = @"parents";
             _authorName = [self checkForNull:json[kKeyForAuthorName]];
             _authorEmail = [self checkForNull:json[kKeyForAuthorEmail]];
         }
+        
+        
         else if (json[kKeyForAuthor]) {
             NSDictionary *authorData = json[kKeyForAuthor];
             _authorName = [self checkForNull:authorData[kKeyForName]];
             _authorEmail = [self checkForNull:authorData[kKeyForEmail]];
+            _authorPortrait = [self checkForNull:authorData[kKeyForPortrait]];
         }
         
         NSString *dateString;
         if (json[kKeyForCreatedAt]) {
             dateString = [self checkForNull:json[kKeyForCreatedAt]];
+            _createdAtString = dateString;
         }
         else if (json[kKeyForCommittedDate]) {
             dateString = [self checkForNull:json[kKeyForCommittedDate]];

@@ -14,8 +14,11 @@
 
 #import "GITAPI.h"
 #import "AFHTTPRequestOperationManager+Util.h"
+#import <MBProgressHUD.h>
 
 @interface FileContentView ()
+
+@property (nonatomic, strong) MBProgressHUD *hud;
 
 @end
 
@@ -44,23 +47,30 @@
     self.webView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
     self.webView.scrollView.bounces = NO;
     self.webView.delegate = self;
+    self.webView.dataDetectorTypes = UIDataDetectorTypeAll;
     
     [self.view addSubview:self.webView];
     
     [self fetchFileContent];
 }
+- (BOOL)shouldAutomaticallyForwardRotationMethods
+{
+    return UIInterfaceOrientationMaskAll;
+}
+
 
 #pragma mark - 获取文件数据
 
 - (void)fetchFileContent
 {
-    self.revealController.frontViewController.revealController.recognizesPanningOnFrontView = NO;
-    
-    [self.view makeToastActivity];
+    _hud = [MBProgressHUD showHUDAddedTo:[[UIApplication sharedApplication].windows lastObject] animated:YES];
+    _hud.userInteractionEnabled = NO;
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager GitManager];
     
-    NSString *strUrl = [NSString stringWithFormat:@"%@%@/%@/repository/files", GITAPI_HTTPS_PREFIX, GITAPI_PROJECTS, _projectNameSpace];
+    NSString *strUrl = [NSString stringWithFormat:@"%@%@/%@/repository/files", GITAPI_HTTPS_PREFIX,
+                                                                               GITAPI_PROJECTS,
+                                                                               _projectNameSpace];
     NSDictionary *parameters = @{
                                  @"private_token" : [Tools getPrivateToken],
                                  @"ref"           : @"master",
@@ -70,21 +80,18 @@
     [manager GET:strUrl
       parameters:parameters
          success:^(AFHTTPRequestOperation * operation, id responseObject) {
-             if (responseObject == nil) {
-                 [self.view hideToastActivity];
-                 [Tools toastNotification:@"网络错误" inView:self.view];
-             } else {
+             [_hud hide:YES afterDelay:1];
+             if (responseObject == nil) { } else {
                  _content = [[GLBlob alloc] initWithJSON:responseObject].content;
                  [self render];
              }
          } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
-             [self.view hideToastActivity];
-             
-             if (![Tools isNetworkExist]) {
-                 [Tools toastNotification:@"错误 网络异常" inView:self.view];
+             if (error != nil) {
+                 _hud.detailsLabelText = [NSString stringWithFormat:@"网络异常，错误码：%ld", (long)error.code];
              } else {
-                 [Tools toastNotification:@"网络错误" inView:self.view];
+                 _hud.detailsLabelText = @"网络错误";
              }
+             [_hud hide:YES afterDelay:1];
     }];
 }
 

@@ -10,6 +10,15 @@
 #import "GLBaseObject.h"
 #import "GLUser.h"
 #import "GLProject.h"
+#import "GLCommit.h"
+
+@interface GLEventData : GLBaseObject
+
+@property (nonatomic, assign) NSInteger totalCommitCount;
+@property (nonatomic, copy) NSString *ref;
+@property (nonatomic, strong) NSMutableArray *dataCommits;
+
+@end
 
 @interface GLEvent : GLBaseObject
 
@@ -23,6 +32,8 @@
 @property (nonatomic, copy) NSString *title;
 // data
 @property (nonatomic, strong) NSDictionary *data;
+
+//@property (nonatomic, strong) GLEventData *eventData;
 // project_id
 @property (nonatomic, assign) int64_t projectId;
 // created_at

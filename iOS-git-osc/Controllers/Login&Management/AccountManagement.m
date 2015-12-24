@@ -10,8 +10,10 @@
 #import "GLGitlab.h"
 #import "Tools.h"
 #import "UIImageView+WebCache.h"
-#import "ProjectsViewController.h"
 #import "PKRevealController.h"
+
+#import "AppDelegate.h"
+#import "MainViewController.h"
 
 static NSString * const FollowCellId = @"FollowCell";
 static NSString * const SocialCellId = @"SocialCell";
@@ -44,20 +46,11 @@ static NSString * const kKeyFollow = @"follow";
     [super viewDidLoad];
     self.title = @"我的资料";
     self.navigationController.navigationBar.translucent = NO;
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"three_lines"]
-                                                                             style:UIBarButtonItemStylePlain
-                                                                            target:self
-                                                                            action:@selector(showMenu)];
     self.view.backgroundColor = [Tools uniformColor];
     
     _userDefaults = [NSUserDefaults standardUserDefaults];
     [self initSubviews];
     [self setAutoLayout];
-}
-
-- (void)showMenu
-{
-    [self.navigationController.revealController showViewController:self.navigationController.revealController.leftViewController];
 }
 
 - (void)didReceiveMemoryWarning
@@ -249,11 +242,8 @@ static NSString * const kKeyFollow = @"follow";
     }
     [cache removeObjectForKey:@"type-9"];
     
-    //[self.navigationController popToRootViewControllerAnimated:YES];
-    ProjectsViewController *projectViewController = [ProjectsViewController new];
-    UINavigationController *front = [[UINavigationController alloc] initWithRootViewController:projectViewController];
-    [self.revealController setFrontViewController:front];
-    [self.revealController showViewController:self.revealController.frontViewController];
+    AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+    appDelegate.window.rootViewController = [MainViewController new];
 
 }
 

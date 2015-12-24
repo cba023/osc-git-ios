@@ -30,10 +30,6 @@ static NSString * const LastCellID = @"LastCell";
     [super viewDidLoad];
     
     self.title = @"项目搜索";
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"three_lines"]
-                                                                             style:UIBarButtonItemStylePlain
-                                                                            target:self
-                                                                            action:@selector(showMenu)];
     
     _projects = [NSMutableArray new];
     _searchBar.delegate = self;
@@ -47,13 +43,6 @@ static NSString * const LastCellID = @"LastCell";
         self.edgesForExtendedLayout = UIRectEdgeNone;
         self.automaticallyAdjustsScrollViewInsets = NO;
     }
-}
-
-- (void)showMenu
-{
-    [_searchBar resignFirstResponder];
-    
-    [self.navigationController.revealController showViewController:self.navigationController.revealController.leftViewController];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -102,7 +91,7 @@ static NSString * const LastCellID = @"LastCell";
     [self.view addSubview:_searchBar];
     [_searchBar becomeFirstResponder];
     
-    _resultsTableController = [[ProjectsTableController alloc] initWithProjectsType:7];
+    _resultsTableController = [[ProjectsTableController alloc] initWithProjectsType:ProjectsTypeSearch];
     [self addChildViewController:_resultsTableController];
     _results = _resultsTableController.tableView;
     [self.view addSubview:_results];

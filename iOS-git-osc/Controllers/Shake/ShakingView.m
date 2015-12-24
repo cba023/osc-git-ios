@@ -20,6 +20,10 @@
 #import "TTTAttributedLabel.h"
 #import "UMSocial.h"
 
+#import "GITAPI.h"
+#import "AFHTTPRequestOperationManager+Util.h"
+#import <MBProgressHUD.h>
+
 #define accelerationThreshold  2.0f
 
 @interface ShakingView () <UIActionSheetDelegate, TTTAttributedLabelDelegate>
@@ -29,9 +33,6 @@
 @property SystemSoundID matchSoundID;
 
 @property TTTAttributedLabel *luckMessage;
-@property UIView *layer;
-@property UIImageView *imageUp;
-@property UIImageView *imageDown;
 @property UIImageView *sweetPotato;
 
 @property NSOperationQueue *operationQueue;
@@ -40,6 +41,8 @@
 @property ProjectCell *projectCell;
 @property AwardView *awardView;
 @property BOOL shaking;
+
+@property (nonatomic, strong) MBProgressHUD *hud;
 
 @end
 
@@ -52,11 +55,6 @@
     self.title = @"摇一摇";
     [self.navigationController.navigationBar setTranslucent:NO];
     self.view.backgroundColor = [UIColor whiteColor];
-    self.view.backgroundColor = UIColorFromRGB(0x111111);
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"three_lines"]
-                                                                             style:UIBarButtonItemStylePlain
-                                                                            target:self
-                                                                            action:@selector(showMenu)];
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"收货信息"
                                                                               style:UIBarButtonItemStylePlain
@@ -77,15 +75,9 @@
     _privateToken = [Tools getPrivateToken];
 }
 
-- (void)showMenu
-{
-    [self.navigationController.revealController showViewController:self.navigationController.revealController.leftViewController];
-}
-
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    self.revealController.frontViewController.revealController.recognizesPanningOnFrontView = YES;
     
     [self startAccelerometer];
     
@@ -125,7 +117,7 @@
     [super didReceiveMemoryWarning];
 }
 
-
+#pragma mark - 监听动作
 -(void)startAccelerometer
 {
     //以push的方式更新并在block中接收加速度
@@ -148,16 +140,9 @@
             if (_shaking) {return;}
             _shaking = YES;
             
-            [self shakeAnimation];
-            if ([Tools isNetworkExist]) {
-                [self requestProject];
-            } else {
-                [Tools toastNotification:@"网络连接失败，请检查网络设置" inView:self.view];
-            }
+            [self rotate:_sweetPotato];
         });
     }
-    
-    _shaking = NO;
 }
 
 -(void)receiveNotification:(NSNotification *)notification
@@ -183,7 +168,7 @@
     }
 }
 
-
+#pragma mark - 视图布局
 - (void)setLayout
 {
     _luckMessage = [TTTAttributedLabel new];
@@ -197,21 +182,9 @@
     [_luckMessage setPreferredMaxLayoutWidth:200];
     [self.view addSubview:_luckMessage];
     
-    _layer = [UIView new];
-    _layer.backgroundColor = [UIColor clearColor];
-    [self.view addSubview:_layer];
-    
-    _sweetPotato = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"shakehideimg_man"]];
-    _sweetPotato.contentMode = UIViewContentModeScaleAspectFill;
-    [_layer addSubview:_sweetPotato];
-    
-    _imageUp = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"shake_logo_up"]];
-    _imageUp.contentMode = UIViewContentModeScaleAspectFill;
-    [_layer addSubview:_imageUp];
-    
-    _imageDown = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"shake_logo_down"]];
-    _imageDown.contentMode = UIViewContentModeScaleAspectFill;
-    [_layer addSubview:_imageDown];
+    _sweetPotato = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"shaking.png"]];
+    _sweetPotato.backgroundColor = [UIColor clearColor];
+    [self.view addSubview:_sweetPotato];
     
     _projectCell = [ProjectCell new];
     UITapGestureRecognizer *tapPC = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapProjectCell)];
@@ -231,11 +204,7 @@
         subview.translatesAutoresizingMaskIntoConstraints = NO;
     }
     
-    for (UIView *subview in [_layer subviews]) {
-        subview.translatesAutoresizingMaskIntoConstraints = NO;
-    }
-    
-    NSDictionary *viewsDict = NSDictionaryOfVariableBindings(_luckMessage, _layer, _sweetPotato, _imageUp, _imageDown, _projectCell, _awardView);
+    NSDictionary *viewsDict = NSDictionaryOfVariableBindings(_luckMessage, _sweetPotato, _projectCell, _awardView);
     
     
     // luckMessage
@@ -252,50 +221,29 @@
     
     
     // layer
-    
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-80-[_layer(195)]"
-                                                                      options:0
-                                                                      metrics:nil
-                                                                        views:viewsDict]];
-    
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|->=50-[_layer(168.75)]->=50-|"
-                                                                      options:NSLayoutFormatAlignAllCenterX
-                                                                      metrics:nil
-                                                                        views:viewsDict]];
-    
-    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_layer
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.view
+                                                          attribute:NSLayoutAttributeCenterY
+                                                          relatedBy:NSLayoutRelationEqual
+                                                             toItem:_sweetPotato
+                                                          attribute:NSLayoutAttributeCenterY
+                                                         multiplier:1.0
+                                                           constant:50]];
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.view
                                                           attribute:NSLayoutAttributeCenterX
                                                           relatedBy:NSLayoutRelationEqual
-                                                             toItem:self.view
+                                                             toItem:_sweetPotato
                                                           attribute:NSLayoutAttributeCenterX
-                                                         multiplier:1.f constant:0.f]];
+                                                         multiplier:1.0
+                                                           constant:0]];
     
-    
-    // sweetPotato
-    
-    [_layer addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-60-[_sweetPotato(75)]"
-                                                                   options:0
-                                                                   metrics:nil
-                                                                     views:viewsDict]];
-    
-    [_layer addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|-50-[_sweetPotato(56.25)]"
-                                                                   options:0
-                                                                   metrics:nil
-                                                                     views:viewsDict]];
-    
-    
-    // imageUp and imageDown
-    
-    [_layer addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|->=1-[_imageUp(95.25)][_imageDown(95.25)]|"
-                                                                      options:NSLayoutFormatAlignAllLeft | NSLayoutFormatAlignAllRight
-                                                                      metrics:nil
-                                                                        views:viewsDict]];
-    
-    [_layer addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|[_imageUp(168.75)]|"
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[_sweetPotato(195)]"
                                                                       options:0
                                                                       metrics:nil
                                                                         views:viewsDict]];
-    
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"[_sweetPotato(168.75)]"
+                                                                      options:0
+                                                                      metrics:nil
+                                                                        views:viewsDict]];
     
     // projectCell
     
@@ -322,146 +270,119 @@
                                                                         views:viewsDict]];
 }
 
+#pragma mark - 跳转至摇出来的项目的详情
 - (void)tapProjectCell
 {
     ProjectDetailsView *projectDetails = [[ProjectDetailsView alloc] initWithProjectID:_project.projectId projectNameSpace:_project.nameSpace];
     [self.navigationController pushViewController:projectDetails animated:YES];
 }
 
+#pragma mark - 活动
 - (void)tapAwardView
 {
     ReceivingInfoView *receivingView = [ReceivingInfoView new];
     [self.navigationController pushViewController:receivingView animated:YES];
 }
 
--(void)motionMethod:(CMDeviceMotion *)deviceMotion
-{
-    if (_shaking) {return;}
-    
-    _shaking = YES;
-    
-    CMAcceleration userAcceleration = deviceMotion.userAcceleration;
-    if (fabs(userAcceleration.x) > accelerationThreshold ||
-        fabs(userAcceleration.y) > accelerationThreshold ||
-        fabs(userAcceleration.z) > accelerationThreshold)
-    {
-        [self shakeAnimation];
-        if ([Tools isNetworkExist]) {
-            [self requestProject];
-        } else {
-            [Tools toastNotification:@"网络连接失败，请检查网络设置" inView:self.view];
-            [self startAccelerometer];
-        }
-    }
-    
-    _shaking = NO;
-}
-
-- (void)shakeAnimation
-{
-    [_projectCell setHidden:YES];
-    [_awardView setHidden:YES];
-    
-    AudioServicesPlaySystemSound(_shakeSoundID);
-    
-    //[self rotate:_layer];
-    [self moveImage];
-}
-
+#pragma mark - 动画效果
 - (void)rotate:(UIView *)view
 {
-    CABasicAnimation *translation = [CABasicAnimation animationWithKeyPath:@"transform"];
-    translation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
-    //view.layer.anchorPoint = CGPointMake(1, 0);
-    translation.toValue = [NSValue valueWithCATransform3D:CATransform3DMakeRotation(-M_PI_4, 0, 0, 100)];
+    CABasicAnimation *rotate = [CABasicAnimation animationWithKeyPath:@"transform.rotation"];
+    rotate.fromValue = [NSNumber numberWithFloat:0];
+    rotate.toValue = [NSNumber numberWithFloat:M_PI / 3.0];
+    rotate.duration = 0.18;
+    rotate.repeatCount = 2;
+    rotate.autoreverses = YES;
     
-    translation.duration = 0.2;
-    translation.repeatCount = 2;
-    translation.autoreverses = YES;
-    
-    [view.layer addAnimation:translation forKey:@"translation"];
+    [CATransaction begin];
+    [self setAnchorPoint:CGPointMake(-0.2, 0.9) forView:view];
+    [CATransaction setCompletionBlock:^{
+        [self getFetchProject];
+    }];
+    [view.layer addAnimation:rotate forKey:@"translation"];
+    [CATransaction commit];
 }
 
-- (void)moveImage
+
+// 参考 http://stackoverflow.com/questions/1968017/changing-my-calayers-anchorpoint-moves-the-view
+
+-(void)setAnchorPoint:(CGPoint)anchorPoint forView:(UIView *)view
 {
-    CABasicAnimation *moveUp = [CABasicAnimation animationWithKeyPath:@"position"];
-    moveUp.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
-    moveUp.toValue = [NSValue valueWithCGPoint:CGPointMake(_imageUp.center.x, _imageUp.center.y - 50)];
-    moveUp.duration = 0.5;
-    moveUp.repeatCount = 1;
-    moveUp.autoreverses = YES;
+    CGPoint newPoint = CGPointMake(view.bounds.size.width * anchorPoint.x,
+                                   view.bounds.size.height * anchorPoint.y);
+    CGPoint oldPoint = CGPointMake(view.bounds.size.width * view.layer.anchorPoint.x,
+                                   view.bounds.size.height * view.layer.anchorPoint.y);
     
-    CABasicAnimation *moveDown = [CABasicAnimation animationWithKeyPath:@"position"];
-    moveDown.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
-    moveDown.toValue = [NSValue valueWithCGPoint:CGPointMake(_imageDown.center.x, _imageDown.center.y + 50)];
-    moveDown.duration = 0.5;
-    moveDown.repeatCount = 1;
-    moveDown.autoreverses = YES;
+    newPoint = CGPointApplyAffineTransform(newPoint, view.transform);
+    oldPoint = CGPointApplyAffineTransform(oldPoint, view.transform);
     
-    [_imageUp.layer addAnimation:moveUp forKey:@"moveUp"];
-    [_imageDown.layer addAnimation:moveDown forKey:@"moveDown"];
-}
-
-
-
-- (void)requestProject
-{
-    [[GLGitlabApi sharedInstance] fetchARandomProjectWithPrivateToken:_privateToken
-                                                              success:[self successBlock]
-                                                              failure:[self failureBlock]];
-}
-
-- (GLGitlabSuccessBlock)successBlock
-{
-    return 
-
-    ^(id responseObject) {
-        if (responseObject == nil) {
-            [Tools toastNotification:@"红薯跟你开了一个玩笑，没有为你找到项目" inView:self.view];
-            return;
-        }
-        
-        AudioServicesPlaySystemSound(_matchSoundID);
-        _project = responseObject;
-        
-        if (_project.message) {
-            [_awardView setMessage:_project.message andImageURL:_project.imageURL];
-            [_awardView setHidden:NO];
-            
-            NSString *alertMessage = @"获得：%@\n\n温馨提示：\n请完善您的收货信息，方便我们给您邮寄奖品";
-            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"恭喜你，摇到奖品啦!!!"
-                                                                message:[NSString stringWithFormat:alertMessage, _project.message]
-                                                               delegate:self
-                                                      cancelButtonTitle:@"我知道了"
-                                                      otherButtonTitles:@"分享", nil];
-            
-            [alertView show];
-        } else {
-            [Tools setPortraitForUser:_project.owner view:_projectCell.portrait cornerRadius:5.0];
-            _projectCell.projectNameField.text = [NSString stringWithFormat:@"%@ / %@", _project.owner.name, _project.name];
-            _projectCell.projectDescriptionField.text = _project.projectDescription.length > 0? _project.projectDescription: @"暂无项目介绍";
-            _projectCell.languageField.text = _project.language ?: @"Unknown";
-            _projectCell.forksCount.text = [NSString stringWithFormat:@"%i", _project.forksCount];
-            _projectCell.starsCount.text = [NSString stringWithFormat:@"%i", _project.starsCount];
-            
-            [_projectCell setHidden:NO];
-            
-            [self startAccelerometer];
-        }
-    };
-}
-
-- (GLGitlabFailureBlock)failureBlock
-{
-    return
+    CGPoint position = view.layer.position;
     
-    ^(NSError *error) {
-        [Tools toastNotification:@"红薯跟你开了一个玩笑，没有为你找到项目" inView:self.view];
-        
-        [self startAccelerometer];
-    };
+    position.x -= oldPoint.x;
+    position.x += newPoint.x;
+    
+    position.y -= oldPoint.y;
+    position.y += newPoint.y;
+    
+    view.layer.position = position;
+    view.layer.anchorPoint = anchorPoint;
 }
 
+#pragma mark - 获取数据
+- (void)getFetchProject
+{
+    _hud = [MBProgressHUD showHUDAddedTo:[[UIApplication sharedApplication].windows lastObject] animated:YES];
+    _hud.userInteractionEnabled = NO;
+    [_hud hide:YES];
+    
+    NSString *strUrl = [NSString stringWithFormat:@"%@%@/random", GITAPI_HTTPS_PREFIX, GITAPI_PROJECTS];
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager GitManager];
+    
+    [manager GET:strUrl
+      parameters:@{
+                   @"private_token" : _privateToken,
+                   @"luck"          : @(1)
+                   }
+         success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+             
+             if ([responseObject count]) {
+                 _project = [[GLProject alloc] initWithJSON:responseObject];
+                 if (_project.message) {
+                     [_awardView setMessage:_project.message andImageURL:_project.imageURL];
+                     [_awardView setHidden:NO];
+                     
+                     NSString *alertMessage = @"获得：%@\n\n温馨提示：\n请完善您的收货信息，方便我们给您邮寄奖品";
+                     UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"恭喜你，摇到奖品啦!!!"
+                                                                         message:[NSString stringWithFormat:alertMessage, _project.message]
+                                                                        delegate:self
+                                                               cancelButtonTitle:@"我知道了"
+                                                               otherButtonTitles:@"分享", nil];
+                     
+                     [alertView show];
+                 } else {
+                     [_projectCell contentForProjects:_project];
+                     [_projectCell setHidden:NO];
+                 }
+             } else {
+                 [_hud hide:NO];
+                 _hud.mode = MBProgressHUDModeCustomView;
+                 _hud.detailsLabelText = @"红薯跟你开了一个玩笑，没有为你找到项目";
+                 [_hud hide:YES afterDelay:1.0];
+             }
+             
+             [self startAccelerometer];
+             _shaking = NO;
+         } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
+             [_hud hide:NO];
+             _hud.mode = MBProgressHUDModeCustomView;
+             _hud.detailsLabelText = @"红薯跟你开了一个玩笑，没有为你找到项目";
+             [_hud hide:YES afterDelay:1.0];
+             
+             [self startAccelerometer];
+             _shaking = NO;
+    }];
+}
 
 #pragma mark - TTTAttributedLabelDelegate
 
@@ -493,7 +414,7 @@
 
 - (void)showShareView
 {
-    NSString *projectURL = @"https://git.oschina.net";
+    NSString *projectURL = [GITAPI_HTTPS_PREFIX componentsSeparatedByString:@"/api/v3/"][0];;
     
     // 微信相关设置
     

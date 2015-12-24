@@ -10,8 +10,6 @@
 
 @interface EventsView : UITableViewController <UIScrollViewDelegate>
 
-@property NSMutableArray *events;
-
 - (id)initWithPrivateToken:(NSString *)privateToken;
 - (id)initWithUserID:(int64_t)userID;
 

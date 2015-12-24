@@ -11,43 +11,47 @@
 #import "FilesTableController.h"
 #import "ProjectDetailsView.h"
 #import "GLGitlab.h"
-#import "Tools.h"
-#import "LastCell.h"
+
 #import "PKRevealController.h"
+
+#import "AFHTTPRequestOperationManager+Util.h"
+#import "GITAPI.h"
+#import "CacheProjectsUtil.h"
+
+#import "MJRefresh.h"
+#import "DataSetObject.h"
 
 @interface ProjectsTableController ()
 
-@property NSString *privateToken;
-@property int64_t userID;
-@property NSUInteger projectsType;
-@property NSUInteger pageSize;
+@property (nonatomic, copy) NSString *privateToken;
+@property (nonatomic, assign) int64_t userID;
+@property (nonatomic, assign) ProjectsType projectsType;
 
-@property BOOL isFinishedLoad;
-@property BOOL isLoading;
-@property BOOL isFirstRequest;
-@property LastCell *lastCell;
+@property (nonatomic, assign) BOOL isFinishedLoad;
+@property (nonatomic, assign) BOOL isLoading;
+@property (nonatomic, assign) BOOL isFirstRequest;
+
+@property (nonatomic, assign) NSInteger page;
+@property (nonatomic, strong) DataSetObject *emptyDataSet;
 
 @end
 
 @implementation ProjectsTableController
 
-@synthesize projects;
-
 static NSString * const cellId = @"ProjectCell";
 
-- (id)initWithProjectsType:(NSUInteger)projectsType
+- (id)initWithProjectsType:(ProjectsType)projectsType
 {
     self = [super init];
     if (self) {
         _projectsType = projectsType;
-        _pageSize = projectsType != 7? 20: 15;
     }
     
     return self;
 
 }
 
-- (id)initWithUserID:(int64_t)userID andProjectsType:(NSUInteger)projectsType
+- (id)initWithUserID:(int64_t)userID andProjectsType:(ProjectsType)projectsType
 {
     self = [self initWithProjectsType:projectsType];
     _userID = userID;
@@ -57,7 +61,7 @@ static NSString * const cellId = @"ProjectCell";
 
 - (id)initWithPrivateToken:(NSString *)privateToken
 {
-    self = [self initWithProjectsType:3];
+    self = [self initWithProjectsType:ProjectsTypeUserProjects];
     _privateToken = privateToken;
     
     return self;
@@ -66,13 +70,6 @@ static NSString * const cellId = @"ProjectCell";
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    if (self.navigationController.viewControllers.count <= 1) {
-        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"three_lines"]
-                                                                                 style:UIBarButtonItemStylePlain
-                                                                                target:self
-                                                                                action:@selector(showMenu)];
-    }
 #if 1
     self.navigationController.navigationBar.translucent = NO;
 #else
@@ -88,18 +85,35 @@ static NSString * const cellId = @"ProjectCell";
     UIView *footer =[[UIView alloc] initWithFrame:CGRectZero];
     self.tableView.tableFooterView = footer;
     
-    self.refreshControl = [UIRefreshControl new];
-    [self.refreshControl addTarget:self action:@selector(refresh) forControlEvents:UIControlEventValueChanged];
-    [self.tableView addSubview:self.refreshControl];
-    
-    projects = [NSMutableArray new];
-    _lastCell = [[LastCell alloc] initCell];
     _isFinishedLoad = NO;
-}
-
-- (void)showMenu
-{
-    [self.navigationController.revealController showViewController:self.navigationController.revealController.leftViewController];
+    _page = 1;
+    //下拉刷新
+    self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        [self fetchProject:YES];
+    }];
+    //上拉刷新
+    self.tableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
+        [self fetchProject:NO];
+    }];
+    [(MJRefreshAutoNormalFooter *)self.tableView.mj_footer setTitle:@"已全部加载完毕" forState:MJRefreshStateNoMoreData];
+    // 默认先隐藏footer
+    self.tableView.mj_footer.hidden = YES;
+    _isFirstRequest = YES;
+    
+    _projects = (NSMutableArray *)[[CacheProjectsUtil shareInstance] readProjectListWithProjectType:_projectsType];
+    if (!_projects || _projects.count < 1) {
+        _projects = [NSMutableArray new];
+        [self fetchProject:YES];
+    } else {
+        [self.tableView reloadData];
+    }
+    
+    /* 设置空页面状态 */
+    self.emptyDataSet = [[DataSetObject alloc]initWithSuperScrollView:self.tableView];
+    __weak ProjectsTableController *weakSelf = self;
+    self.emptyDataSet.reloading = ^{
+        [weakSelf fetchProject:YES];
+    };
 }
 
 - (void)didReceiveMemoryWarning
@@ -107,51 +121,155 @@ static NSString * const cellId = @"ProjectCell";
     [super didReceiveMemoryWarning];
 }
 
-- (void)viewDidAppear:(BOOL)animated
+#pragma mark - 获取数据
+
+- (NSString *)stringUrl
 {
-    [super viewDidAppear:animated];
+    NSMutableString *strUrl = [[NSMutableString alloc] initWithFormat:@"%@", GITAPI_HTTPS_PREFIX];
     
-    if (projects.count > 0 || _isFinishedLoad) {
-        return;
+    switch (_projectsType) {
+        case ProjectsTypeFeatured:
+        case ProjectsTypePopular:
+        case ProjectsTypeLatest:
+        {
+            NSString *string = @[@"featured", @"popular", @"latest"][_projectsType];
+            [strUrl appendFormat:@"%@/%@?",
+            GITAPI_PROJECTS,
+            string];
+            
+            break;
+        }
+        case ProjectsTypeStared:
+        case ProjectsTypeWatched:
+        {
+            NSString *string = @[@"stared_projects", @"watched_projects"][_projectsType-4];
+            [strUrl appendFormat:@"%@/%lld/%@?",
+             GITAPI_USER,
+             _userID,
+             string];
+            
+            break;
+        }
+        case ProjectsTypeUserProjects:
+        {
+            if (_privateToken.length) {
+                [strUrl appendFormat:@"%@?private_token=%@&",
+                 GITAPI_PROJECTS,
+                 _privateToken];
+            } else {
+                [strUrl appendFormat:@"%@/%lld/%@?",
+                 GITAPI_USER,
+                 _userID,
+                 GITAPI_PROJECTS];
+            }
+            
+            break;
+        }
+        case ProjectsTypeLanguage:
+        {
+            [strUrl appendFormat:@"%@/languages/%ld?",
+                      GITAPI_PROJECTS,
+                      (long)_languageID];
+            break;
+        }
+        case ProjectsTypeSearch:
+        {
+           [strUrl appendFormat:@"%@/search/%@?private_token=%@&",
+                      GITAPI_PROJECTS,
+                      _query,
+                      _privateToken];
+            break;
+        }
+        case ProjectsTypeEventForUser:
+        {
+            [strUrl appendFormat:@"%@/%@/%lld?",
+                    GITAPI_EVENTS,
+                    GITAPI_USER,
+                    _userID];
+            break;
+        }
+
     }
+    [strUrl appendFormat:@"page=%ld", (long)_page];
     
-    if ([self needCache] && [Tools isPageCacheExist:_projectsType]) {
-        [self.refreshControl beginRefreshing];
-        [self.tableView setContentOffset:CGPointMake(0, self.tableView.contentOffset.y-self.refreshControl.frame.size.height)
-                                animated:YES];
-        [self loadFromCache];
-        return;
-    }
-    
-    _isFirstRequest = YES;
-    if (_projectsType != 7) {
-        [self.refreshControl beginRefreshing];
-        [self.tableView setContentOffset:CGPointMake(0, self.tableView.contentOffset.y-self.refreshControl.frame.size.height)
-                                animated:YES];
-        [self loadProjectsOnPage:1 refresh:YES];
-    }
+    return strUrl;
 }
 
+- (void)fetchProject:(BOOL)refresh
+{
+    self.emptyDataSet.state = loadingState;
+    
+    if (refresh) {
+        _page = 1;
+    } else {
+        _page++;
+    }
+
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager GitManager];
+    
+    [manager GET:[self stringUrl]
+      parameters:nil
+         success:^(AFHTTPRequestOperation * operation, id responseObject) {
+             if (refresh) {
+                 [_projects removeAllObjects];
+             }
+             
+             if ([responseObject count] == 0) {
+                 _isFinishedLoad = YES;
+    
+             } else {
+                 [responseObject enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                     GLProject *project = [[GLProject alloc] initWithJSON:obj];
+                     [_projects addObject:project];
+                 }];
+                 
+                 if (refresh) {
+                     [[CacheProjectsUtil shareInstance] insertProjectList:_projects andProjectType:_projectsType];
+                 }
+                 
+             }
+             
+             if (_projects.count < 20) {
+                 [self.tableView.mj_footer endRefreshingWithNoMoreData];
+             } else {
+                 [self.tableView.mj_footer endRefreshing];
+             }
+             
+             if (_projects.count == 0) {
+                 self.emptyDataSet.state = noDataState;
+                 self.emptyDataSet.respondString = @"还没有相关项目";
+             }
+             
+             dispatch_async(dispatch_get_main_queue(), ^{
+                 [self.tableView reloadData];
+                 [self.tableView.mj_header endRefreshing];
+             });
+             
+         } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
+             dispatch_async(dispatch_get_main_queue(), ^{
+                 self.emptyDataSet.state = netWorkingErrorState;
+                 [self.tableView reloadData];
+                 [self.tableView.mj_header endRefreshing];
+                 [self.tableView.mj_footer endRefreshing];
+             });
+         }];
+    
+}
 
 #pragma mark - 表格显示及操作
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.row < projects.count) {
+    if (indexPath.row < _projects.count) {
         ProjectCell *cell = [tableView dequeueReusableCellWithIdentifier:cellId forIndexPath:indexPath];
         
         GLProject *project = [self.projects objectAtIndex:indexPath.row];
         
-        [Tools setPortraitForUser:project.owner view:cell.portrait cornerRadius:5.0];
-        cell.projectNameField.text = [NSString stringWithFormat:@"%@ / %@", project.owner.name, project.name];
-        cell.projectDescriptionField.text = project.projectDescription.length > 0? project.projectDescription: @"暂无项目介绍";
-        cell.languageField.text = project.language? project.language: @"Unknown";
-        cell.forksCount.text = [NSString stringWithFormat:@"%i", project.forksCount];
-        cell.starsCount.text = [NSString stringWithFormat:@"%i", project.starsCount];
+        [cell contentForProjects:project];
         
         return cell;
     } else {
-        return _lastCell;
+        return [UITableViewCell new];
     }
 }
 
@@ -161,20 +279,21 @@ static NSString * const cellId = @"ProjectCell";
     NSInteger row = indexPath.row;
     
     if (row < self.projects.count) {
-        GLProject *project = [projects objectAtIndex:row];        
+        GLProject *project = [_projects objectAtIndex:row];
         
         if (project) {
             ProjectDetailsView *projectDetails = [[ProjectDetailsView alloc] initWithProjectID:project.projectId projectNameSpace:project.nameSpace];
+            [projectDetails setHidesBottomBarWhenPushed:YES];
+            
             if (_projectsType > 2) {
+
                 [self.navigationController pushViewController:projectDetails animated:YES];
             } else {
+                
                 [self.parentViewController.navigationController pushViewController:projectDetails animated:YES];
             }
         }
-    } else {
-        if (!_isLoading) {
-            [self loadMore];
-        }
+
     }
 }
 
@@ -188,14 +307,14 @@ static NSString * const cellId = @"ProjectCell";
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    if (_lastCell.status == LastCellStatusNotVisible) return projects.count;
-    return projects.count + 1;
+
+    return _projects.count;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.row < projects.count) {
-        GLProject *project = [projects objectAtIndex:indexPath.row];
+    if (indexPath.row < _projects.count) {
+        GLProject *project = [_projects objectAtIndex:indexPath.row];
         UILabel *descriptionLabel = [UILabel new];
         descriptionLabel.lineBreakMode = NSLineBreakByWordWrapping | NSLineBreakByTruncatingTail;
         descriptionLabel.numberOfLines = 4;
@@ -203,204 +322,27 @@ static NSString * const cellId = @"ProjectCell";
         descriptionLabel.font = [UIFont systemFontOfSize:14];
         descriptionLabel.text = project.projectDescription.length > 0? project.projectDescription: @"暂无项目介绍";
         
-        CGSize size = [descriptionLabel sizeThatFits:CGSizeMake(tableView.frame.size.width - 60, MAXFLOAT)];
+        CGFloat height = [descriptionLabel sizeThatFits:CGSizeMake(tableView.frame.size.width - 57, MAXFLOAT)].height;
         
-        return size.height + 64;
+        return height + 64;
     } else {
         return 60;
     }
 }
 
-
-#pragma mark - 上拉加载更多
-
-- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
+#pragma mark - 设置分割线对齐
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    // 下拉到最底部时显示更多数据
-	if(scrollView.contentOffset.y > ((scrollView.contentSize.height - scrollView.frame.size.height)))
-	{
-        [self loadMore];
-	}
-}
-
-#pragma mark - 从缓存加载
-
-- (void)loadFromCache
-{
-    [projects removeAllObjects];
-    _lastCell.status = LastCellStatusVisible;
-    
-    [projects addObjectsFromArray:[Tools getPageCache:_projectsType]];
-    _isFinishedLoad = projects.count < _pageSize;
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [self.tableView reloadData];
-        [self.refreshControl endRefreshing];
-        _isFinishedLoad? [_lastCell finishedLoad]: [_lastCell normal];
-    });
-}
-
-
-#pragma mark - 刷新
-
-- (void)refresh
-{
-    static BOOL refreshInProgress = NO;
-    
-    if (!refreshInProgress)
+    if ([tableView respondsToSelector:@selector(setSeparatorInset:)]) {
+        [tableView setSeparatorInset:UIEdgeInsetsZero];
+    }
+    if ([tableView respondsToSelector:@selector(setLayoutMargins:)]) {
+        [tableView setLayoutMargins:UIEdgeInsetsZero];
+    }
+    if ([cell respondsToSelector:@selector(setLayoutMargins:)])
     {
-        refreshInProgress = YES;
-
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-            [self loadProjectsOnPage:1 refresh:YES];
-            refreshInProgress = NO;
-        });
+        [cell setLayoutMargins:UIEdgeInsetsZero];
     }
-}
-
-- (void)reload
-{
-    [projects removeAllObjects];
-    _isFinishedLoad = NO;
-    _lastCell.status = LastCellStatusNotVisible;
-    
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [self.tableView reloadData];
-    });
-    
-    [self.refreshControl beginRefreshing];
-    [self.tableView setContentOffset:CGPointMake(0, self.tableView.contentOffset.y-self.refreshControl.frame.size.height)
-                            animated:YES];
-
-    [self loadProjectsOnPage:1 refresh:YES];
-}
-
-- (void)loadMore
-{
-    if (_isFinishedLoad || _isLoading) {return;}
-    
-    _isLoading = YES;
-    [_lastCell loading];
-    [self loadProjectsOnPage:(projects.count + _pageSize - 1)/_pageSize + 1 refresh:NO];
-}
-
-
-- (void)loadProjectsOnPage:(NSUInteger)page refresh:(BOOL)refresh
-{
-    if (![Tools isNetworkExist]) {
-        if (refresh) {
-            [self.refreshControl endRefreshing];
-            _lastCell.status = LastCellStatusVisible;
-        } else {
-            _isLoading = NO;
-            if (_isFinishedLoad) {
-                [_lastCell finishedLoad];
-            } else {
-                [_lastCell normal];
-            }
-        }
-        [Tools toastNotification:@"网络连接失败，请检查网络设置" inView:self.parentViewController.view];
-        return;
-    }
-    
-    GLGitlabSuccessBlock success = [self successBlockIfRefresh:refresh];
-    GLGitlabFailureBlock failure = [self failureBlockIfrefresh:refresh];
-    
-    if (_projectsType < 3) {
-        [[GLGitlabApi sharedInstance] getExtraProjectsType:_projectsType page:page success:success failure:failure];
-    } else if (_projectsType == 3) {
-        [[GLGitlabApi sharedInstance] getUsersProjectsWithPrivateToken:_privateToken onPage:page success:success failure:failure];
-    } else if (_projectsType == 4) {
-        [[GLGitlabApi sharedInstance] getStarredProjectsForUser:_userID page:page success:success failure:failure];
-    } else if (_projectsType == 5) {
-        [[GLGitlabApi sharedInstance] getWatchedProjectsForUser:_userID page:page success:success failure:failure];
-    } else if (_projectsType == 6) {
-        [[GLGitlabApi sharedInstance] getProjectsForLanguage:_languageID page:page success:success failure:failure];
-    } else if (_projectsType == 7) {
-        [[GLGitlabApi sharedInstance] searchProjectsByQuery:_query page:page success:success failure:failure];
-    } else {
-        [[GLGitlabApi sharedInstance] projectsOfUser:_userID page:page success:success failure:failure];
-    }
-}
-
-- (GLGitlabSuccessBlock)successBlockIfRefresh:(BOOL)refresh
-{
-    return
-    
-    ^(id responseObject) {
-        if (refresh) {
-            [projects removeAllObjects];
-            _lastCell.status = LastCellStatusVisible;
-        }
-        
-        if ([responseObject count] == 0) {
-            _isFinishedLoad = YES;
-            [_lastCell finishedLoad];
-        } else {
-            _isFinishedLoad = [(NSArray *)responseObject count] < _pageSize;
-            
-            for (GLProject *newProject in responseObject) {
-                BOOL shouldBeAdded = YES;
-                for (GLProject *project in projects) {
-                    if (newProject.projectId == project.projectId) {
-                        shouldBeAdded = NO;
-                        break;
-                    }
-                }
-                if (shouldBeAdded) {
-                    [projects addObject:newProject];
-                }
-            }
-            
-            if ((refresh || _isFirstRequest) && [self needCache]) {
-                [Tools savePageCache:responseObject type:_projectsType];
-                _isFirstRequest = NO;
-            }
-            
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [self.tableView reloadData];
-                if (refresh) {[self.refreshControl endRefreshing];}
-                _isFinishedLoad? [_lastCell finishedLoad]: [_lastCell normal];
-            });
-        }
-        _isLoading = NO;
-    };
-}
-
-- (GLGitlabFailureBlock)failureBlockIfrefresh:(BOOL)refresh
-{
-    return
-    
-    ^(NSError *error) {
-        if (error != nil) {
-            [Tools toastNotification:[NSString stringWithFormat:@"网络异常，错误码：%ld", (long)error.code] inView:self.view];
-        } else {
-            [Tools toastNotification:@"网络错误" inView:self.view];
-        }
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
-            _lastCell.status = LastCellStatusVisible;
-            [_lastCell errorStatus];
-            [self.tableView reloadData];
-            if (refresh) {
-                [self.refreshControl endRefreshing];
-            }
-        });
-        
-        _isLoading = NO;
-    };
-}
-
-
-- (BOOL)needCache
-{
-    if (_projectsType <= 3) {return YES;}
-    
-    NSUserDefaults *user = [NSUserDefaults standardUserDefaults];
-    int64_t userID = [[user objectForKey:@"id"] longLongValue];
-    
-    if (_projectsType <= 5 && _userID == userID) {return YES;}
-    
-    return NO;
 }
 
 

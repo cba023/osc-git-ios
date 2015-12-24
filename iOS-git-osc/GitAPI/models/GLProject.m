@@ -13,6 +13,7 @@
 
 static NSString * const kKeyProjectId = @"id";
 static NSString * const kKeyName = @"name";
+static NSString * const kKeyPathWithNamespace = @"path_with_namespace";
 static NSString * const kKeyDescription = @"description";
 static NSString * const kKeyDefaultBranch = @"default_branch";
 static NSString * const kKeyOwner = @"owner";
@@ -41,6 +42,7 @@ static NSString * const kKeyWatchesCount = @"watches_count";
 static NSString * const kKeyLanguage = @"language";
 static NSString * const kKeyStarred = @"stared";
 static NSString * const kKeyWatched = @"watched";
+static NSString * const kKeyRecomm = @"recomm";
 
 static NSString * const kKeyRandNumber = @"rand_num";
 static NSString * const kKeyMessage = @"msg";
@@ -65,10 +67,13 @@ static NSString * const kKeyImage = @"img";
         _wallEnabled = [json[kKeyWallEnabled] boolValue];
         _snippetsEnabled = [json[kKeySnippetsEnabled] boolValue];
 #endif
+        _nameSpace = [self checkForNull:json[kKeyPathWithNamespace]];
         _owner = [[GLUser alloc] initWithJSON:json[kKeyOwner]];
         _name = [self checkForNull:json[kKeyName]];
         _path = [self checkForNull:json[kKeyPath]];
-        _nameSpace = [[NSString stringWithFormat:@"%@%%2F%@", _owner.username, _name] stringByReplacingOccurrencesOfString:@"." withString:@"+"];
+        
+        NSArray *names = [_nameSpace componentsSeparatedByString:@"/"];
+        _nameSpace = [[NSString stringWithFormat:@"%@%%2F%@", _owner.username, names[names.count-1]] stringByReplacingOccurrencesOfString:@"." withString:@"+"];
         _issuesEnabled = [json[kKeyIssuesEnabled] boolValue];
         _pullRequestsEnabled = [json[kKeyPullRequestsEnabled] boolValue];
         _wikiEnabled = [json[kKeyWikiEnabled] boolValue];
@@ -84,6 +89,7 @@ static NSString * const kKeyImage = @"img";
         _watchesCount = [json[kKeyWatchesCount] intValue];
         _starred = [[self checkForNull:json[kKeyStarred]] boolValue];
         _watched = [[self checkForNull:json[kKeyWatched]] boolValue];
+        _recomm = [[self checkForNull:json[kKeyRecomm]] boolValue];
         
         //_randNum = [[self checkForNull:json[kKeyRandNumber]] intValue];
         _message = [self checkForNull:json[kKeyMessage]];
@@ -91,6 +97,73 @@ static NSString * const kKeyImage = @"img";
     }
     return self;
 }
+
+- (NSMutableAttributedString *)attributedLanguage
+{
+    if (!_attributedLanguage) {
+        
+        if (_language.length > 0) {
+            NSTextAttachment *textAttachment = [NSTextAttachment new];
+            UIImage *langImag = [UIImage imageNamed:@"language"];
+            textAttachment.image = langImag;
+            textAttachment.bounds = CGRectMake(0, -2, langImag.size.width, langImag.size.height);
+            NSAttributedString *attachmentString = [NSAttributedString attributedStringWithAttachment:textAttachment];
+            _attributedLanguage = [[NSMutableAttributedString alloc] initWithAttributedString:attachmentString];
+            
+            [_attributedLanguage appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@" %@   ", _language]]];
+        } else {
+            _attributedLanguage = [[NSMutableAttributedString alloc] init];
+        }
+        
+        NSTextAttachment *textAttachment1 = [NSTextAttachment new];
+        UIImage *langImag = [UIImage imageNamed:@"fork"];
+        textAttachment1.image = langImag;
+        textAttachment1.bounds = CGRectMake(0, -2, langImag.size.width, langImag.size.height);
+        NSAttributedString *attachmentStr = [NSAttributedString attributedStringWithAttachment:textAttachment1];
+        [_attributedLanguage appendAttributedString:attachmentStr];
+        [_attributedLanguage appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@" %i   ", _forksCount]]];
+        
+        NSTextAttachment *textAttachment2 = [NSTextAttachment new];
+        langImag = [UIImage imageNamed:@"star"];
+        textAttachment2.image = langImag;
+        textAttachment2.bounds = CGRectMake(0, -2, langImag.size.width, langImag.size.height);
+        NSAttributedString *attachmentString = [NSAttributedString attributedStringWithAttachment:textAttachment2];
+        [_attributedLanguage appendAttributedString:attachmentString];
+        [_attributedLanguage appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@" %i   ", _starsCount]]];
+        
+        NSTextAttachment *textAttachment3 = [NSTextAttachment new];
+        langImag = [UIImage imageNamed:@"watch"];
+        textAttachment3.image = langImag;
+        textAttachment3.bounds = CGRectMake(0, -2, langImag.size.width, langImag.size.height);
+        NSAttributedString *attachmentStrings = [NSAttributedString attributedStringWithAttachment:textAttachment3];
+        [_attributedLanguage appendAttributedString:attachmentStrings];
+        [_attributedLanguage appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@" %i", _watchesCount]]];
+        
+    }
+    
+    return _attributedLanguage;
+}
+
+- (NSMutableAttributedString *)attributedProjectName
+{
+    if (!_attributedProjectName) {
+        NSTextAttachment *textAttachment = [NSTextAttachment new];
+        if (_recomm) {
+            UIImage *image = [UIImage imageNamed:@"recommend"];
+            textAttachment.image = image;
+            textAttachment.bounds = CGRectMake(0, -2, image.size.width, image.size.height);
+            NSAttributedString *attachmentString = [NSAttributedString attributedStringWithAttachment:textAttachment];
+            _attributedProjectName = [[NSMutableAttributedString alloc] initWithAttributedString:attachmentString];
+            [_attributedProjectName appendAttributedString:[[NSAttributedString alloc] initWithString:@" "]];
+        } else {
+            _attributedProjectName = [[NSMutableAttributedString alloc] init];
+        }
+        [_attributedProjectName appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@ / %@", self.owner.name, self.name]]];
+        
+    }
+    return _attributedProjectName;
+}
+
 
 #if 0
 - (BOOL)isEqual:(id)other {
@@ -251,7 +324,8 @@ static NSString * const kKeyImage = @"img";
              kKeyWatchesCount: @(_watchesCount),
              kKeyLanguage: _language ?: null,
              kKeyStarred: @(_starred),
-             kKeyWatched: @(_watched)
+             kKeyWatched: @(_watched),
+             kKeyRecomm : @(_recomm),
              };
 }
 

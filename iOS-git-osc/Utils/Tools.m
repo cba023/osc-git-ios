@@ -13,6 +13,7 @@
 #import "UIImageView+WebCache.h"
 #import "Reachability.h"
 #import "UIView+Toast.h"
+#import "GITAPI.h"
 
 #import "UIImageView+Util.h"
 
@@ -141,7 +142,7 @@
 {
     NSAttributedString *intervalAttrStr = [self grayString:[self intervalSinceNow:dateStr]
                                                   fontName:nil
-                                                  fontSize:15];
+                                                  fontSize:12];
     
     return intervalAttrStr;
 }
@@ -215,7 +216,10 @@
 
 + (NSInteger)networkStatus
 {
-    Reachability *reach = [Reachability reachabilityWithHostName:@"git.oschina.net"];
+    NSString *httpStr = [GITAPI_HTTPS_PREFIX componentsSeparatedByString:@"/api/v3/"][0];
+    httpStr = [httpStr componentsSeparatedByString:@"//"][1];
+    
+    Reachability *reach = [Reachability reachabilityWithHostName:httpStr];
     return [reach currentReachabilityStatus];
 }
 
@@ -224,7 +228,7 @@
     return [self networkStatus] > 0;
 }
 
-+ (BOOL)isPageCacheExist:(NSInteger)type
++ (BOOL)isPageCacheExist:(ProjectsType)type
 {
     NSUserDefaults *cache = [NSUserDefaults standardUserDefaults];
     NSArray *cachePage = [cache arrayForKey:[NSString stringWithFormat:@"type-%ld", (long)type]];
@@ -232,7 +236,7 @@
     return cachePage != nil;
 }
 
-+ (NSArray *)getPageCache:(NSInteger)type
++ (NSArray *)getPageCache:(ProjectsType)type
 {
     NSUserDefaults *cache = [NSUserDefaults standardUserDefaults];
     //NSArray *cachePage = [cache arrayForKey:[NSString stringWithFormat:@"type-%ld", (long)type]];
@@ -252,7 +256,7 @@
     return page;
 }
 
-+ (void)savePageCache:(NSArray *)page type:(NSInteger)type
++ (void)savePageCache:(NSArray *)page type:(ProjectsType)type
 {
     NSMutableArray *jsonCache = [NSMutableArray arrayWithCapacity:page.count];
     NSString *key = [NSString stringWithFormat:@"type-%ld", (long)type];

@@ -27,6 +27,36 @@ static NSString * const kKeyIssue = @"issue";
 static NSString * const kKeyIId = @"iid";
 static NSString * const kKeyPullRequest = @"pull_request";
 
+
+////
+static NSString * const kKeyRef = @"ref";
+static NSString * const kKeyCommits = @"commits";
+static NSString * const kKeyTotalCommitCount = @"total_commits_count";
+
+@implementation GLEventData
+
+- (instancetype)initWithJSON:(NSDictionary *)json
+{
+    if (self = [super init]) {
+        _ref = [self checkForNull:json[kKeyRef]];
+        _totalCommitCount = [[self checkForNull:json[kKeyTotalCommitCount]] longLongValue];
+        _dataCommits = [NSMutableArray new];
+        
+        if (json[kKeyCommits]) {
+            [json[kKeyCommits] enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                GLCommit *commit = [[GLCommit alloc] initWithJSON:obj];
+                
+                [_dataCommits addObject:commit];
+            }];
+            
+        }
+    }
+    
+    return self;
+}
+
+@end
+
 @implementation GLEvent
 
 - (instancetype)initWithJSON:(NSDictionary *)json
@@ -37,6 +67,10 @@ static NSString * const kKeyPullRequest = @"pull_request";
         _targetType = [self checkForNull:json[kKeyTargetType]];
         _title = [self checkForNull:json[kKeyTitle]];
         _data = [self checkForNull:json[kKeyData]];
+        if (json[kKeyData]) {
+//            _eventData = [[GLEventData alloc] initWithJSON:json[kKeyData]];
+        }
+        
 #if 0
         if ((id)_data == [NSNull null]) {
             _data = nil;

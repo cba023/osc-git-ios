@@ -7,15 +7,18 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "GLProject.h"
 
 @interface ProjectCell : UITableViewCell
 
 @property UIImageView *portrait;
 @property UILabel *projectNameField;
 @property UILabel *projectDescriptionField;
-@property UILabel *languageField;
-@property UILabel *starsCount;
-@property UILabel *forksCount;
+@property UILabel *lSFWLabel;
+//@property UILabel *starsCount;
+//@property UILabel *forksCount;
 //@property UILabel *updatetimeField;
+
+- (void)contentForProjects:(GLProject *)project;
 
 @end
