@@ -19,7 +19,10 @@
 #import "LoginViewController.h"
 #import "TTTAttributedLabel.h"
 #import "UMSocial.h"
+
 #import "GITAPI.h"
+#import "AFHTTPRequestOperationManager+Util.h"
+#import <MBProgressHUD.h>
 
 #define accelerationThreshold  2.0f
 
@@ -42,6 +45,8 @@
 @property AwardView *awardView;
 @property BOOL shaking;
 
+@property (nonatomic, strong) MBProgressHUD *hud;
+
 @end
 
 @implementation ShakingView
@@ -53,7 +58,7 @@
     self.title = @"摇一摇";
     [self.navigationController.navigationBar setTranslucent:NO];
     self.view.backgroundColor = [UIColor whiteColor];
-    self.view.backgroundColor = UIColorFromRGB(0x111111);
+//    self.view.backgroundColor = UIColorFromRGB(0x111111);
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"收货信息"
                                                                               style:UIBarButtonItemStylePlain
@@ -77,7 +82,6 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    self.revealController.frontViewController.revealController.recognizesPanningOnFrontView = YES;
     
     [self startAccelerometer];
     
@@ -117,7 +121,7 @@
     [super didReceiveMemoryWarning];
 }
 
-
+#pragma mark - 监听动作
 -(void)startAccelerometer
 {
     //以push的方式更新并在block中接收加速度
@@ -142,7 +146,7 @@
             
             [self shakeAnimation];
             if ([Tools isNetworkExist]) {
-                [self requestProject];
+                [self getFetchProject];
             } else {
                 [Tools toastNotification:@"网络连接失败，请检查网络设置" inView:self.view];
             }
@@ -175,7 +179,7 @@
     }
 }
 
-
+#pragma mark - 视图布局
 - (void)setLayout
 {
     _luckMessage = [TTTAttributedLabel new];
@@ -314,17 +318,21 @@
                                                                         views:viewsDict]];
 }
 
+#pragma mark - 跳转至摇出来的项目的详情
 - (void)tapProjectCell
 {
     ProjectDetailsView *projectDetails = [[ProjectDetailsView alloc] initWithProjectID:_project.projectId projectNameSpace:_project.nameSpace];
     [self.navigationController pushViewController:projectDetails animated:YES];
 }
 
+#pragma mark - 活动
 - (void)tapAwardView
 {
     ReceivingInfoView *receivingView = [ReceivingInfoView new];
     [self.navigationController pushViewController:receivingView animated:YES];
 }
+
+#pragma mark -
 
 -(void)motionMethod:(CMDeviceMotion *)deviceMotion
 {
@@ -339,7 +347,7 @@
     {
         [self shakeAnimation];
         if ([Tools isNetworkExist]) {
-            [self requestProject];
+            [self getFetchProject];
         } else {
             [Tools toastNotification:@"网络连接失败，请检查网络设置" inView:self.view];
             [self startAccelerometer];
@@ -360,6 +368,7 @@
     [self moveImage];
 }
 
+#pragma mark - 动画效果
 - (void)rotate:(UIView *)view
 {
     CABasicAnimation *translation = [CABasicAnimation animationWithKeyPath:@"transform"];
@@ -394,60 +403,112 @@
     [_imageDown.layer addAnimation:moveDown forKey:@"moveDown"];
 }
 
-
-
-- (void)requestProject
+#pragma mark - 获取数据
+- (void)getFetchProject
 {
-    [[GLGitlabApi sharedInstance] fetchARandomProjectWithPrivateToken:_privateToken
-                                                              success:[self successBlock]
-                                                              failure:[self failureBlock]];
-}
-
-- (GLGitlabSuccessBlock)successBlock
-{
-    return 
-
-    ^(id responseObject) {
-        if (responseObject == nil) {
-            [Tools toastNotification:@"红薯跟你开了一个玩笑，没有为你找到项目" inView:self.view];
-            return;
-        }
-        
-        AudioServicesPlaySystemSound(_matchSoundID);
-        _project = responseObject;
-        
-        if (_project.message) {
-            [_awardView setMessage:_project.message andImageURL:_project.imageURL];
-            [_awardView setHidden:NO];
-            
-            NSString *alertMessage = @"获得：%@\n\n温馨提示：\n请完善您的收货信息，方便我们给您邮寄奖品";
-            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"恭喜你，摇到奖品啦!!!"
-                                                                message:[NSString stringWithFormat:alertMessage, _project.message]
-                                                               delegate:self
-                                                      cancelButtonTitle:@"我知道了"
-                                                      otherButtonTitles:@"分享", nil];
-            
-            [alertView show];
-        } else {
-            
-            [_projectCell contentForProjects:_project];           
-            [_projectCell setHidden:NO];
-            
-            [self startAccelerometer];
-        }
-    };
-}
-
-- (GLGitlabFailureBlock)failureBlock
-{
-    return
+    _hud = [MBProgressHUD showHUDAddedTo:[[UIApplication sharedApplication].windows lastObject] animated:YES];
+    _hud.userInteractionEnabled = NO;
+    [_hud hide:YES];
     
-    ^(NSError *error) {
-        [Tools toastNotification:@"红薯跟你开了一个玩笑，没有为你找到项目" inView:self.view];
-        
-        [self startAccelerometer];
-    };
+    NSString *strUrl = [NSString stringWithFormat:@"%@%@/random", GITAPI_HTTPS_PREFIX, GITAPI_PROJECTS];
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager GitManager];
+    
+    [manager GET:strUrl
+      parameters:@{
+                   @"private_token" : _privateToken,
+                   @"luck"          : @(1)
+                   }
+         success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+             
+             if ([responseObject count]) {
+                 _project = [[GLProject alloc] initWithJSON:responseObject];
+                 if (_project.message) {
+                     [_awardView setMessage:_project.message andImageURL:_project.imageURL];
+                     [_awardView setHidden:NO];
+                     
+                     NSString *alertMessage = @"获得：%@\n\n温馨提示：\n请完善您的收货信息，方便我们给您邮寄奖品";
+                     UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"恭喜你，摇到奖品啦!!!"
+                                                                         message:[NSString stringWithFormat:alertMessage, _project.message]
+                                                                        delegate:self
+                                                               cancelButtonTitle:@"我知道了"
+                                                               otherButtonTitles:@"分享", nil];
+                     
+                     [alertView show];
+                 } else {
+                     [_projectCell contentForProjects:_project];
+                     [_projectCell setHidden:NO];
+                     
+                     [self startAccelerometer];
+                 }
+             } else {
+                 [_hud hide:NO];
+                 _hud.mode = MBProgressHUDModeCustomView;
+                 _hud.detailsLabelText = @"红薯跟你开了一个玩笑，没有为你找到项目";
+                 [_hud hide:YES afterDelay:1.0];
+             }
+         } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
+             [_hud hide:NO];
+             _hud.mode = MBProgressHUDModeCustomView;
+             _hud.detailsLabelText = @"红薯跟你开了一个玩笑，没有为你找到项目";
+             [_hud hide:YES afterDelay:1.0];
+             
+             [self startAccelerometer];
+    }];
 }
+
+//- (void)requestProject
+//{
+//    [[GLGitlabApi sharedInstance] fetchARandomProjectWithPrivateToken:_privateToken
+//                                                              success:[self successBlock]
+//                                                              failure:[self failureBlock]];
+//}
+//
+//- (GLGitlabSuccessBlock)successBlock
+//{
+//    return 
+//
+//    ^(id responseObject) {
+//        if (responseObject == nil) {
+//            [Tools toastNotification:@"红薯跟你开了一个玩笑，没有为你找到项目" inView:self.view];
+//            return;
+//        }
+//        
+//        AudioServicesPlaySystemSound(_matchSoundID);
+//        _project = responseObject;
+//        
+//        if (_project.message) {
+//            [_awardView setMessage:_project.message andImageURL:_project.imageURL];
+//            [_awardView setHidden:NO];
+//            
+//            NSString *alertMessage = @"获得：%@\n\n温馨提示：\n请完善您的收货信息，方便我们给您邮寄奖品";
+//            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"恭喜你，摇到奖品啦!!!"
+//                                                                message:[NSString stringWithFormat:alertMessage, _project.message]
+//                                                               delegate:self
+//                                                      cancelButtonTitle:@"我知道了"
+//                                                      otherButtonTitles:@"分享", nil];
+//            
+//            [alertView show];
+//        } else {
+//            
+//            [_projectCell contentForProjects:_project];           
+//            [_projectCell setHidden:NO];
+//            
+//            [self startAccelerometer];
+//        }
+//    };
+//}
+//
+//- (GLGitlabFailureBlock)failureBlock
+//{
+//    return
+//    
+//    ^(NSError *error) {
+//        [Tools toastNotification:@"红薯跟你开了一个玩笑，没有为你找到项目" inView:self.view];
+//        
+//        [self startAccelerometer];
+//    };
+//}
 
 
 #pragma mark - TTTAttributedLabelDelegate
