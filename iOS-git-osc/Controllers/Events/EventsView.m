@@ -34,7 +34,8 @@ static NSString * const EventCellIdentifier = @"EventCell";
 @property (nonatomic, assign) BOOL isFirstRequest;
 
 @property (nonatomic, assign) NSInteger page;
-@property (nonatomic,strong) DataSetObject *emptyDataSet;
+@property (nonatomic, strong) DataSetObject *emptyDataSet;
+@property (nonatomic, strong) AFHTTPRequestOperationManager *manager;
 
 @end
 
@@ -77,16 +78,21 @@ static NSString * const EventCellIdentifier = @"EventCell";
     UIView *footer =[[UIView alloc] initWithFrame:CGRectZero];
     self.tableView.tableFooterView = footer;
     
+    _manager = [AFHTTPRequestOperationManager GitManager];
+    _manager.requestSerializer.cachePolicy = NSURLRequestReturnCacheDataElseLoad;
+    
     _events = [NSMutableArray new];
     _isFinishedLoad = NO;
     _page = 1;
     
     //下拉刷新
     self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        _manager.requestSerializer.cachePolicy = NSURLRequestUseProtocolCachePolicy;
         [self fetchEvents:YES];
     }];
     //上拉刷新
     self.tableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
+        _manager.requestSerializer.cachePolicy = NSURLRequestUseProtocolCachePolicy;
         [self fetchEvents:NO];
     }];
     
@@ -101,6 +107,7 @@ static NSString * const EventCellIdentifier = @"EventCell";
     self.emptyDataSet = [[DataSetObject alloc]initWithSuperScrollView:self.tableView];
     __weak EventsView *weakSelf = self;
     self.emptyDataSet.reloading = ^{
+        weakSelf.manager.requestSerializer.cachePolicy = NSURLRequestReturnCacheDataElseLoad;
         [weakSelf fetchEvents:YES];
     };
 }
@@ -154,10 +161,7 @@ static NSString * const EventCellIdentifier = @"EventCell";
                   (long)_page];
     }
     
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager GitManager];
-    manager.requestSerializer.cachePolicy = NSURLRequestReturnCacheDataElseLoad;
-    
-    [manager GET:strUrl
+    [_manager GET:strUrl
       parameters:nil
          success:^(AFHTTPRequestOperation * operation, id responseObject) {
              if (refresh) {
