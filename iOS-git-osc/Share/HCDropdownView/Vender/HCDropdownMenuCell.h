@@ -10,6 +10,6 @@
 
 @interface HCDropdownMenuCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
-@property (nonatomic, weak) IBOutlet UIImageView *imageView;
+@property (nonatomic, weak) IBOutlet UIImageView *iconImageView;
 
 @end

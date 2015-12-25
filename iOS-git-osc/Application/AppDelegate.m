@@ -12,6 +12,7 @@
 #import "UMSocialQQHandler.h"
 #import "UMSocialSinaHandler.h"
 #import "MainViewController.h"
+#import "UIColor+Util.h"
 
 @implementation AppDelegate
 
@@ -39,7 +40,7 @@
     } else {
         [[UINavigationBar appearance] setBackgroundColor:UIColorFromRGB(0x0a5090)];
     }
-
+    
     return YES;
 }
 							

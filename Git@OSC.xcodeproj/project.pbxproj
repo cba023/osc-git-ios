@@ -159,29 +159,29 @@
 		EE0606E31C040080001825A7 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EE0606E21C040080001825A7 /* MainViewController.m */; };
 		EE0606E61C0406C3001825A7 /* HMSegmentedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = EE0606E51C0406C3001825A7 /* HMSegmentedControl.m */; };
 		EE0606E91C040755001825A7 /* TitleScrollViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EE0606E81C040755001825A7 /* TitleScrollViewController.m */; };
-		EE7C8C001BFC7E0A00A3671B /* UMSocialLocalizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = EE7C8BC31BFC7E0A00A3671B /* UMSocialLocalizable.strings */; };
-		EE7C8C011BFC7E0A00A3671B /* libUMSocial_Sdk_4.2.5.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EE7C8BD11BFC7E0A00A3671B /* libUMSocial_Sdk_4.2.5.a */; };
-		EE7C8C021BFC7E0A00A3671B /* UMSCommentDetailController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EE7C8BD31BFC7E0A00A3671B /* UMSCommentDetailController.xib */; };
-		EE7C8C031BFC7E0A00A3671B /* UMSCommentInputController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EE7C8BD41BFC7E0A00A3671B /* UMSCommentInputController.xib */; };
-		EE7C8C041BFC7E0A00A3671B /* UMSCommentInputControlleriPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = EE7C8BD51BFC7E0A00A3671B /* UMSCommentInputControlleriPad.xib */; };
-		EE7C8C051BFC7E0A00A3671B /* UMShareEditViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EE7C8BD61BFC7E0A00A3671B /* UMShareEditViewController.xib */; };
-		EE7C8C061BFC7E0A00A3671B /* UMShareEditViewControlleriPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = EE7C8BD71BFC7E0A00A3671B /* UMShareEditViewControlleriPad.xib */; };
-		EE7C8C071BFC7E0A00A3671B /* UMSLoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EE7C8BD81BFC7E0A00A3671B /* UMSLoginViewController.xib */; };
-		EE7C8C081BFC7E0A00A3671B /* UMSnsAccountViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EE7C8BD91BFC7E0A00A3671B /* UMSnsAccountViewController.xib */; };
-		EE7C8C091BFC7E0A00A3671B /* UMSShareListController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EE7C8BDA1BFC7E0A00A3671B /* UMSShareListController.xib */; };
-		EE7C8C0A1BFC7E0A00A3671B /* libSocialSina.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EE7C8BDD1BFC7E0A00A3671B /* libSocialSina.a */; };
-		EE7C8C0B1BFC7E0A00A3671B /* libSocialSinaSSO.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EE7C8BE01BFC7E0A00A3671B /* libSocialSinaSSO.a */; };
-		EE7C8C0C1BFC7E0A00A3671B /* libWeiboSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EE7C8BE11BFC7E0A00A3671B /* libWeiboSDK.a */; };
-		EE7C8C0D1BFC7E0A00A3671B /* WeiboSDK.bundle in Resources */ = {isa = PBXBuildFile; fileRef = EE7C8BEB1BFC7E0A00A3671B /* WeiboSDK.bundle */; };
-		EE7C8C0E1BFC7E0A00A3671B /* libSocialQQ.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EE7C8BEF1BFC7E0A00A3671B /* libSocialQQ.a */; };
-		EE7C8C0F1BFC7E0A00A3671B /* TencentOpenAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE7C8BF01BFC7E0A00A3671B /* TencentOpenAPI.framework */; };
-		EE7C8C101BFC7E0A00A3671B /* TencentOpenApi_IOS_Bundle.bundle in Resources */ = {isa = PBXBuildFile; fileRef = EE7C8BF11BFC7E0A00A3671B /* TencentOpenApi_IOS_Bundle.bundle */; };
-		EE7C8C111BFC7E0A00A3671B /* libSocialWechat.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EE7C8BF41BFC7E0A00A3671B /* libSocialWechat.a */; };
-		EE7C8C121BFC7E0A00A3671B /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EE7C8BF51BFC7E0A00A3671B /* libWeChatSDK.a */; };
-		EE7C8C131BFC7E0A00A3671B /* UMSocialSDKResourcesNew.bundle in Resources */ = {isa = PBXBuildFile; fileRef = EE7C8BF91BFC7E0A00A3671B /* UMSocialSDKResourcesNew.bundle */; };
 		EE82EDB11BFB2BC50006F18D /* UIImageView+Util.m in Sources */ = {isa = PBXBuildFile; fileRef = EE82EDB01BFB2BC50006F18D /* UIImageView+Util.m */; };
 		EE83170C1C27AB040093223B /* CacheProjectsUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = EE83170B1C27AB040093223B /* CacheProjectsUtil.m */; };
 		EE8612D51C1194010073F457 /* DataSetObject.m in Sources */ = {isa = PBXBuildFile; fileRef = EE8612D41C1194010073F457 /* DataSetObject.m */; };
+		EE897CBD1C2D36EB009E5E17 /* UMSocialLocalizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = EE897C851C2D36EB009E5E17 /* UMSocialLocalizable.strings */; };
+		EE897CBE1C2D36EB009E5E17 /* libUMSocial_Sdk_4.2.5.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EE897C931C2D36EB009E5E17 /* libUMSocial_Sdk_4.2.5.a */; };
+		EE897CBF1C2D36EB009E5E17 /* UMSCommentDetailController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EE897C951C2D36EB009E5E17 /* UMSCommentDetailController.xib */; };
+		EE897CC01C2D36EB009E5E17 /* UMSCommentInputController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EE897C961C2D36EB009E5E17 /* UMSCommentInputController.xib */; };
+		EE897CC11C2D36EB009E5E17 /* UMSCommentInputControlleriPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = EE897C971C2D36EB009E5E17 /* UMSCommentInputControlleriPad.xib */; };
+		EE897CC21C2D36EB009E5E17 /* UMShareEditViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EE897C981C2D36EB009E5E17 /* UMShareEditViewController.xib */; };
+		EE897CC31C2D36EB009E5E17 /* UMShareEditViewControlleriPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = EE897C991C2D36EB009E5E17 /* UMShareEditViewControlleriPad.xib */; };
+		EE897CC41C2D36EB009E5E17 /* UMSLoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EE897C9A1C2D36EB009E5E17 /* UMSLoginViewController.xib */; };
+		EE897CC51C2D36EB009E5E17 /* UMSnsAccountViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EE897C9B1C2D36EB009E5E17 /* UMSnsAccountViewController.xib */; };
+		EE897CC61C2D36EB009E5E17 /* UMSShareListController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EE897C9C1C2D36EB009E5E17 /* UMSShareListController.xib */; };
+		EE897CC71C2D36EB009E5E17 /* libSocialSina.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EE897C9F1C2D36EB009E5E17 /* libSocialSina.a */; };
+		EE897CC81C2D36EB009E5E17 /* libSocialSinaSSO.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EE897CA21C2D36EB009E5E17 /* libSocialSinaSSO.a */; };
+		EE897CC91C2D36EB009E5E17 /* libWeiboSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EE897CA31C2D36EB009E5E17 /* libWeiboSDK.a */; };
+		EE897CCA1C2D36EB009E5E17 /* WeiboSDK.bundle in Resources */ = {isa = PBXBuildFile; fileRef = EE897CAD1C2D36EB009E5E17 /* WeiboSDK.bundle */; };
+		EE897CCB1C2D36EB009E5E17 /* libSocialQQ.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EE897CB11C2D36EB009E5E17 /* libSocialQQ.a */; };
+		EE897CCC1C2D36EC009E5E17 /* TencentOpenAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE897CB21C2D36EB009E5E17 /* TencentOpenAPI.framework */; };
+		EE897CCD1C2D36EC009E5E17 /* TencentOpenApi_IOS_Bundle.bundle in Resources */ = {isa = PBXBuildFile; fileRef = EE897CB31C2D36EB009E5E17 /* TencentOpenApi_IOS_Bundle.bundle */; };
+		EE897CCE1C2D36EC009E5E17 /* libSocialWechat.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EE897CB61C2D36EB009E5E17 /* libSocialWechat.a */; };
+		EE897CCF1C2D36EC009E5E17 /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EE897CB71C2D36EB009E5E17 /* libWeChatSDK.a */; };
+		EE897CD01C2D36EC009E5E17 /* UMSocialSDKResourcesNew.bundle in Resources */ = {isa = PBXBuildFile; fileRef = EE897CBB1C2D36EB009E5E17 /* UMSocialSDKResourcesNew.bundle */; };
 		EE8983D71C0C1F48005CF5AB /* LastCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EE8983D61C0C1F48005CF5AB /* LastCell.m */; };
 		EE8983E11C0C1FDF005CF5AB /* HCDropdownView.m in Sources */ = {isa = PBXBuildFile; fileRef = EE8983DA1C0C1FDF005CF5AB /* HCDropdownView.m */; };
 		EE8983E21C0C1FDF005CF5AB /* HCDropdownMenuCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EE8983DD1C0C1FDF005CF5AB /* HCDropdownMenuCell.m */; };
@@ -441,60 +441,60 @@
 		EE0606E51C0406C3001825A7 /* HMSegmentedControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HMSegmentedControl.m; sourceTree = "<group>"; };
 		EE0606E71C040755001825A7 /* TitleScrollViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TitleScrollViewController.h; sourceTree = "<group>"; };
 		EE0606E81C040755001825A7 /* TitleScrollViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TitleScrollViewController.m; sourceTree = "<group>"; };
-		EE7C8BC41BFC7E0A00A3671B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/UMSocialLocalizable.strings; sourceTree = "<group>"; };
-		EE7C8BC61BFC7E0A00A3671B /* UMSocial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMSocial.h; sourceTree = "<group>"; };
-		EE7C8BC71BFC7E0A00A3671B /* UMSocialAccountManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMSocialAccountManager.h; sourceTree = "<group>"; };
-		EE7C8BC81BFC7E0A00A3671B /* UMSocialBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMSocialBar.h; sourceTree = "<group>"; };
-		EE7C8BC91BFC7E0A00A3671B /* UMSocialConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMSocialConfig.h; sourceTree = "<group>"; };
-		EE7C8BCA1BFC7E0A00A3671B /* UMSocialControllerService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMSocialControllerService.h; sourceTree = "<group>"; };
-		EE7C8BCB1BFC7E0A00A3671B /* UMSocialControllerServiceComment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMSocialControllerServiceComment.h; sourceTree = "<group>"; };
-		EE7C8BCC1BFC7E0A00A3671B /* UMSocialData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMSocialData.h; sourceTree = "<group>"; };
-		EE7C8BCD1BFC7E0A00A3671B /* UMSocialDataService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMSocialDataService.h; sourceTree = "<group>"; };
-		EE7C8BCE1BFC7E0A00A3671B /* UMSocialSnsData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMSocialSnsData.h; sourceTree = "<group>"; };
-		EE7C8BCF1BFC7E0A00A3671B /* UMSocialSnsPlatformManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMSocialSnsPlatformManager.h; sourceTree = "<group>"; };
-		EE7C8BD01BFC7E0A00A3671B /* UMSocialSnsService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMSocialSnsService.h; sourceTree = "<group>"; };
-		EE7C8BD11BFC7E0A00A3671B /* libUMSocial_Sdk_4.2.5.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libUMSocial_Sdk_4.2.5.a; sourceTree = "<group>"; };
-		EE7C8BD31BFC7E0A00A3671B /* UMSCommentDetailController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UMSCommentDetailController.xib; sourceTree = "<group>"; };
-		EE7C8BD41BFC7E0A00A3671B /* UMSCommentInputController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UMSCommentInputController.xib; sourceTree = "<group>"; };
-		EE7C8BD51BFC7E0A00A3671B /* UMSCommentInputControlleriPad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UMSCommentInputControlleriPad.xib; sourceTree = "<group>"; };
-		EE7C8BD61BFC7E0A00A3671B /* UMShareEditViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UMShareEditViewController.xib; sourceTree = "<group>"; };
-		EE7C8BD71BFC7E0A00A3671B /* UMShareEditViewControlleriPad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UMShareEditViewControlleriPad.xib; sourceTree = "<group>"; };
-		EE7C8BD81BFC7E0A00A3671B /* UMSLoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UMSLoginViewController.xib; sourceTree = "<group>"; };
-		EE7C8BD91BFC7E0A00A3671B /* UMSnsAccountViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UMSnsAccountViewController.xib; sourceTree = "<group>"; };
-		EE7C8BDA1BFC7E0A00A3671B /* UMSShareListController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UMSShareListController.xib; sourceTree = "<group>"; };
-		EE7C8BDD1BFC7E0A00A3671B /* libSocialSina.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libSocialSina.a; sourceTree = "<group>"; };
-		EE7C8BDE1BFC7E0A00A3671B /* UMSocialSinaHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMSocialSinaHandler.h; sourceTree = "<group>"; };
-		EE7C8BE01BFC7E0A00A3671B /* libSocialSinaSSO.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libSocialSinaSSO.a; sourceTree = "<group>"; };
-		EE7C8BE11BFC7E0A00A3671B /* libWeiboSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libWeiboSDK.a; sourceTree = "<group>"; };
-		EE7C8BE21BFC7E0A00A3671B /* UMSocialSinaSSOHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMSocialSinaSSOHandler.h; sourceTree = "<group>"; };
-		EE7C8BE31BFC7E0A00A3671B /* WBHttpRequest+WeiboGame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "WBHttpRequest+WeiboGame.h"; sourceTree = "<group>"; };
-		EE7C8BE41BFC7E0A00A3671B /* WBHttpRequest+WeiboShare.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "WBHttpRequest+WeiboShare.h"; sourceTree = "<group>"; };
-		EE7C8BE51BFC7E0A00A3671B /* WBHttpRequest+WeiboToken.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "WBHttpRequest+WeiboToken.h"; sourceTree = "<group>"; };
-		EE7C8BE61BFC7E0A00A3671B /* WBHttpRequest+WeiboUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "WBHttpRequest+WeiboUser.h"; sourceTree = "<group>"; };
-		EE7C8BE71BFC7E0A00A3671B /* WBHttpRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WBHttpRequest.h; sourceTree = "<group>"; };
-		EE7C8BE81BFC7E0A00A3671B /* WBSDKBasicButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WBSDKBasicButton.h; sourceTree = "<group>"; };
-		EE7C8BE91BFC7E0A00A3671B /* WBSDKCommentButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WBSDKCommentButton.h; sourceTree = "<group>"; };
-		EE7C8BEA1BFC7E0A00A3671B /* WBSDKRelationshipButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WBSDKRelationshipButton.h; sourceTree = "<group>"; };
-		EE7C8BEB1BFC7E0A00A3671B /* WeiboSDK.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = WeiboSDK.bundle; sourceTree = "<group>"; };
-		EE7C8BEC1BFC7E0A00A3671B /* WeiboSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeiboSDK.h; sourceTree = "<group>"; };
-		EE7C8BED1BFC7E0A00A3671B /* WeiboUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeiboUser.h; sourceTree = "<group>"; };
-		EE7C8BEF1BFC7E0A00A3671B /* libSocialQQ.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libSocialQQ.a; sourceTree = "<group>"; };
-		EE7C8BF01BFC7E0A00A3671B /* TencentOpenAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TencentOpenAPI.framework; sourceTree = "<group>"; };
-		EE7C8BF11BFC7E0A00A3671B /* TencentOpenApi_IOS_Bundle.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = TencentOpenApi_IOS_Bundle.bundle; sourceTree = "<group>"; };
-		EE7C8BF21BFC7E0A00A3671B /* UMSocialQQHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMSocialQQHandler.h; sourceTree = "<group>"; };
-		EE7C8BF41BFC7E0A00A3671B /* libSocialWechat.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libSocialWechat.a; sourceTree = "<group>"; };
-		EE7C8BF51BFC7E0A00A3671B /* libWeChatSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libWeChatSDK.a; sourceTree = "<group>"; };
-		EE7C8BF61BFC7E0A00A3671B /* UMSocialWechatHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMSocialWechatHandler.h; sourceTree = "<group>"; };
-		EE7C8BF71BFC7E0A00A3671B /* WXApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApi.h; sourceTree = "<group>"; };
-		EE7C8BF81BFC7E0A00A3671B /* WXApiObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApiObject.h; sourceTree = "<group>"; };
-		EE7C8BF91BFC7E0A00A3671B /* UMSocialSDKResourcesNew.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = UMSocialSDKResourcesNew.bundle; sourceTree = "<group>"; };
-		EE7C8BFA1BFC7E0A00A3671B /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/UMSocialLocalizable.strings"; sourceTree = "<group>"; };
 		EE82EDAF1BFB2BC50006F18D /* UIImageView+Util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+Util.h"; sourceTree = "<group>"; };
 		EE82EDB01BFB2BC50006F18D /* UIImageView+Util.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+Util.m"; sourceTree = "<group>"; };
 		EE83170A1C27AB040093223B /* CacheProjectsUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CacheProjectsUtil.h; sourceTree = "<group>"; };
 		EE83170B1C27AB040093223B /* CacheProjectsUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CacheProjectsUtil.m; sourceTree = "<group>"; };
 		EE8612D31C1194010073F457 /* DataSetObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataSetObject.h; sourceTree = "<group>"; };
 		EE8612D41C1194010073F457 /* DataSetObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataSetObject.m; sourceTree = "<group>"; };
+		EE897C861C2D36EB009E5E17 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/UMSocialLocalizable.strings; sourceTree = "<group>"; };
+		EE897C881C2D36EB009E5E17 /* UMSocial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMSocial.h; sourceTree = "<group>"; };
+		EE897C891C2D36EB009E5E17 /* UMSocialAccountManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMSocialAccountManager.h; sourceTree = "<group>"; };
+		EE897C8A1C2D36EB009E5E17 /* UMSocialBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMSocialBar.h; sourceTree = "<group>"; };
+		EE897C8B1C2D36EB009E5E17 /* UMSocialConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMSocialConfig.h; sourceTree = "<group>"; };
+		EE897C8C1C2D36EB009E5E17 /* UMSocialControllerService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMSocialControllerService.h; sourceTree = "<group>"; };
+		EE897C8D1C2D36EB009E5E17 /* UMSocialControllerServiceComment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMSocialControllerServiceComment.h; sourceTree = "<group>"; };
+		EE897C8E1C2D36EB009E5E17 /* UMSocialData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMSocialData.h; sourceTree = "<group>"; };
+		EE897C8F1C2D36EB009E5E17 /* UMSocialDataService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMSocialDataService.h; sourceTree = "<group>"; };
+		EE897C901C2D36EB009E5E17 /* UMSocialSnsData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMSocialSnsData.h; sourceTree = "<group>"; };
+		EE897C911C2D36EB009E5E17 /* UMSocialSnsPlatformManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMSocialSnsPlatformManager.h; sourceTree = "<group>"; };
+		EE897C921C2D36EB009E5E17 /* UMSocialSnsService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMSocialSnsService.h; sourceTree = "<group>"; };
+		EE897C931C2D36EB009E5E17 /* libUMSocial_Sdk_4.2.5.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libUMSocial_Sdk_4.2.5.a; sourceTree = "<group>"; };
+		EE897C951C2D36EB009E5E17 /* UMSCommentDetailController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UMSCommentDetailController.xib; sourceTree = "<group>"; };
+		EE897C961C2D36EB009E5E17 /* UMSCommentInputController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UMSCommentInputController.xib; sourceTree = "<group>"; };
+		EE897C971C2D36EB009E5E17 /* UMSCommentInputControlleriPad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UMSCommentInputControlleriPad.xib; sourceTree = "<group>"; };
+		EE897C981C2D36EB009E5E17 /* UMShareEditViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UMShareEditViewController.xib; sourceTree = "<group>"; };
+		EE897C991C2D36EB009E5E17 /* UMShareEditViewControlleriPad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UMShareEditViewControlleriPad.xib; sourceTree = "<group>"; };
+		EE897C9A1C2D36EB009E5E17 /* UMSLoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UMSLoginViewController.xib; sourceTree = "<group>"; };
+		EE897C9B1C2D36EB009E5E17 /* UMSnsAccountViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UMSnsAccountViewController.xib; sourceTree = "<group>"; };
+		EE897C9C1C2D36EB009E5E17 /* UMSShareListController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UMSShareListController.xib; sourceTree = "<group>"; };
+		EE897C9F1C2D36EB009E5E17 /* libSocialSina.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libSocialSina.a; sourceTree = "<group>"; };
+		EE897CA01C2D36EB009E5E17 /* UMSocialSinaHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMSocialSinaHandler.h; sourceTree = "<group>"; };
+		EE897CA21C2D36EB009E5E17 /* libSocialSinaSSO.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libSocialSinaSSO.a; sourceTree = "<group>"; };
+		EE897CA31C2D36EB009E5E17 /* libWeiboSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libWeiboSDK.a; sourceTree = "<group>"; };
+		EE897CA41C2D36EB009E5E17 /* UMSocialSinaSSOHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMSocialSinaSSOHandler.h; sourceTree = "<group>"; };
+		EE897CA51C2D36EB009E5E17 /* WBHttpRequest+WeiboGame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "WBHttpRequest+WeiboGame.h"; sourceTree = "<group>"; };
+		EE897CA61C2D36EB009E5E17 /* WBHttpRequest+WeiboShare.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "WBHttpRequest+WeiboShare.h"; sourceTree = "<group>"; };
+		EE897CA71C2D36EB009E5E17 /* WBHttpRequest+WeiboToken.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "WBHttpRequest+WeiboToken.h"; sourceTree = "<group>"; };
+		EE897CA81C2D36EB009E5E17 /* WBHttpRequest+WeiboUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "WBHttpRequest+WeiboUser.h"; sourceTree = "<group>"; };
+		EE897CA91C2D36EB009E5E17 /* WBHttpRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WBHttpRequest.h; sourceTree = "<group>"; };
+		EE897CAA1C2D36EB009E5E17 /* WBSDKBasicButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WBSDKBasicButton.h; sourceTree = "<group>"; };
+		EE897CAB1C2D36EB009E5E17 /* WBSDKCommentButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WBSDKCommentButton.h; sourceTree = "<group>"; };
+		EE897CAC1C2D36EB009E5E17 /* WBSDKRelationshipButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WBSDKRelationshipButton.h; sourceTree = "<group>"; };
+		EE897CAD1C2D36EB009E5E17 /* WeiboSDK.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = WeiboSDK.bundle; sourceTree = "<group>"; };
+		EE897CAE1C2D36EB009E5E17 /* WeiboSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeiboSDK.h; sourceTree = "<group>"; };
+		EE897CAF1C2D36EB009E5E17 /* WeiboUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeiboUser.h; sourceTree = "<group>"; };
+		EE897CB11C2D36EB009E5E17 /* libSocialQQ.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libSocialQQ.a; sourceTree = "<group>"; };
+		EE897CB21C2D36EB009E5E17 /* TencentOpenAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TencentOpenAPI.framework; sourceTree = "<group>"; };
+		EE897CB31C2D36EB009E5E17 /* TencentOpenApi_IOS_Bundle.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = TencentOpenApi_IOS_Bundle.bundle; sourceTree = "<group>"; };
+		EE897CB41C2D36EB009E5E17 /* UMSocialQQHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMSocialQQHandler.h; sourceTree = "<group>"; };
+		EE897CB61C2D36EB009E5E17 /* libSocialWechat.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libSocialWechat.a; sourceTree = "<group>"; };
+		EE897CB71C2D36EB009E5E17 /* libWeChatSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libWeChatSDK.a; sourceTree = "<group>"; };
+		EE897CB81C2D36EB009E5E17 /* UMSocialWechatHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMSocialWechatHandler.h; sourceTree = "<group>"; };
+		EE897CB91C2D36EB009E5E17 /* WXApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApi.h; sourceTree = "<group>"; };
+		EE897CBA1C2D36EB009E5E17 /* WXApiObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApiObject.h; sourceTree = "<group>"; };
+		EE897CBB1C2D36EB009E5E17 /* UMSocialSDKResourcesNew.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = UMSocialSDKResourcesNew.bundle; sourceTree = "<group>"; };
+		EE897CBC1C2D36EB009E5E17 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/UMSocialLocalizable.strings"; sourceTree = "<group>"; };
 		EE8983D51C0C1F48005CF5AB /* LastCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LastCell.h; sourceTree = "<group>"; };
 		EE8983D61C0C1F48005CF5AB /* LastCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LastCell.m; sourceTree = "<group>"; };
 		EE8983D91C0C1FDF005CF5AB /* HCDropdownView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HCDropdownView.h; sourceTree = "<group>"; };
@@ -533,28 +533,28 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EE897CCB1C2D36EB009E5E17 /* libSocialQQ.a in Frameworks */,
 				EEAE14761C20170E000BFC37 /* MessageUI.framework in Frameworks */,
-				EE7C8C011BFC7E0A00A3671B /* libUMSocial_Sdk_4.2.5.a in Frameworks */,
+				EE897CBE1C2D36EB009E5E17 /* libUMSocial_Sdk_4.2.5.a in Frameworks */,
 				00D0852919D99D9600E2EA0E /* libz.dylib in Frameworks */,
 				00D0852719D99D8400E2EA0E /* libstdc++.dylib in Frameworks */,
 				00D0852519D99D7100E2EA0E /* CoreTelephony.framework in Frameworks */,
+				EE897CCF1C2D36EC009E5E17 /* libWeChatSDK.a in Frameworks */,
+				EE897CC81C2D36EB009E5E17 /* libSocialSinaSSO.a in Frameworks */,
 				00D0852319D99D6200E2EA0E /* libsqlite3.dylib in Frameworks */,
-				EE7C8C0F1BFC7E0A00A3671B /* TencentOpenAPI.framework in Frameworks */,
 				00D0852119D99D3D00E2EA0E /* libiconv.dylib in Frameworks */,
+				EE897CC71C2D36EB009E5E17 /* libSocialSina.a in Frameworks */,
+				EE897CCE1C2D36EC009E5E17 /* libSocialWechat.a in Frameworks */,
 				00B3CF9C19CC0D2E00747373 /* CoreMotion.framework in Frameworks */,
+				EE897CC91C2D36EB009E5E17 /* libWeiboSDK.a in Frameworks */,
 				00B3CF9A19CC0A6600747373 /* AudioToolbox.framework in Frameworks */,
 				00B685B819ADCF7D00705534 /* SystemConfiguration.framework in Frameworks */,
 				00CF21DF1929EF890087AF83 /* ImageIO.framework in Frameworks */,
 				0021BAF41923608200626A2C /* Security.framework in Frameworks */,
-				EE7C8C0E1BFC7E0A00A3671B /* libSocialQQ.a in Frameworks */,
-				EE7C8C111BFC7E0A00A3671B /* libSocialWechat.a in Frameworks */,
-				EE7C8C0B1BFC7E0A00A3671B /* libSocialSinaSSO.a in Frameworks */,
-				EE7C8C0A1BFC7E0A00A3671B /* libSocialSina.a in Frameworks */,
-				EE7C8C121BFC7E0A00A3671B /* libWeChatSDK.a in Frameworks */,
-				EE7C8C0C1BFC7E0A00A3671B /* libWeiboSDK.a in Frameworks */,
 				0002D24C1916324B001FDED8 /* CoreGraphics.framework in Frameworks */,
 				0002D24E1916324B001FDED8 /* UIKit.framework in Frameworks */,
 				0002D24A1916324B001FDED8 /* Foundation.framework in Frameworks */,
+				EE897CCC1C2D36EC009E5E17 /* TencentOpenAPI.framework in Frameworks */,
 				811BA39B38156B53A7E3E07E /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -808,7 +808,7 @@
 		38BB9AFE1A1DF10D00175F10 /* Vendor */ = {
 			isa = PBXGroup;
 			children = (
-				EE7C8BBF1BFC7E0A00A3671B /* UMSocial_Sdk_4.2.5 */,
+				EE897C831C2D36EB009E5E17 /* UMSocial_Sdk_4.2.5 */,
 			);
 			path = Vendor;
 			sourceTree = "<group>";
@@ -1022,180 +1022,6 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
-		EE7C8BBF1BFC7E0A00A3671B /* UMSocial_Sdk_4.2.5 */ = {
-			isa = PBXGroup;
-			children = (
-				EE7C8BC01BFC7E0A00A3671B /* Header */,
-				EE7C8BC11BFC7E0A00A3671B /* SocialSDKXib */,
-				EE7C8BC21BFC7E0A00A3671B /* UMSocial_Sdk_4.2.5 */,
-				EE7C8BFB1BFC7E0A00A3671B /* UMSocial_Sdk_Extra_Frameworks */,
-			);
-			path = UMSocial_Sdk_4.2.5;
-			sourceTree = "<group>";
-		};
-		EE7C8BC01BFC7E0A00A3671B /* Header */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Header;
-			sourceTree = "<group>";
-		};
-		EE7C8BC11BFC7E0A00A3671B /* SocialSDKXib */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = SocialSDKXib;
-			sourceTree = "<group>";
-		};
-		EE7C8BC21BFC7E0A00A3671B /* UMSocial_Sdk_4.2.5 */ = {
-			isa = PBXGroup;
-			children = (
-				EE7C8BC31BFC7E0A00A3671B /* UMSocialLocalizable.strings */,
-				EE7C8BC51BFC7E0A00A3671B /* Header */,
-				EE7C8BD11BFC7E0A00A3671B /* libUMSocial_Sdk_4.2.5.a */,
-				EE7C8BD21BFC7E0A00A3671B /* SocialSDKXib */,
-				EE7C8BDB1BFC7E0A00A3671B /* UMSocial_Sdk_Extra_Frameworks */,
-				EE7C8BF91BFC7E0A00A3671B /* UMSocialSDKResourcesNew.bundle */,
-			);
-			path = UMSocial_Sdk_4.2.5;
-			sourceTree = "<group>";
-		};
-		EE7C8BC51BFC7E0A00A3671B /* Header */ = {
-			isa = PBXGroup;
-			children = (
-				EE7C8BC61BFC7E0A00A3671B /* UMSocial.h */,
-				EE7C8BC71BFC7E0A00A3671B /* UMSocialAccountManager.h */,
-				EE7C8BC81BFC7E0A00A3671B /* UMSocialBar.h */,
-				EE7C8BC91BFC7E0A00A3671B /* UMSocialConfig.h */,
-				EE7C8BCA1BFC7E0A00A3671B /* UMSocialControllerService.h */,
-				EE7C8BCB1BFC7E0A00A3671B /* UMSocialControllerServiceComment.h */,
-				EE7C8BCC1BFC7E0A00A3671B /* UMSocialData.h */,
-				EE7C8BCD1BFC7E0A00A3671B /* UMSocialDataService.h */,
-				EE7C8BCE1BFC7E0A00A3671B /* UMSocialSnsData.h */,
-				EE7C8BCF1BFC7E0A00A3671B /* UMSocialSnsPlatformManager.h */,
-				EE7C8BD01BFC7E0A00A3671B /* UMSocialSnsService.h */,
-			);
-			path = Header;
-			sourceTree = "<group>";
-		};
-		EE7C8BD21BFC7E0A00A3671B /* SocialSDKXib */ = {
-			isa = PBXGroup;
-			children = (
-				EE7C8BD31BFC7E0A00A3671B /* UMSCommentDetailController.xib */,
-				EE7C8BD41BFC7E0A00A3671B /* UMSCommentInputController.xib */,
-				EE7C8BD51BFC7E0A00A3671B /* UMSCommentInputControlleriPad.xib */,
-				EE7C8BD61BFC7E0A00A3671B /* UMShareEditViewController.xib */,
-				EE7C8BD71BFC7E0A00A3671B /* UMShareEditViewControlleriPad.xib */,
-				EE7C8BD81BFC7E0A00A3671B /* UMSLoginViewController.xib */,
-				EE7C8BD91BFC7E0A00A3671B /* UMSnsAccountViewController.xib */,
-				EE7C8BDA1BFC7E0A00A3671B /* UMSShareListController.xib */,
-			);
-			path = SocialSDKXib;
-			sourceTree = "<group>";
-		};
-		EE7C8BDB1BFC7E0A00A3671B /* UMSocial_Sdk_Extra_Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				EE7C8BDC1BFC7E0A00A3671B /* Sina */,
-				EE7C8BDF1BFC7E0A00A3671B /* SinaSSO */,
-				EE7C8BEE1BFC7E0A00A3671B /* TencentOpenAPI */,
-				EE7C8BF31BFC7E0A00A3671B /* Wechat */,
-			);
-			path = UMSocial_Sdk_Extra_Frameworks;
-			sourceTree = "<group>";
-		};
-		EE7C8BDC1BFC7E0A00A3671B /* Sina */ = {
-			isa = PBXGroup;
-			children = (
-				EE7C8BDD1BFC7E0A00A3671B /* libSocialSina.a */,
-				EE7C8BDE1BFC7E0A00A3671B /* UMSocialSinaHandler.h */,
-			);
-			path = Sina;
-			sourceTree = "<group>";
-		};
-		EE7C8BDF1BFC7E0A00A3671B /* SinaSSO */ = {
-			isa = PBXGroup;
-			children = (
-				EE7C8BE01BFC7E0A00A3671B /* libSocialSinaSSO.a */,
-				EE7C8BE11BFC7E0A00A3671B /* libWeiboSDK.a */,
-				EE7C8BE21BFC7E0A00A3671B /* UMSocialSinaSSOHandler.h */,
-				EE7C8BE31BFC7E0A00A3671B /* WBHttpRequest+WeiboGame.h */,
-				EE7C8BE41BFC7E0A00A3671B /* WBHttpRequest+WeiboShare.h */,
-				EE7C8BE51BFC7E0A00A3671B /* WBHttpRequest+WeiboToken.h */,
-				EE7C8BE61BFC7E0A00A3671B /* WBHttpRequest+WeiboUser.h */,
-				EE7C8BE71BFC7E0A00A3671B /* WBHttpRequest.h */,
-				EE7C8BE81BFC7E0A00A3671B /* WBSDKBasicButton.h */,
-				EE7C8BE91BFC7E0A00A3671B /* WBSDKCommentButton.h */,
-				EE7C8BEA1BFC7E0A00A3671B /* WBSDKRelationshipButton.h */,
-				EE7C8BEB1BFC7E0A00A3671B /* WeiboSDK.bundle */,
-				EE7C8BEC1BFC7E0A00A3671B /* WeiboSDK.h */,
-				EE7C8BED1BFC7E0A00A3671B /* WeiboUser.h */,
-			);
-			path = SinaSSO;
-			sourceTree = "<group>";
-		};
-		EE7C8BEE1BFC7E0A00A3671B /* TencentOpenAPI */ = {
-			isa = PBXGroup;
-			children = (
-				EE7C8BEF1BFC7E0A00A3671B /* libSocialQQ.a */,
-				EE7C8BF01BFC7E0A00A3671B /* TencentOpenAPI.framework */,
-				EE7C8BF11BFC7E0A00A3671B /* TencentOpenApi_IOS_Bundle.bundle */,
-				EE7C8BF21BFC7E0A00A3671B /* UMSocialQQHandler.h */,
-			);
-			path = TencentOpenAPI;
-			sourceTree = "<group>";
-		};
-		EE7C8BF31BFC7E0A00A3671B /* Wechat */ = {
-			isa = PBXGroup;
-			children = (
-				EE7C8BF41BFC7E0A00A3671B /* libSocialWechat.a */,
-				EE7C8BF51BFC7E0A00A3671B /* libWeChatSDK.a */,
-				EE7C8BF61BFC7E0A00A3671B /* UMSocialWechatHandler.h */,
-				EE7C8BF71BFC7E0A00A3671B /* WXApi.h */,
-				EE7C8BF81BFC7E0A00A3671B /* WXApiObject.h */,
-			);
-			path = Wechat;
-			sourceTree = "<group>";
-		};
-		EE7C8BFB1BFC7E0A00A3671B /* UMSocial_Sdk_Extra_Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				EE7C8BFC1BFC7E0A00A3671B /* Sina */,
-				EE7C8BFD1BFC7E0A00A3671B /* SinaSSO */,
-				EE7C8BFE1BFC7E0A00A3671B /* TencentOpenAPI */,
-				EE7C8BFF1BFC7E0A00A3671B /* Wechat */,
-			);
-			path = UMSocial_Sdk_Extra_Frameworks;
-			sourceTree = "<group>";
-		};
-		EE7C8BFC1BFC7E0A00A3671B /* Sina */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Sina;
-			sourceTree = "<group>";
-		};
-		EE7C8BFD1BFC7E0A00A3671B /* SinaSSO */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = SinaSSO;
-			sourceTree = "<group>";
-		};
-		EE7C8BFE1BFC7E0A00A3671B /* TencentOpenAPI */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = TencentOpenAPI;
-			sourceTree = "<group>";
-		};
-		EE7C8BFF1BFC7E0A00A3671B /* Wechat */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Wechat;
-			sourceTree = "<group>";
-		};
 		EE82EDA81BFB29D00006F18D /* Categories */ = {
 			isa = PBXGroup;
 			children = (
@@ -1220,6 +1046,124 @@
 				EE8612D41C1194010073F457 /* DataSetObject.m */,
 			);
 			name = EmptyViews;
+			sourceTree = "<group>";
+		};
+		EE897C831C2D36EB009E5E17 /* UMSocial_Sdk_4.2.5 */ = {
+			isa = PBXGroup;
+			children = (
+				EE897C841C2D36EB009E5E17 /* UMSocial_Sdk_4.2.5 */,
+			);
+			path = UMSocial_Sdk_4.2.5;
+			sourceTree = "<group>";
+		};
+		EE897C841C2D36EB009E5E17 /* UMSocial_Sdk_4.2.5 */ = {
+			isa = PBXGroup;
+			children = (
+				EE897C851C2D36EB009E5E17 /* UMSocialLocalizable.strings */,
+				EE897C871C2D36EB009E5E17 /* Header */,
+				EE897C931C2D36EB009E5E17 /* libUMSocial_Sdk_4.2.5.a */,
+				EE897C941C2D36EB009E5E17 /* SocialSDKXib */,
+				EE897C9D1C2D36EB009E5E17 /* UMSocial_Sdk_Extra_Frameworks */,
+				EE897CBB1C2D36EB009E5E17 /* UMSocialSDKResourcesNew.bundle */,
+			);
+			path = UMSocial_Sdk_4.2.5;
+			sourceTree = "<group>";
+		};
+		EE897C871C2D36EB009E5E17 /* Header */ = {
+			isa = PBXGroup;
+			children = (
+				EE897C881C2D36EB009E5E17 /* UMSocial.h */,
+				EE897C891C2D36EB009E5E17 /* UMSocialAccountManager.h */,
+				EE897C8A1C2D36EB009E5E17 /* UMSocialBar.h */,
+				EE897C8B1C2D36EB009E5E17 /* UMSocialConfig.h */,
+				EE897C8C1C2D36EB009E5E17 /* UMSocialControllerService.h */,
+				EE897C8D1C2D36EB009E5E17 /* UMSocialControllerServiceComment.h */,
+				EE897C8E1C2D36EB009E5E17 /* UMSocialData.h */,
+				EE897C8F1C2D36EB009E5E17 /* UMSocialDataService.h */,
+				EE897C901C2D36EB009E5E17 /* UMSocialSnsData.h */,
+				EE897C911C2D36EB009E5E17 /* UMSocialSnsPlatformManager.h */,
+				EE897C921C2D36EB009E5E17 /* UMSocialSnsService.h */,
+			);
+			path = Header;
+			sourceTree = "<group>";
+		};
+		EE897C941C2D36EB009E5E17 /* SocialSDKXib */ = {
+			isa = PBXGroup;
+			children = (
+				EE897C951C2D36EB009E5E17 /* UMSCommentDetailController.xib */,
+				EE897C961C2D36EB009E5E17 /* UMSCommentInputController.xib */,
+				EE897C971C2D36EB009E5E17 /* UMSCommentInputControlleriPad.xib */,
+				EE897C981C2D36EB009E5E17 /* UMShareEditViewController.xib */,
+				EE897C991C2D36EB009E5E17 /* UMShareEditViewControlleriPad.xib */,
+				EE897C9A1C2D36EB009E5E17 /* UMSLoginViewController.xib */,
+				EE897C9B1C2D36EB009E5E17 /* UMSnsAccountViewController.xib */,
+				EE897C9C1C2D36EB009E5E17 /* UMSShareListController.xib */,
+			);
+			path = SocialSDKXib;
+			sourceTree = "<group>";
+		};
+		EE897C9D1C2D36EB009E5E17 /* UMSocial_Sdk_Extra_Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				EE897C9E1C2D36EB009E5E17 /* Sina */,
+				EE897CA11C2D36EB009E5E17 /* SinaSSO */,
+				EE897CB01C2D36EB009E5E17 /* TencentOpenAPI */,
+				EE897CB51C2D36EB009E5E17 /* Wechat */,
+			);
+			path = UMSocial_Sdk_Extra_Frameworks;
+			sourceTree = "<group>";
+		};
+		EE897C9E1C2D36EB009E5E17 /* Sina */ = {
+			isa = PBXGroup;
+			children = (
+				EE897C9F1C2D36EB009E5E17 /* libSocialSina.a */,
+				EE897CA01C2D36EB009E5E17 /* UMSocialSinaHandler.h */,
+			);
+			path = Sina;
+			sourceTree = "<group>";
+		};
+		EE897CA11C2D36EB009E5E17 /* SinaSSO */ = {
+			isa = PBXGroup;
+			children = (
+				EE897CA21C2D36EB009E5E17 /* libSocialSinaSSO.a */,
+				EE897CA31C2D36EB009E5E17 /* libWeiboSDK.a */,
+				EE897CA41C2D36EB009E5E17 /* UMSocialSinaSSOHandler.h */,
+				EE897CA51C2D36EB009E5E17 /* WBHttpRequest+WeiboGame.h */,
+				EE897CA61C2D36EB009E5E17 /* WBHttpRequest+WeiboShare.h */,
+				EE897CA71C2D36EB009E5E17 /* WBHttpRequest+WeiboToken.h */,
+				EE897CA81C2D36EB009E5E17 /* WBHttpRequest+WeiboUser.h */,
+				EE897CA91C2D36EB009E5E17 /* WBHttpRequest.h */,
+				EE897CAA1C2D36EB009E5E17 /* WBSDKBasicButton.h */,
+				EE897CAB1C2D36EB009E5E17 /* WBSDKCommentButton.h */,
+				EE897CAC1C2D36EB009E5E17 /* WBSDKRelationshipButton.h */,
+				EE897CAD1C2D36EB009E5E17 /* WeiboSDK.bundle */,
+				EE897CAE1C2D36EB009E5E17 /* WeiboSDK.h */,
+				EE897CAF1C2D36EB009E5E17 /* WeiboUser.h */,
+			);
+			path = SinaSSO;
+			sourceTree = "<group>";
+		};
+		EE897CB01C2D36EB009E5E17 /* TencentOpenAPI */ = {
+			isa = PBXGroup;
+			children = (
+				EE897CB11C2D36EB009E5E17 /* libSocialQQ.a */,
+				EE897CB21C2D36EB009E5E17 /* TencentOpenAPI.framework */,
+				EE897CB31C2D36EB009E5E17 /* TencentOpenApi_IOS_Bundle.bundle */,
+				EE897CB41C2D36EB009E5E17 /* UMSocialQQHandler.h */,
+			);
+			path = TencentOpenAPI;
+			sourceTree = "<group>";
+		};
+		EE897CB51C2D36EB009E5E17 /* Wechat */ = {
+			isa = PBXGroup;
+			children = (
+				EE897CB61C2D36EB009E5E17 /* libSocialWechat.a */,
+				EE897CB71C2D36EB009E5E17 /* libWeChatSDK.a */,
+				EE897CB81C2D36EB009E5E17 /* UMSocialWechatHandler.h */,
+				EE897CB91C2D36EB009E5E17 /* WXApi.h */,
+				EE897CBA1C2D36EB009E5E17 /* WXApiObject.h */,
+			);
+			path = Wechat;
 			sourceTree = "<group>";
 		};
 		EE8983D81C0C1FDF005CF5AB /* HCDropdownView */ = {
@@ -1321,7 +1265,7 @@
 		0002D23E1916324B001FDED8 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0510;
+				LastUpgradeCheck = 0720;
 				ORGANIZATIONNAME = chenhaoxiang;
 				TargetAttributes = {
 					0002D2451916324B001FDED8 = {
@@ -1353,14 +1297,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EE7C8C101BFC7E0A00A3671B /* TencentOpenApi_IOS_Bundle.bundle in Resources */,
 				38C135AB1A5FC19B00E74C97 /* shake_sound_male.mp3 in Resources */,
 				38C135D11A5FC19B00E74C97 /* atelier-forest.dark.css in Resources */,
 				38C135FA1A5FC19B00E74C97 /* solarized_dark.css in Resources */,
 				38C135DB1A5FC19B00E74C97 /* codepen-embed.css in Resources */,
-				EE7C8C051BFC7E0A00A3671B /* UMShareEditViewController.xib in Resources */,
 				38C135D91A5FC19B00E74C97 /* brown_paper.css in Resources */,
 				38C135DE1A5FC19B00E74C97 /* default.css in Resources */,
+				EE897CBF1C2D36EB009E5E17 /* UMSCommentDetailController.xib in Resources */,
 				38C135E41A5FC19B00E74C97 /* code.css in Resources */,
 				38C135F21A5FC19B00E74C97 /* paraiso.dark.css in Resources */,
 				38C135CE1A5FC19B00E74C97 /* ascetic.css in Resources */,
@@ -1368,19 +1311,18 @@
 				38C135ED1A5FC19B00E74C97 /* magula.css in Resources */,
 				38C135F01A5FC19B00E74C97 /* monokai_sublime.css in Resources */,
 				38C135F11A5FC19B00E74C97 /* obsidian.css in Resources */,
-				EE7C8C131BFC7E0A00A3671B /* UMSocialSDKResourcesNew.bundle in Resources */,
+				EE897CC21C2D36EB009E5E17 /* UMShareEditViewController.xib in Resources */,
 				38C135E61A5FC19B00E74C97 /* format.html in Resources */,
 				38C135D61A5FC19B00E74C97 /* atelier-lakeside.light.css in Resources */,
 				EE8983E31C0C1FDF005CF5AB /* HCDropdownMenuCell.xib in Resources */,
 				38C135EA1A5FC19B00E74C97 /* ir_black.css in Resources */,
 				38C135E81A5FC19B00E74C97 /* hybrid.css in Resources */,
 				38C135E01A5FC19B00E74C97 /* far.css in Resources */,
-				EE7C8C031BFC7E0A00A3671B /* UMSCommentInputController.xib in Resources */,
-				EE7C8C081BFC7E0A00A3671B /* UMSnsAccountViewController.xib in Resources */,
 				38C135DF1A5FC19B00E74C97 /* docco.css in Resources */,
 				38C135FD1A5FC19B00E74C97 /* tomorrow-night-blue.css in Resources */,
 				38C135F41A5FC19B00E74C97 /* pojoaque.css in Resources */,
 				38C135F71A5FC19B00E74C97 /* rainbow.css in Resources */,
+				EE897CC11C2D36EB009E5E17 /* UMSCommentInputControlleriPad.xib in Resources */,
 				38C135DD1A5FC19B00E74C97 /* dark.css in Resources */,
 				0002D2D719188953001FDED8 /* Images.xcassets in Resources */,
 				38C135D01A5FC19B00E74C97 /* atelier-dune.light.css in Resources */,
@@ -1388,6 +1330,8 @@
 				38C135F81A5FC19B00E74C97 /* school_book.css in Resources */,
 				38C136021A5FC19B00E74C97 /* vs.css in Resources */,
 				38C135D31A5FC19B00E74C97 /* atelier-heath.dark.css in Resources */,
+				EE897CC61C2D36EB009E5E17 /* UMSShareListController.xib in Resources */,
+				EE897CD01C2D36EC009E5E17 /* UMSocialSDKResourcesNew.bundle in Resources */,
 				38C135FC1A5FC19B00E74C97 /* sunburst.css in Resources */,
 				38C135D81A5FC19B00E74C97 /* atelier-seaside.light.css in Resources */,
 				38C135E91A5FC19B00E74C97 /* idea.css in Resources */,
@@ -1397,31 +1341,31 @@
 				38C135F31A5FC19B00E74C97 /* paraiso.light.css in Resources */,
 				38C135D41A5FC19B00E74C97 /* atelier-heath.light.css in Resources */,
 				38C135FF1A5FC19B00E74C97 /* tomorrow-night-eighties.css in Resources */,
-				EE7C8C091BFC7E0A00A3671B /* UMSShareListController.xib in Resources */,
 				38C135AA1A5FC19B00E74C97 /* shake_match.mp3 in Resources */,
-				EE7C8C061BFC7E0A00A3671B /* UMShareEditViewControlleriPad.xib in Resources */,
+				EE897CC51C2D36EB009E5E17 /* UMSnsAccountViewController.xib in Resources */,
 				38C135D51A5FC19B00E74C97 /* atelier-lakeside.dark.css in Resources */,
+				EE897CC41C2D36EB009E5E17 /* UMSLoginViewController.xib in Resources */,
+				EE897CCA1C2D36EB009E5E17 /* WeiboSDK.bundle in Resources */,
 				38C136041A5FC19B00E74C97 /* zenburn.css in Resources */,
+				EE897CC01C2D36EB009E5E17 /* UMSCommentInputController.xib in Resources */,
 				38C135E51A5FC19B00E74C97 /* code.html in Resources */,
 				0002D2541916324B001FDED8 /* InfoPlist.strings in Resources */,
 				38C135E21A5FC19B00E74C97 /* github.css in Resources */,
 				38C136011A5FC19B00E74C97 /* tomorrow.css in Resources */,
 				38C135D71A5FC19B00E74C97 /* atelier-seaside.dark.css in Resources */,
-				EE7C8C001BFC7E0A00A3671B /* UMSocialLocalizable.strings in Resources */,
 				38C135DC1A5FC19B00E74C97 /* color-brewer.css in Resources */,
 				38C135EC1A5FC19B00E74C97 /* kimbie.light.css in Resources */,
-				EE7C8C041BFC7E0A00A3671B /* UMSCommentInputControlleriPad.xib in Resources */,
 				38C135E71A5FC19B00E74C97 /* highlight.pack.js in Resources */,
 				38C135EE1A5FC19B00E74C97 /* mono-blue.css in Resources */,
+				EE897CBD1C2D36EB009E5E17 /* UMSocialLocalizable.strings in Resources */,
+				EE897CCD1C2D36EC009E5E17 /* TencentOpenApi_IOS_Bundle.bundle in Resources */,
 				38C135CF1A5FC19B00E74C97 /* atelier-dune.dark.css in Resources */,
-				EE7C8C071BFC7E0A00A3671B /* UMSLoginViewController.xib in Resources */,
 				38C135FB1A5FC19B00E74C97 /* solarized_light.css in Resources */,
-				EE7C8C021BFC7E0A00A3671B /* UMSCommentDetailController.xib in Resources */,
 				38C135E11A5FC19B00E74C97 /* foundation.css in Resources */,
 				38C136001A5FC19B00E74C97 /* tomorrow-night.css in Resources */,
-				EE7C8C0D1BFC7E0A00A3671B /* WeiboSDK.bundle in Resources */,
 				38C135CD1A5FC19B00E74C97 /* arta.css in Resources */,
 				38C135EB1A5FC19B00E74C97 /* kimbie.dark.css in Resources */,
+				EE897CC31C2D36EB009E5E17 /* UMShareEditViewControlleriPad.xib in Resources */,
 				38C136031A5FC19B00E74C97 /* xcode.css in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1578,11 +1522,11 @@
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
-		EE7C8BC31BFC7E0A00A3671B /* UMSocialLocalizable.strings */ = {
+		EE897C851C2D36EB009E5E17 /* UMSocialLocalizable.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
-				EE7C8BC41BFC7E0A00A3671B /* en */,
-				EE7C8BFA1BFC7E0A00A3671B /* zh-Hans */,
+				EE897C861C2D36EB009E5E17 /* en */,
+				EE897CBC1C2D36EB009E5E17 /* zh-Hans */,
 			);
 			name = UMSocialLocalizable.strings;
 			sourceTree = "<group>";
@@ -1608,6 +1552,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -1670,16 +1615,11 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
-					"/Users/chenhaoxiang/Desktop/Objective-C",
-					"$(PROJECT_DIR)/iOS-git-osc/UMSocial_Sdk_Extra_Frameworks/TencentOpenAPI",
-					"$(PROJECT_DIR)/iOS-git-osc/UMSocial_Sdk_Extra_Frameworks/Facebook",
-					"$(PROJECT_DIR)/iOS-git-osc/UMSocial_Sdk_Extra_Frameworks/Twitter",
-					"$(PROJECT_DIR)/iOS-git-osc/UMSocial_Sdk_4.2.5/UMSocial_Sdk_Extra_Frameworks/TencentOpenAPI",
-					"$(PROJECT_DIR)/iOS-git-osc/Share/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_Extra_Frameworks/TencentOpenAPI",
 					"$(PROJECT_DIR)/iOS-git-osc/Vendor/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_Extra_Frameworks/TencentOpenAPI",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -1692,83 +1632,13 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/iOS-git-osc/UMSocial_Sdk_4.1",
-					"$(PROJECT_DIR)/iOS-git-osc/UMSocial_Sdk_Extra_Frameworks/Sina",
-					"$(PROJECT_DIR)/iOS-git-osc/UMSocial_Sdk_Extra_Frameworks/TencentOpenAPI",
-					"$(PROJECT_DIR)/iOS-git-osc/UMSocial_Sdk_Extra_Frameworks/Wechat",
-					"$(PROJECT_DIR)/iOS-git-osc/UMSocial_Sdk_4.3",
-					"$(PROJECT_DIR)/iOS-git-osc/UMSocial_Sdk_Extra_Frameworks/Facebook",
-					"$(PROJECT_DIR)/iOS-git-osc/UMSocial_Sdk_Extra_Frameworks/Instagram",
-					"$(PROJECT_DIR)/iOS-git-osc/UMSocial_Sdk_Extra_Frameworks/LaiWang",
-					"$(PROJECT_DIR)/iOS-git-osc/UMSocial_Sdk_Extra_Frameworks/Line",
-					"$(PROJECT_DIR)/iOS-git-osc/UMSocial_Sdk_Extra_Frameworks/SinaSSO",
-					"$(PROJECT_DIR)/iOS-git-osc/UMSocial_Sdk_Extra_Frameworks/Tumblr",
-					"$(PROJECT_DIR)/iOS-git-osc/UMSocial_Sdk_Extra_Frameworks/Twitter",
-					"$(PROJECT_DIR)/iOS-git-osc/UMSocial_Sdk_Extra_Frameworks/Whatsapp",
-					"$(PROJECT_DIR)/iOS-git-osc/UMSocial_Sdk_Extra_Frameworks/YiXin",
-					"$(PROJECT_DIR)/iOS-git-osc/UMSocial_Sdk_4.2.5",
-					"$(PROJECT_DIR)/iOS-git-osc/UMSocial_Sdk_4.2.5/UMSocial_Sdk_Extra_Frameworks/Sina",
-					"$(PROJECT_DIR)/iOS-git-osc/UMSocial_Sdk_4.2.5/UMSocial_Sdk_Extra_Frameworks/SinaSSO",
-					"$(PROJECT_DIR)/iOS-git-osc/UMSocial_Sdk_4.2.5/UMSocial_Sdk_Extra_Frameworks/TencentOpenAPI",
-					"$(PROJECT_DIR)/iOS-git-osc/UMSocial_Sdk_4.2.5/UMSocial_Sdk_Extra_Frameworks/Wechat",
-					"$(PROJECT_DIR)/iOS-git-osc/Share/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5",
-					"$(PROJECT_DIR)/iOS-git-osc/Share/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5",
-					"$(PROJECT_DIR)/iOS-git-osc/Share/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5",
-					"$(PROJECT_DIR)/iOS-git-osc/Share/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5",
-					"$(PROJECT_DIR)/iOS-git-osc/Share/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5",
-					"$(PROJECT_DIR)/iOS-git-osc/Share/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5",
-					"$(PROJECT_DIR)/iOS-git-osc/Share/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5",
-					"$(PROJECT_DIR)/iOS-git-osc/Share/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5",
-					"$(PROJECT_DIR)/iOS-git-osc/Share/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5",
-					"$(PROJECT_DIR)/iOS-git-osc/Share/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5",
-					"$(PROJECT_DIR)/iOS-git-osc/Share/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5",
-					"$(PROJECT_DIR)/iOS-git-osc/Share/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5",
-					"$(PROJECT_DIR)/iOS-git-osc/Share/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5",
-					"$(PROJECT_DIR)/iOS-git-osc/Share/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5",
-					"$(PROJECT_DIR)/iOS-git-osc/Share/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5",
-					"$(PROJECT_DIR)/iOS-git-osc/Share/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5",
-					"$(PROJECT_DIR)/iOS-git-osc/Share/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5",
-					"$(PROJECT_DIR)/iOS-git-osc/Share/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5",
-					"$(PROJECT_DIR)/iOS-git-osc/Share/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5",
-					"$(PROJECT_DIR)/iOS-git-osc/Share/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5",
-					"$(PROJECT_DIR)/iOS-git-osc/Share/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5",
-					"$(PROJECT_DIR)/iOS-git-osc/Share/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5",
-					"$(PROJECT_DIR)/iOS-git-osc/Share/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5",
-					"$(PROJECT_DIR)/iOS-git-osc/Share/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5",
-					"$(PROJECT_DIR)/iOS-git-osc/Share/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5",
-					"$(PROJECT_DIR)/iOS-git-osc/Share/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5",
-					"$(PROJECT_DIR)/iOS-git-osc/Share/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5",
-					"$(PROJECT_DIR)/iOS-git-osc/Share/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5",
-					"$(PROJECT_DIR)/iOS-git-osc/Share/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5",
-					"$(PROJECT_DIR)/iOS-git-osc/Share/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5",
-					"$(PROJECT_DIR)/iOS-git-osc/Share/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5",
-					"$(PROJECT_DIR)/iOS-git-osc/Share/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5",
-					"$(PROJECT_DIR)/iOS-git-osc/Share/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5",
-					"$(PROJECT_DIR)/iOS-git-osc/Share/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5",
-					"$(PROJECT_DIR)/iOS-git-osc/Share/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5",
-					"$(PROJECT_DIR)/iOS-git-osc/Share/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5",
-					"$(PROJECT_DIR)/iOS-git-osc/Share/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5",
-					"$(PROJECT_DIR)/iOS-git-osc/Share/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5",
-					"$(PROJECT_DIR)/iOS-git-osc/Share/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5",
-					"$(PROJECT_DIR)/iOS-git-osc/Share/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5",
-					"$(PROJECT_DIR)/iOS-git-osc/Share/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5",
-					"$(PROJECT_DIR)/iOS-git-osc/Share/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5",
-					"$(PROJECT_DIR)/iOS-git-osc/Share/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5",
-					"$(PROJECT_DIR)/iOS-git-osc/Share/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5",
-					"$(PROJECT_DIR)/iOS-git-osc/Share/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5",
-					"$(PROJECT_DIR)/iOS-git-osc/Share/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5",
-					"$(PROJECT_DIR)/iOS-git-osc/Share/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5",
-					"$(PROJECT_DIR)/iOS-git-osc/Share/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5",
-					"$(PROJECT_DIR)/iOS-git-osc/Share/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_Extra_Frameworks/Sina",
-					"$(PROJECT_DIR)/iOS-git-osc/Share/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_Extra_Frameworks/SinaSSO",
-					"$(PROJECT_DIR)/iOS-git-osc/Share/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_Extra_Frameworks/TencentOpenAPI",
-					"$(PROJECT_DIR)/iOS-git-osc/Share/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_Extra_Frameworks/Wechat",
 					"$(PROJECT_DIR)/iOS-git-osc/Vendor/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5",
 					"$(PROJECT_DIR)/iOS-git-osc/Vendor/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_Extra_Frameworks/Sina",
 					"$(PROJECT_DIR)/iOS-git-osc/Vendor/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_Extra_Frameworks/SinaSSO",
 					"$(PROJECT_DIR)/iOS-git-osc/Vendor/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_Extra_Frameworks/TencentOpenAPI",
 					"$(PROJECT_DIR)/iOS-git-osc/Vendor/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_Extra_Frameworks/Wechat",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = net.oschina.gitapp;
 				PRODUCT_NAME = "Git@OSC";
 				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;
@@ -1785,16 +1655,11 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
-					"/Users/chenhaoxiang/Desktop/Objective-C",
-					"$(PROJECT_DIR)/iOS-git-osc/UMSocial_Sdk_Extra_Frameworks/TencentOpenAPI",
-					"$(PROJECT_DIR)/iOS-git-osc/UMSocial_Sdk_Extra_Frameworks/Facebook",
-					"$(PROJECT_DIR)/iOS-git-osc/UMSocial_Sdk_Extra_Frameworks/Twitter",
-					"$(PROJECT_DIR)/iOS-git-osc/UMSocial_Sdk_4.2.5/UMSocial_Sdk_Extra_Frameworks/TencentOpenAPI",
-					"$(PROJECT_DIR)/iOS-git-osc/Share/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_Extra_Frameworks/TencentOpenAPI",
 					"$(PROJECT_DIR)/iOS-git-osc/Vendor/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_Extra_Frameworks/TencentOpenAPI",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -1807,83 +1672,13 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/iOS-git-osc/UMSocial_Sdk_4.1",
-					"$(PROJECT_DIR)/iOS-git-osc/UMSocial_Sdk_Extra_Frameworks/Sina",
-					"$(PROJECT_DIR)/iOS-git-osc/UMSocial_Sdk_Extra_Frameworks/TencentOpenAPI",
-					"$(PROJECT_DIR)/iOS-git-osc/UMSocial_Sdk_Extra_Frameworks/Wechat",
-					"$(PROJECT_DIR)/iOS-git-osc/UMSocial_Sdk_4.3",
-					"$(PROJECT_DIR)/iOS-git-osc/UMSocial_Sdk_Extra_Frameworks/Facebook",
-					"$(PROJECT_DIR)/iOS-git-osc/UMSocial_Sdk_Extra_Frameworks/Instagram",
-					"$(PROJECT_DIR)/iOS-git-osc/UMSocial_Sdk_Extra_Frameworks/LaiWang",
-					"$(PROJECT_DIR)/iOS-git-osc/UMSocial_Sdk_Extra_Frameworks/Line",
-					"$(PROJECT_DIR)/iOS-git-osc/UMSocial_Sdk_Extra_Frameworks/SinaSSO",
-					"$(PROJECT_DIR)/iOS-git-osc/UMSocial_Sdk_Extra_Frameworks/Tumblr",
-					"$(PROJECT_DIR)/iOS-git-osc/UMSocial_Sdk_Extra_Frameworks/Twitter",
-					"$(PROJECT_DIR)/iOS-git-osc/UMSocial_Sdk_Extra_Frameworks/Whatsapp",
-					"$(PROJECT_DIR)/iOS-git-osc/UMSocial_Sdk_Extra_Frameworks/YiXin",
-					"$(PROJECT_DIR)/iOS-git-osc/UMSocial_Sdk_4.2.5",
-					"$(PROJECT_DIR)/iOS-git-osc/UMSocial_Sdk_4.2.5/UMSocial_Sdk_Extra_Frameworks/Sina",
-					"$(PROJECT_DIR)/iOS-git-osc/UMSocial_Sdk_4.2.5/UMSocial_Sdk_Extra_Frameworks/SinaSSO",
-					"$(PROJECT_DIR)/iOS-git-osc/UMSocial_Sdk_4.2.5/UMSocial_Sdk_Extra_Frameworks/TencentOpenAPI",
-					"$(PROJECT_DIR)/iOS-git-osc/UMSocial_Sdk_4.2.5/UMSocial_Sdk_Extra_Frameworks/Wechat",
-					"$(PROJECT_DIR)/iOS-git-osc/Share/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5",
-					"$(PROJECT_DIR)/iOS-git-osc/Share/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5",
-					"$(PROJECT_DIR)/iOS-git-osc/Share/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5",
-					"$(PROJECT_DIR)/iOS-git-osc/Share/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5",
-					"$(PROJECT_DIR)/iOS-git-osc/Share/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5",
-					"$(PROJECT_DIR)/iOS-git-osc/Share/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5",
-					"$(PROJECT_DIR)/iOS-git-osc/Share/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5",
-					"$(PROJECT_DIR)/iOS-git-osc/Share/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5",
-					"$(PROJECT_DIR)/iOS-git-osc/Share/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5",
-					"$(PROJECT_DIR)/iOS-git-osc/Share/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5",
-					"$(PROJECT_DIR)/iOS-git-osc/Share/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5",
-					"$(PROJECT_DIR)/iOS-git-osc/Share/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5",
-					"$(PROJECT_DIR)/iOS-git-osc/Share/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5",
-					"$(PROJECT_DIR)/iOS-git-osc/Share/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5",
-					"$(PROJECT_DIR)/iOS-git-osc/Share/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5",
-					"$(PROJECT_DIR)/iOS-git-osc/Share/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5",
-					"$(PROJECT_DIR)/iOS-git-osc/Share/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5",
-					"$(PROJECT_DIR)/iOS-git-osc/Share/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5",
-					"$(PROJECT_DIR)/iOS-git-osc/Share/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5",
-					"$(PROJECT_DIR)/iOS-git-osc/Share/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5",
-					"$(PROJECT_DIR)/iOS-git-osc/Share/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5",
-					"$(PROJECT_DIR)/iOS-git-osc/Share/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5",
-					"$(PROJECT_DIR)/iOS-git-osc/Share/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5",
-					"$(PROJECT_DIR)/iOS-git-osc/Share/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5",
-					"$(PROJECT_DIR)/iOS-git-osc/Share/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5",
-					"$(PROJECT_DIR)/iOS-git-osc/Share/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5",
-					"$(PROJECT_DIR)/iOS-git-osc/Share/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5",
-					"$(PROJECT_DIR)/iOS-git-osc/Share/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5",
-					"$(PROJECT_DIR)/iOS-git-osc/Share/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5",
-					"$(PROJECT_DIR)/iOS-git-osc/Share/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5",
-					"$(PROJECT_DIR)/iOS-git-osc/Share/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5",
-					"$(PROJECT_DIR)/iOS-git-osc/Share/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5",
-					"$(PROJECT_DIR)/iOS-git-osc/Share/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5",
-					"$(PROJECT_DIR)/iOS-git-osc/Share/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5",
-					"$(PROJECT_DIR)/iOS-git-osc/Share/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5",
-					"$(PROJECT_DIR)/iOS-git-osc/Share/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5",
-					"$(PROJECT_DIR)/iOS-git-osc/Share/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5",
-					"$(PROJECT_DIR)/iOS-git-osc/Share/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5",
-					"$(PROJECT_DIR)/iOS-git-osc/Share/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5",
-					"$(PROJECT_DIR)/iOS-git-osc/Share/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5",
-					"$(PROJECT_DIR)/iOS-git-osc/Share/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5",
-					"$(PROJECT_DIR)/iOS-git-osc/Share/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5",
-					"$(PROJECT_DIR)/iOS-git-osc/Share/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5",
-					"$(PROJECT_DIR)/iOS-git-osc/Share/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5",
-					"$(PROJECT_DIR)/iOS-git-osc/Share/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5",
-					"$(PROJECT_DIR)/iOS-git-osc/Share/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5",
-					"$(PROJECT_DIR)/iOS-git-osc/Share/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5",
-					"$(PROJECT_DIR)/iOS-git-osc/Share/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5",
-					"$(PROJECT_DIR)/iOS-git-osc/Share/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_Extra_Frameworks/Sina",
-					"$(PROJECT_DIR)/iOS-git-osc/Share/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_Extra_Frameworks/SinaSSO",
-					"$(PROJECT_DIR)/iOS-git-osc/Share/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_Extra_Frameworks/TencentOpenAPI",
-					"$(PROJECT_DIR)/iOS-git-osc/Share/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_Extra_Frameworks/Wechat",
 					"$(PROJECT_DIR)/iOS-git-osc/Vendor/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5",
 					"$(PROJECT_DIR)/iOS-git-osc/Vendor/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_Extra_Frameworks/Sina",
 					"$(PROJECT_DIR)/iOS-git-osc/Vendor/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_Extra_Frameworks/SinaSSO",
 					"$(PROJECT_DIR)/iOS-git-osc/Vendor/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_Extra_Frameworks/TencentOpenAPI",
 					"$(PROJECT_DIR)/iOS-git-osc/Vendor/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_Extra_Frameworks/Wechat",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = net.oschina.gitapp;
 				PRODUCT_NAME = "Git@OSC";
 				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;

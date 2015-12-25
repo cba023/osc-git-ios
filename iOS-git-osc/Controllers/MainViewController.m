@@ -50,7 +50,6 @@
     
     LanguageSearchView *languageSearchView = [LanguageSearchView new];
     languageSearchView.tabBarItem.title = _titles[1];
-
     languageSearchView.tabBarItem.image = [[UIImage imageNamed:_images[1]] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     languageSearchView.tabBarItem.selectedImage = [[UIImage imageNamed:[NSString stringWithFormat:@"%@_selected", _images[1]]] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     UINavigationController *languageNavigationController = [[UINavigationController alloc] initWithRootViewController:languageSearchView];

@@ -374,7 +374,7 @@
     cell.backgroundColor = _contentBackgroundColor;
     cell.titleLabel.text = [_titles objectAtIndex:indexPath.row];
 //    cell.imageView.image = [UIImage imageNamed:_imageNameStr];
-    cell.imageView.image = [UIImage imageNamed:_images[indexPath.row]];
+    cell.iconImageView.image = [UIImage imageNamed:_images[indexPath.row]];
     return cell;
 }
 #pragma mark -- UITableViewDelegate

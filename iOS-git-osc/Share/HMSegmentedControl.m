@@ -173,7 +173,10 @@ typedef enum {
     
     if (self.type == HMSegmentedControlTypeText) {
         [self.sectionTitles enumerateObjectsUsingBlock:^(id titleString, NSUInteger idx, BOOL *stop) {
-            CGFloat stringHeight = roundf([titleString sizeWithFont:self.font].height);
+            
+//            CGFloat stringHeight = roundf([titleString sizeWithFont:self.font].height);
+            CGFloat stringHeight = roundf([titleString sizeWithAttributes:[NSDictionary dictionaryWithObjectsAndKeys:self.font, NSFontAttributeName, nil]].height);
+            
             // Text inside the CATextLayer will appear blurry unless the rect values are rounded
             CGFloat y = roundf(((CGRectGetHeight(self.frame) - self.selectionIndicatorHeight) / 2) + (self.selectionIndicatorHeight - stringHeight / 2));
             CGRect rect = CGRectMake(self.segmentWidth * idx, y, self.segmentWidth, stringHeight);
@@ -242,7 +245,8 @@ typedef enum {
     CGFloat sectionWidth = 0.0f;
 
     if (self.type == HMSegmentedControlTypeText) {
-        CGFloat stringWidth = [[self.sectionTitles objectAtIndex:self.selectedSegmentIndex] sizeWithFont:self.font].width;
+//        CGFloat stringWidth = [[self.sectionTitles objectAtIndex:self.selectedSegmentIndex] sizeWithFont:self.font].width;
+        CGFloat stringWidth = [[self.sectionTitles objectAtIndex:self.selectedSegmentIndex] sizeWithAttributes:[NSDictionary dictionaryWithObjectsAndKeys:self.font, NSFontAttributeName, nil]].width;
         sectionWidth = stringWidth;
     } else if (self.type == HMSegmentedControlTypeImages) {
         UIImage *sectionImage = [self.sectionImages objectAtIndex:self.selectedSegmentIndex];

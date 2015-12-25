@@ -53,7 +53,7 @@
         for (UIView *view in subView.subviews) {view.translatesAutoresizingMaskIntoConstraints = NO;}
         NSDictionary *views = NSDictionaryOfVariableBindings(activityView, label);
         
-        [subView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[activityView]-30-[label]"
+        [subView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-150-[activityView]-30-[label]"
                                                                         options:NSLayoutFormatAlignAllLeft | NSLayoutFormatAlignAllRight
                                                                         metrics:nil views:views]];
         
