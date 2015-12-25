@@ -17,16 +17,13 @@
 
 #import "MJRefresh.h"
 #import "DataSetObject.h"
+#import "Reachability.h"
 
 @interface ProjectsTableController ()
 
 @property (nonatomic, copy) NSString *privateToken;
 @property (nonatomic, assign) int64_t userID;
 @property (nonatomic, assign) ProjectsType projectsType;
-
-@property (nonatomic, assign) BOOL isFinishedLoad;
-@property (nonatomic, assign) BOOL isLoading;
-@property (nonatomic, assign) BOOL isFirstRequest;
 
 @property (nonatomic, assign) NSInteger page;
 @property (nonatomic, strong) DataSetObject *emptyDataSet;
@@ -81,8 +78,6 @@ static NSString * const cellId = @"ProjectCell";
     self.tableView.backgroundColor = [Tools uniformColor];
     UIView *footer =[[UIView alloc] initWithFrame:CGRectZero];
     self.tableView.tableFooterView = footer;
-    
-    _isFinishedLoad = NO;
     _page = 1;
     //下拉刷新
     self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
@@ -95,14 +90,18 @@ static NSString * const cellId = @"ProjectCell";
     [(MJRefreshAutoNormalFooter *)self.tableView.mj_footer setTitle:@"已全部加载完毕" forState:MJRefreshStateNoMoreData];
     // 默认先隐藏footer
     self.tableView.mj_footer.hidden = YES;
-    _isFirstRequest = YES;
     
-    _projects = (NSMutableArray *)[[CacheProjectsUtil shareInstance] readProjectListWithProjectType:_projectsType];
-    if (!_projects || _projects.count < 1) {
+    if (![self isConnectionAcailable]) {
+        _projects = (NSMutableArray *)[[CacheProjectsUtil shareInstance] readProjectListWithProjectType:_projectsType];
+        if (!_projects || _projects.count < 1) {
+            _projects = [NSMutableArray new];
+            [self fetchProject:YES];
+        } else {
+            [self.tableView reloadData];
+        }
+    } else {
         _projects = [NSMutableArray new];
         [self fetchProject:YES];
-    } else {
-        [self.tableView reloadData];
     }
     
     /* 设置空页面状态 */
@@ -116,6 +115,29 @@ static NSString * const cellId = @"ProjectCell";
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
+}
+
+#pragma mark - 判断是否有网络
+- (BOOL)isConnectionAcailable
+{
+    BOOL isExistenceNetwork = YES;
+    Reachability *reach = [Reachability reachabilityWithHostName:GITAPI_HTTPS_PREFIX];
+    switch ([reach currentReachabilityStatus]) {
+        case NotReachable:
+            isExistenceNetwork = NO;
+            break;
+        case ReachableViaWiFi:
+            isExistenceNetwork = YES;//wifi
+            break;
+        case ReachableViaWWAN:
+            isExistenceNetwork = YES;//3G
+            break;
+            
+        default:
+            break;
+    }
+    
+    return isExistenceNetwork;
 }
 
 #pragma mark - 获取数据
@@ -211,10 +233,7 @@ static NSString * const cellId = @"ProjectCell";
                  [_projects removeAllObjects];
              }
              
-             if ([responseObject count] == 0) {
-                 _isFinishedLoad = YES;
-    
-             } else {
+             if ([responseObject count] == 0) { } else {
                  [responseObject enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
                      GLProject *project = [[GLProject alloc] initWithJSON:obj];
                      [_projects addObject:project];

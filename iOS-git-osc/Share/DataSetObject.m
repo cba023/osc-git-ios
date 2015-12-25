@@ -110,7 +110,7 @@
 
 - (CGFloat)verticalOffsetForEmptyDataSet:(UIScrollView *)scrollView
 {
-    return -44;
+    return 0;//-44
 }
 
 - (CGFloat)spaceHeightForEmptyDataSet:(UIScrollView *)scrollView
