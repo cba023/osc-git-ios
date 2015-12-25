@@ -55,5 +55,7 @@ typedef enum : NSUInteger {
 
 + (NSUInteger)numberOfRepeatedEvents:(NSArray *)events event:(GLEvent *)event;
 + (NSUInteger)numberOfRepeatedIssueds:(NSArray *)issues issue:(GLIssue *)issue;
+#pragma mark - 判断是否有网络
++ (BOOL)isConnectionAcailable;
 
 @end

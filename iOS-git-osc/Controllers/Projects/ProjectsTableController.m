@@ -91,7 +91,7 @@ static NSString * const cellId = @"ProjectCell";
     // 默认先隐藏footer
     self.tableView.mj_footer.hidden = YES;
     
-    if (![self isConnectionAcailable]) {
+    if (![Tools isConnectionAcailable]) {
         _projects = (NSMutableArray *)[[CacheProjectsUtil shareInstance] readProjectListWithProjectType:_projectsType];
         if (!_projects || _projects.count < 1) {
             _projects = [NSMutableArray new];
@@ -115,29 +115,6 @@ static NSString * const cellId = @"ProjectCell";
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
-}
-
-#pragma mark - 判断是否有网络
-- (BOOL)isConnectionAcailable
-{
-    BOOL isExistenceNetwork = YES;
-    Reachability *reach = [Reachability reachabilityWithHostName:GITAPI_HTTPS_PREFIX];
-    switch ([reach currentReachabilityStatus]) {
-        case NotReachable:
-            isExistenceNetwork = NO;
-            break;
-        case ReachableViaWiFi:
-            isExistenceNetwork = YES;//wifi
-            break;
-        case ReachableViaWWAN:
-            isExistenceNetwork = YES;//3G
-            break;
-            
-        default:
-            break;
-    }
-    
-    return isExistenceNetwork;
 }
 
 #pragma mark - 获取数据

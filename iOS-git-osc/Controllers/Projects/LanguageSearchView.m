@@ -52,14 +52,18 @@ static NSString * const LanguageCellID = @"LanguageCell";
     self.tableView.tableFooterView = footer;
     self.tableView.backgroundColor = [Tools uniformColor];
  
-    _languages = (NSMutableArray *)[[CacheProjectsUtil shareInstance] readLanguageList];
-    if (!_languages || _languages.count < 1) {
+    if (![Tools isConnectionAcailable]) {
+        _languages = (NSMutableArray *)[[CacheProjectsUtil shareInstance] readLanguageList];
+        if (!_languages || _languages.count < 1) {
+            _languages = [NSMutableArray new];
+            [self fetchForLanguage];
+        } else {
+            [self.tableView reloadData];
+        }
+    } else {
         _languages = [NSMutableArray new];
         [self fetchForLanguage];
-    } else {
-        [self.tableView reloadData];
     }
-    
 }
 
 - (void)showMenu

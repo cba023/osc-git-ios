@@ -298,6 +298,28 @@
     return 0;
 }
 
+#pragma mark - 判断是否有网络
++ (BOOL)isConnectionAcailable
+{
+    BOOL isExistenceNetwork = YES;
+    Reachability *reach = [Reachability reachabilityWithHostName:GITAPI_HTTPS_PREFIX];
+    switch ([reach currentReachabilityStatus]) {
+        case NotReachable:
+            isExistenceNetwork = NO;
+            break;
+        case ReachableViaWiFi:
+            isExistenceNetwork = YES;//wifi
+            break;
+        case ReachableViaWWAN:
+            isExistenceNetwork = YES;//3G
+            break;
+            
+        default:
+            break;
+    }
+    
+    return isExistenceNetwork;
+}
 
 
 @end
