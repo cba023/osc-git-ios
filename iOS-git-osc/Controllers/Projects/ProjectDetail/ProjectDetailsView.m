@@ -266,9 +266,8 @@ static NSString * const ProjectDetailsCellID = @"ProjectDetailsCell";
                                                                                                                [[ProjectsTableController alloc] initWithUserID:_project.owner.userId andProjectsType:ProjectsTypeStared],
                                                                                                                [[ProjectsTableController alloc] initWithUserID:_project.owner.userId andProjectsType:ProjectsTypeWatched]
                                                                                                                ]
-                                                                                              andUnderTabbar:NO];
-                ownDetailsView.portrait = _project.owner.portrait;
-                ownDetailsView.name = _project.owner.name;
+                                                                                              andUnderTabbar:NO
+                                                                                             andUserPortrait:NO];
                 
                 [self.navigationController pushViewController:ownDetailsView animated:YES];
                 break;

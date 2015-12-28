@@ -44,7 +44,8 @@
                                                                                                    [[ProjectsTableController alloc] initWithProjectsType:ProjectsTypePopular],
                                                                                                    [[ProjectsTableController alloc] initWithProjectsType:ProjectsTypeLatest]
                                                                                                    ]
-                                                                                  andUnderTabbar:YES];
+                                                                                  andUnderTabbar:YES
+                                                                                 andUserPortrait:NO];
 
     titleScrollCtl.tabBarItem.title = _titles[0];
 
@@ -71,10 +72,8 @@
                                                                                                    [[ProjectsTableController alloc] initWithUserID:userID andProjectsType:ProjectsTypeStared],
                                                                                                    [[ProjectsTableController alloc] initWithUserID:userID andProjectsType:ProjectsTypeWatched]
                                                                                                    ]
-                                                                                  andUnderTabbar:YES];
-    ownDetailsView.portrait = [_user objectForKey:@"new_portrait"];
-    ownDetailsView.name = [_user objectForKey:@"name"];
-    ownDetailsView.isTabbarItem = YES;
+                                                                                  andUnderTabbar:YES
+                                                                                 andUserPortrait:YES];
     ownDetailsView.tabBarItem.title = _titles[2];
     ownDetailsView.tabBarItem.image = [[UIImage imageNamed:_images[2]] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     ownDetailsView.tabBarItem.selectedImage = [[UIImage imageNamed:[NSString stringWithFormat:@"%@_selected", _images[2]]] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];

@@ -21,6 +21,7 @@
 @property (nonatomic, strong) UIView *topView;
 @property (nonatomic, strong) UIImageView *imageView;
 @property (nonatomic, strong) UILabel *nameLabel;
+@property (nonatomic, copy) NSString *portrait;
 
 @property (nonatomic, strong) HMSegmentedControl *titleSegment;
 @property (nonatomic, strong) UIScrollView *scrollView;
@@ -43,7 +44,7 @@
 
 @implementation TitleScrollViewController
 
-- (instancetype)initWithTitle:(NSString *)title andSubTitles:(NSArray *)titles andSubControllers:(NSArray *)controllers andUnderTabbar:(BOOL)underTabbar
+- (instancetype)initWithTitle:(NSString *)title andSubTitles:(NSArray *)titles andSubControllers:(NSArray *)controllers andUnderTabbar:(BOOL)underTabbar andUserPortrait:(BOOL)userPortrait
 {
     self = [super init];
     if (self) {
@@ -53,11 +54,12 @@
         _sizeHeight = self.view.frame.size.height-64;
         _heightForTitle = 35; //滚动标题高度
         
-        if (_isTabbarItem) {
-            
+        if (userPortrait) {
             UIImageView *img = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];
             img.layer.cornerRadius = 15;
             img.clipsToBounds = YES;
+            
+            _portrait = [[NSUserDefaults standardUserDefaults] objectForKey:@"new_portrait"];
             if (_portrait) {
                 [img sd_setImageWithURL:[NSURL URLWithString:_portrait]];
             } else {
@@ -78,8 +80,6 @@
         } else {
             _heightForTopView = 0;
         }
-        
-        [self fetchForTopView];//头像
         
         //标题滚动
         [self initSubviewForTitleSegment:titles];
@@ -142,33 +142,6 @@
         [self addChildViewController:controller];
         i++;
     }
-}
-
-#pragma mark - 头像
-- (void)layoutForTopView
-{
-    for (UIView *view in self.topView.subviews) {view.translatesAutoresizingMaskIntoConstraints = NO;}
-    NSDictionary *views = NSDictionaryOfVariableBindings(_imageView, _nameLabel);
-    
-    [self.topView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-15-[_imageView(50)]-7-[_nameLabel]"
-                                                                      options:NSLayoutFormatAlignAllCenterX
-                                                                      metrics:nil
-                                                                        views:views]];
-    [self.topView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"[_imageView(50)]" options:0 metrics:nil views:views]];
-    
-    [self.topView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|-10-[_nameLabel]-10-|" options:0 metrics:nil views:views]];
-}
-
-- (void)fetchForTopView
-{
-    if (_portrait) {
-        [_imageView sd_setImageWithURL:[NSURL URLWithString:_portrait]];
-    } else {
-        _imageView.image = [UIImage imageNamed:@"userNotLoggedIn"];
-    }
-
-    _nameLabel.text = _name;
-
 }
 
 #pragma mark - 设置
