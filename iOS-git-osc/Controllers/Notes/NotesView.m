@@ -13,6 +13,9 @@
 #import "Tools.h"
 #import "CreationInfoCell.h"
 #import "IssueDescriptionCell.h"
+#import "TitleScrollViewController.h"
+#import "EventsView.h"
+#import "ProjectsTableController.h"
 
 #import "GITAPI.h"
 #import "AFHTTPRequestOperationManager+Util.h"
@@ -183,6 +186,11 @@ static NSString * const IssueDescriptionCellId = @"IssueDescriptionCell";
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         
         [self configureNoteCell:cell forRowInSection:indexPath.row];
+        UITapGestureRecognizer *tapPortraitRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self
+                                                                                                action:@selector(tapPortrait:)];
+        cell.portrait.tag = indexPath.row;
+        cell.portrait.userInteractionEnabled = YES;
+        [cell.portrait addGestureRecognizer:tapPortraitRecognizer];
         
         return cell;
     }
@@ -226,6 +234,25 @@ static NSString * const IssueDescriptionCellId = @"IssueDescriptionCell";
         [cell setLayoutMargins:UIEdgeInsetsZero];
     }
 }
+
+#pragma mark - recognizer头像
+- (void)tapPortrait:(UITapGestureRecognizer *)sender
+{
+    GLNote *note = [_notes objectAtIndex:((UIImageView *)sender.view).tag];
+    
+    TitleScrollViewController *ownDetailsView = [[TitleScrollViewController alloc] initWithTitle:note.author.name
+                                                                                    andSubTitles:@[@"动态", @"项目", @"Star", @"Watch"]
+                                                                               andSubControllers:@[
+                                                                                                   [[EventsView alloc] initWithUserID:note.author.userId],                                                                                                   [[ProjectsTableController alloc] initWithUserID:note.author.userId andProjectsType:ProjectsTypeUserProjects],
+                                                                                                   [[ProjectsTableController alloc] initWithUserID:note.author.userId andProjectsType:ProjectsTypeStared],
+                                                                                                   [[ProjectsTableController alloc] initWithUserID:note.author.userId andProjectsType:ProjectsTypeWatched]
+                                                                                                   ]
+                                                                                  andUnderTabbar:NO
+                                                                                 andUserPortrait:NO];
+    
+    [self.navigationController pushViewController:ownDetailsView animated:YES];
+}
+
 
 #pragma mark - 获取评论
 

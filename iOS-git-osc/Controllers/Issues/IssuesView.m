@@ -14,6 +14,9 @@
 #import "IssueCreation.h"
 #import "Tools.h"
 #import "UIView+Toast.h"
+#import "TitleScrollViewController.h"
+#import "EventsView.h"
+#import "ProjectsTableController.h"
 
 #import "GITAPI.h"
 #import "AFHTTPRequestOperationManager+Util.h"
@@ -196,6 +199,12 @@ static NSString * const cellId = @"IssueCell";
         [cell.title setText:issue.title];
         [cell.issueInfo setAttributedText:[Issue generateIssueInfo:issue]];
         
+        UITapGestureRecognizer *tapPortraitRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self
+                                                                                                action:@selector(tapPortrait:)];
+        cell.portrait.tag = indexPath.row;
+        cell.portrait.userInteractionEnabled = YES;
+        [cell.portrait addGestureRecognizer:tapPortraitRecognizer];
+        
         return cell;
     } else {
         return [UITableViewCell new];
@@ -248,6 +257,24 @@ static NSString * const cellId = @"IssueCell";
     {
         [cell setLayoutMargins:UIEdgeInsetsZero];
     }
+}
+
+#pragma mark - recognizer头像
+- (void)tapPortrait:(UITapGestureRecognizer *)sender
+{
+    GLIssue *issue = [issues objectAtIndex:((UIImageView *)sender.view).tag];
+    
+    TitleScrollViewController *ownDetailsView = [[TitleScrollViewController alloc] initWithTitle:issue.author.name
+                                                                                    andSubTitles:@[@"动态", @"项目", @"Star", @"Watch"]
+                                                                               andSubControllers:@[
+                                                                                                   [[EventsView alloc] initWithUserID:issue.author.userId],                                                                                                   [[ProjectsTableController alloc] initWithUserID:issue.author.userId andProjectsType:ProjectsTypeUserProjects],
+                                                                                                   [[ProjectsTableController alloc] initWithUserID:issue.author.userId andProjectsType:ProjectsTypeStared],
+                                                                                                   [[ProjectsTableController alloc] initWithUserID:issue.author.userId andProjectsType:ProjectsTypeWatched]
+                                                                                                   ]
+                                                                                  andUnderTabbar:NO
+                                                                                 andUserPortrait:NO];
+    
+    [self.navigationController pushViewController:ownDetailsView animated:YES];
 }
 
 #pragma mark - pushIssueCreationView
