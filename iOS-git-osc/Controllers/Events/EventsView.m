@@ -14,6 +14,7 @@
 #import "UIImageView+WebCache.h"
 #import "ProjectDetailsView.h"
 #import "TitleScrollViewController.h"
+#import "ProjectsTableController.h"
 
 #import "AFHTTPRequestOperationManager+Util.h"
 #import "GITAPI.h"
@@ -123,12 +124,15 @@ static NSString * const EventCellIdentifier = @"EventCell";
 {
     GLEvent *event = [self.events objectAtIndex:((UIImageView *)sender.view).tag];
     
-    TitleScrollViewController *ownDetailsView = [TitleScrollViewController new];
-    ownDetailsView.titleName = event.project.owner.name;
-    ownDetailsView.subTitles = @[@"动态", @"项目", @"Star", @"Watch"];
-    ownDetailsView.isProject = NO;
-    ownDetailsView.userID = event.project.owner.userId;
-    ownDetailsView.privateToken = nil;
+    TitleScrollViewController *ownDetailsView = [[TitleScrollViewController alloc] initWithTitle:event.project.owner.name
+                                                                                    andSubTitles:@[@"动态", @"项目", @"Star", @"Watch"]
+                                                                               andSubControllers:@[
+                                                                                                   [[EventsView alloc] initWithUserID:event.project.owner.userId],                                                                                                   [[ProjectsTableController alloc] initWithUserID:event.project.owner.userId andProjectsType:ProjectsTypeUserProjects],
+                                                                                                   [[ProjectsTableController alloc] initWithUserID:event.project.owner.userId andProjectsType:ProjectsTypeStared],
+                                                                                                   [[ProjectsTableController alloc] initWithUserID:event.project.owner.userId andProjectsType:ProjectsTypeWatched]
+                                                                                                   ]
+                                                                                  andUnderTabbar:NO];
+
     ownDetailsView.portrait = event.project.owner.portrait;
     ownDetailsView.name = event.project.owner.name;
     

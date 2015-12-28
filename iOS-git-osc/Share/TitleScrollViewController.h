@@ -23,4 +23,6 @@
 @property (nonatomic, assign) BOOL isTabbarItem;
 @property (nonatomic, assign) BOOL isFirstLayer;
 
+- (instancetype)initWithTitle:(NSString *)title andSubTitles:(NSArray *)titles andSubControllers:(NSArray *)controllers andUnderTabbar:(BOOL)underTabbar;
+
 @end

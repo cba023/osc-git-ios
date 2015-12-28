@@ -21,6 +21,7 @@
 #import "UMSocial.h"
 #import "TitleScrollViewController.h"
 #import "ProjectsCommitsViewController.h"
+#import "EventsView.h"
 
 #import "GITAPI.h"
 #import "AFHTTPRequestOperationManager+Util.h"
@@ -36,6 +37,7 @@ static NSString * const ProjectDetailsCellID = @"ProjectDetailsCell";
 @property (nonatomic, copy) NSString *projectName;
 
 @property (nonatomic, copy) NSString *projectURL;
+@property (nonatomic, copy) NSString *privateToken;
 
 @property (nonatomic, strong) DataSetObject *emptyDataSet;
 
@@ -92,9 +94,9 @@ static NSString * const ProjectDetailsCellID = @"ProjectDetailsCell";
     if (_project) {return;}
     
     _user = [NSUserDefaults standardUserDefaults];
-    NSString *privateToken = [_user objectForKey:@"private_token"];
+    _privateToken = [_user objectForKey:@"private_token"];
     
-    NSString *strUrl = privateToken.length ? [NSString stringWithFormat:@"%@%@/%@?private_token=%@", GITAPI_HTTPS_PREFIX, GITAPI_PROJECTS, _namsSpace, [Tools getPrivateToken]] :
+    NSString *strUrl = _privateToken.length ? [NSString stringWithFormat:@"%@%@/%@?private_token=%@", GITAPI_HTTPS_PREFIX, GITAPI_PROJECTS, _namsSpace, _privateToken] :
     [NSString stringWithFormat:@"%@%@/%@", GITAPI_HTTPS_PREFIX, GITAPI_PROJECTS, _namsSpace];
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager GitManager];
@@ -256,12 +258,15 @@ static NSString * const ProjectDetailsCellID = @"ProjectDetailsCell";
     if (section == 1) {
         switch (row) {
             case 0: {
-                TitleScrollViewController *ownDetailsView = [TitleScrollViewController new];
-                ownDetailsView.titleName = _project.owner.name;
-                ownDetailsView.subTitles = @[@"动态", @"项目", @"Star", @"Watch"];
-                ownDetailsView.isProject = NO;
-                ownDetailsView.userID = _project.owner.userId;
-                ownDetailsView.privateToken = nil;
+                TitleScrollViewController *ownDetailsView = [[TitleScrollViewController alloc] initWithTitle:_project.owner.name
+                                                                                                andSubTitles:@[@"动态", @"项目", @"Star", @"Watch"]
+                                                                                           andSubControllers:@[
+                                                                                                               [[EventsView alloc] initWithUserID:_project.owner.userId],
+                                                                                                               [[ProjectsTableController alloc] initWithUserID:_project.owner.userId andProjectsType:ProjectsTypeUserProjects],
+                                                                                                               [[ProjectsTableController alloc] initWithUserID:_project.owner.userId andProjectsType:ProjectsTypeStared],
+                                                                                                               [[ProjectsTableController alloc] initWithUserID:_project.owner.userId andProjectsType:ProjectsTypeWatched]
+                                                                                                               ]
+                                                                                              andUnderTabbar:NO];
                 ownDetailsView.portrait = _project.owner.portrait;
                 ownDetailsView.name = _project.owner.name;
                 

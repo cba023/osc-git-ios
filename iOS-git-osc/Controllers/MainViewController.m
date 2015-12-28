@@ -10,7 +10,7 @@
 #import "LoginViewController.h"
 #import "LanguageSearchView.h"
 #import "TitleScrollViewController.h"
-
+#import "EventsView.h"
 #import "ProjectsTableController.h"
 
 @interface MainViewController () <UITabBarControllerDelegate, UITabBarDelegate>
@@ -37,11 +37,15 @@
     _images = @[@"projects", @"discover", @"mine"];
     _selectedImages = @[@"projects_selected", @"discover_selected", @"mine_selected"];
     
-    TitleScrollViewController *titleScrollCtl = [TitleScrollViewController new];
-    titleScrollCtl.titleName = @"项目";
-    titleScrollCtl.subTitles = @[@"推荐", @"热门", @"最近更新"];
-    titleScrollCtl.isProject = YES;
-    titleScrollCtl.isFirstLayer = YES;
+    TitleScrollViewController *titleScrollCtl = [[TitleScrollViewController alloc] initWithTitle:@"项目"
+                                                                                    andSubTitles:@[@"推荐", @"热门", @"最近更新"]
+                                                                               andSubControllers:@[
+                                                                                                   [[ProjectsTableController alloc] initWithProjectsType:ProjectsTypeFeatured],
+                                                                                                   [[ProjectsTableController alloc] initWithProjectsType:ProjectsTypePopular],
+                                                                                                   [[ProjectsTableController alloc] initWithProjectsType:ProjectsTypeLatest]
+                                                                                                   ]
+                                                                                  andUnderTabbar:YES];
+
     titleScrollCtl.tabBarItem.title = _titles[0];
 
     titleScrollCtl.tabBarItem.image = [[UIImage imageNamed:_images[0]] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
@@ -58,16 +62,19 @@
     _user = [NSUserDefaults standardUserDefaults];
     int64_t userID = [[_user objectForKey:@"id"] intValue];
     _privateToken = [_user objectForKey:@"private_token"];
-    TitleScrollViewController *ownDetailsView = [TitleScrollViewController new];
-    ownDetailsView.titleName = @"我的";
-    ownDetailsView.subTitles = @[@"动态", @"项目", @"Star", @"Watch"];
-    ownDetailsView.isProject = NO;
-    ownDetailsView.userID = userID;
-    ownDetailsView.privateToken = _privateToken;
+    
+    TitleScrollViewController *ownDetailsView = [[TitleScrollViewController alloc] initWithTitle:@"我的"
+                                                                                    andSubTitles:@[@"动态", @"项目", @"Star", @"Watch"]
+                                                                               andSubControllers:@[
+                                                                                                   [[EventsView alloc] initWithPrivateToken:_privateToken],
+                                                                                                   [[ProjectsTableController alloc] initWithPrivateToken:_privateToken],
+                                                                                                   [[ProjectsTableController alloc] initWithUserID:userID andProjectsType:ProjectsTypeStared],
+                                                                                                   [[ProjectsTableController alloc] initWithUserID:userID andProjectsType:ProjectsTypeWatched]
+                                                                                                   ]
+                                                                                  andUnderTabbar:YES];
     ownDetailsView.portrait = [_user objectForKey:@"new_portrait"];
     ownDetailsView.name = [_user objectForKey:@"name"];
     ownDetailsView.isTabbarItem = YES;
-    ownDetailsView.isFirstLayer = YES;
     ownDetailsView.tabBarItem.title = _titles[2];
     ownDetailsView.tabBarItem.image = [[UIImage imageNamed:_images[2]] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     ownDetailsView.tabBarItem.selectedImage = [[UIImage imageNamed:[NSString stringWithFormat:@"%@_selected", _images[2]]] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
