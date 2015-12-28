@@ -122,24 +122,6 @@ static NSString * const EventCellIdentifier = @"EventCell";
     // Dispose of any resources that can be recreated.
 }
 
-#pragma mark - recognizer
-- (void)tapPortrait:(UITapGestureRecognizer *)sender
-{
-    GLEvent *event = [self.events objectAtIndex:((UIImageView *)sender.view).tag];
-    
-    TitleScrollViewController *ownDetailsView = [[TitleScrollViewController alloc] initWithTitle:event.project.owner.name
-                                                                                    andSubTitles:@[@"动态", @"项目", @"Star", @"Watch"]
-                                                                               andSubControllers:@[
-                                                                                                   [[EventsView alloc] initWithUserID:event.project.owner.userId],                                                                                                   [[ProjectsTableController alloc] initWithUserID:event.project.owner.userId andProjectsType:ProjectsTypeUserProjects],
-                                                                                                   [[ProjectsTableController alloc] initWithUserID:event.project.owner.userId andProjectsType:ProjectsTypeStared],
-                                                                                                   [[ProjectsTableController alloc] initWithUserID:event.project.owner.userId andProjectsType:ProjectsTypeWatched]
-                                                                                                   ]
-                                                                                  andUnderTabbar:NO
-                                                                                 andUserPortrait:NO];
-    
-    [self.navigationController pushViewController:ownDetailsView animated:YES];
-}
-
 #pragma mark - 获取数据
 - (void)fetchEvents:(BOOL)refresh
 {
@@ -259,6 +241,7 @@ static NSString * const EventCellIdentifier = @"EventCell";
         UITapGestureRecognizer *tapPortraitRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self
                                                                                                 action:@selector(tapPortrait:)];
         cell.userPortrait.tag = indexPath.row;
+        cell.userPortrait.userInteractionEnabled = YES;
         [cell.userPortrait addGestureRecognizer:tapPortraitRecognizer];
         
         [cell generateEventDescriptionView:event];
@@ -304,6 +287,26 @@ static NSString * const EventCellIdentifier = @"EventCell";
         [cell setLayoutMargins:UIEdgeInsetsZero];
     }
 }
+
+
+#pragma mark - recognizer头像
+- (void)tapPortrait:(UITapGestureRecognizer *)sender
+{
+    GLEvent *event = [self.events objectAtIndex:((UIImageView *)sender.view).tag];
+    
+    TitleScrollViewController *ownDetailsView = [[TitleScrollViewController alloc] initWithTitle:event.author.name
+                                                                                    andSubTitles:@[@"动态", @"项目", @"Star", @"Watch"]
+                                                                               andSubControllers:@[
+                                                                                                   [[EventsView alloc] initWithUserID:event.author.userId],                                                                                                   [[ProjectsTableController alloc] initWithUserID:event.author.userId andProjectsType:ProjectsTypeUserProjects],
+                                                                                                   [[ProjectsTableController alloc] initWithUserID:event.author.userId andProjectsType:ProjectsTypeStared],
+                                                                                                   [[ProjectsTableController alloc] initWithUserID:event.author.userId andProjectsType:ProjectsTypeWatched]
+                                                                                                   ]
+                                                                                  andUnderTabbar:NO
+                                                                                 andUserPortrait:NO];
+    
+    [self.navigationController pushViewController:ownDetailsView animated:YES];
+}
+
 
 #pragma mark - 同cell点击事件一致
 - (void)clickToDetailProject:(UITapGestureRecognizer *)sender

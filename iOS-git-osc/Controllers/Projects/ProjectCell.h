@@ -11,10 +11,10 @@
 
 @interface ProjectCell : UITableViewCell
 
-@property UIImageView *portrait;
-@property UILabel *projectNameField;
-@property UILabel *projectDescriptionField;
-@property UILabel *lSFWLabel;
+@property (nonatomic, strong)UIImageView *portrait;
+@property (nonatomic, strong)UILabel *projectNameField;
+@property (nonatomic, strong)UILabel *projectDescriptionField;
+@property (nonatomic, strong)UILabel *lSFWLabel;
 //@property UILabel *starsCount;
 //@property UILabel *forksCount;
 //@property UILabel *updatetimeField;

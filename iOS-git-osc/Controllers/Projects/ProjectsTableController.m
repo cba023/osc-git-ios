@@ -14,6 +14,8 @@
 #import "AFHTTPRequestOperationManager+Util.h"
 #import "GITAPI.h"
 #import "CacheProjectsUtil.h"
+#import "TitleScrollViewController.h"
+#import "EventsView.h"
 
 #import "MJRefresh.h"
 #import "DataSetObject.h"
@@ -260,8 +262,11 @@ static NSString * const cellId = @"ProjectCell";
         ProjectCell *cell = [tableView dequeueReusableCellWithIdentifier:cellId forIndexPath:indexPath];
         
         GLProject *project = [self.projects objectAtIndex:indexPath.row];
-        
         [cell contentForProjects:project];
+        
+        cell.portrait.tag = indexPath.row;
+        cell.portrait.userInteractionEnabled = YES;
+        [cell.portrait addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickUserProtrait:)]];
         
         return cell;
     } else {
@@ -293,6 +298,24 @@ static NSString * const cellId = @"ProjectCell";
     }
 }
 
+#pragma mark - 点击头像
+- (void)clickUserProtrait:(UITapGestureRecognizer *)recognizer
+{
+    GLProject *project = [_projects objectAtIndex:recognizer.view.tag];
+    
+    TitleScrollViewController *ownDetailsView = [[TitleScrollViewController alloc] initWithTitle:project.owner.name
+                                                                                    andSubTitles:@[@"动态", @"项目", @"Star", @"Watch"]
+                                                                               andSubControllers:@[
+                                                                                                   [[EventsView alloc] initWithUserID:project.owner.userId],
+                                                                                                   [[ProjectsTableController alloc] initWithUserID:project.owner.userId andProjectsType:ProjectsTypeUserProjects],
+                                                                                                   [[ProjectsTableController alloc] initWithUserID:project.owner.userId andProjectsType:ProjectsTypeStared],
+                                                                                                   [[ProjectsTableController alloc] initWithUserID:project.owner.userId andProjectsType:ProjectsTypeWatched]
+                                                                                                   ]
+                                                                                  andUnderTabbar:NO
+                                                                                 andUserPortrait:NO];
+    
+    [self.navigationController pushViewController:ownDetailsView animated:YES];
+}
 
 #pragma mark - 基本数值设置
 
