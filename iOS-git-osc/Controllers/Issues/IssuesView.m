@@ -102,11 +102,13 @@ static NSString * const cellId = @"IssueCell";
     /* 设置空页面状态 */
     [self fetchIssuesRefresh:YES];
     self.emptyDataSet = [[DataSetObject alloc]initWithSuperScrollView:self.tableView];
+    self.emptyDataSet.state = emptyViewState;
     __weak IssuesView *weakSelf = self;
     self.emptyDataSet.reloading = ^{
         [weakSelf fetchIssuesRefresh:YES];
     };
-    self.tableView.tableFooterView = [UIView new];
+    
+    [self.tableView.mj_header beginRefreshing];
 }
 
 - (void)didReceiveMemoryWarning
@@ -114,6 +116,62 @@ static NSString * const cellId = @"IssueCell";
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+#pragma mark - 获取数据
+- (void)fetchIssuesRefresh:(BOOL)refresh
+{
+    self.emptyDataSet.state = emptyViewState;
+    
+    if (refresh) {
+        _page = 1;
+    } else {
+        _page++;
+    }
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager GitManager];
+    
+    NSString *strUrl = [NSString stringWithFormat:@"%@%@/%@/issues?private_token=%@&page=%lu", GITAPI_HTTPS_PREFIX, GITAPI_PROJECTS, _projectNameSpace, [Tools getPrivateToken], (unsigned long)_page];
+    
+    [manager GET:strUrl
+      parameters:nil
+         success:^(AFHTTPRequestOperation *operation, id responseObject) {
+             if (refresh) {
+                 [issues removeAllObjects];
+             }
+             
+             if ([responseObject count] > 0) {
+                 [responseObject enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                     GLIssue *issue = [[GLIssue alloc] initWithJSON:obj];
+                     [issues addObject:issue];
+                 }];
+             }
+             
+             if (issues.count < 20) {
+                 [self.tableView.mj_footer endRefreshingWithNoMoreData];
+             } else {
+                 [self.tableView.mj_footer endRefreshing];
+             }
+             
+             if (issues.count == 0) {
+                 self.emptyDataSet.state = noDataState;
+                 self.emptyDataSet.respondString = @"还没有相关Issue";
+             }
+             
+             dispatch_async(dispatch_get_main_queue(), ^{
+                 [self.tableView reloadData];
+                 [self.tableView.mj_header endRefreshing];
+             });
+             
+         } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
+             dispatch_async(dispatch_get_main_queue(), ^{
+                 self.emptyDataSet.state = netWorkingErrorState;
+                 [self.tableView reloadData];
+                 [self.tableView.mj_header endRefreshing];
+                 [self.tableView.mj_footer endRefreshing];
+             });
+         }];
+}
+
 
 #pragma mark - tableview things
 
@@ -200,61 +258,6 @@ static NSString * const cellId = @"IssueCell";
     issueCreationView.projectId = self.projectId;
     issueCreationView.projectNameSpace = self.projectNameSpace;
     [self.navigationController pushViewController:issueCreationView animated:YES];
-}
-
-#pragma mark - 获取数据
-- (void)fetchIssuesRefresh:(BOOL)refresh
-{
-    self.emptyDataSet.state = loadingState;
-
-    if (refresh) {
-        _page = 1;
-    } else {
-        _page++;
-    }
-    
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager GitManager];
-    
-    NSString *strUrl = [NSString stringWithFormat:@"%@%@/%@/issues?private_token=%@&page=%lu", GITAPI_HTTPS_PREFIX, GITAPI_PROJECTS, _projectNameSpace, [Tools getPrivateToken], (unsigned long)_page];
-    
-    [manager GET:strUrl
-      parameters:nil
-         success:^(AFHTTPRequestOperation *operation, id responseObject) {
-             if (refresh) {
-                 [issues removeAllObjects];
-             }
-             
-             if ([responseObject count] > 0) {
-                 [responseObject enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-                     GLIssue *issue = [[GLIssue alloc] initWithJSON:obj];
-                     [issues addObject:issue];
-                 }];
-             }
-             
-             if (issues.count < 20) {
-                 [self.tableView.mj_footer endRefreshingWithNoMoreData];
-             } else {
-                 [self.tableView.mj_footer endRefreshing];
-             }
-             
-             if (issues.count == 0) {
-                 self.emptyDataSet.state = noDataState;
-                 self.emptyDataSet.respondString = @"还没有相关Issue";
-             }
-             
-             dispatch_async(dispatch_get_main_queue(), ^{
-                 [self.tableView reloadData];
-                 [self.tableView.mj_header endRefreshing];
-             });
-             
-         } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
-             dispatch_async(dispatch_get_main_queue(), ^{
-                 self.emptyDataSet.state = netWorkingErrorState;
-                 [self.tableView reloadData];
-                 [self.tableView.mj_header endRefreshing];
-                 [self.tableView.mj_footer endRefreshing];
-             });
-         }];
 }
 
 

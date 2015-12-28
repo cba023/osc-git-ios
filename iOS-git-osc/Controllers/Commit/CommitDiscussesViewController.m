@@ -60,11 +60,12 @@ static NSString * const NoteCellId = @"NoteCell";
     [self fetchForDiscuss:YES];
     
     self.emptyDataSet = [[DataSetObject alloc]initWithSuperScrollView:self.tableView];
+    self.emptyDataSet.state = emptyViewState;
     __weak CommitDiscussesViewController *weakSelf = self;
     self.emptyDataSet.reloading = ^{
         [weakSelf fetchForDiscuss:YES];
     };
-    
+    [self.tableView.mj_header beginRefreshing];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"发表" style:UIBarButtonItemStylePlain target:self action:@selector(feedComment)];
 }
 
@@ -76,7 +77,7 @@ static NSString * const NoteCellId = @"NoteCell";
 #pragma mark -获取数据
 - (void)fetchForDiscuss:(BOOL)refresh
 {
-    self.emptyDataSet.state = loadingState;
+    self.emptyDataSet.state = emptyViewState;
     
     if (refresh) {
         _page = 1;

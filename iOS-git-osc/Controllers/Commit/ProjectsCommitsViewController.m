@@ -101,11 +101,13 @@ static NSString * const cellId = @"ProjectsCommitCell";
     
     
     self.emptyDataSet = [[DataSetObject alloc]initWithSuperScrollView:self.tableView];
+    self.emptyDataSet.state = emptyViewState;
     __weak ProjectsCommitsViewController *weakSelf = self;
     self.emptyDataSet.reloading = ^{
         [weakSelf fetchForCommitDataOnRefresh:YES];
     };
     _isClickBranch = YES;
+    [self.tableView.mj_header beginRefreshing];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -146,7 +148,7 @@ static NSString * const cellId = @"ProjectsCommitCell";
 #pragma mark - 获取数据
 - (void)fetchForCommitDataOnRefresh:(BOOL)refresh
 {
-    self.emptyDataSet.state = loadingState;
+    self.emptyDataSet.state = emptyViewState;
     if (refresh) {
         _page = 1;
     } else {

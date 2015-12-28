@@ -106,11 +106,14 @@ static NSString * const EventCellIdentifier = @"EventCell";
     /* 设置空页面状态 */
     [self fetchEvents:YES];
     self.emptyDataSet = [[DataSetObject alloc]initWithSuperScrollView:self.tableView];
+    self.emptyDataSet.state = emptyViewState;
     __weak EventsView *weakSelf = self;
     self.emptyDataSet.reloading = ^{
         weakSelf.manager.requestSerializer.cachePolicy = NSURLRequestReturnCacheDataElseLoad;
         [weakSelf fetchEvents:YES];
     };
+    
+    [self.tableView.mj_header beginRefreshing];
 }
 
 - (void)didReceiveMemoryWarning
@@ -142,7 +145,7 @@ static NSString * const EventCellIdentifier = @"EventCell";
 #pragma mark - 获取数据
 - (void)fetchEvents:(BOOL)refresh
 {
-    self.emptyDataSet.state = loadingState;
+    self.emptyDataSet.state = emptyViewState;
     
     if (refresh) {
         _page = 1;

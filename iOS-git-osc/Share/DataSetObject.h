@@ -14,7 +14,8 @@ typedef NS_ENUM(NSInteger, netWorkingState)
     loadingState,
     failureLoadState,
     noDataState,
-    netWorkingErrorState
+    netWorkingErrorState,
+    emptyViewState
 };
 
 @interface DataSetObject : NSObject<DZNEmptyDataSetSource, DZNEmptyDataSetDelegate>

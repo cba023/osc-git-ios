@@ -106,10 +106,13 @@ static NSString * const cellId = @"ProjectCell";
     
     /* 设置空页面状态 */
     self.emptyDataSet = [[DataSetObject alloc]initWithSuperScrollView:self.tableView];
+    self.emptyDataSet.state = emptyViewState;
     __weak ProjectsTableController *weakSelf = self;
     self.emptyDataSet.reloading = ^{
         [weakSelf fetchProject:YES];
     };
+    
+    [self.tableView.mj_header beginRefreshing];
 }
 
 - (void)didReceiveMemoryWarning
@@ -193,7 +196,7 @@ static NSString * const cellId = @"ProjectCell";
 
 - (void)fetchProject:(BOOL)refresh
 {
-    self.emptyDataSet.state = loadingState;
+    self.emptyDataSet.state = emptyViewState;
     
     if (refresh) {
         _page = 1;

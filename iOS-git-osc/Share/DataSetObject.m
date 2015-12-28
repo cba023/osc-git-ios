@@ -28,6 +28,8 @@
         return _emptyDefaultImage?_emptyDefaultImage:[UIImage imageNamed:@"page_icon_empty"];
     } else if ( _state == netWorkingErrorState) {
         return [UIImage imageNamed:@"page_icon_network"];
+    } else if (_state == emptyViewState){
+        return [UIImage new];
     }
     return nil;
 }
@@ -64,6 +66,8 @@
                                                                         metrics:nil views:views]];
         
         return subView;
+    } else if (_state == emptyViewState) {
+        return [UIView new];
     }
     return nil;
 }
@@ -80,6 +84,8 @@
         text = _respondString?_respondString:@"加载失败";
     } else if (_state == netWorkingErrorState) {
         text = @"网络未连接";
+    } else if (_state == emptyViewState) {
+        text = @"";
     }
     NSMutableParagraphStyle *paragraph = [NSMutableParagraphStyle new];
     paragraph.lineBreakMode = NSLineBreakByWordWrapping;
