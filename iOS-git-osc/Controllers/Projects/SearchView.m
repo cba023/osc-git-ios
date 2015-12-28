@@ -12,15 +12,12 @@
 #import "GLGitlab.h"
 #import "Tools.h"
 #import "ProjectDetailsView.h"
-#import "LastCell.h"
 
 @interface SearchView ()
 
 @end
 
 static NSString * const SearchResultsCellID = @"SearchResultsCell";
-static NSString * const LastCellID = @"LastCell";
-
 
 @implementation SearchView
 

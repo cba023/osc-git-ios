@@ -9,7 +9,9 @@
 #import "DataSetObject.h"
 
 @implementation DataSetObject
--(instancetype)initWithSuperScrollView:(UIScrollView*)sv {
+
+- (instancetype)initWithSuperScrollView:(UIScrollView*)sv
+{
     self = [super init];
     if (self) {
         sv.emptyDataSetDelegate = self;

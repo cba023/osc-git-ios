@@ -182,7 +182,6 @@
 		EE897CCE1C2D36EC009E5E17 /* libSocialWechat.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EE897CB61C2D36EB009E5E17 /* libSocialWechat.a */; };
 		EE897CCF1C2D36EC009E5E17 /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EE897CB71C2D36EB009E5E17 /* libWeChatSDK.a */; };
 		EE897CD01C2D36EC009E5E17 /* UMSocialSDKResourcesNew.bundle in Resources */ = {isa = PBXBuildFile; fileRef = EE897CBB1C2D36EB009E5E17 /* UMSocialSDKResourcesNew.bundle */; };
-		EE8983D71C0C1F48005CF5AB /* LastCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EE8983D61C0C1F48005CF5AB /* LastCell.m */; };
 		EE8983E11C0C1FDF005CF5AB /* HCDropdownView.m in Sources */ = {isa = PBXBuildFile; fileRef = EE8983DA1C0C1FDF005CF5AB /* HCDropdownView.m */; };
 		EE8983E21C0C1FDF005CF5AB /* HCDropdownMenuCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EE8983DD1C0C1FDF005CF5AB /* HCDropdownMenuCell.m */; };
 		EE8983E31C0C1FDF005CF5AB /* HCDropdownMenuCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EE8983DE1C0C1FDF005CF5AB /* HCDropdownMenuCell.xib */; };
@@ -439,8 +438,8 @@
 		EE0606E21C040080001825A7 /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
 		EE0606E41C0406C3001825A7 /* HMSegmentedControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HMSegmentedControl.h; sourceTree = "<group>"; };
 		EE0606E51C0406C3001825A7 /* HMSegmentedControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HMSegmentedControl.m; sourceTree = "<group>"; };
-		EE0606E71C040755001825A7 /* TitleScrollViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TitleScrollViewController.h; sourceTree = "<group>"; };
-		EE0606E81C040755001825A7 /* TitleScrollViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TitleScrollViewController.m; sourceTree = "<group>"; };
+		EE0606E71C040755001825A7 /* TitleScrollViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TitleScrollViewController.h; path = ../Share/TitleScrollViewController.h; sourceTree = "<group>"; };
+		EE0606E81C040755001825A7 /* TitleScrollViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TitleScrollViewController.m; path = ../Share/TitleScrollViewController.m; sourceTree = "<group>"; };
 		EE82EDAF1BFB2BC50006F18D /* UIImageView+Util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+Util.h"; sourceTree = "<group>"; };
 		EE82EDB01BFB2BC50006F18D /* UIImageView+Util.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+Util.m"; sourceTree = "<group>"; };
 		EE83170A1C27AB040093223B /* CacheProjectsUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CacheProjectsUtil.h; sourceTree = "<group>"; };
@@ -495,8 +494,6 @@
 		EE897CBA1C2D36EB009E5E17 /* WXApiObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApiObject.h; sourceTree = "<group>"; };
 		EE897CBB1C2D36EB009E5E17 /* UMSocialSDKResourcesNew.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = UMSocialSDKResourcesNew.bundle; sourceTree = "<group>"; };
 		EE897CBC1C2D36EB009E5E17 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/UMSocialLocalizable.strings"; sourceTree = "<group>"; };
-		EE8983D51C0C1F48005CF5AB /* LastCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LastCell.h; sourceTree = "<group>"; };
-		EE8983D61C0C1F48005CF5AB /* LastCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LastCell.m; sourceTree = "<group>"; };
 		EE8983D91C0C1FDF005CF5AB /* HCDropdownView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HCDropdownView.h; sourceTree = "<group>"; };
 		EE8983DA1C0C1FDF005CF5AB /* HCDropdownView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HCDropdownView.m; sourceTree = "<group>"; };
 		EE8983DC1C0C1FDF005CF5AB /* HCDropdownMenuCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HCDropdownMenuCell.h; sourceTree = "<group>"; };
@@ -608,7 +605,7 @@
 			isa = PBXGroup;
 			children = (
 				EE9923AB1BFD9EE9004499C5 /* Application */,
-				EE90184F1C030EFD006A0909 /* Share */,
+				EE90184F1C030EFD006A0909 /* View */,
 				EE82EDA81BFB29D00006F18D /* Categories */,
 				38BB9B191A1E0CD900175F10 /* GitAPI */,
 				38BB9AFE1A1DF10D00175F10 /* Vendor */,
@@ -636,6 +633,8 @@
 			children = (
 				EE0606E11C040080001825A7 /* MainViewController.h */,
 				EE0606E21C040080001825A7 /* MainViewController.m */,
+				EE0606E71C040755001825A7 /* TitleScrollViewController.h */,
+				EE0606E81C040755001825A7 /* TitleScrollViewController.m */,
 				EEA1E3681C06DC65001EAE25 /* SetUp */,
 				006391C41987924100689FAD /* Login&Management */,
 				00B7AF0E198BADCC0025C868 /* Commit */,
@@ -1039,6 +1038,15 @@
 			name = Cache;
 			sourceTree = "<group>";
 		};
+		EE84A1E61C311B9800F93851 /* TitleScrollView */ = {
+			isa = PBXGroup;
+			children = (
+				EE0606E41C0406C3001825A7 /* HMSegmentedControl.h */,
+				EE0606E51C0406C3001825A7 /* HMSegmentedControl.m */,
+			);
+			name = TitleScrollView;
+			sourceTree = "<group>";
+		};
 		EE8612D21C1193550073F457 /* EmptyViews */ = {
 			isa = PBXGroup;
 			children = (
@@ -1188,18 +1196,14 @@
 			path = Vender;
 			sourceTree = "<group>";
 		};
-		EE90184F1C030EFD006A0909 /* Share */ = {
+		EE90184F1C030EFD006A0909 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				EE84A1E61C311B9800F93851 /* TitleScrollView */,
 				EE8612D21C1193550073F457 /* EmptyViews */,
 				EE8983D81C0C1FDF005CF5AB /* HCDropdownView */,
-				EE8983D51C0C1F48005CF5AB /* LastCell.h */,
-				EE8983D61C0C1F48005CF5AB /* LastCell.m */,
-				EE0606E41C0406C3001825A7 /* HMSegmentedControl.h */,
-				EE0606E51C0406C3001825A7 /* HMSegmentedControl.m */,
-				EE0606E71C040755001825A7 /* TitleScrollViewController.h */,
-				EE0606E81C040755001825A7 /* TitleScrollViewController.m */,
 			);
+			name = View;
 			path = Share;
 			sourceTree = "<group>";
 		};
@@ -1429,7 +1433,6 @@
 				00D4ED30196FF85E00F3A4A5 /* NoteCell.m in Sources */,
 				38BB9B821A1E0CD900175F10 /* GLGitlabApi+Files.m in Sources */,
 				38BB9B721A1E0CD900175F10 /* GLEvent.m in Sources */,
-				EE8983D71C0C1F48005CF5AB /* LastCell.m in Sources */,
 				38BB9B771A1E0CD900175F10 /* GLMergeRequest.m in Sources */,
 				00B8125519D0356D0017FCFA /* AwardView.m in Sources */,
 				38BB9B851A1E0CD900175F10 /* GLGitlabApi+MergeRequest.m in Sources */,
