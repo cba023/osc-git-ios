@@ -177,14 +177,4 @@ static NSString * const LanguageCellID = @"LanguageCell";
     }
 }
 
-#pragma mark - 从缓存加载
-
-- (void)loadFromCache
-{
-    [_languages addObjectsFromArray:[Tools getPageCache:10]];
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [self.tableView reloadData];
-    });
-}
-
 @end

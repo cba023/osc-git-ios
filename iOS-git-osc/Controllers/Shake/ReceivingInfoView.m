@@ -11,17 +11,22 @@
 #import "GLGitlab.h"
 #import "UIView+Toast.h"
 
+#import "GITAPI.h"
+#import "AFHTTPRequestOperationManager+Util.h"
+#import <MBProgressHUD.h>
+
 #define PLACE_HOLDER @"T恤（ S、M、L、XL ）或内裤（ L、XL、2XL、3XL ）请备注码数\n如未填写，我们将随机寄出"
 
 @interface ReceivingInfoView ()
 
 @property NSUserDefaults *userDefaults;
 
-@property UITextField *nameField;
-@property UITextField *phoneNumField;
-@property UITextView *addressView;
-@property UITextView *remarkView;
-@property UIButton *buttonSave;
+@property (nonatomic, strong) UITextField *nameField;
+@property (nonatomic, strong) UITextField *phoneNumField;
+@property (nonatomic, strong) UITextView *addressView;
+@property (nonatomic, strong) UITextView *remarkView;
+@property (nonatomic, strong) UIButton *buttonSave;
+@property (nonatomic, strong) MBProgressHUD *hud;
 
 @end
 
@@ -45,43 +50,13 @@ static NSString * const kKeyExtroInfo = @"extraInfo";
     UITapGestureRecognizer *gesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideKeyboard)];
     gesture.numberOfTapsRequired = 1;
     [self.view addGestureRecognizer:gesture];
+    
+    [self fetchForUser];
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    
-    if (![Tools isNetworkExist]) {
-        return;
-    }
-    
-    [self.view makeToastActivity];
-    
-    [[GLGitlabApi sharedInstance] fetchReceivingInfo:[[_userDefaults objectForKey:@"id"] longLongValue]
-                                        privateToken:[_userDefaults objectForKey:@"private_token"]
-                                             success:^(id responseObject) {
-                                                 [self.view hideToastActivity];
-                                                 if (responseObject == [NSNull null]) {
-                                                     _buttonSave.alpha = 0.4;
-                                                     _buttonSave.enabled = NO;
-                                                     return ;
-                                                 }
-                                                 
-                                                 _nameField.text = [responseObject objectForKey:@"name"] == [NSNull null] ? @"" : [responseObject objectForKey:@"name"];
-                                                 _phoneNumField.text = [responseObject objectForKey:@"tel"] == [NSNull null] ? @"" : [responseObject objectForKey:@"tel"];
-                                                 _addressView.text = [responseObject objectForKey:@"address"] == [NSNull null] ? @"" : [responseObject objectForKey:@"comment"];
-                                                 _remarkView.text = [responseObject objectForKey:@"comment"] == [NSNull null] ? @"" : [responseObject objectForKey:@"comment"];
-                                                 if (!_nameField.text.length || !_phoneNumField.text.length || !_addressView.text.length) {
-                                                     _buttonSave.alpha = 0.4;
-                                                     _buttonSave.enabled = NO;
-                                                 } else {
-                                                     _buttonSave.alpha = 1;
-                                                     _buttonSave.enabled = YES;
-                                                 }
-                                             }
-                                             failure:^(NSError *error) {
-                                                 [self.view hideToastActivity];
-                                             }];
 }
 
 - (void)didReceiveMemoryWarning
@@ -89,6 +64,42 @@ static NSString * const kKeyExtroInfo = @"extraInfo";
     [super didReceiveMemoryWarning];
 }
 
+#pragma mark - 获取登录用户信息
+- (void)fetchForUser
+{
+    NSString *strUrl = [NSString stringWithFormat:@"%@/users/%llu/address", GITAPI_HTTPS_PREFIX, [[_userDefaults objectForKey:@"id"] longLongValue]];
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionaryWithDictionary:@{
+                                                                                      @"private_token" : [_userDefaults objectForKey:@"private_token"]
+                                                                                      }];
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager GitManager];
+    
+    [manager GET:strUrl
+      parameters:parameters
+         success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+             if ([responseObject count] > 0) {
+                 _nameField.text = [responseObject objectForKey:@"name"] == [NSNull null] ? @"" : [responseObject objectForKey:@"name"];
+                 _phoneNumField.text = [responseObject objectForKey:@"tel"] == [NSNull null] ? @"" : [responseObject objectForKey:@"tel"];
+                 _addressView.text = [responseObject objectForKey:@"address"] == [NSNull null] ? @"" : [responseObject objectForKey:@"address"];
+                 _remarkView.text = [responseObject objectForKey:@"comment"] == [NSNull null] ? @"" : [responseObject objectForKey:@"comment"];
+                 if (!_nameField.text.length || !_phoneNumField.text.length || !_addressView.text.length) {
+                     _buttonSave.alpha = 0.4;
+                     _buttonSave.enabled = NO;
+                 } else {
+                     _buttonSave.alpha = 1;
+                     _buttonSave.enabled = YES;
+                 }
+             } else {
+                 _buttonSave.alpha = 0.4;
+                 _buttonSave.enabled = NO;
+                 return ;
+             }
+         } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
+             NSLog(@"%@", error);
+    }];
+}
+
+#pragma mark - 界面布局
 - (void)setLayout
 {
     UILabel *nameLabel = [UILabel new];
@@ -196,35 +207,45 @@ static NSString * const kKeyExtroInfo = @"extraInfo";
                                                                         views:viewsDict]];
 }
 
+#pragma mark - 保存收货信息
 - (void)saveAndSubmit
 {
-    if (![Tools isNetworkExist]) {
-        [Tools toastNotification:@"网络连接失败，请检查网络设置" inView:self.view];
-        return;
-    } else {
-        //[self.view makeToastActivity];
-    }
-
     [_userDefaults setObject:_nameField.text forKey:kKeyTrueName];
     [_userDefaults setObject:_phoneNumField.text forKey:kKeyPhoneNumber];
     [_userDefaults setObject:_addressView.text forKey:kKeyAddress];
     [_userDefaults setObject:_remarkView.text forKey:kKeyExtroInfo];
     [_userDefaults synchronize];
     
-    [[GLGitlabApi sharedInstance] updateReceivingInfo:[[_userDefaults objectForKey:@"id"] longLongValue]
-                                         privateToken:[_userDefaults objectForKey:@"private_token"]
-                                                 name:_nameField.text
-                                          phoneNumber:_phoneNumField.text
-                                              address:_addressView.text
-                                            extraInfo:_remarkView.text
-                                              success:^(id responseObject) {
-                                                  [Tools toastNotification:@"保存成功" inView:self.view];
-                                              }
-                                              failure:^(NSError *error) {
-                                                  [Tools toastNotification:@"网络连接失败，请检查网络设置" inView:self.view];
-                                              }];
+    _hud = [MBProgressHUD showHUDAddedTo:[[UIApplication sharedApplication].windows lastObject] animated:YES];
+    _hud.userInteractionEnabled = NO;
+    _hud.mode = MBProgressHUDModeCustomView;
+    
+    NSString *strUrl = [NSString stringWithFormat:@"%@/users/%llu/address", GITAPI_HTTPS_PREFIX, [[_userDefaults objectForKey:@"id"] longLongValue]];
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionaryWithDictionary:@{
+                                                                                      @"private_token" : [_userDefaults objectForKey:@"private_token"],
+                                                                                      @"name"          : _nameField.text,
+                                                                                      @"tel"           : _phoneNumField.text,
+                                                                                      @"address"       : _addressView.text,
+                                                                                      @"comment"       : _remarkView.text
+                                                                                      }];
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager GitManager];
+    
+    [manager GET:strUrl
+      parameters:parameters
+         success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+             
+             _hud.labelText = @"保存成功";
+             [_hud hide:YES afterDelay:1.0];
+             
+         } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
+             _hud.customView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"hud-failure"]];
+             _hud.labelText = error.userInfo[NSLocalizedDescriptionKey];
+             [_hud hide:YES afterDelay:1.0];
+         }];
 }
 
+#pragma mark - 键盘弹出与收起操作
 - (void)hideKeyboard
 {
     [_nameField resignFirstResponder];
