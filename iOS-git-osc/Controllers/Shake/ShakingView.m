@@ -79,11 +79,7 @@
     [super viewDidAppear:animated];
     
     [self startAccelerometer];
-    
-    [[GLGitlabApi sharedInstance] fetchLuckMessageSuccess:^(id responseObject) {
-                                                                _luckMessage.text = responseObject ?: @"";
-                                                            }
-                                                  failure:^(NSError *error) {}];
+    [self fetchForLuckMessage];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(receiveNotification:)
@@ -114,6 +110,21 @@
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
+}
+
+#pragma mark - 抽奖活动信息
+- (void)fetchForLuckMessage
+{
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager GitManager];
+    
+    [manager GET:[NSString stringWithFormat:@"%@%@/luck_msg", GITAPI_HTTPS_PREFIX, GITAPI_PROJECTS]
+      parameters:nil
+         success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+             _luckMessage.text = [responseObject objectForKey:@"message"] ?: @"";
+             
+         } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
+             NSLog(@"%@", error);
+    }];
 }
 
 #pragma mark - 监听动作
