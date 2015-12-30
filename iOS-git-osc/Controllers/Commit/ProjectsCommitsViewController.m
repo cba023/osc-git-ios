@@ -167,14 +167,14 @@ static NSString * const cellId = @"ProjectsCommitCell";
                   GITAPI_PROJECTS,
                   _projectNameSpace,
                   [Tools getPrivateToken],
-                  _page,
+                  (long)_page,
                   _branchName];
     } else {
         strUrl = [NSString stringWithFormat:@"%@%@/%@/repository/commits?page=%ld&ref_name=%@",
                   GITAPI_HTTPS_PREFIX,
                   GITAPI_PROJECTS,
                   _projectNameSpace,
-                  _page,
+                  (long)_page,
                   _branchName];
     }
 

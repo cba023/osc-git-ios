@@ -16,14 +16,16 @@
 #import "TTTAttributedLabel.h"
 #import "SSKeychain.h"
 #import "GITAPI.h"
-
+#import "AFHTTPRequestOperationManager+Util.h"
+#import <MBProgressHUD.h>
 #import "AppDelegate.h"
 #import "MainViewController.h"
 
 @interface LoginViewController () <UIGestureRecognizerDelegate, UIActionSheetDelegate, TTTAttributedLabelDelegate>
 
-@property UIButton *submit;
-@property TTTAttributedLabel *tips;
+@property (nonatomic, strong) UIButton *submit;
+@property (nonatomic, strong) TTTAttributedLabel *tips;
+@property (nonatomic, strong) MBProgressHUD *hud;
 
 @end
 
@@ -293,41 +295,42 @@
     }
 }
 
-- (void)login {
-    if (![Tools isNetworkExist]) {
-        [Tools toastNotification:@"网络连接失败，请检查网络设置" inView:self.view];
-        return;
-    } else {
-        [self.view makeToastActivity];
-    }
+#pragma mark - 登录
+- (void)login
+{
+    _hud = [MBProgressHUD showHUDAddedTo:[[UIApplication sharedApplication].windows lastObject] animated:YES];
+    _hud.userInteractionEnabled = NO;
+    _hud.mode = MBProgressHUDModeCustomView;
     
-    GLGitlabSuccessBlock success = ^(id responseObject) {
-        [self.view hideToastActivity];
-        GLUser *user = responseObject;
-        if (responseObject == nil){
-            [Tools toastNotification:@"网络错误" inView:self.view];
-        } else {
-            [User saveUserInformation:user];
-            [User saveAccount:user.email andPassword:_passwordTextField.text];
-            [self hidenKeyboard];
-            AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
-            appDelegate.window.rootViewController = [MainViewController new];
-        }
-    };
+    NSString *strUrl = [NSString stringWithFormat:@"%@session", GITAPI_HTTPS_PREFIX];
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionaryWithDictionary:@{
+                                                                                      @"email"     : _accountTextField.text,
+                                                                                      @"password"  : _passwordTextField.text
+                                                                                      }];
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager GitManager];
     
-    GLGitlabFailureBlock failure = ^(NSError *error) {
-        [self.view hideToastActivity];
-        if (error != nil) {
-            [Tools toastNotification:@"账号密码错误" inView:self.view];
-        }
-    };
-    
-    [[GLGitlabApi sharedInstance] loginWithEmail:_accountTextField.text
-                                        Password:_passwordTextField.text
-                                         Success:success
-                                         Failure:failure];
+    [manager POST:strUrl
+       parameters:parameters
+          success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+              if ([responseObject count] > 0) {
+                  _hud.labelText = @"登录成功！";
+                  [_hud hide:YES afterDelay:1.0];
+                  
+                  GLUser *user = [[GLUser alloc] initWithJSON:responseObject];
+                  [User saveUserInformation:user];
+                  [User saveAccount:user.email andPassword:_passwordTextField.text];
+                  [self hidenKeyboard];
+                  AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+                  appDelegate.window.rootViewController = [MainViewController new];
+              }
+          } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
+              _hud.customView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"hud-failure"]];
+              _hud.labelText = nil;
+              _hud.detailsLabelText = error.userInfo[NSLocalizedDescriptionKey];
+              
+              [_hud hide:YES afterDelay:1];
+    }];
 }
-
 
 #pragma mark - TTTAttributedLabelDelegate
 
