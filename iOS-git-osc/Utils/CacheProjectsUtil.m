@@ -167,7 +167,7 @@ static NSString * const insertLanguage = @"INSERT OR IGNORE INTO Language"
 
 - (GLUser *)readUser:(NSInteger)userID
 {
-    NSString *sql = [NSString stringWithFormat:@"SELECT * FROM User WHERE user_id = %ld;", userID];
+    NSString *sql = [NSString stringWithFormat:@"SELECT * FROM User WHERE user_id = %ld;", (long)userID];
     
     FMResultSet *result = [_dataBase executeQuery:sql];
     GLUser *user = [GLUser new];

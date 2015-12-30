@@ -39,7 +39,7 @@ static NSString * const kKeyTotalCommitCount = @"total_commits_count";
 {
     if (self = [super init]) {
         _ref = [self checkForNull:json[kKeyRef]];
-        _totalCommitCount = [[self checkForNull:json[kKeyTotalCommitCount]] longLongValue];
+        _totalCommitCount = [[self checkForNull:json[kKeyTotalCommitCount]] integerValue];
         _dataCommits = [NSMutableArray new];
         
         if (json[kKeyCommits]) {
