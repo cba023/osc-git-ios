@@ -129,9 +129,9 @@ static NSString * const cellId = @"ProjectCell";
     NSMutableString *strUrl = [[NSMutableString alloc] initWithFormat:@"%@", GITAPI_HTTPS_PREFIX];
     
     switch (_projectsType) {
-        case ProjectsTypeFeatured:
-        case ProjectsTypePopular:
-        case ProjectsTypeLatest:
+        case ProjectsTypeFeatured://0
+        case ProjectsTypePopular://1
+        case ProjectsTypeLatest://2
         {
             NSString *string = @[@"featured", @"popular", @"latest"][_projectsType];
             [strUrl appendFormat:@"%@/%@?",
@@ -140,8 +140,8 @@ static NSString * const cellId = @"ProjectCell";
             
             break;
         }
-        case ProjectsTypeStared:
-        case ProjectsTypeWatched:
+        case ProjectsTypeStared://4
+        case ProjectsTypeWatched://5
         {
             NSString *string = @[@"stared_projects", @"watched_projects"][_projectsType-4];
             [strUrl appendFormat:@"%@/%lld/%@?",
@@ -151,7 +151,7 @@ static NSString * const cellId = @"ProjectCell";
             
             break;
         }
-        case ProjectsTypeUserProjects:
+        case ProjectsTypeUserProjects://8
         {
             if (_privateToken.length) {
                 [strUrl appendFormat:@"%@?private_token=%@&",
@@ -166,14 +166,14 @@ static NSString * const cellId = @"ProjectCell";
             
             break;
         }
-        case ProjectsTypeLanguage:
+        case ProjectsTypeLanguage://6
         {
             [strUrl appendFormat:@"%@/languages/%ld?",
                       GITAPI_PROJECTS,
                       (long)_languageID];
             break;
         }
-        case ProjectsTypeSearch:
+        case ProjectsTypeSearch://7
         {
            [strUrl appendFormat:@"%@/search/%@?private_token=%@&",
                       GITAPI_PROJECTS,
@@ -181,7 +181,7 @@ static NSString * const cellId = @"ProjectCell";
                       _privateToken];
             break;
         }
-        case ProjectsTypeEventForUser:
+        case ProjectsTypeEventForUser://3
         {
             [strUrl appendFormat:@"%@/%@/%lld?",
                     GITAPI_EVENTS,
@@ -313,6 +313,7 @@ static NSString * const cellId = @"ProjectCell";
                                                                                                    ]
                                                                                   andUnderTabbar:NO
                                                                                  andUserPortrait:NO];
+    ownDetailsView.hidesBottomBarWhenPushed = YES;
     
     [self.navigationController pushViewController:ownDetailsView animated:YES];
 }

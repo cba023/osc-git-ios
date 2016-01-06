@@ -303,6 +303,7 @@ static NSString * const EventCellIdentifier = @"EventCell";
                                                                                                    ]
                                                                                   andUnderTabbar:NO
                                                                                  andUserPortrait:NO];
+    ownDetailsView.hidesBottomBarWhenPushed = YES;
     
     [self.navigationController pushViewController:ownDetailsView animated:YES];
 }
