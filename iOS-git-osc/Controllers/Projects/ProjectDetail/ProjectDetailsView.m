@@ -114,7 +114,7 @@ static NSString * const ProjectDetailsCellID = @"ProjectDetailsCell";
                                                            target:self
                                                            action:@selector(moreChoice)];
                  
-                 _projectURL = [NSString stringWithFormat:@"%@%@/%@", httpStr, _project.owner.username, _project.path];
+                 _projectURL = [NSString stringWithFormat:@"%@/%@/%@", httpStr, _project.owner.username, _project.path];
                  
              }
              
@@ -419,7 +419,7 @@ static NSString * const ProjectDetailsCellID = @"ProjectDetailsCell";
     [[UMSocialData defaultData].extConfig.sinaData.urlResource setResourceType:UMSocialUrlResourceTypeDefault url:_projectURL];
     
     // 显示分享的平台icon
-    
+    NSLog(@"网址:%@", _projectURL);
     [UMSocialSnsService presentSnsIconSheetView:self
                                          appKey:@"5423cd47fd98c58f04000c52"
                                       shareText:[NSString stringWithFormat:@"我在关注%@的项目%@，你也来瞧瞧呗！%@", _project.owner.name, _project.name, _projectURL]
