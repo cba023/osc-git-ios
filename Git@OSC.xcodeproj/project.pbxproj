@@ -186,6 +186,7 @@
 		EE8983E21C0C1FDF005CF5AB /* HCDropdownMenuCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EE8983DD1C0C1FDF005CF5AB /* HCDropdownMenuCell.m */; };
 		EE8983E31C0C1FDF005CF5AB /* HCDropdownMenuCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EE8983DE1C0C1FDF005CF5AB /* HCDropdownMenuCell.xib */; };
 		EE8983E41C0C1FDF005CF5AB /* UIImage+LMExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = EE8983E01C0C1FDF005CF5AB /* UIImage+LMExtension.m */; };
+		EE8B17E91C3E467B004891FC /* jquery.js in Resources */ = {isa = PBXBuildFile; fileRef = EE8B17E81C3E467B004891FC /* jquery.js */; };
 		EE9018551C030F5A006A0909 /* UIColor+Util.m in Sources */ = {isa = PBXBuildFile; fileRef = EE9018541C030F5A006A0909 /* UIColor+Util.m */; };
 		EE9923B51BFDAE83004499C5 /* AFHTTPRequestOperationManager+Util.m in Sources */ = {isa = PBXBuildFile; fileRef = EE9923B41BFDAE83004499C5 /* AFHTTPRequestOperationManager+Util.m */; };
 		EE9D346D1C0E92AC00BE5704 /* CommitDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EE9D346C1C0E92AC00BE5704 /* CommitDetailViewController.m */; };
@@ -501,6 +502,7 @@
 		EE8983DE1C0C1FDF005CF5AB /* HCDropdownMenuCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HCDropdownMenuCell.xib; sourceTree = "<group>"; };
 		EE8983DF1C0C1FDF005CF5AB /* UIImage+LMExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+LMExtension.h"; sourceTree = "<group>"; };
 		EE8983E01C0C1FDF005CF5AB /* UIImage+LMExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+LMExtension.m"; sourceTree = "<group>"; };
+		EE8B17E81C3E467B004891FC /* jquery.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = jquery.js; sourceTree = "<group>"; };
 		EE9018531C030F5A006A0909 /* UIColor+Util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Util.h"; sourceTree = "<group>"; };
 		EE9018541C030F5A006A0909 /* UIColor+Util.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Util.m"; sourceTree = "<group>"; };
 		EE9923AC1BFDA007004499C5 /* GITAPI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GITAPI.h; sourceTree = "<group>"; };
@@ -1008,6 +1010,7 @@
 				38C1356B1A5FC19B00E74C97 /* code.html */,
 				38C1356C1A5FC19B00E74C97 /* format.html */,
 				38C1356D1A5FC19B00E74C97 /* highlight.pack.js */,
+				EE8B17E81C3E467B004891FC /* jquery.js */,
 			);
 			path = highlight;
 			sourceTree = "<group>";
@@ -1305,6 +1308,7 @@
 				38C135D11A5FC19B00E74C97 /* atelier-forest.dark.css in Resources */,
 				38C135FA1A5FC19B00E74C97 /* solarized_dark.css in Resources */,
 				38C135DB1A5FC19B00E74C97 /* codepen-embed.css in Resources */,
+				EE8B17E91C3E467B004891FC /* jquery.js in Resources */,
 				38C135D91A5FC19B00E74C97 /* brown_paper.css in Resources */,
 				38C135DE1A5FC19B00E74C97 /* default.css in Resources */,
 				EE897CBF1C2D36EB009E5E17 /* UMSCommentDetailController.xib in Resources */,
@@ -1643,7 +1647,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = net.oschina.gitapp;
 				PRODUCT_NAME = "Git@OSC";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "1a335c9c-878f-4a00-9072-0954b0133537";
 				TARGETED_DEVICE_FAMILY = 1;
 				VALID_ARCHS = "arm64 armv7  armv7s";
 				WRAPPER_EXTENSION = app;
@@ -1683,7 +1687,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = net.oschina.gitapp;
 				PRODUCT_NAME = "Git@OSC";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "1a335c9c-878f-4a00-9072-0954b0133537";
 				TARGETED_DEVICE_FAMILY = 1;
 				VALID_ARCHS = "arm64 armv7  armv7s";
 				WRAPPER_EXTENSION = app;

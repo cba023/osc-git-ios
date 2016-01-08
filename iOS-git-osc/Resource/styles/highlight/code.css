@@ -1,26 +1,54 @@
 body,
 pre {
-  margin:0;
-  border:0;
-  word-wrap:normal;
+    margin:0;
+    border:0;
+    word-wrap:normal;
 }
 
 pre {
-  padding:5px;
-  counter-reset: lines;
+    padding:5px;
+    counter-reset: lines;
 }
 
 pre .line {
-  counter-increment: lines;
+    counter-increment: lines;
 }
 
 pre .line::before {
-  content: counter(lines);
-  text-align: right;
-  display: inline-block;
-  width: 2em;
-  padding-right: 0.5em;
-  margin-right: 0.5em;
-  color: #BBB;
-  border-right: solid 2px;
+    content: counter(lines);
+    text-align: right;
+    display: inline-block;
+    width: 2em;
+    padding-right: 0.5em;
+    margin-right: 0.5em;
+    color: #BBB;
+    border-right: solid 2px;
+}
+
+code {
+    padding: 0 !important;
+}
+
+ol {
+    counter-reset: item;
+    margin-left: 0;
+    margin-top: 0;
+    padding-left: 0;
+    background-color: #BBB;
+    width: 3em;
+}
+
+li {
+    display: block;
+}
+
+pre li:before {
+    display: inline-block;
+    content: counter(item) " ";
+    counter-increment: item;
+    background-color: #BBB;
+    color: #0a5090;
+    width: 3em;
+    text-align: right;
+    margin-right: 1em;
 }
