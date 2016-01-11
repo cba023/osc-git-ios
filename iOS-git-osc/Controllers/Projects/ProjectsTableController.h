@@ -18,5 +18,6 @@
 - (id)initWithProjectsType:(ProjectsType)projectsType;
 - (id)initWithUserID:(int64_t)userID andProjectsType:(ProjectsType)projectsType;
 - (id)initWithPrivateToken:(NSString *)privateToken;
+- (void)fetchProject:(BOOL)refresh;
 
 @end

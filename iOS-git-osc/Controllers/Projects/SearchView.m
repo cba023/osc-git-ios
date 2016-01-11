@@ -68,6 +68,7 @@ static NSString * const SearchResultsCellID = @"SearchResultsCell";
 -(void)doSearch
 {
     _resultsTableController.query = _searchBar.text;
+    [_resultsTableController fetchProject:YES];
 }
 
 - (void)initSubviews
