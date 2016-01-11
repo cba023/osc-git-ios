@@ -179,6 +179,7 @@ static NSString * const cellId = @"ProjectCell";
                       GITAPI_PROJECTS,
                       _query,
                       _privateToken];
+            [self.tableView reloadData];
             break;
         }
         case ProjectsTypeEventForUser://3

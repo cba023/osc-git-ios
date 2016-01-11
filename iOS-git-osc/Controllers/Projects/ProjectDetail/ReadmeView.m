@@ -69,7 +69,15 @@
                  [_readme loadHTMLString:@"该项目暂无Readme文件" baseURL:nil];
              } else {
                  _html = [responseObject objectForKey:@"content"];
-                 [_readme loadHTMLString:_html baseURL:nil];
+                 if (_html != nil && ![_html isKindOfClass:[NSNull class]]) {
+                     [_readme loadHTMLString:_html baseURL:nil];
+                 } else {
+                     [_hud show:YES];
+                     _hud.mode = MBProgressHUDModeCustomView;
+                     _hud.detailsLabelText = @"无ReadMe文件";
+                     [_hud hide:YES afterDelay:1.0];
+                 }
+                 
              }
          } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
              if (error != nil) {
