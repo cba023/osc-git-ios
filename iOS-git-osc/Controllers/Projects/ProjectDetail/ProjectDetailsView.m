@@ -400,17 +400,14 @@ static NSString * const ProjectDetailsCellID = @"ProjectDetailsCell";
     // 微信相关设置
     
     [UMSocialData defaultData].extConfig.wxMessageType = UMSocialWXMessageTypeWeb;
-    
     [UMSocialData defaultData].extConfig.wechatSessionData.url = _projectURL;
     [UMSocialData defaultData].extConfig.wechatTimelineData.url = _projectURL;
     //[UMSocialData defaultData].extConfig.wechatFavoriteData.url = _projectURL;
-    
     [UMSocialData defaultData].extConfig.title = _project.name;
     
     // 手机QQ相关设置
     
     [UMSocialData defaultData].extConfig.qqData.qqMessageType = UMSocialQQMessageTypeDefault;
-    
     [UMSocialData defaultData].extConfig.qqData.title = _project.name;
     [UMSocialData defaultData].extConfig.qqData.url = _projectURL;
     
@@ -420,6 +417,7 @@ static NSString * const ProjectDetailsCellID = @"ProjectDetailsCell";
     
     // 显示分享的平台icon
     NSLog(@"网址:%@", _projectURL);
+    
     [UMSocialSnsService presentSnsIconSheetView:self
                                          appKey:@"5423cd47fd98c58f04000c52"
                                       shareText:[NSString stringWithFormat:@"我在关注%@的项目%@，你也来瞧瞧呗！%@", _project.owner.name, _project.name, _projectURL]
