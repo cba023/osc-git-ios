@@ -7,7 +7,8 @@
 //
 
 #import "SetUpsViewController.h"
-#import "ShakingView.h"
+//#import "ShakingView.h"
+#import "ShakingViewController.h"
 #import "FeedBackViewController.h"
 #import "AboutViewController.h"
 #import "CacheProjectsUtil.h"
@@ -82,7 +83,7 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     if (indexPath.section == 0) {
-        ShakingView *shakingView = [ShakingView new];
+        ShakingViewController *shakingView = [ShakingViewController new];
         [self.navigationController pushViewController:shakingView animated:YES];
     } else {
         switch (indexPath.row) {

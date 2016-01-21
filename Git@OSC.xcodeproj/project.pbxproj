@@ -31,7 +31,6 @@
 		00A502D019BE970200EF057B /* ImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 00A502CF19BE970200EF057B /* ImageView.m */; };
 		00A74FD519A59FD7009DACDF /* SearchView.m in Sources */ = {isa = PBXBuildFile; fileRef = 00A74FD419A59FD7009DACDF /* SearchView.m */; };
 		00B01FE919221EB40095D488 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 00B01FE819221EB40095D488 /* User.m */; };
-		00B3CF9619CBDDE000747373 /* ShakingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 00B3CF9519CBDDE000747373 /* ShakingView.m */; };
 		00B3CF9A19CC0A6600747373 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00B3CF9919CC0A6600747373 /* AudioToolbox.framework */; };
 		00B3CF9C19CC0D2E00747373 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00B3CF9B19CC0D2E00747373 /* CoreMotion.framework */; };
 		00B685B619ADCF2A00705534 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 00B685B519ADCF2A00705534 /* Reachability.m */; };
@@ -198,6 +197,7 @@
 		EEAE14761C20170E000BFC37 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EEAE14751C20170E000BFC37 /* MessageUI.framework */; };
 		EEB00EF81C07F80F00DEDF73 /* ProjectsCommitsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EEB00EF71C07F80F00DEDF73 /* ProjectsCommitsViewController.m */; };
 		EEB00EFB1C080A2D00DEDF73 /* ProjectsCommitCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EEB00EFA1C080A2D00DEDF73 /* ProjectsCommitCell.m */; };
+		EEB973B31C50D21A0068AB58 /* ShakingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EEB973B21C50D21A0068AB58 /* ShakingViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -246,8 +246,6 @@
 		00A74FD419A59FD7009DACDF /* SearchView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchView.m; sourceTree = "<group>"; };
 		00B01FE719221EB40095D488 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
 		00B01FE819221EB40095D488 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
-		00B3CF9419CBDDDF00747373 /* ShakingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShakingView.h; sourceTree = "<group>"; };
-		00B3CF9519CBDDE000747373 /* ShakingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShakingView.m; sourceTree = "<group>"; };
 		00B3CF9919CC0A6600747373 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		00B3CF9B19CC0D2E00747373 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
 		00B685B419ADCF2A00705534 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
@@ -525,6 +523,8 @@
 		EEB00EF71C07F80F00DEDF73 /* ProjectsCommitsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProjectsCommitsViewController.m; sourceTree = "<group>"; };
 		EEB00EF91C080A2D00DEDF73 /* ProjectsCommitCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProjectsCommitCell.h; sourceTree = "<group>"; };
 		EEB00EFA1C080A2D00DEDF73 /* ProjectsCommitCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProjectsCommitCell.m; sourceTree = "<group>"; };
+		EEB973B11C50D21A0068AB58 /* ShakingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShakingViewController.h; sourceTree = "<group>"; };
+		EEB973B21C50D21A0068AB58 /* ShakingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShakingViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -682,8 +682,8 @@
 		00646DF319CBC8D7004BA921 /* Shake */ = {
 			isa = PBXGroup;
 			children = (
-				00B3CF9419CBDDDF00747373 /* ShakingView.h */,
-				00B3CF9519CBDDE000747373 /* ShakingView.m */,
+				EEB973B11C50D21A0068AB58 /* ShakingViewController.h */,
+				EEB973B21C50D21A0068AB58 /* ShakingViewController.m */,
 				005D05CF19CEF6A100439874 /* ReceivingInfoView.h */,
 				005D05D019CEF6A100439874 /* ReceivingInfoView.m */,
 				00B8125319D0356D0017FCFA /* AwardView.h */,
@@ -1449,7 +1449,6 @@
 				38BB9B901A1E0CD900175F10 /* GLRawNetworkOperation.m in Sources */,
 				00C3A42219639F8D002A34AB /* ProjectCell.m in Sources */,
 				38BB9B8F1A1E0CD900175F10 /* GLNetworkOperation.m in Sources */,
-				00B3CF9619CBDDE000747373 /* ShakingView.m in Sources */,
 				38BB9B931A1E0CD900175F10 /* GLGitlabApi+Private.m in Sources */,
 				0079C03719B56521005EF089 /* UIView+Toast.m in Sources */,
 				EE9D34701C0EEA1600BE5704 /* DiffHeaderCell.m in Sources */,
@@ -1500,6 +1499,7 @@
 				00B7595C196C065E009C9C58 /* Event.m in Sources */,
 				EEA1E3711C06E334001EAE25 /* AboutViewController.m in Sources */,
 				00F0177D1994CDD10076BE43 /* IssueDescriptionCell.m in Sources */,
+				EEB973B31C50D21A0068AB58 /* ShakingViewController.m in Sources */,
 				EEA1E36E1C06DF2B001EAE25 /* SetUpsViewController.m in Sources */,
 				0057719919A73D6A00EAA606 /* LanguageSearchView.m in Sources */,
 				005D05D119CEF6A100439874 /* ReceivingInfoView.m in Sources */,
@@ -1647,7 +1647,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = net.oschina.gitapp;
 				PRODUCT_NAME = "Git@OSC";
-				PROVISIONING_PROFILE = "7515ca5d-cc4e-4c06-9f88-6e1ce3819040";
+				PROVISIONING_PROFILE = "c6989e49-eaaf-4aaa-9f05-6cd82bd1e1da";
 				TARGETED_DEVICE_FAMILY = 1;
 				VALID_ARCHS = "arm64 armv7  armv7s";
 				WRAPPER_EXTENSION = app;
@@ -1687,7 +1687,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = net.oschina.gitapp;
 				PRODUCT_NAME = "Git@OSC";
-				PROVISIONING_PROFILE = "7515ca5d-cc4e-4c06-9f88-6e1ce3819040";
+				PROVISIONING_PROFILE = "c6989e49-eaaf-4aaa-9f05-6cd82bd1e1da";
 				TARGETED_DEVICE_FAMILY = 1;
 				VALID_ARCHS = "arm64 armv7  armv7s";
 				WRAPPER_EXTENSION = app;

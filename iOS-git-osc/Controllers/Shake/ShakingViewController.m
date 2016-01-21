@@ -1,77 +1,73 @@
 //
-//  ShakingView.m
-//  Git@OSC
+//  ShakingViewController.m
+//  iosapp
 //
-//  Created by chenhaoxiang on 14-9-19.
-//  Copyright (c) 2014年 chenhaoxiang. All rights reserved.
+//  Created by chenhaoxiang on 1/20/15.
+//  Copyright (c) 2015 oschina. All rights reserved.
 //
 
-#import "ShakingView.h"
-#import <CoreMotion/CoreMotion.h>
-#import <AudioToolbox/AudioToolbox.h>
-#import "GLGitlab.h"
-#import "Tools.h"
-#import "ProjectCell.h"
-#import "ProjectDetailsView.h"
-#import "ReceivingInfoView.h"
-#import "AwardView.h"
+#import "ShakingViewController.h"
 #import "LoginViewController.h"
-#import "TTTAttributedLabel.h"
-#import "UMSocial.h"
-
+#import "ProjectDetailsView.h"
+#import "ProjectCell.h"
 #import "GITAPI.h"
 #import "AFHTTPRequestOperationManager+Util.h"
+#import "Tools.h"
+#import "AwardView.h"
+#import "ReceivingInfoView.h"
+#import "UMSocial.h"
+
+#import <CoreMotion/CoreMotion.h>
+#import <AFNetworking.h>
+#import <SDWebImage/UIImageView+WebCache.h>
 #import <MBProgressHUD.h>
+#import <TTTAttributedLabel.h>
 
-#define accelerationThreshold  2.0f
+static const double accelerationThreshold = 2.0f;
 
-@interface ShakingView () <UIActionSheetDelegate, TTTAttributedLabelDelegate>
+@interface ShakingViewController () <UIActionSheetDelegate, TTTAttributedLabelDelegate>
 
-@property CMMotionManager *motionManager;
-@property SystemSoundID shakeSoundID;
-@property SystemSoundID matchSoundID;
+@property (nonatomic, strong) GLProject * project;
+@property (nonatomic, strong) TTTAttributedLabel * luckMessage;
 
-@property TTTAttributedLabel *luckMessage;
-@property UIImageView *sweetPotato;
+@property (nonatomic, strong) UIImageView * layer;
+@property (nonatomic, strong) ProjectCell * cell;
 
-@property NSOperationQueue *operationQueue;
-@property NSString *privateToken;
-@property GLProject *project;
-@property ProjectCell *projectCell;
-@property AwardView *awardView;
-@property BOOL shaking;
-
+@property (nonatomic, strong) CMMotionManager * motionManager;
+@property (nonatomic, strong) NSOperationQueue * operationQueue;
 @property (nonatomic, strong) MBProgressHUD *hud;
+@property (nonatomic, strong) AwardView *awardView;
+@property (nonatomic, assign) BOOL isShaking;
 
 @end
 
-@implementation ShakingView
+@implementation ShakingViewController
 
-- (void)viewDidLoad
+- (instancetype)init
 {
+    self = [super init];
+    if (self) {
+        self.hidesBottomBarWhenPushed = YES;
+    }
+    
+    return self;
+}
+
+
+- (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.title = @"摇一摇";
-    [self.navigationController.navigationBar setTranslucent:NO];
+    self.navigationItem.title = @"摇一摇";
     self.view.backgroundColor = [UIColor whiteColor];
-    
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"收货信息"
                                                                               style:UIBarButtonItemStylePlain
                                                                              target:self
                                                                              action:@selector(pushReceivingInfoView)];
-    
     [self setLayout];
     
     _operationQueue = [NSOperationQueue new];
     _motionManager = [CMMotionManager new];
     _motionManager.accelerometerUpdateInterval = 0.1;
-    
-    NSString *shakeMusicPath = [[NSBundle mainBundle] pathForResource:@"shake_sound_male" ofType:@"mp3"];
-	AudioServicesCreateSystemSoundID((CFURLRef)CFBridgingRetain([NSURL fileURLWithPath:shakeMusicPath]), &_shakeSoundID);
-    NSString *matchMusicPath = [[NSBundle mainBundle] pathForResource:@"shake_match" ofType:@"mp3"];
-    AudioServicesCreateSystemSoundID((CFURLRef)CFBridgingRetain([NSURL fileURLWithPath:matchMusicPath]), &_matchSoundID);
-    
-    _privateToken = [Tools getPrivateToken];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -79,10 +75,8 @@
     [super viewDidAppear:animated];
     
     [self startAccelerometer];
-    [self fetchForLuckMessage];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(receiveNotification:)
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receiveNotification:)
                                                  name:UIApplicationDidEnterBackgroundNotification
                                                object:nil];
     
@@ -96,89 +90,21 @@
 {
     [_motionManager stopAccelerometerUpdates];
     
-    [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name:UIApplicationDidEnterBackgroundNotification
-                                                  object:nil];
-    
-    [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name:UIApplicationWillEnterForegroundNotification
-                                                  object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationDidEnterBackgroundNotification  object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationWillEnterForegroundNotification object:nil];
     
     [super viewDidDisappear:animated];
 }
 
-- (void)didReceiveMemoryWarning
-{
+
+- (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
 }
 
-#pragma mark - 抽奖活动信息
-- (void)fetchForLuckMessage
-{
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager GitManager];
-    
-    [manager GET:[NSString stringWithFormat:@"%@%@/luck_msg", GITAPI_HTTPS_PREFIX, GITAPI_PROJECTS]
-      parameters:nil
-         success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
-             _luckMessage.text = [responseObject objectForKey:@"message"] ?: @"";
-             
-         } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
-             NSLog(@"%@", error);
-    }];
-}
 
-#pragma mark - 监听动作
--(void)startAccelerometer
-{
-    //以push的方式更新并在block中接收加速度
-    
-    [self.motionManager startAccelerometerUpdatesToQueue:_operationQueue
-                                             withHandler:^(CMAccelerometerData *accelerometerData, NSError *error) {
-                                                 [self outputAccelertionData:accelerometerData.acceleration];
-                                             }];
-}
-
--(void)outputAccelertionData:(CMAcceleration)acceleration
-{
-    double accelerameter = sqrt(pow(acceleration.x, 2) + pow(acceleration.y, 2) + pow(acceleration.z, 2));
-    
-    if (accelerameter > accelerationThreshold) {
-        [_motionManager stopAccelerometerUpdates];
-        [_operationQueue cancelAllOperations];
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
-            if (_shaking) {return;}
-            _shaking = YES;
-            
-            [self rotate:_sweetPotato];
-        });
-    }
-}
-
--(void)receiveNotification:(NSNotification *)notification
-{
-    if ([notification.name isEqualToString:UIApplicationDidEnterBackgroundNotification]) {
-        [_motionManager stopAccelerometerUpdates];
-    } else {
-        [self startAccelerometer];
-    }
-}
-
-
-#pragma mark - 跳转到收货信息界面
-
-- (void)pushReceivingInfoView
-{
-    if ([Tools getPrivateToken].length) {
-        ReceivingInfoView *infoView = [ReceivingInfoView new];
-        [self.navigationController pushViewController:infoView animated:YES];
-    } else {
-        LoginViewController *loginView = [LoginViewController new];
-        [self.navigationController pushViewController:loginView animated:NO];
-    }
-}
 
 #pragma mark - 视图布局
+
 - (void)setLayout
 {
     _luckMessage = [TTTAttributedLabel new];
@@ -192,15 +118,14 @@
     [_luckMessage setPreferredMaxLayoutWidth:200];
     [self.view addSubview:_luckMessage];
     
-    _sweetPotato = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"shaking.png"]];
-    _sweetPotato.backgroundColor = [UIColor clearColor];
-    [self.view addSubview:_sweetPotato];
+    _layer = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"shaking"]];
+    _layer.backgroundColor = [UIColor clearColor];
+    [self.view addSubview:_layer];
     
-    _projectCell = [ProjectCell new];
-    UITapGestureRecognizer *tapPC = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapProjectCell)];
-    [_projectCell addGestureRecognizer:tapPC];
-    [_projectCell setHidden:YES];
-    [self.view addSubview:_projectCell];
+    _cell = [ProjectCell new];
+    [_cell addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapProjectCell)]];
+    _cell.hidden = YES;
+    [self.view addSubview:_cell];
     
     _awardView = [AwardView new];
     UITapGestureRecognizer *tapAW = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapAwardView)];
@@ -210,12 +135,13 @@
     [_awardView setHidden:YES];
     [self.view addSubview:_awardView];
     
-    for (UIView *subview in [self.view subviews]) {
-        subview.translatesAutoresizingMaskIntoConstraints = NO;
+    for (UIView *view in self.view.subviews) {
+        view.translatesAutoresizingMaskIntoConstraints = NO;
     }
     
-    NSDictionary *viewsDict = NSDictionaryOfVariableBindings(_luckMessage, _sweetPotato, _projectCell, _awardView);
+    for (UIView *view in _layer.subviews) {view.translatesAutoresizingMaskIntoConstraints = NO;}
     
+    NSDictionary *viewsDict = NSDictionaryOfVariableBindings(_luckMessage, _layer, _cell, _awardView);
     
     // luckMessage
     
@@ -231,38 +157,29 @@
     
     
     // layer
-    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.view
-                                                          attribute:NSLayoutAttributeCenterY
-                                                          relatedBy:NSLayoutRelationEqual
-                                                             toItem:_sweetPotato
-                                                          attribute:NSLayoutAttributeCenterY
-                                                         multiplier:1.0
-                                                           constant:50]];
-    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.view
-                                                          attribute:NSLayoutAttributeCenterX
-                                                          relatedBy:NSLayoutRelationEqual
-                                                             toItem:_sweetPotato
-                                                          attribute:NSLayoutAttributeCenterX
-                                                         multiplier:1.0
-                                                           constant:0]];
     
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[_sweetPotato(195)]"
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.view attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual
+                                                             toItem:_layer    attribute:NSLayoutAttributeCenterY multiplier:1.0 constant:50]];
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.view attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual
+                                                             toItem:_layer    attribute:NSLayoutAttributeCenterX multiplier:1.0 constant:0]];
+    
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[_layer(195)]"
                                                                       options:0
                                                                       metrics:nil
                                                                         views:viewsDict]];
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"[_sweetPotato(168.75)]"
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"[_layer(168.75)]"
                                                                       options:0
                                                                       metrics:nil
                                                                         views:viewsDict]];
     
     // projectCell
     
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[_projectCell(>=81)]|"
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[_cell(>=81)]|"
                                                                       options:0
                                                                       metrics:nil
                                                                         views:viewsDict]];
     
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|[_projectCell]|"
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|[_cell]|"
                                                                       options:0
                                                                       metrics:nil
                                                                         views:viewsDict]];
@@ -280,21 +197,46 @@
                                                                         views:viewsDict]];
 }
 
-#pragma mark - 跳转至摇出来的项目的详情
-- (void)tapProjectCell
+
+#pragma mark - 监听动作
+
+-(void)startAccelerometer
 {
-    ProjectDetailsView *projectDetails = [[ProjectDetailsView alloc] initWithProjectID:_project.projectId projectNameSpace:_project.nameSpace];
-    [self.navigationController pushViewController:projectDetails animated:YES];
+    //以push的方式更新并在block中接收加速度
+    
+    [_motionManager startAccelerometerUpdatesToQueue:_operationQueue
+                                         withHandler:^(CMAccelerometerData *accelerometerData, NSError *error) {
+                                             [self outputAccelertionData:accelerometerData.acceleration];
+                                         }];
 }
 
-#pragma mark - 活动
-- (void)tapAwardView
+-(void)outputAccelertionData:(CMAcceleration)acceleration
 {
-    ReceivingInfoView *receivingView = [ReceivingInfoView new];
-    [self.navigationController pushViewController:receivingView animated:YES];
+    double accelerameter = sqrt(pow(acceleration.x, 2) + pow(acceleration.y, 2) + pow(acceleration.z, 2));
+    
+    if (accelerameter > accelerationThreshold) {
+        [_motionManager stopAccelerometerUpdates];
+        [_operationQueue cancelAllOperations];
+        if (_isShaking) {return;}
+        _isShaking = YES;
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self rotate:_layer];
+        });
+    }
+}
+
+-(void)receiveNotification:(NSNotification *)notification
+{
+    if ([notification.name isEqualToString:UIApplicationDidEnterBackgroundNotification]) {
+        [_motionManager stopAccelerometerUpdates];
+    } else {
+        [self startAccelerometer];
+    }
 }
 
 #pragma mark - 动画效果
+
 - (void)rotate:(UIView *)view
 {
     CABasicAnimation *rotate = [CABasicAnimation animationWithKeyPath:@"transform.rotation"];
@@ -309,7 +251,7 @@
     [CATransaction setCompletionBlock:^{
         [self getFetchProject];
     }];
-    [view.layer addAnimation:rotate forKey:@"translation"];
+    [view.layer addAnimation:rotate forKey:nil];
     [CATransaction commit];
 }
 
@@ -351,7 +293,7 @@
     
     [manager GET:strUrl
       parameters:@{
-                   @"private_token" : _privateToken,
+                   @"private_token" : [Tools getPrivateToken],
                    @"luck"          : @(1)
                    }
          success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
@@ -371,8 +313,8 @@
                      
                      [alertView show];
                  } else {
-                     [_projectCell contentForProjects:_project];
-                     [_projectCell setHidden:NO];
+                     [_cell contentForProjects:_project];
+                     [_cell setHidden:NO];
                  }
              } else {
                  [_hud hide:NO];
@@ -382,7 +324,7 @@
              }
              
              [self startAccelerometer];
-             _shaking = NO;
+             _isShaking = NO;
          } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
              [_hud hide:NO];
              _hud.mode = MBProgressHUDModeCustomView;
@@ -390,8 +332,55 @@
              [_hud hide:YES afterDelay:1.0];
              
              [self startAccelerometer];
-             _shaking = NO;
-    }];
+             _isShaking = NO;
+         }];
+}
+
+#pragma mark - 响应点击事件
+
+- (void)tapProjectCell
+{
+    ProjectDetailsView *projectDetails = [[ProjectDetailsView alloc] initWithProjectID:_project.projectId projectNameSpace:_project.nameSpace];
+    [self.navigationController pushViewController:projectDetails animated:YES];
+    
+    [self setAnchorPoint:CGPointMake(0.5, 0.5) forView:_layer];
+}
+
+#pragma mark - 抽奖活动信息
+- (void)fetchForLuckMessage
+{
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager GitManager];
+    
+    [manager GET:[NSString stringWithFormat:@"%@%@/luck_msg", GITAPI_HTTPS_PREFIX, GITAPI_PROJECTS]
+      parameters:nil
+         success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+             _luckMessage.text = [responseObject objectForKey:@"message"] ?: @"";
+             
+         } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
+             NSLog(@"%@", error);
+         }];
+}
+
+#pragma mark - 活动
+- (void)tapAwardView
+{
+    ReceivingInfoView *receivingView = [ReceivingInfoView new];
+    [self.navigationController pushViewController:receivingView animated:YES];
+    
+    [self setAnchorPoint:CGPointMake(0.5, 0.5) forView:_layer];
+}
+
+#pragma mark - 跳转到收货信息界面
+
+- (void)pushReceivingInfoView
+{
+    if ([Tools getPrivateToken].length) {
+        ReceivingInfoView *infoView = [ReceivingInfoView new];
+        [self.navigationController pushViewController:infoView animated:YES];
+    } else {
+        LoginViewController *loginView = [LoginViewController new];
+        [self.navigationController pushViewController:loginView animated:NO];
+    }
 }
 
 #pragma mark - TTTAttributedLabelDelegate
@@ -422,6 +411,7 @@
     }
 }
 
+#pragma mark - 分享
 - (void)showShareView
 {
     NSString *projectURL = [GITAPI_HTTPS_PREFIX componentsSeparatedByString:@"/api/v3/"][0];;
