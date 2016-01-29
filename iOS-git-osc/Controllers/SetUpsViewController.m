@@ -36,6 +36,12 @@
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     
+    
+    
+    
+    
+    
+    
     self.tableView.separatorColor = [UIColor colorWithRed:235.0/255 green:235.0/255 blue:243.0/255 alpha:1.0];
 }
 
@@ -66,9 +72,11 @@
     if (indexPath.section == 0) {
         cell.textLabel.text = @"摇一摇";
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        
     } else {
         cell.textLabel.text = _titles[indexPath.row];
         cell.selectionStyle = UITableViewCellSelectionStyleDefault;
+        
     }
     return cell;
 }
@@ -85,6 +93,7 @@
     if (indexPath.section == 0) {
         ShakingViewController *shakingView = [ShakingViewController new];
         [self.navigationController pushViewController:shakingView animated:YES];
+        
     } else {
         switch (indexPath.row) {
             case 0:
