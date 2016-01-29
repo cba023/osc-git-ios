@@ -1577,6 +1577,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "Git@OSC";
+				PROVISIONING_PROFILE = "c6989e49-eaaf-4aaa-9f05-6cd82bd1e1da";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -1609,6 +1610,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				PRODUCT_NAME = "Git@OSC";
+				PROVISIONING_PROFILE = "c6989e49-eaaf-4aaa-9f05-6cd82bd1e1da";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -1620,8 +1622,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1647,7 +1649,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = net.oschina.gitapp;
 				PRODUCT_NAME = "Git@OSC";
-				PROVISIONING_PROFILE = "c6989e49-eaaf-4aaa-9f05-6cd82bd1e1da";
+				PROVISIONING_PROFILE = "9559ecf9-a60c-4142-a7a7-4b1680c08d24";
 				TARGETED_DEVICE_FAMILY = 1;
 				VALID_ARCHS = "arm64 armv7  armv7s";
 				WRAPPER_EXTENSION = app;
@@ -1660,8 +1662,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1687,7 +1689,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = net.oschina.gitapp;
 				PRODUCT_NAME = "Git@OSC";
-				PROVISIONING_PROFILE = "c6989e49-eaaf-4aaa-9f05-6cd82bd1e1da";
+				PROVISIONING_PROFILE = "9559ecf9-a60c-4142-a7a7-4b1680c08d24";
 				TARGETED_DEVICE_FAMILY = 1;
 				VALID_ARCHS = "arm64 armv7  armv7s";
 				WRAPPER_EXTENSION = app;
