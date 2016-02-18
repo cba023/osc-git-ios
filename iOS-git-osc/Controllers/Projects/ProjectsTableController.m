@@ -209,7 +209,8 @@ static NSString * const cellId = @"ProjectCell";
 
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager GitManager];
     
-    [manager GET:[self stringUrl]
+    NSString *strUrl = [[self stringUrl] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    [manager GET:strUrl
       parameters:nil
          success:^(AFHTTPRequestOperation * operation, id responseObject) {
              if (refresh) {
