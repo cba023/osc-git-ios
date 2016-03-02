@@ -49,7 +49,7 @@
     
     [self initSubView];
     _feedBackType = @"程序错误";
-    
+
     /*** binding ***/
     
     RACSignal *valid = [RACSignal combineLatest:@[_textView.rac_textSignal]
@@ -207,6 +207,16 @@
     }];
 }
 
+#pragma mark - 当前时间
+- (NSString *)locationTime
+{
+    NSDate* dat = [NSDate dateWithTimeIntervalSinceNow:0];
+    NSTimeInterval a=[dat timeIntervalSince1970];
+    NSString *timeString = [NSString stringWithFormat:@"%.0f", a];
+    
+    return timeString;
+}
+
 # pragma mark - 发表意见
 
 - (void)feedBack
@@ -226,7 +236,7 @@
     
     GLIssue *issue = [GLIssue new];
     issue.projectId = 211189;
-    issue.title = [NSString stringWithFormat:@"%@ - 用户反馈－git@osc iPhone客户端", _feedBackType];
+    issue.title = [NSString stringWithFormat:@"iPhone客户端-%@-%@", _feedBackType, [self locationTime]];
     if (imageUrl.length) {
         issue.issueDescription = [NSString stringWithFormat:@"%@![](%@)", _textView.text, imageUrl];
     } else {
