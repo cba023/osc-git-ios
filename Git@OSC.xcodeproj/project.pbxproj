@@ -186,6 +186,7 @@
 		EE8983E31C0C1FDF005CF5AB /* HCDropdownMenuCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EE8983DE1C0C1FDF005CF5AB /* HCDropdownMenuCell.xib */; };
 		EE8983E41C0C1FDF005CF5AB /* UIImage+LMExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = EE8983E01C0C1FDF005CF5AB /* UIImage+LMExtension.m */; };
 		EE8B17E91C3E467B004891FC /* jquery.js in Resources */ = {isa = PBXBuildFile; fileRef = EE8B17E81C3E467B004891FC /* jquery.js */; };
+		EE8D34B31C86933700C861FE /* PlaceholderTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = EE8D34B21C86933700C861FE /* PlaceholderTextView.m */; };
 		EE9018551C030F5A006A0909 /* UIColor+Util.m in Sources */ = {isa = PBXBuildFile; fileRef = EE9018541C030F5A006A0909 /* UIColor+Util.m */; };
 		EE9923B51BFDAE83004499C5 /* AFHTTPRequestOperationManager+Util.m in Sources */ = {isa = PBXBuildFile; fileRef = EE9923B41BFDAE83004499C5 /* AFHTTPRequestOperationManager+Util.m */; };
 		EE9D346D1C0E92AC00BE5704 /* CommitDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EE9D346C1C0E92AC00BE5704 /* CommitDetailViewController.m */; };
@@ -198,6 +199,7 @@
 		EEB00EF81C07F80F00DEDF73 /* ProjectsCommitsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EEB00EF71C07F80F00DEDF73 /* ProjectsCommitsViewController.m */; };
 		EEB00EFB1C080A2D00DEDF73 /* ProjectsCommitCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EEB00EFA1C080A2D00DEDF73 /* ProjectsCommitCell.m */; };
 		EEB973B31C50D21A0068AB58 /* ShakingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EEB973B21C50D21A0068AB58 /* ShakingViewController.m */; };
+		EED577831C86D216006CA75B /* GLIssueFeedImage.m in Sources */ = {isa = PBXBuildFile; fileRef = EED577821C86D216006CA75B /* GLIssueFeedImage.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -501,6 +503,8 @@
 		EE8983DF1C0C1FDF005CF5AB /* UIImage+LMExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+LMExtension.h"; sourceTree = "<group>"; };
 		EE8983E01C0C1FDF005CF5AB /* UIImage+LMExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+LMExtension.m"; sourceTree = "<group>"; };
 		EE8B17E81C3E467B004891FC /* jquery.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = jquery.js; sourceTree = "<group>"; };
+		EE8D34B11C86933700C861FE /* PlaceholderTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PlaceholderTextView.h; path = ../../../../PlaceholderTextView.h; sourceTree = "<group>"; };
+		EE8D34B21C86933700C861FE /* PlaceholderTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PlaceholderTextView.m; path = ../../../../PlaceholderTextView.m; sourceTree = "<group>"; };
 		EE9018531C030F5A006A0909 /* UIColor+Util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Util.h"; sourceTree = "<group>"; };
 		EE9018541C030F5A006A0909 /* UIColor+Util.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Util.m"; sourceTree = "<group>"; };
 		EE9923AC1BFDA007004499C5 /* GITAPI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GITAPI.h; sourceTree = "<group>"; };
@@ -525,6 +529,8 @@
 		EEB00EFA1C080A2D00DEDF73 /* ProjectsCommitCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProjectsCommitCell.m; sourceTree = "<group>"; };
 		EEB973B11C50D21A0068AB58 /* ShakingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShakingViewController.h; sourceTree = "<group>"; };
 		EEB973B21C50D21A0068AB58 /* ShakingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShakingViewController.m; sourceTree = "<group>"; };
+		EED577811C86D216006CA75B /* GLIssueFeedImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLIssueFeedImage.h; sourceTree = "<group>"; };
+		EED577821C86D216006CA75B /* GLIssueFeedImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GLIssueFeedImage.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -830,6 +836,8 @@
 			children = (
 				38BB9B1C1A1E0CD900175F10 /* GLBaseObject.h */,
 				38BB9B1D1A1E0CD900175F10 /* GLBaseObject.m */,
+				EED577811C86D216006CA75B /* GLIssueFeedImage.h */,
+				EED577821C86D216006CA75B /* GLIssueFeedImage.m */,
 				38BB9B1E1A1E0CD900175F10 /* GLBlob.h */,
 				38BB9B1F1A1E0CD900175F10 /* GLBlob.m */,
 				38BB9B201A1E0CD900175F10 /* GLBranch.h */,
@@ -1199,9 +1207,19 @@
 			path = Vender;
 			sourceTree = "<group>";
 		};
+		EE8D34B01C8692F800C861FE /* PlaceHolderTextView */ = {
+			isa = PBXGroup;
+			children = (
+				EE8D34B11C86933700C861FE /* PlaceholderTextView.h */,
+				EE8D34B21C86933700C861FE /* PlaceholderTextView.m */,
+			);
+			name = PlaceHolderTextView;
+			sourceTree = "<group>";
+		};
 		EE90184F1C030EFD006A0909 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				EE8D34B01C8692F800C861FE /* PlaceHolderTextView */,
 				EE84A1E61C311B9800F93851 /* TitleScrollView */,
 				EE8612D21C1193550073F457 /* EmptyViews */,
 				EE8983D81C0C1FDF005CF5AB /* HCDropdownView */,
@@ -1256,6 +1274,7 @@
 				0002D2431916324B001FDED8 /* Frameworks */,
 				0002D2441916324B001FDED8 /* Resources */,
 				029B66CE08F14CEB9B0CB429 /* Copy Pods Resources */,
+				14E923A9FCAEC17C90E746DA /* Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -1396,6 +1415,21 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		14E923A9FCAEC17C90E746DA /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		1A88DF1F07F5BC65B7713491 /* Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1479,6 +1513,7 @@
 				38BB9B6E1A1E0CD900175F10 /* GLBlob.m in Sources */,
 				00D4ED34196FF88300F3A4A5 /* NotesView.m in Sources */,
 				00B75957196BEB90009C9C58 /* EventsView.m in Sources */,
+				EED577831C86D216006CA75B /* GLIssueFeedImage.m in Sources */,
 				38BB9B6F1A1E0CD900175F10 /* GLBranch.m in Sources */,
 				EE9923B51BFDAE83004499C5 /* AFHTTPRequestOperationManager+Util.m in Sources */,
 				0081D0D919BB090A00BF9FFA /* ProjectNameCell.m in Sources */,
@@ -1489,6 +1524,7 @@
 				38BB9B781A1E0CD900175F10 /* GLMilestone.m in Sources */,
 				38BB9B711A1E0CD900175F10 /* GLDiff.m in Sources */,
 				38BB9B731A1E0CD900175F10 /* GLFile.m in Sources */,
+				EE8D34B31C86933700C861FE /* PlaceholderTextView.m in Sources */,
 				38BB9B7E1A1E0CD900175F10 /* GLUser.m in Sources */,
 				38BB9B8C1A1E0CD900175F10 /* GLGitlabApi+Users.m in Sources */,
 				EE0606E31C040080001825A7 /* MainViewController.m in Sources */,
@@ -1649,7 +1685,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = net.oschina.gitapp;
 				PRODUCT_NAME = "Git@OSC";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "4c0d839a-540f-4986-a7da-a365db3d1c5f";
 				TARGETED_DEVICE_FAMILY = 1;
 				VALID_ARCHS = "arm64 armv7  armv7s";
 				WRAPPER_EXTENSION = app;
@@ -1689,7 +1725,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = net.oschina.gitapp;
 				PRODUCT_NAME = "Git@OSC";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "4c0d839a-540f-4986-a7da-a365db3d1c5f";
 				TARGETED_DEVICE_FAMILY = 1;
 				VALID_ARCHS = "arm64 armv7  armv7s";
 				WRAPPER_EXTENSION = app;
