@@ -152,6 +152,7 @@
 		38C136021A5FC19B00E74C97 /* vs.css in Resources */ = {isa = PBXBuildFile; fileRef = 38C135881A5FC19B00E74C97 /* vs.css */; };
 		38C136031A5FC19B00E74C97 /* xcode.css in Resources */ = {isa = PBXBuildFile; fileRef = 38C135891A5FC19B00E74C97 /* xcode.css */; };
 		38C136041A5FC19B00E74C97 /* zenburn.css in Resources */ = {isa = PBXBuildFile; fileRef = 38C1358A1A5FC19B00E74C97 /* zenburn.css */; };
+		7432D3E31C883A0A00D2533C /* PlaceholderTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7432D3E21C883A0A00D2533C /* PlaceholderTextView.m */; };
 		811BA39B38156B53A7E3E07E /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3EBA2F84F7B58B70DE5599BC /* libPods.a */; };
 		EE028F191C1EA731004FB1FB /* CommitDiscussesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EE028F181C1EA731004FB1FB /* CommitDiscussesViewController.m */; };
 		EE028F1C1C1EBCEE004FB1FB /* GLComment.m in Sources */ = {isa = PBXBuildFile; fileRef = EE028F1B1C1EBCEE004FB1FB /* GLComment.m */; };
@@ -186,7 +187,6 @@
 		EE8983E31C0C1FDF005CF5AB /* HCDropdownMenuCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EE8983DE1C0C1FDF005CF5AB /* HCDropdownMenuCell.xib */; };
 		EE8983E41C0C1FDF005CF5AB /* UIImage+LMExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = EE8983E01C0C1FDF005CF5AB /* UIImage+LMExtension.m */; };
 		EE8B17E91C3E467B004891FC /* jquery.js in Resources */ = {isa = PBXBuildFile; fileRef = EE8B17E81C3E467B004891FC /* jquery.js */; };
-		EE8D34B31C86933700C861FE /* PlaceholderTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = EE8D34B21C86933700C861FE /* PlaceholderTextView.m */; };
 		EE9018551C030F5A006A0909 /* UIColor+Util.m in Sources */ = {isa = PBXBuildFile; fileRef = EE9018541C030F5A006A0909 /* UIColor+Util.m */; };
 		EE9923B51BFDAE83004499C5 /* AFHTTPRequestOperationManager+Util.m in Sources */ = {isa = PBXBuildFile; fileRef = EE9923B41BFDAE83004499C5 /* AFHTTPRequestOperationManager+Util.m */; };
 		EE9D346D1C0E92AC00BE5704 /* CommitDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EE9D346C1C0E92AC00BE5704 /* CommitDetailViewController.m */; };
@@ -429,6 +429,8 @@
 		38C135891A5FC19B00E74C97 /* xcode.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = xcode.css; sourceTree = "<group>"; };
 		38C1358A1A5FC19B00E74C97 /* zenburn.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = zenburn.css; sourceTree = "<group>"; };
 		3EBA2F84F7B58B70DE5599BC /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		7432D3E11C883A0A00D2533C /* PlaceholderTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PlaceholderTextView.h; path = "iOS-git-osc/Placeholder/PlaceholderTextView.h"; sourceTree = SOURCE_ROOT; };
+		7432D3E21C883A0A00D2533C /* PlaceholderTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PlaceholderTextView.m; path = "iOS-git-osc/Placeholder/PlaceholderTextView.m"; sourceTree = SOURCE_ROOT; };
 		C52966EE4CD358ED820DFDD3 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		D87FAE8F0EAE3FD7CEC7C6C8 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		EE028F171C1EA731004FB1FB /* CommitDiscussesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommitDiscussesViewController.h; sourceTree = "<group>"; };
@@ -503,8 +505,6 @@
 		EE8983DF1C0C1FDF005CF5AB /* UIImage+LMExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+LMExtension.h"; sourceTree = "<group>"; };
 		EE8983E01C0C1FDF005CF5AB /* UIImage+LMExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+LMExtension.m"; sourceTree = "<group>"; };
 		EE8B17E81C3E467B004891FC /* jquery.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = jquery.js; sourceTree = "<group>"; };
-		EE8D34B11C86933700C861FE /* PlaceholderTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PlaceholderTextView.h; path = ../../../../PlaceholderTextView.h; sourceTree = "<group>"; };
-		EE8D34B21C86933700C861FE /* PlaceholderTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PlaceholderTextView.m; path = ../../../../PlaceholderTextView.m; sourceTree = "<group>"; };
 		EE9018531C030F5A006A0909 /* UIColor+Util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Util.h"; sourceTree = "<group>"; };
 		EE9018541C030F5A006A0909 /* UIColor+Util.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Util.m"; sourceTree = "<group>"; };
 		EE9923AC1BFDA007004499C5 /* GITAPI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GITAPI.h; sourceTree = "<group>"; };
@@ -1210,8 +1210,8 @@
 		EE8D34B01C8692F800C861FE /* PlaceHolderTextView */ = {
 			isa = PBXGroup;
 			children = (
-				EE8D34B11C86933700C861FE /* PlaceholderTextView.h */,
-				EE8D34B21C86933700C861FE /* PlaceholderTextView.m */,
+				7432D3E11C883A0A00D2533C /* PlaceholderTextView.h */,
+				7432D3E21C883A0A00D2533C /* PlaceholderTextView.m */,
 			);
 			name = PlaceHolderTextView;
 			sourceTree = "<group>";
@@ -1479,6 +1479,7 @@
 				38BB9B6D1A1E0CD900175F10 /* GLBaseObject.m in Sources */,
 				006391C71988848800689FAD /* ProjectDetailsView.m in Sources */,
 				00760B611973BF6600C88C6F /* NoteEditingView.m in Sources */,
+				7432D3E31C883A0A00D2533C /* PlaceholderTextView.m in Sources */,
 				38BB9B8E1A1E0CD900175F10 /* GLJsonNetworkOperation.m in Sources */,
 				38BB9B901A1E0CD900175F10 /* GLRawNetworkOperation.m in Sources */,
 				00C3A42219639F8D002A34AB /* ProjectCell.m in Sources */,
@@ -1524,7 +1525,6 @@
 				38BB9B781A1E0CD900175F10 /* GLMilestone.m in Sources */,
 				38BB9B711A1E0CD900175F10 /* GLDiff.m in Sources */,
 				38BB9B731A1E0CD900175F10 /* GLFile.m in Sources */,
-				EE8D34B31C86933700C861FE /* PlaceholderTextView.m in Sources */,
 				38BB9B7E1A1E0CD900175F10 /* GLUser.m in Sources */,
 				38BB9B8C1A1E0CD900175F10 /* GLGitlabApi+Users.m in Sources */,
 				EE0606E31C040080001825A7 /* MainViewController.m in Sources */,
@@ -1685,7 +1685,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = net.oschina.gitapp;
 				PRODUCT_NAME = "Git@OSC";
-				PROVISIONING_PROFILE = "4c0d839a-540f-4986-a7da-a365db3d1c5f";
+				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;
 				VALID_ARCHS = "arm64 armv7  armv7s";
 				WRAPPER_EXTENSION = app;
@@ -1725,7 +1725,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = net.oschina.gitapp;
 				PRODUCT_NAME = "Git@OSC";
-				PROVISIONING_PROFILE = "4c0d839a-540f-4986-a7da-a365db3d1c5f";
+				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;
 				VALID_ARCHS = "arm64 armv7  armv7s";
 				WRAPPER_EXTENSION = app;

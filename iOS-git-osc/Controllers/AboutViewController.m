@@ -40,7 +40,8 @@
     _versionLabel.textAlignment = NSTextAlignmentCenter;
     
     NSString *version = [[NSBundle mainBundle] objectForInfoDictionaryKey: @"CFBundleShortVersionString"];
-    _versionLabel.text = [NSString stringWithFormat:@"V %@", version];
+    NSString *build = [[NSBundle mainBundle] objectForInfoDictionaryKey: @"CFBundleVersion"];
+    _versionLabel.text = [NSString stringWithFormat:@"V %@ (%@)", version,build];
     _versionLabel.textColor = [UIColor colorWithHex:0x474747];
     [self.view addSubview:_versionLabel];
     
@@ -49,7 +50,7 @@
     _messageLabel.textAlignment = NSTextAlignmentCenter;
     _messageLabel.numberOfLines = 0;
     _messageLabel.lineBreakMode = NSLineBreakByWordWrapping;
-    _messageLabel.text = @"©2008-2015 oschina.net.All rights reserved.";
+    _messageLabel.text = @"©2008-2016 oschina.net.All rights reserved.";
     _messageLabel.textColor = [UIColor colorWithHex:0x474747];
     [self.view addSubview:_messageLabel];
     
