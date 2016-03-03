@@ -230,13 +230,15 @@
 
 - (void)feedBackWithText:(NSString *)imageUrl
 {
+
     _hud = [MBProgressHUD showHUDAddedTo:[[UIApplication sharedApplication].windows lastObject] animated:YES];
     _hud.userInteractionEnabled = NO;
     _hud.mode = MBProgressHUDModeCustomView;
     
+    
     GLIssue *issue = [GLIssue new];
     issue.projectId = 211189;
-    issue.title = [NSString stringWithFormat:@"iPhone客户端-%@-%@", _feedBackType, [self locationTime]];
+    issue.title = [NSString stringWithFormat:@"[iPhone客户端-%@-%@]", _feedBackType, [self locationTime]];
     if (imageUrl.length) {
         issue.issueDescription = [NSString stringWithFormat:@"%@![](%@)", _textView.text, imageUrl];
     } else {
@@ -274,10 +276,11 @@
 
 - (void)feedBackWithImages
 {
+
     _hud = [MBProgressHUD showHUDAddedTo:[[UIApplication sharedApplication].windows lastObject] animated:YES];
     _hud.userInteractionEnabled = NO;
     _hud.mode = MBProgressHUDModeCustomView;
-    
+     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager GitManager];
     
     [manager POST:@"https://git.oschina.net/upload"
@@ -288,7 +291,7 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
         if (_image) {
             [formData appendPartWithFileData:[Tools compressImage:_image]
                                         name:@"files"
-                                    fileName:@"img.jpg"
+                                    fileName:@"feedback_img.jpg"
                                     mimeType:@"image/jpeg"];
         }
     } success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
