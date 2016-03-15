@@ -203,7 +203,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		0002D2461916324B001FDED8 /* Git@OSC.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Git@OSC.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		0002D2461916324B001FDED8 /* 码云.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "码云.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0002D2491916324B001FDED8 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		0002D24B1916324B001FDED8 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		0002D24D1916324B001FDED8 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -581,7 +581,7 @@
 		0002D2471916324B001FDED8 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				0002D2461916324B001FDED8 /* Git@OSC.app */,
+				0002D2461916324B001FDED8 /* 码云.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1282,7 +1282,7 @@
 			);
 			name = "Git@OSC";
 			productName = "iOS-git-osc";
-			productReference = 0002D2461916324B001FDED8 /* Git@OSC.app */;
+			productReference = 0002D2461916324B001FDED8 /* 码云.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -1295,7 +1295,7 @@
 				ORGANIZATIONNAME = chenhaoxiang;
 				TargetAttributes = {
 					0002D2451916324B001FDED8 = {
-						DevelopmentTeam = WSUBE85MHP;
+						DevelopmentTeam = B2VZE84NAT;
 					};
 				};
 			};
@@ -1612,7 +1612,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				ONLY_ACTIVE_ARCH = YES;
-				PRODUCT_NAME = "Git@OSC";
+				PRODUCT_NAME = "码云";
 				PROVISIONING_PROFILE = "c6989e49-eaaf-4aaa-9f05-6cd82bd1e1da";
 				SDKROOT = iphoneos;
 			};
@@ -1645,7 +1645,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
-				PRODUCT_NAME = "Git@OSC";
+				PRODUCT_NAME = "码云";
 				PROVISIONING_PROFILE = "c6989e49-eaaf-4aaa-9f05-6cd82bd1e1da";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
@@ -1684,7 +1684,7 @@
 					"$(PROJECT_DIR)/iOS-git-osc/Vendor/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_Extra_Frameworks/Wechat",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = net.oschina.gitapp;
-				PRODUCT_NAME = "Git@OSC";
+				PRODUCT_NAME = "码云";
 				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;
 				VALID_ARCHS = "arm64 armv7  armv7s";
@@ -1724,7 +1724,7 @@
 					"$(PROJECT_DIR)/iOS-git-osc/Vendor/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5/UMSocial_Sdk_Extra_Frameworks/Wechat",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = net.oschina.gitapp;
-				PRODUCT_NAME = "Git@OSC";
+				PRODUCT_NAME = "码云";
 				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;
 				VALID_ARCHS = "arm64 armv7  armv7s";
