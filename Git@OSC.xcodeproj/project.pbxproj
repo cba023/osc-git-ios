@@ -1685,7 +1685,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = net.oschina.gitapp;
 				PRODUCT_NAME = "Git@OSC";
-				PROVISIONING_PROFILE = "4c0d839a-540f-4986-a7da-a365db3d1c5f";
+				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;
 				VALID_ARCHS = "arm64 armv7  armv7s";
 				WRAPPER_EXTENSION = app;
@@ -1725,7 +1725,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = net.oschina.gitapp;
 				PRODUCT_NAME = "Git@OSC";
-				PROVISIONING_PROFILE = "4c0d839a-540f-4986-a7da-a365db3d1c5f";
+				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;
 				VALID_ARCHS = "arm64 armv7  armv7s";
 				WRAPPER_EXTENSION = app;
