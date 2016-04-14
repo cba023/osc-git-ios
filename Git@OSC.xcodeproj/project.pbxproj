@@ -1295,7 +1295,7 @@
 				ORGANIZATIONNAME = chenhaoxiang;
 				TargetAttributes = {
 					0002D2451916324B001FDED8 = {
-						DevelopmentTeam = B2VZE84NAT;
+						DevelopmentTeam = WSUBE85MHP;
 					};
 				};
 			};
