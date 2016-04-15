@@ -18,11 +18,13 @@
 #import "GITAPI.h"
 #import "AFHTTPRequestOperationManager+Util.h"
 #import "DataSetObject.h"
+#import <MBProgressHUD.h>
 
 @interface FilesTableController ()
 
 @property (nonatomic, strong) NSMutableArray *filesArray;
 @property (nonatomic, strong) DataSetObject *emptyDataSet;
+@property (nonatomic, strong) MBProgressHUD *hud;
 
 @end
 
@@ -101,17 +103,30 @@ static NSString * const cellId = @"FileCell";
       parameters:parameters
          success:^(AFHTTPRequestOperation * operation, id responseObject) {
              if (responseObject == nil){ } else {
-                 [responseObject enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-                     GLFile *file = [[GLFile alloc] initWithJSON:obj];
-                     [_filesArray addObject:file];
-                 }];
+                 if ([responseObject isKindOfClass:[NSArray class]]) {
+                     [responseObject enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                         GLFile *file = [[GLFile alloc] initWithJSON:obj];
+                         [_filesArray addObject:file];
+                     }];
+                     
+                     if (_filesArray.count == 0) {
+                         self.emptyDataSet.state = noDataState;
+                         self.emptyDataSet.respondString = @"还没有相关文件";
+                     }
+                 } else {
+                     _hud = [MBProgressHUD showHUDAddedTo:[[UIApplication sharedApplication].windows lastObject] animated:YES];
+                     _hud.userInteractionEnabled = NO;
+                     _hud.mode = MBProgressHUDModeCustomView;
+                     //没有权限访问
+                     _hud.detailsLabelText = @"您没有访问权限";
+                     [_hud hide:YES afterDelay:1.0];
+                     
+                     self.emptyDataSet.state = noDataState;
+                     self.emptyDataSet.respondString = @"您没有访问权限";
+                 }
+                 
              }
-             
-             if (_filesArray.count == 0) {
-                 self.emptyDataSet.state = noDataState;
-                 self.emptyDataSet.respondString = @"还没有相关文件";
-             }
-             
+
              dispatch_async(dispatch_get_main_queue(), ^{
                  [self.tableView reloadData];
              });

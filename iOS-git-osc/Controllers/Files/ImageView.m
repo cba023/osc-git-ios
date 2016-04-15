@@ -61,6 +61,7 @@
                                                                 [_hud hide:YES afterDelay:1];
                                                             }
                                                         }];
+    [_hud hide:YES afterDelay:1];
 }
 
 - (void)didReceiveMemoryWarning

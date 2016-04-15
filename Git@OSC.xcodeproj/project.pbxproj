@@ -1295,7 +1295,7 @@
 				ORGANIZATIONNAME = chenhaoxiang;
 				TargetAttributes = {
 					0002D2451916324B001FDED8 = {
-						DevelopmentTeam = B2VZE84NAT;
+						DevelopmentTeam = WSUBE85MHP;
 					};
 				};
 			};
@@ -1685,7 +1685,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = net.oschina.gitapp;
 				PRODUCT_NAME = "码云";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "e482fe61-1ef2-4897-b2af-fc6543d14910";
 				TARGETED_DEVICE_FAMILY = 1;
 				VALID_ARCHS = "arm64 armv7  armv7s";
 				WRAPPER_EXTENSION = app;
@@ -1725,7 +1725,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = net.oschina.gitapp;
 				PRODUCT_NAME = "码云";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "e482fe61-1ef2-4897-b2af-fc6543d14910";
 				TARGETED_DEVICE_FAMILY = 1;
 				VALID_ARCHS = "arm64 armv7  armv7s";
 				WRAPPER_EXTENSION = app;
