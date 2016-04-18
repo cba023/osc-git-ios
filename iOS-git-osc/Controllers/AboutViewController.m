@@ -50,7 +50,7 @@
     _messageLabel.textAlignment = NSTextAlignmentCenter;
     _messageLabel.numberOfLines = 0;
     _messageLabel.lineBreakMode = NSLineBreakByWordWrapping;
-    _messageLabel.text = @"©2008-2016 oschina.net.All rights reserved.";
+    _messageLabel.text = @"©2016 OSChina.net  All rights reserved";
     _messageLabel.textColor = [UIColor colorWithHex:0x474747];
     [self.view addSubview:_messageLabel];
     
