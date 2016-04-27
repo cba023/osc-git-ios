@@ -72,8 +72,8 @@ static NSString * const kKeyImage = @"img";
         _name = [self checkForNull:json[kKeyName]];
         _path = [self checkForNull:json[kKeyPath]];
         
-        NSArray *names = [_nameSpace componentsSeparatedByString:@"/"];
-        _nameSpace = [[NSString stringWithFormat:@"%@%%2F%@", _owner.username, names[names.count-1]] stringByReplacingOccurrencesOfString:@"." withString:@"+"];
+        _nameSpace = [_nameSpace stringByReplacingOccurrencesOfString:@"/" withString:@"%2F"];
+        
         _issuesEnabled = [json[kKeyIssuesEnabled] boolValue];
         _pullRequestsEnabled = [json[kKeyPullRequestsEnabled] boolValue];
         _wikiEnabled = [json[kKeyWikiEnabled] boolValue];
