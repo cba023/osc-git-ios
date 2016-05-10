@@ -85,10 +85,13 @@ static NSString * const NoteCellId = @"NoteCell";
         _page++;
     }
     
+    //不再使用namespace作为或许项目详情的参数，转而使用projectID，这样更加靠谱
+    NSString *projectIdStr = [NSString stringWithFormat:@"%lld",_projectID];
+    
     NSString *strUrl = [NSString stringWithFormat:@"%@%@/%@/repository/commits/%@/comment",
                                                    GITAPI_HTTPS_PREFIX,
                                                    GITAPI_PROJECTS,
-                                                   _projectNameSpace,
+                                                   projectIdStr,
                                                    _commitID];
     
     NSMutableDictionary *parameters = [NSMutableDictionary dictionaryWithDictionary:@{
@@ -166,10 +169,13 @@ static NSString * const NoteCellId = @"NoteCell";
     _hud.userInteractionEnabled = NO;
     _hud.mode = MBProgressHUDModeCustomView;
     
+    //不再使用namespace作为或许项目详情的参数，转而使用projectID，这样更加靠谱
+    NSString *projectIdStr = [NSString stringWithFormat:@"%lld",_projectID];
+    
     NSString *strUrl = [NSString stringWithFormat:@"%@%@/%@/repository/commits/%@/comment",
                                                   GITAPI_HTTPS_PREFIX,
                                                   GITAPI_PROJECTS,
-                                                  _projectNameSpace,
+                                                  projectIdStr,
                                                   _commitID];
     
     NSMutableDictionary *parameters = [NSMutableDictionary dictionaryWithDictionary:@{

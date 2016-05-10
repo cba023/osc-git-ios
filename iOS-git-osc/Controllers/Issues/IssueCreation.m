@@ -135,7 +135,10 @@
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager GitManager];
     
-    NSString *strUrl = [NSString stringWithFormat:@"%@%@/%@/issues", GITAPI_HTTPS_PREFIX, GITAPI_PROJECTS, _projectNameSpace];
+    //不再使用namespace作为或许项目详情的参数，转而使用projectID，这样更加靠谱
+    NSString *projectIdStr = [NSString stringWithFormat:@"%lld",_projectId];
+    
+    NSString *strUrl = [NSString stringWithFormat:@"%@%@/%@/issues", GITAPI_HTTPS_PREFIX, GITAPI_PROJECTS, projectIdStr];
     
     NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:[issue jsonCreateRepresentation]];
     [params setObject:[Tools getPrivateToken] forKey:@"private_token"];
