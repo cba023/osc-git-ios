@@ -97,7 +97,10 @@ static NSString * const cellId = @"FileCell";
                                  @"ref_name"      : @"master",
                                  @"path"          : _currentPath
                                  };
-    NSString *strUrl = [NSString stringWithFormat:@"%@%@/%@/repository/tree", GITAPI_HTTPS_PREFIX, GITAPI_PROJECTS, _projectNameSpace];
+    //不再使用namespace作为或许项目详情的参数，转而使用projectID，这样更加靠谱
+    NSString *projectIdStr = [NSString stringWithFormat:@"%lld",_projectID];
+    
+    NSString *strUrl = [NSString stringWithFormat:@"%@%@/%@/repository/tree", GITAPI_HTTPS_PREFIX, GITAPI_PROJECTS, projectIdStr];
     
     [manager GET:strUrl
       parameters:parameters
