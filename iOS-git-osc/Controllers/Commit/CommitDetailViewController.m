@@ -75,10 +75,13 @@ static NSString * const cellId = @"DiffHeaderCell";
 {
     self.emptyDataSet.state = loadingState;
     
+    //不再使用namespace作为或许项目详情的参数，转而使用projectID，这样更加靠谱
+    NSString *projectIdStr = [NSString stringWithFormat:@"%lld",_projectID];
+    
     NSString *strUrl = [NSString stringWithFormat:@"%@%@/%@/repository/commits/%@/diff",
                        GITAPI_HTTPS_PREFIX,
                        GITAPI_PROJECTS,
-                       _projectNameSpace,
+                       projectIdStr,
                        _commit.sha];
     if ([Tools getPrivateToken].length > 0) {
         strUrl = [NSString stringWithFormat:@"%@?private_token=%@", strUrl, [Tools getPrivateToken]];

@@ -160,12 +160,15 @@ static NSString * const cellId = @"ProjectsCommitCell";
     NSUserDefaults *user = [NSUserDefaults standardUserDefaults];
     NSString *privateToken = [user objectForKey:@"private_token"];
     
+    //不再使用namespace作为或许项目详情的参数，转而使用projectID，这样更加靠谱
+    NSString *projectIdStr = [NSString stringWithFormat:@"%lld",_projectID];
+    
     NSString *strUrl;
     if (privateToken.length > 0) {
         strUrl = [NSString stringWithFormat:@"%@%@/%@/repository/commits?private_token=%@&page=%ld&ref_name=%@",
                   GITAPI_HTTPS_PREFIX,
                   GITAPI_PROJECTS,
-                  _projectNameSpace,
+                  projectIdStr,
                   [Tools getPrivateToken],
                   (long)_page,
                   _branchName];
@@ -173,7 +176,7 @@ static NSString * const cellId = @"ProjectsCommitCell";
         strUrl = [NSString stringWithFormat:@"%@%@/%@/repository/commits?page=%ld&ref_name=%@",
                   GITAPI_HTTPS_PREFIX,
                   GITAPI_PROJECTS,
-                  _projectNameSpace,
+                  projectIdStr,
                   (long)_page,
                   _branchName];
     }
@@ -233,7 +236,10 @@ static NSString * const cellId = @"ProjectsCommitCell";
     NSUserDefaults *user = [NSUserDefaults standardUserDefaults];
     NSString *privateToken = [user objectForKey:@"private_token"];
     
-    NSString *strUrl = privateToken.length ? [NSString stringWithFormat:@"%@%@/%@/repository/%@?private_token=%@", GITAPI_HTTPS_PREFIX, GITAPI_PROJECTS, _projectNameSpace, branch, [Tools getPrivateToken]] : [NSString stringWithFormat:@"%@%@/%@/repository/%@", GITAPI_HTTPS_PREFIX, GITAPI_PROJECTS, _projectNameSpace, branch];
+    //不再使用namespace作为或许项目详情的参数，转而使用projectID，这样更加靠谱
+    NSString *projectIdStr = [NSString stringWithFormat:@"%lld",_projectID];
+    
+    NSString *strUrl = privateToken.length ? [NSString stringWithFormat:@"%@%@/%@/repository/%@?private_token=%@", GITAPI_HTTPS_PREFIX, GITAPI_PROJECTS, projectIdStr, branch, [Tools getPrivateToken]] : [NSString stringWithFormat:@"%@%@/%@/repository/%@", GITAPI_HTTPS_PREFIX, GITAPI_PROJECTS, projectIdStr, branch];
     
     [manager GET:strUrl
       parameters:nil

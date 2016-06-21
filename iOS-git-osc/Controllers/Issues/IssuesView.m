@@ -133,7 +133,10 @@ static NSString * const cellId = @"IssueCell";
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager GitManager];
     
-    NSString *strUrl = [NSString stringWithFormat:@"%@%@/%@/issues?private_token=%@&page=%lu", GITAPI_HTTPS_PREFIX, GITAPI_PROJECTS, _projectNameSpace, [Tools getPrivateToken], (unsigned long)_page];
+    //不再使用namespace作为或许项目详情的参数，转而使用projectID，这样更加靠谱
+    NSString *projectIdStr = [NSString stringWithFormat:@"%lld",_projectId];
+    
+    NSString *strUrl = [NSString stringWithFormat:@"%@%@/%@/issues?private_token=%@&page=%lu", GITAPI_HTTPS_PREFIX, GITAPI_PROJECTS, projectIdStr, [Tools getPrivateToken], (unsigned long)_page];
     
     [manager GET:strUrl
       parameters:nil

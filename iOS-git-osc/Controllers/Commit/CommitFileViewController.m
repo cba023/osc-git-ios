@@ -68,6 +68,8 @@
     _hud = [MBProgressHUD showHUDAddedTo:[[UIApplication sharedApplication].windows lastObject] animated:YES];
     _hud.userInteractionEnabled = NO;
     
+    
+    
     NSString *strUrl = [NSString stringWithFormat:@"%@%@/%@/repository/commits/%@/blob",
                         GITAPI_HTTPS_PREFIX,
                         GITAPI_PROJECTS,
