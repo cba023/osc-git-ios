@@ -219,13 +219,13 @@ static NSString * const cellId = @"FileCell";
         
         [self.navigationController pushViewController:fileContentView animated:YES];
     } else if ([File isImage:file.name]) {
-        NSString *imageURL = [NSString stringWithFormat:@"%@%@/%@/raw/master/%@/%@?private_token=%@", httpStr, _ownerName, _projectName, _currentPath, file.name, [Tools getPrivateToken]];
+        NSString *imageURL = [NSString stringWithFormat:@"%@/%@/%@/raw/master/%@/%@?private_token=%@", httpStr, _ownerName, _projectName, _currentPath, file.name, [Tools getPrivateToken]];
         ImageView *imageView = [[ImageView alloc] initWithImageURL:imageURL];
         imageView.title = file.name;
         
         [self.navigationController pushViewController:imageView animated:YES];
     } else {
-        NSString *urlString = [NSString stringWithFormat:@"%@%@/%@/blob/master/%@%@?private_token=%@", httpStr, _ownerName, _projectName, _currentPath, file.name, [Tools getPrivateToken]];
+        NSString *urlString = [NSString stringWithFormat:@"%@/%@/%@/blob/master/%@%@?private_token=%@", httpStr, _ownerName, _projectName, _currentPath, file.name, [Tools getPrivateToken]];
         NSURL *url = [NSURL URLWithString:urlString];
         [[UIApplication sharedApplication] openURL:url];
     }
