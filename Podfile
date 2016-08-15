@@ -1,3 +1,11 @@
+platform :ios, '7.0'
+inhibit_all_warnings!
+source 'https://github.com/CocoaPods/Specs.git'
+
+
+target 'Git@OSC' do
+
+
 pod 'Toast', '~> 2.3'
 pod 'SDWebImage', '~>3.6'
 pod 'SSKeychain'
@@ -9,3 +17,6 @@ pod 'DZNEmptyDataSet'
 pod 'ReactiveCocoa'
 pod 'FMDB'
 pod 'UMengAnalytics'
+
+
+end
