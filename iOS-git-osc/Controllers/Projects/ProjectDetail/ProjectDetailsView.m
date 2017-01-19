@@ -95,9 +95,7 @@ static NSString * const ProjectDetailsCellID = @"ProjectDetailsCell";
     
     _user = [NSUserDefaults standardUserDefaults];
     _privateToken = [_user objectForKey:@"private_token"];
-    
-    //NSString *strUrl = _privateToken.length ? [NSString stringWithFormat:@"%@%@/%@?private_token=%@", GITAPI_HTTPS_PREFIX, GITAPI_PROJECTS, _namsSpace, _privateToken] : [NSString stringWithFormat:@"%@%@/%@", GITAPI_HTTPS_PREFIX, GITAPI_PROJECTS, _namsSpace];
-    
+	
     //不再使用namespace作为或许项目详情的参数，转而使用projectID，这样更加靠谱
     NSString *projectId = [NSString stringWithFormat:@"%lld",_projectID];
     
@@ -117,8 +115,8 @@ static NSString * const ProjectDetailsCellID = @"ProjectDetailsCell";
                                                            style:UIBarButtonItemStylePlain
                                                            target:self
                                                            action:@selector(moreChoice)];
-                 
-                 _projectURL = [NSString stringWithFormat:@"%@/%@/%@", httpStr, _project.owner.username, _project.path];
+				 //TOOD: 解决项目详情中的链接问题，不再使用path而使用path with namespace
+                 _projectURL = [NSString stringWithFormat:@"%@/%@", httpStr, _project.pathWithNamespace];
                  
              }
              

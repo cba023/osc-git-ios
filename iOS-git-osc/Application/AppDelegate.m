@@ -17,6 +17,8 @@
 #import <MobClick.h>
 
 #define UMENG_APPKEY        @"5423cd47fd98c58f04000c52"
+#define UMENG_APPKEY_2	 @"54c9a412fd98c5779c000752"
+
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -45,7 +47,7 @@
     }
     
     /************ 友盟数据统计分析 *************/
-    [MobClick startWithAppkey:UMENG_APPKEY reportPolicy:(ReportPolicy) REALTIME channelId:nil];
+    [MobClick startWithAppkey:UMENG_APPKEY_2 reportPolicy:(ReportPolicy) REALTIME channelId:nil];
     [MobClick setAppVersion:XcodeAppVersion];
     
     return YES;
