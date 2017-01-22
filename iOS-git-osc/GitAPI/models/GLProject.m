@@ -71,17 +71,13 @@ static NSString * const kKeyImage = @"img";
         _owner = [[GLUser alloc] initWithJSON:json[kKeyOwner]];
         _name = [self checkForNull:json[kKeyName]];
         _path = [self checkForNull:json[kKeyPath]];
-        
         _nameSpace = [_nameSpace stringByReplacingOccurrencesOfString:@"/" withString:@"%2F"];
-        
         _issuesEnabled = [json[kKeyIssuesEnabled] boolValue];
         _pullRequestsEnabled = [json[kKeyPullRequestsEnabled] boolValue];
         _wikiEnabled = [json[kKeyWikiEnabled] boolValue];
         _parentId = [[self checkForNull:json[kKeyParentId]] longLongValue];
         _createdAt = [self checkForNull:json[kKeyCreatedAt]];
         _lastPushAt = [self checkForNull:json[kKeyLastPushAt]];
-        //_createdAt = [[[GLGitlabApi sharedInstance] gitLabDateFormatter] dateFromString:json[kKeyCreatedAt]];
-        //_lastPushAt = [[[GLGitlabApi sharedInstance] gitLabDateFormatter] dateFromString:json[kKeyLastPushAt]];
         _glNamespace = [[GLNamespace alloc] initWithJSON:json[kKeyNamespace]];
         _language = [self checkForNull:json[kKeyLanguage]];
         _forksCount = [json[kKeyForksCount] intValue];
@@ -90,10 +86,9 @@ static NSString * const kKeyImage = @"img";
         _starred = [[self checkForNull:json[kKeyStarred]] boolValue];
         _watched = [[self checkForNull:json[kKeyWatched]] boolValue];
         _recomm = [[self checkForNull:json[kKeyRecomm]] boolValue];
-        
-        //_randNum = [[self checkForNull:json[kKeyRandNumber]] intValue];
         _message = [self checkForNull:json[kKeyMessage]];
         _imageURL = [self checkForNull:json[kKeyImage]];
+		_pathWithNamespace = [self checkForNull:json[kKeyPathWithNamespace]];
     }
     return self;
 }
