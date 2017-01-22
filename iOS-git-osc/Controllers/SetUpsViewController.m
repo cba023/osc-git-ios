@@ -41,37 +41,24 @@
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-
-    return 2;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    if (section == 0) {
-        return 1;
-    } else{
-        return _titles.count;
-    }
+	return _titles.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell = [UITableViewCell new];
-    if (indexPath.section == 0) {
-        cell.textLabel.text = @"摇一摇";
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        
-    } else {
-        cell.textLabel.text = _titles[indexPath.row];
-        cell.selectionStyle = UITableViewCellSelectionStyleDefault;
-        
-    }
+	cell.textLabel.text = _titles[indexPath.row];
+	cell.selectionStyle = UITableViewCellSelectionStyleDefault;
     return cell;
 }
 
@@ -83,42 +70,29 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(nonnull NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    
-    if (indexPath.section == 0) {
-        ShakingViewController *shakingView = [ShakingViewController new];
-        [self.navigationController pushViewController:shakingView animated:YES];
-        
-    } else {
-        switch (indexPath.row) {
-            case 0:
-            {
-                UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:@"确定清除缓存？" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"清除", nil];
-                
-                [alertView show];
-                
-                break;
-            }
-            case 1:
-            {
-                FeedBackViewController *feedBackViewController = [FeedBackViewController new];
-                [self.navigationController pushViewController:feedBackViewController animated:YES];
-                
-                break;
-            }
-            case 2:
-            {
-                AboutViewController *aboutViewController = [AboutViewController new];
-                [self.navigationController pushViewController:aboutViewController animated:YES];
-                
-                break;
-            }
-                
-            default:
-                break;
-        }
-
-    }
-    
+	switch (indexPath.row) {
+		case 0:
+		{
+			UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:@"确定清除缓存？" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"清除", nil];
+			[alertView show];
+			break;
+		}
+		case 1:
+		{
+			FeedBackViewController *feedBackViewController = [FeedBackViewController new];
+			[self.navigationController pushViewController:feedBackViewController animated:YES];
+			break;
+		}
+		case 2:
+		{
+			AboutViewController *aboutViewController = [AboutViewController new];
+			[self.navigationController pushViewController:aboutViewController animated:YES];
+			break;
+		}
+			
+		default:
+			break;
+	}
 }
 
 #pragma mark - UIAlertViewDelegate
