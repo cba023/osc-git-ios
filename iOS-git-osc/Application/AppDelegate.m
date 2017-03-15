@@ -23,17 +23,14 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    [UMSocialData setAppKey:@"5423cd47fd98c58f04000c52"];
+    [UMSocialData setAppKey:@"54c9a412fd98c5779c000752"];
     [UMSocialWechatHandler setWXAppId:@"wx850b854f6aad6764" appSecret:@"39859316eb9e664168d2af929e46f971" url:@"http://www.umeng.com/social"];
     [UMSocialQQHandler setQQWithAppId:@"1101982202" appKey:@"c7394704798a158208a74ab60104f0ba" url:@"http://www.umeng.com/social"];
     [UMSocialSinaHandler openSSOWithRedirectURL:@"http://sns.whalecloud.com/sina2/callback"];
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.backgroundColor=UIColorFromRGB(0x272727);
-    
-    
-    //将其PKRevealController对象作为RootViewController
- //   self.window.backgroundColor = [UIColor whiteColor];
+	
     self.window.rootViewController = [MainViewController new];
     [self.window makeKeyAndVisible];
     

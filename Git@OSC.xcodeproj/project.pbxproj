@@ -1295,7 +1295,7 @@
 				ORGANIZATIONNAME = chenhaoxiang;
 				TargetAttributes = {
 					0002D2451916324B001FDED8 = {
-						DevelopmentTeam = WSUBE85MHP;
+						DevelopmentTeam = B2VZE84NAT;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -1664,7 +1664,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Hailong Zhang (WSUBE85MHP)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = WSUBE85MHP;
+				DEVELOPMENT_TEAM = B2VZE84NAT;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1678,7 +1678,7 @@
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 				);
 				INFOPLIST_FILE = "iOS-git-osc/Git@OSC-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/iOS-git-osc/Vendor/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5",
@@ -1706,7 +1706,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Hailong Zhang (WSUBE85MHP)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = WSUBE85MHP;
+				DEVELOPMENT_TEAM = B2VZE84NAT;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1720,7 +1720,7 @@
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 				);
 				INFOPLIST_FILE = "iOS-git-osc/Git@OSC-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/iOS-git-osc/Vendor/UMSocial_Sdk_4.2.5/UMSocial_Sdk_4.2.5",
