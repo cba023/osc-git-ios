@@ -1,10 +1,8 @@
-platform :ios, '7.0'
+platform :ios, '9.0'
 inhibit_all_warnings!
 source 'https://github.com/CocoaPods/Specs.git'
 
-
 target 'Git@OSC' do
-
 
 pod 'Toast', '~> 2.3'
 pod 'SDWebImage', '~>3.6'
