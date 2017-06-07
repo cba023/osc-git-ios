@@ -11,13 +11,19 @@
 #import "UIColor+Util.h"
 
 #import "UMSocial.h"
-#import "UMSocialWechatHandler.h"
-#import "UMSocialQQHandler.h"
-#import "UMSocialSinaHandler.h"
+#import "WeiboSDK.h"
+#import <UMengSocial/UMSocialQQHandler.h>
+#import <UMengSocial/UMSocialWechatHandler.h>
+#import <UMengSocial/UMSocialSinaSSOHandler.h>
+
 #import <MobClick.h>
+#import "OSCShareManager.h"
 
 #define UMENG_APPKEY        @"5423cd47fd98c58f04000c52"
 #define UMENG_APPKEY_2	 @"54c9a412fd98c5779c000752"
+
+static NSString * const SINA_APP_KEY = @"3616966952";
+static NSString * const SINA_APP_SECRET = @"fd81f6d31427b467f49226e48a741e28";
 
 @implementation AppDelegate
 
@@ -26,7 +32,12 @@
     [UMSocialData setAppKey:@"54c9a412fd98c5779c000752"];
     [UMSocialWechatHandler setWXAppId:@"wx850b854f6aad6764" appSecret:@"39859316eb9e664168d2af929e46f971" url:@"http://www.umeng.com/social"];
     [UMSocialQQHandler setQQWithAppId:@"1101982202" appKey:@"c7394704798a158208a74ab60104f0ba" url:@"http://www.umeng.com/social"];
-    [UMSocialSinaHandler openSSOWithRedirectURL:@"http://sns.whalecloud.com/sina2/callback"];
+    // [UMSocialSinaHandler openSSOWithRedirectURL:@"http://sns.whalecloud.com/sina2/callback"];
+    
+    [UMSocialSinaSSOHandler openNewSinaSSOWithAppKey:SINA_APP_KEY
+                                              secret:SINA_APP_SECRET
+                                         RedirectURL:@"http://sns.whalecloud.com/sina2/callback"];
+
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.backgroundColor=UIColorFromRGB(0x272727);
@@ -69,7 +80,9 @@
 
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
-    // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+    //隐藏分享面板
+    OSCShareManager *shareManeger = [OSCShareManager shareManager];
+    [shareManeger hiddenShareBoard];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application

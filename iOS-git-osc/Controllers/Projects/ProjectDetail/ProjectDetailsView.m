@@ -22,6 +22,7 @@
 #import "TitleScrollViewController.h"
 #import "ProjectsCommitsViewController.h"
 #import "EventsView.h"
+#import "OSCShareManager.h"
 
 #import "GITAPI.h"
 #import "AFHTTPRequestOperationManager+Util.h"
@@ -388,13 +389,20 @@ static NSString * const ProjectDetailsCellID = @"ProjectDetailsCell";
 
 - (void)moreChoice
 {
-    [[[UIActionSheet alloc] initWithTitle:nil
-                                 delegate:self
-                        cancelButtonTitle:NSLocalizedString(@"取消", nil)
-                   destructiveButtonTitle:nil
-                        otherButtonTitles:NSLocalizedString(@"分享项目", nil), NSLocalizedString(@"复制链接", nil),NSLocalizedString(@"在浏览器中打开", nil), nil]
-     
-     showInView:self.view];
+//    [[[UIActionSheet alloc] initWithTitle:nil
+//                                 delegate:self
+//                        cancelButtonTitle:NSLocalizedString(@"取消", nil)
+//                   destructiveButtonTitle:nil
+//                        otherButtonTitles:NSLocalizedString(@"分享项目", nil), NSLocalizedString(@"复制链接", nil),NSLocalizedString(@"在浏览器中打开", nil), nil]
+//     
+//     showInView:self.view];
+    
+    
+    
+    OSCShareManager *shareM = [OSCShareManager shareManager];
+    
+    [shareM showShareBoardWithProjectM:_project URLStr:_projectURL image:[Tools getScreenshot:self.view]];
+    
 }
 
 - (void)showShareView
@@ -431,20 +439,20 @@ static NSString * const ProjectDetailsCellID = @"ProjectDetailsCell";
 
 #pragma mark - UIActionSheetDelegate
 
-- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
-    
-    if (buttonIndex == actionSheet.cancelButtonIndex) {
-        return;
-    } else if (buttonIndex == 0) {
-        [self showShareView];
-    } else if (buttonIndex == 1) {
-        UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
-        pasteboard.string = _projectURL;
-        [Tools toastNotification:@"链接已复制到剪贴板" inView:self.view];
-    } else {
-        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:_projectURL]];
-    }
-}
+//- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+//    
+//    if (buttonIndex == actionSheet.cancelButtonIndex) {
+//        return;
+//    } else if (buttonIndex == 0) {
+//        [self showShareView];
+//    } else if (buttonIndex == 1) {
+//        UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
+//        pasteboard.string = _projectURL;
+//        [Tools toastNotification:@"链接已复制到剪贴板" inView:self.view];
+//    } else {
+//        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:_projectURL]];
+//    }
+//}
 
 
 

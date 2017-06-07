@@ -15,6 +15,7 @@ pod 'DZNEmptyDataSet'
 pod 'ReactiveCocoa'
 pod 'FMDB'
 pod 'UMengAnalytics'
+pod 'UMengSocial' , '~>5.0'
 
 
 end
