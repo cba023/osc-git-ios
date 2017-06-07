@@ -42,6 +42,7 @@ PODS:
   - Toast (2.4)
   - TTTAttributedLabel (1.13.4)
   - UMengAnalytics (3.6.6)
+  - UMengSocial (5.0)
 
 DEPENDENCIES:
   - AFNetworking (~> 2.6)
@@ -55,6 +56,7 @@ DEPENDENCIES:
   - Toast (~> 2.3)
   - TTTAttributedLabel
   - UMengAnalytics
+  - UMengSocial (~> 5.0)
 
 SPEC CHECKSUMS:
   AFNetworking: cb8d14a848e831097108418f5d49217339d4eb60
@@ -68,7 +70,8 @@ SPEC CHECKSUMS:
   Toast: 0773b8fc0e97352ca6054517bec7ebdd4110029d
   TTTAttributedLabel: 0a2ac7b2dd726d32a070dafb01446026b11e624f
   UMengAnalytics: 4bf831415146b9c57cb10be65fbd43462ef8cf65
+  UMengSocial: 48b67179c492a8cf7803fbb0438b8f55432e2fc1
 
-PODFILE CHECKSUM: 0f27d75aa825540b9e67fe7963ddf3a473d750d2
+PODFILE CHECKSUM: 0b1566ac4157e73d73eb730d24ce3d87b670b4e6
 
-COCOAPODS: 1.2.0
+COCOAPODS: 1.2.1
