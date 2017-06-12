@@ -276,7 +276,7 @@ static NSString * const ProjectDetailsCellID = @"ProjectDetailsCell";
                 break;
             }
             case 1: {
-                ReadmeView *readme = [[ReadmeView alloc] initWithProjectID:_project.projectId projectNameSpace:_project.nameSpace];
+                ReadmeView *readme = [[ReadmeView alloc] initWithProjectID:_project.projectId];
                 [self.navigationController pushViewController:readme animated:YES];
                 break;
             }
@@ -286,7 +286,7 @@ static NSString * const ProjectDetailsCellID = @"ProjectDetailsCell";
                                                                                          ownerName:_project.owner.username];
                 filesTable.title = _project.name;
                 filesTable.currentPath = @"";
-                filesTable.projectNameSpace = _project.nameSpace;
+                filesTable.projectNameSpace = _project.pathWithNamespace;
                 filesTable.privateToken = [Tools getPrivateToken];
                 
                 [self.navigationController pushViewController:filesTable animated:YES];
@@ -453,7 +453,5 @@ static NSString * const ProjectDetailsCellID = @"ProjectDetailsCell";
 //        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:_projectURL]];
 //    }
 //}
-
-
 
 @end

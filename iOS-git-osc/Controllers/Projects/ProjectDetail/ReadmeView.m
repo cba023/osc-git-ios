@@ -25,12 +25,11 @@
 
 @implementation ReadmeView
 
-- (id)initWithProjectID:(int64_t)projectID  projectNameSpace:(NSString *)nameSpace
+- (id)initWithProjectID:(int64_t)projectID
 {
     self = [super init];
     if (self) {
         _projectID = projectID;
-        _projectNameSpace = nameSpace;
     }
     return self;
 }

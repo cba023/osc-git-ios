@@ -10,13 +10,14 @@
 #import "MainViewController.h"
 #import "UIColor+Util.h"
 
-#import "UMSocial.h"
+#import <UMSocial.h>
 #import "WeiboSDK.h"
+
 #import <UMengSocial/UMSocialQQHandler.h>
 #import <UMengSocial/UMSocialWechatHandler.h>
 #import <UMengSocial/UMSocialSinaSSOHandler.h>
+#import "UMMobClick/MobClick.h"
 
-#import <MobClick.h>
 #import "OSCShareManager.h"
 
 #define UMENG_APPKEY        @"5423cd47fd98c58f04000c52"
@@ -55,8 +56,10 @@ static NSString * const SINA_APP_SECRET = @"fd81f6d31427b467f49226e48a741e28";
     }
     
     /************ 友盟数据统计分析 *************/
-    [MobClick startWithAppkey:UMENG_APPKEY_2 reportPolicy:(ReportPolicy) REALTIME channelId:nil];
+    UMConfigInstance.appKey = UMENG_APPKEY_2;
+    UMConfigInstance.channelId = @"App Store";
     [MobClick setAppVersion:XcodeAppVersion];
+    [MobClick startWithConfigure:UMConfigInstance];
     
     return YES;
 }

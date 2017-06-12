@@ -11,7 +11,6 @@
 @interface FileContentView : UIViewController <UIWebViewDelegate>
 
 @property (nonatomic, assign) int64_t projectID;
-@property (nonatomic, copy) NSString *projectNameSpace;
 @property (nonatomic, copy) NSString *path;
 @property (strong, nonatomic) NSString *fileName;
 
@@ -19,6 +18,6 @@
 
 @property (strong, nonatomic) UIWebView *webView;
 
-- (id)initWithProjectID:(int64_t)projectID path:(NSString *)path fileName:(NSString *)fileName projectNameSpace:(NSString *)nameSpace;
+- (id)initWithProjectID:(int64_t)projectID path:(NSString *)path fileName:(NSString *)fileName;
 
 @end

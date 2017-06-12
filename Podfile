@@ -14,7 +14,7 @@ pod 'MBProgressHUD'
 pod 'DZNEmptyDataSet'
 pod 'ReactiveCocoa'
 pod 'FMDB'
-pod 'UMengAnalytics'
+pod 'UMengAnalytics-NO-IDFA'
 pod 'UMengSocial' , '~>5.0'
 
 
