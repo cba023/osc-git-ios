@@ -178,6 +178,7 @@ static NSString * const cellId = @"FileCell";
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     GLFile *file = [self.filesArray objectAtIndex:indexPath.row];
+    
     if (file.type == GLFileTypeTree) {
         FilesTableController *innerFilesTable = [[FilesTableController alloc] initWithProjectID:_projectID
                                                                                     projectName:_projectName
@@ -188,6 +189,7 @@ static NSString * const cellId = @"FileCell";
         innerFilesTable.privateToken = self.privateToken;
         
         [self.navigationController pushViewController:innerFilesTable animated:YES];
+        
     } else {
         [self openFile:file];
     }
@@ -215,8 +217,7 @@ static NSString * const cellId = @"FileCell";
     NSString *httpStr = [GITAPI_HTTPS_PREFIX componentsSeparatedByString:@"/api/v3/"][0];
     
     if ([File isCodeFile:file.name]) {
-        FileContentView *fileContentView = [[FileContentView alloc] initWithProjectID:_projectID path:_currentPath fileName:file.name projectNameSpace:_projectNameSpace];
-        
+        FileContentView *fileContentView = [[FileContentView alloc] initWithProjectID:_projectID path:_currentPath fileName:file.name];
         [self.navigationController pushViewController:fileContentView animated:YES];
     } else if ([File isImage:file.name]) {
         NSString *imageURL = [NSString stringWithFormat:@"%@/%@/%@/raw/master/%@/%@?private_token=%@", httpStr, _ownerName, _projectName, _currentPath, file.name, [Tools getPrivateToken]];
@@ -225,8 +226,11 @@ static NSString * const cellId = @"FileCell";
         
         [self.navigationController pushViewController:imageView animated:YES];
     } else {
-        NSString *urlString = [NSString stringWithFormat:@"%@/%@/%@/blob/master/%@%@?private_token=%@", httpStr, _ownerName, _projectName, _currentPath, file.name, [Tools getPrivateToken]];
-        NSURL *url = [NSURL URLWithString:urlString];
+        
+        NSString *urlString = [NSString stringWithFormat:@"%@/%@/blob/master/%@?private_token=%@", httpStr, _projectNameSpace, file.name, [Tools getPrivateToken]];
+        
+        NSURL *url = [NSURL URLWithString:[urlString stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLFragmentAllowedCharacterSet]]];
+        
         [[UIApplication sharedApplication] openURL:url];
     }
 }

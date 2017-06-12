@@ -26,7 +26,12 @@
                              @"xsl", @"swift", @"ftl", @"yml", @"ru", @"jsp", @"markdown",
                              @"cshap", @"apsx", @"sass", @"less", @"ftl", @"haml", @"log",
                              @"tx", @"csproj", @"sln", @"clj", @"scm", @"xhml", @"xaml",
-                             @"lua", @"pch"
+                             @"lua", @"pch",@"jsx",
+                             
+                             @"sty",@"cls",@"thm",@"tex",@"bst",@"config",
+                             @"plist",@"storyboard",@"gradle",@"pro",@"pbxproj",
+                             @"xcscheme",@"proto", @"wxss", @"wxml", @"vi",
+                             @"ctl",@"ts"
                              ];
 
     });
@@ -41,7 +46,9 @@
     dispatch_once(&fileNamesToken, ^{
         _specialFileNames = @[
                              @"LICENSE", @"README", @"readme", @"makefile", @"gemfile",
-                             @"gemfile.*", @"gemfile.lock", @"TODO", @"CHANGELOG"
+                             @"gemfile.*", @"gemfile.lock", @"TODO", @"CHANGELOG",
+                             
+                             @"Podfile", @"Podfile.lock",@"gradlew"
                              ];
         
     });

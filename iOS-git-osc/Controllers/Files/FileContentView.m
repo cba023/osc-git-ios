@@ -23,14 +23,13 @@
 
 @implementation FileContentView
 
-- (id)initWithProjectID:(int64_t)projectID path:(NSString *)path fileName:(NSString *)fileName projectNameSpace:(NSString *)nameSpace
+- (id)initWithProjectID:(int64_t)projectID path:(NSString *)path fileName:(NSString *)fileName
 {
     self = [super init];
     if (self) {
         _projectID = projectID;
         _path = path;
         _fileName = fileName;
-        _projectNameSpace = nameSpace;
     }
     
     return self;
