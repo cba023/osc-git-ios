@@ -227,9 +227,12 @@ static NSString * const cellId = @"FileCell";
         [self.navigationController pushViewController:imageView animated:YES];
     } else {
         
-        NSString *urlString = [NSString stringWithFormat:@"%@/%@/blob/master/%@?private_token=%@", httpStr, _projectNameSpace, file.name, [Tools getPrivateToken]];
-        
+        NSString *urlString = [NSString stringWithFormat:@"%@/%@/blob/master/%@/%@?private_token=%@", httpStr, _projectNameSpace, _currentPath, file.name, [Tools getPrivateToken]];
+
+    
         NSURL *url = [NSURL URLWithString:[urlString stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLFragmentAllowedCharacterSet]]];
+        
+        
         
         [[UIApplication sharedApplication] openURL:url];
     }

@@ -15,6 +15,8 @@
 #import "AFHTTPRequestOperationManager+Util.h"
 #import <MBProgressHUD.h>
 
+#define kScreenSize [UIScreen mainScreen].bounds.size
+
 @interface FileContentView ()
 
 @property (nonatomic, strong) MBProgressHUD *hud;
@@ -46,11 +48,62 @@
     self.webView.scrollView.bounces = NO;
     self.webView.delegate = self;
     self.webView.dataDetectorTypes = UIDataDetectorTypeAll;
+    self.webView.scrollView.bounces = NO;
+    self.webView.userInteractionEnabled = YES;
+    self.webView.scalesPageToFit = YES;
+    self.webView.multipleTouchEnabled = YES;
     
     [self.view addSubview:self.webView];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(orientChange:) name:UIDeviceOrientationDidChangeNotification object:nil];
+    
     [self fetchFileContent];
 }
+
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+- (void)orientChange:(NSNotification *)noti {
+    UIDeviceOrientation orientation = [UIDevice currentDevice].orientation;
+    switch (orientation)
+    {
+        case UIDeviceOrientationPortrait: {
+            [UIView animateWithDuration:0.25 animations:^{
+                [self.navigationController setNavigationBarHidden:NO animated:YES];
+                [UIApplication sharedApplication].statusBarHidden = NO;
+
+                self.webView.transform = CGAffineTransformMakeRotation(0);
+                self.webView.frame = CGRectMake(0, 0, kScreenSize.width, kScreenSize.height);
+                
+            }];
+        }
+            break;
+        case UIDeviceOrientationLandscapeLeft: {
+            [UIView animateWithDuration:0.25 animations:^{
+                [self.navigationController setNavigationBarHidden:YES animated:YES];
+                [UIApplication sharedApplication].statusBarHidden = YES;
+                
+                self.webView.transform = CGAffineTransformMakeRotation(M_PI*0.5);
+                self.webView.frame = CGRectMake(0, 0, kScreenSize.width, kScreenSize.height);
+            }];
+        }
+            break;
+        case UIDeviceOrientationLandscapeRight: {
+            [UIView animateWithDuration:0.25 animations:^{
+                [self.navigationController setNavigationBarHidden:YES animated:YES];
+                [UIApplication sharedApplication].statusBarHidden = YES;
+                self.webView.transform = CGAffineTransformMakeRotation(-M_PI*0.5);
+                self.webView.frame = CGRectMake(0, 0, kScreenSize.width, kScreenSize.height);
+            }];
+        }
+            break;
+        default:
+            break;
+    }
+}
+
+
 - (BOOL)shouldAutomaticallyForwardRotationMethods
 {
     return UIInterfaceOrientationMaskAll;
