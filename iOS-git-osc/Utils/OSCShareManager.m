@@ -260,6 +260,7 @@ static OSCShareManager* _shareManager ;
         }
         case 6: //copy url
         {
+        
             UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
             pasteboard.string = [NSString stringWithFormat:@"%@", self.href];
             
@@ -269,16 +270,11 @@ static OSCShareManager* _shareManager ;
             [[UIApplication sharedApplication].keyWindow addSubview:HUD];
             HUD.mode = MBProgressHUDModeCustomView;
             HUD.labelText = @"已复制到剪切板";
-            HUD.minShowTime = 1;
-            
-            [HUD showAnimated:YES whileExecutingBlock:^{
-                NSLog(@"%@",@"do somethings....");
-                
-            } completionBlock:^{
-                [HUD removeFromSuperview];  
-                
-            }];
-        
+            [HUD show:YES];
+            [HUD hide:YES afterDelay:1];
+            if (self.superview) {
+                [self removeFromSuperview];
+            }
             break;
         }
         case 7:  //more
