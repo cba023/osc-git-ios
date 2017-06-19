@@ -15,8 +15,6 @@
 
 #import "GLIssue.h"
 #import "GLIssueFeedImage.h"
-
-#import <ReactiveCocoa.h>
 #import <MBProgressHUD.h>
 
 @interface FeedBackViewController () <UITextViewDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate>
@@ -49,17 +47,6 @@
     
     [self initSubView];
     _feedBackType = @"程序错误";
-
-    /*** binding ***/
-    
-    RACSignal *valid = [RACSignal combineLatest:@[_textView.rac_textSignal]
-                                         reduce:^(NSString *feedBackString) {
-                                             return @(feedBackString.length > 0);
-                                         }];
-    RAC(_feedButton, enabled) = valid;
-    RAC(_feedButton, alpha) = [valid map:^(NSNumber *b) {
-        return b.boolValue ? @1: @0.4;
-    }];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -94,6 +81,7 @@
     [self.view addSubview:recommentFunctionLabel];
     
     _textView = [PlaceholderTextView new];
+    _textView.delegate = self;
     _textView.placeholder = @"请提出您的意见与建议,我们会仔细阅读并尽早给您回复。感谢您的理解和支持";
     _textView.translatesAutoresizingMaskIntoConstraints = NO;
     [self.view addSubview:_textView];
@@ -114,6 +102,10 @@
     [self.printscrenImagView addGestureRecognizer:tap1];
     
     _feedButton = [UIButton new];
+    
+    _feedButton.enabled = NO;
+    _feedButton.alpha = 0.4;
+
     [_feedButton setTitle:@"发表意见" forState:UIControlStateNormal];
     [Tools roundView:_feedButton cornerRadius:5.0];
     [_feedButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
@@ -168,6 +160,17 @@
 {
     [_textView resignFirstResponder];
     
+}
+
+#pragma mark - UITextViewDelegate 
+- (void)textViewDidChange:(UITextView *)textView {
+    if (textView.text.length > 0) {
+        _feedButton.enabled = YES;
+        _feedButton.alpha = 1;
+    }else {
+        _feedButton.enabled = NO;
+        _feedButton.alpha = 0.4;
+    }
 }
 
 #pragma mark - 选择反馈类型
