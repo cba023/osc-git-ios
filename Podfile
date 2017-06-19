@@ -12,10 +12,8 @@ pod 'AFNetworking', '~> 2.6'
 pod 'MJRefresh'
 pod 'MBProgressHUD'
 pod 'DZNEmptyDataSet'
-pod 'ReactiveCocoa'
 pod 'FMDB'
 pod 'UMengAnalytics-NO-IDFA'
 pod 'UMengSocial' , '~>5.0'
-
 
 end
