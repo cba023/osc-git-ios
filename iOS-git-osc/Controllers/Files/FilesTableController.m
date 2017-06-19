@@ -227,14 +227,26 @@ static NSString * const cellId = @"FileCell";
         [self.navigationController pushViewController:imageView animated:YES];
     } else {
         
-        NSString *urlString = [NSString stringWithFormat:@"%@/%@/blob/master/%@/%@?private_token=%@", httpStr, _projectNameSpace, _currentPath, file.name, [Tools getPrivateToken]];
+        UIAlertController *alertCon = [UIAlertController alertControllerWithTitle:@"温馨提示" message:@"当前文件类型不支持预览，是否使用浏览器打开？" preferredStyle:UIAlertControllerStyleAlert];
+        
+        [self presentViewController:alertCon animated:YES completion:nil];
 
-    
-        NSURL *url = [NSURL URLWithString:[urlString stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLFragmentAllowedCharacterSet]]];
         
+        UIAlertAction *cancleAct = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
         
-        
-        [[UIApplication sharedApplication] openURL:url];
+        UIAlertAction *comfirmAct = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            
+            NSString *urlString = [NSString stringWithFormat:@"%@/%@/blob/master/%@/%@?private_token=%@", httpStr, _projectNameSpace, _currentPath, file.name, [Tools getPrivateToken]];
+            
+            
+            NSURL *url = [NSURL URLWithString:[urlString stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLFragmentAllowedCharacterSet]]];
+            
+            [[UIApplication sharedApplication] openURL:url];
+            
+        }];
+
+        [alertCon addAction:cancleAct];
+        [alertCon addAction:comfirmAct];
     }
 }
 
