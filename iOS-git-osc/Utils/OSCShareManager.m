@@ -267,8 +267,10 @@ static OSCShareManager* _shareManager ;
             
             
             [[UIApplication sharedApplication].keyWindow addSubview:HUD];
+            HUD.mode = MBProgressHUDModeCustomView;
             HUD.labelText = @"已复制到剪切板";
             HUD.minShowTime = 1;
+            
             [HUD showAnimated:YES whileExecutingBlock:^{
                 NSLog(@"%@",@"do somethings....");
                 
@@ -276,16 +278,7 @@ static OSCShareManager* _shareManager ;
                 [HUD removeFromSuperview];  
                 
             }];
-            
-//            [Tools toastNotification:@"已复制到剪切板" inView:self.view];
-            
-//            HUD.mode = MBProgressHUDModeCustomView;
-//            HUD.label.text = @"已复制到剪切板";
-//            if (self.superview) {
-//                [self removeFromSuperview];
-//            }
-//            [HUD hideAnimated:YES afterDelay:1];
-            
+        
             break;
         }
         case 7:  //more
