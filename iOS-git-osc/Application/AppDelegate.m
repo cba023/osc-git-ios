@@ -21,19 +21,17 @@
 #import "OSCShareManager.h"
 
 #define UMENG_APPKEY        @"5423cd47fd98c58f04000c52"
-#define UMENG_APPKEY_2	 @"54c9a412fd98c5779c000752"
 
-static NSString * const SINA_APP_KEY = @"3616966952";
-static NSString * const SINA_APP_SECRET = @"fd81f6d31427b467f49226e48a741e28";
+static NSString * const SINA_APP_KEY = @"3645105737";
+static NSString * const SINA_APP_SECRET = @"3fbd38f46f9a2dd0207160c4a8d82149";
 
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    [UMSocialData setAppKey:@"54c9a412fd98c5779c000752"];
+    [UMSocialData setAppKey:UMENG_APPKEY];
     [UMSocialWechatHandler setWXAppId:@"wx850b854f6aad6764" appSecret:@"39859316eb9e664168d2af929e46f971" url:@"http://www.umeng.com/social"];
     [UMSocialQQHandler setQQWithAppId:@"1101982202" appKey:@"c7394704798a158208a74ab60104f0ba" url:@"http://www.umeng.com/social"];
-    // [UMSocialSinaHandler openSSOWithRedirectURL:@"http://sns.whalecloud.com/sina2/callback"];
     
     [UMSocialSinaSSOHandler openNewSinaSSOWithAppKey:SINA_APP_KEY
                                               secret:SINA_APP_SECRET
@@ -45,19 +43,15 @@ static NSString * const SINA_APP_SECRET = @"fd81f6d31427b467f49226e48a741e28";
 	
     self.window.rootViewController = [MainViewController new];
     [self.window makeKeyAndVisible];
-    
-    if([[[UIDevice currentDevice] systemVersion] floatValue]>=7.0) {
-        [[UINavigationBar appearance] setBarTintColor:UIColorFromRGB(0x0a5090)];        //UIColorFromRGB(0x1f1f1f)
-        NSDictionary *navbarTitleTextAttributes = @{NSForegroundColorAttributeName:[UIColor whiteColor]};
-        [[UINavigationBar appearance] setTitleTextAttributes:navbarTitleTextAttributes];
-        [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];               //UIColorFromRGB(0xdadada)
-    } else {
-        [[UINavigationBar appearance] setBackgroundColor:UIColorFromRGB(0x0a5090)];
-    }
-    
+	
+	[[UINavigationBar appearance] setBarTintColor:UIColorFromRGB(0x0a5090)];        //UIColorFromRGB(0x1f1f1f)
+	NSDictionary *navbarTitleTextAttributes = @{NSForegroundColorAttributeName:[UIColor whiteColor]};
+	[[UINavigationBar appearance] setTitleTextAttributes:navbarTitleTextAttributes];
+	[[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];               //UIColorFromRGB(0xdadada)
+	
     /************ 友盟数据统计分析 *************/
-    UMConfigInstance.appKey = UMENG_APPKEY_2;
-    UMConfigInstance.channelId = @"App Store";
+    UMConfigInstance.appKey = UMENG_APPKEY;
+    UMConfigInstance.channelId = @"AppStore";
     [MobClick setAppVersion:XcodeAppVersion];
     [MobClick startWithConfigure:UMConfigInstance];
     
