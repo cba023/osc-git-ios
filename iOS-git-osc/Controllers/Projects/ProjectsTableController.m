@@ -90,8 +90,9 @@ static NSString * const cellId = @"ProjectCell";
         [self fetchProject:NO];
     }];
     [(MJRefreshAutoNormalFooter *)self.tableView.mj_footer setTitle:@"已全部加载完毕" forState:MJRefreshStateNoMoreData];
+    
     // 默认先隐藏footer
-    self.tableView.mj_footer.hidden = YES;
+//    self.tableView.mj_footer.hidden = YES;
     
     if (![Tools isConnectionAcailable]) {
         _projects = (NSMutableArray *)[[CacheProjectsUtil shareInstance] readProjectListWithProjectType:_projectsType];
@@ -231,6 +232,7 @@ static NSString * const cellId = @"ProjectCell";
              
              if (_projects.count < 20) {
                  [self.tableView.mj_footer endRefreshingWithNoMoreData];
+                 self.tableView.mj_footer.hidden = YES;
              } else {
                  [self.tableView.mj_footer endRefreshing];
              }
