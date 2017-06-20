@@ -99,7 +99,7 @@ static NSString * const cellId = @"IssueCell";
     }];
     [(MJRefreshAutoNormalFooter *)self.tableView.mj_footer setTitle:@"已全部加载完毕" forState:MJRefreshStateNoMoreData];
     // 默认先隐藏footer
-    self.tableView.mj_footer.hidden = YES;
+//    self.tableView.mj_footer.hidden = YES;
     
 //    [self.tableView.mj_header beginRefreshing];
     /* 设置空页面状态 */
@@ -154,6 +154,7 @@ static NSString * const cellId = @"IssueCell";
              
              if (issues.count < 20) {
                  [self.tableView.mj_footer endRefreshingWithNoMoreData];
+                 self.tableView.mj_footer.hidden = YES;
              } else {
                  [self.tableView.mj_footer endRefreshing];
              }
@@ -164,8 +165,12 @@ static NSString * const cellId = @"IssueCell";
              }
              
              dispatch_async(dispatch_get_main_queue(), ^{
+                 if (refresh) {
+                     [self.tableView.mj_header endRefreshing];
+                 } else{
+                     [self.tableView.mj_footer endRefreshing];
+                 }
                  [self.tableView reloadData];
-                 [self.tableView.mj_header endRefreshing];
              });
              
          } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {

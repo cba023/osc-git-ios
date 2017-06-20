@@ -91,7 +91,7 @@ static NSString * const cellId = @"ProjectsCommitCell";
     }];
     [(MJRefreshAutoNormalFooter *)self.tableView.mj_footer setTitle:@"已全部加载完毕" forState:MJRefreshStateNoMoreData];
     // 默认先隐藏footer
-    self.tableView.mj_footer.hidden = YES;
+    // self.tableView.mj_footer.hidden = YES;
     
     [self fetchForCommitDataOnRefresh:YES];
     [self fetchbranchs:@"branches"];
@@ -201,6 +201,7 @@ static NSString * const cellId = @"ProjectsCommitCell";
              
              if (_commits.count < 20) {
                  [self.tableView.mj_footer endRefreshingWithNoMoreData];
+                 self.tableView.mj_footer.hidden = YES;
              } else {
                  [self.tableView.mj_footer endRefreshing];
              }
