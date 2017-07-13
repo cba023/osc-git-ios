@@ -86,7 +86,7 @@ static NSString * const cellId = @"ProjectsCommitCell";
         [self fetchForCommitDataOnRefresh:YES];
     }];
     //上拉刷新
-    self.tableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
+    self.tableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
         [self fetchForCommitDataOnRefresh:NO];
     }];
     [(MJRefreshAutoNormalFooter *)self.tableView.mj_footer setTitle:@"已全部加载完毕" forState:MJRefreshStateNoMoreData];
@@ -199,9 +199,14 @@ static NSString * const cellId = @"ProjectsCommitCell";
   
              }
              
+//             if(0 == [responseObject count]){
+//
+//                 self.tableView.mj_footer.hidden = YES;
+//             }
+
              if (_commits.count < 20) {
                  [self.tableView.mj_footer endRefreshingWithNoMoreData];
-                 self.tableView.mj_footer.hidden = YES;
+//                 self.tableView.mj_footer.hidden = YES;
              } else {
                  [self.tableView.mj_footer endRefreshing];
              }
@@ -213,8 +218,14 @@ static NSString * const cellId = @"ProjectsCommitCell";
              }
              
              dispatch_async(dispatch_get_main_queue(), ^{
+                 if (refresh) {
+                     [self.tableView.mj_header endRefreshing];
+
+                 }else{
+                     [self.tableView.mj_footer endRefreshing];
+                 }
+                 
                  [self.tableView reloadData];
-                 [self.tableView.mj_header endRefreshing];
              });
 
          } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
