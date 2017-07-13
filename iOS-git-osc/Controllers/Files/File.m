@@ -31,7 +31,7 @@
                              @"sty",@"cls",@"thm",@"tex",@"bst",@"config",
                              @"plist",@"storyboard",@"gradle",@"pro",@"pbxproj",
                              @"xcscheme",@"proto", @"wxss", @"wxml", @"vi",
-                             @"ctl",@"ts"
+                             @"ctl",@"ts",@"kt"
                              ];
 
     });
