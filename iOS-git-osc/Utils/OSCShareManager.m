@@ -11,6 +11,8 @@
 #import "UMSocial.h"
 #import <MBProgressHUD.h>
 
+@import SafariServices;
+
 #define SCREEN_HEIGHT [UIScreen mainScreen].bounds.size.height
 #define SHAREBOARD_HEIGHT curShareBoard.bounds.size.height
 #define SHAREBOARD_WIDTH curShareBoard.bounds.size.width
@@ -126,8 +128,7 @@ static OSCShareManager* _shareManager ;
     self.title = [NSString stringWithFormat:@"%@",projectM.name];
     
     self.href = urlStr ?: [NSString stringWithFormat:@"%@",urlStr];
-    
-
+	
     self.descString = [NSString stringWithFormat:@"我在关注%@的项目%@，你也来瞧瞧呗！%@", projectM.owner.name, projectM.name, urlStr];
 }
 
@@ -254,8 +255,16 @@ static OSCShareManager* _shareManager ;
         }
         case 5: //brower
         {
-            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:self.href]];
-            
+			
+			SFSafariViewController *safariVC = [[SFSafariViewController alloc] initWithURL:[NSURL URLWithString:self.href]];
+			[self.window.rootViewController presentViewController:safariVC animated:YES completion:^{
+				//do nothing
+			}];
+			
+			if (self.superview) {
+				[self removeFromSuperview];
+			}
+			
             break;
         }
         case 6: //copy url
