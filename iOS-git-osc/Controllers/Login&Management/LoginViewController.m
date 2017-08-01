@@ -21,6 +21,8 @@
 #import "AppDelegate.h"
 #import "MainViewController.h"
 
+@import SafariServices;
+
 @interface LoginViewController () <UIGestureRecognizerDelegate, UIActionSheetDelegate, TTTAttributedLabelDelegate>
 
 @property (nonatomic, strong) UIButton *submit;
@@ -130,11 +132,13 @@
     _tips.textColor = [UIColor grayColor];
     _tips.lineBreakMode = NSLineBreakByWordWrapping;
     _tips.numberOfLines = 0;
+
     _tips.text = @"tips:\n\t请使用Git@OSC的push邮箱和密码登录\n\t注册请前往 https://git.oschina.net";
     //暂时隐藏
     _tips.hidden = YES;
     
     
+
     [self.view addSubview:_tips];
     
     //添加手势，点击屏幕其他区域关闭键盘的操作
@@ -349,8 +353,11 @@
     if (buttonIndex == actionSheet.cancelButtonIndex) {
         return;
     }
-    
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:actionSheet.title]];
+	
+	SFSafariViewController *safariVC = [[SFSafariViewController alloc] initWithURL:[NSURL URLWithString:actionSheet.title]];
+	[self presentViewController:safariVC animated:YES completion:^{
+		//do nothing
+	}];
 }
 
 
