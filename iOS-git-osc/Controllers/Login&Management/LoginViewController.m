@@ -131,6 +131,10 @@
     _tips.lineBreakMode = NSLineBreakByWordWrapping;
     _tips.numberOfLines = 0;
     _tips.text = @"tips:\n\t请使用Git@OSC的push邮箱和密码登录\n\t注册请前往 https://git.oschina.net";
+    //暂时隐藏
+    _tips.hidden = YES;
+    
+    
     [self.view addSubview:_tips];
     
     //添加手势，点击屏幕其他区域关闭键盘的操作
