@@ -27,6 +27,9 @@ pre .line::before {
 
 code {
     padding: 0 !important;
+    margin-left: 3em;
+    line-height:20px;
+
 }
 
 ol {
@@ -36,10 +39,15 @@ ol {
     padding-left: 0;
     background-color: #BBB;
     width: 3em;
+    
+    position: absolute;
+    left: 0;
+    top: 5px;
 }
 
 li {
     display: block;
+    line-height:20 px;
 }
 
 pre li:before {
